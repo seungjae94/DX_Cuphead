@@ -1,12 +1,13 @@
+#include "PreCompile.h"
 #include "EngineTime.h"
 #include <Windows.h>
 
-UEngineTime::UEngineTime()
+UEngineTime::UEngineTime() 
 {
 	TimeCheckStart();
 }
 
-UEngineTime::~UEngineTime()
+UEngineTime::~UEngineTime() 
 {
 }
 

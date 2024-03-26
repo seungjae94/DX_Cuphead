@@ -25,7 +25,7 @@ public:
 
 	void WriteText(const std::string& _Text);
 
-	void operator<<(const int& _Data)
+	void operator<<(const int& _Data) 
 	{
 		Write(&_Data, sizeof(int));
 	}

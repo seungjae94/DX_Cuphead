@@ -1,10 +1,11 @@
+#include "PreCompile.h"
 #include "EngineSerializer.h"
 
-UEngineSerializer::UEngineSerializer()
+UEngineSerializer::UEngineSerializer() 
 {
 }
 
-UEngineSerializer::~UEngineSerializer()
+UEngineSerializer::~UEngineSerializer() 
 {
 }
 
