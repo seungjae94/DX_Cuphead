@@ -3,8 +3,6 @@
 #include <EngineBase/EngineFile.h>
 #include <EngineBase/EngineDirectory.h>
 
-UEngineWindow UEngineCore::EngineWindow;
-
 UEngineCore::UEngineCore()
 {
 }
@@ -13,34 +11,42 @@ UEngineCore::~UEngineCore()
 {
 }
 
+UEngineCore* GEngine = nullptr;
 
-void UEngineCore::Start(HINSTANCE _Inst)
+void UEngineCore::EngineStart(HINSTANCE _Inst)
 {
 	UEngineDirectory Dir;
-	Dir.MoveToSearchChild("bin");
+	Dir.MoveToSearchChild("Config");
 
-	UEngineFile FIle = Dir.GetPathFromFile("EngineOption.EData");
 	FEngineOption Option;
-	if (false == FIle.IsExists())
+	if (false == Dir.IsFile("EngineOption.EData"))
 	{
+		UEngineFile File = Dir.GetPathFromFile("EngineOption.EData");
 		UEngineSerializer Ser;
 		Option.Serialize(Ser);
 
-		FIle.Open(EIOOpenMode::Write, EIODataType::Text);
-		FIle.Save(Ser);
+		File.Open(EIOOpenMode::Write, EIODataType::Text);
+		File.Save(Ser);
 	}
 
 	{
+		UEngineFile File = Dir.GetPathFromFile("EngineOption.EData");
 		UEngineSerializer Ser;
-		FIle = Dir.GetPathFromFile("EngineOption.EData");
-		FIle.Open(EIOOpenMode::Read, EIODataType::Text);
-		FIle.Load(Ser);
+		File = Dir.GetPathFromFile("EngineOption.EData");
+		File.Open(EIOOpenMode::Read, EIODataType::Text);
+		File.Load(Ser);
 		Option.DeSerialize(Ser);
 	}
 
-	EngineWindow.Open();
-	//UEngineWindow::WindowMessageLoop(
-	//	std::bind(&UEngineCore::Update, &Core),
-	//	std::bind(&UEngineCore::End, &Core)
-	//);
+	EngineWindow.Open(Option.WindowTitle);
+	EngineWindow.SetWindowScale(Option.WindowScale);
+
+	UserCorePtr->Initialize();
+
+	UEngineWindow::WindowMessageLoop(
+		nullptr,
+		nullptr
+		//std::bind(&UEngineCore::Update, &Core),
+		//std::bind(&UEngineCore::End, &Core)
+	);
 }

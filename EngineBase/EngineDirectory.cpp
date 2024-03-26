@@ -70,6 +70,12 @@ UEngineFile UEngineDirectory::GetPathFromFile(std::string_view FileName)
 	return std::filesystem::path(NewFilePath);
 }
 
+bool UEngineDirectory::IsFile(std::string_view _FileName)
+{
+	std::filesystem::path FilePath = GetFullPath() + "\\" + _FileName.data();
+	return std::filesystem::exists(FilePath);
+}
+
 std::list<UEngineFile> UEngineDirectory::AllFile(
 	std::vector<std::string> _Ext /*= std::vector<std::string>()*/,
 	bool _Rescursive /*= false*/

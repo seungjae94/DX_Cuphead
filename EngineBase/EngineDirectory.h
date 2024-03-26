@@ -38,6 +38,8 @@ public:
 
 	UEngineFile GetPathFromFile(std::string_view FileName);
 
+	bool IsFile(std::string_view _FileName);
+
 protected:
 
 private:

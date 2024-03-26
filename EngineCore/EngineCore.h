@@ -4,6 +4,13 @@
 
 #pragma comment (lib, "EngineBase.lib")
 #pragma comment (lib, "EnginePlatform.lib")
+
+class UserCore
+{
+public:
+	virtual void Initialize() = 0;
+};
+
 // Ό³Έν :
 class UEngineCore
 {
@@ -18,9 +25,16 @@ public:
 	UEngineCore& operator=(const UEngineCore& _Other) = delete;
 	UEngineCore& operator=(UEngineCore&& _Other) noexcept = delete;
 
-	static void Start(HINSTANCE _Inst);
+	template<typename UserCoreType>
+	static void Start(HINSTANCE _Inst)
+	{
+		UEngineCore Core;
+		UserCoreType UserCore;
+		Core.UserCorePtr = &UserCore;
+		Core.EngineStart(_Inst);
+	}
 
-	static void SetWindowScale(FVector _Scale)
+	void SetWindowScale(FVector _Scale)
 	{
 		EngineWindow.SetWindowScale(_Scale);
 	}
@@ -28,8 +42,10 @@ public:
 protected:
 
 private:
-	static UEngineWindow EngineWindow;
+	UEngineWindow EngineWindow;
+	UserCore* UserCorePtr;
 
-
+	void EngineStart(HINSTANCE _Inst);
 };
 
+extern UEngineCore* GEngine;
