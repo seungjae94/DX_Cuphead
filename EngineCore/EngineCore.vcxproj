@@ -175,6 +175,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineGraphicDevice.h" />
     <ClInclude Include="EngineOption.h">
       <SubType>
       </SubType>
@@ -186,6 +187,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineGraphicDevice.cpp" />
     <ClCompile Include="EngineOption.cpp">
       <SubType>
       </SubType>

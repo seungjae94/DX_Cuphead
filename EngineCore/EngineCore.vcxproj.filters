@@ -10,6 +10,9 @@
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
+    <ClInclude Include="EngineGraphicDevice.h">
+      <Filter>Device</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -21,6 +24,9 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
+    <ClCompile Include="EngineGraphicDevice.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -28,6 +34,9 @@
     </Filter>
     <Filter Include="PreCompile">
       <UniqueIdentifier>{b711e5db-ea7f-49c8-867f-092c9b713ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device">
+      <UniqueIdentifier>{bf48c39d-8046-40b3-adf6-dad808c24028}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
