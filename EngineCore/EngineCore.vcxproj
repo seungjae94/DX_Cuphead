@@ -180,6 +180,8 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineRenderTarget.h" />
+    <ClInclude Include="EngineTexture.h" />
     <ClInclude Include="PreCompile.h" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +194,8 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineRenderTarget.cpp" />
+    <ClCompile Include="EngineTexture.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
