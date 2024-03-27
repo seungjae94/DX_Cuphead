@@ -3,19 +3,18 @@
 
 // 다이렉트 라이브러리를 사용하기 위해서
 
-
 UEngineGraphicDevice::UEngineGraphicDevice() 
 {
 }
 
 UEngineGraphicDevice::~UEngineGraphicDevice() 
 {
-	if (nullptr == Context)
+	if (nullptr != Context)
 	{
 		Context->Release();
 	}
 
-	if (nullptr == Device)
+	if (nullptr != Device)
 	{
 		Device->Release();
 	}

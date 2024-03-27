@@ -1,6 +1,7 @@
 #pragma once
 
 #include <EnginePlatform/EngineWindow.h>
+#include <EngineBase/EngineTime.h>
 
 #include "EngineGraphicDevice.h"
 #include "EngineOption.h"
