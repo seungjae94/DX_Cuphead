@@ -38,7 +38,13 @@
       <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Object\Component\Rendering</Filter>
+      <Filter>Object\Rendering\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Object\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldObject.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -79,7 +85,13 @@
       <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Object\Component\Rendering</Filter>
+      <Filter>Object\Rendering\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Object\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,8 +122,11 @@
     <Filter Include="Object\Actor\GameMode">
       <UniqueIdentifier>{a0f2844c-09e1-43f9-b9a8-6d2d266d44b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Component\Rendering">
-      <UniqueIdentifier>{4a6a0603-9256-46fc-b761-bf2c79a19e16}</UniqueIdentifier>
+    <Filter Include="Object\Rendering">
+      <UniqueIdentifier>{47fd2ea7-5fb7-42c1-8836-5f518298cd1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering\Component">
+      <UniqueIdentifier>{ec50c5cc-65e0-4ab0-8935-9383e0e099be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -180,6 +180,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TestPlayer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyCore.cpp">
@@ -193,6 +197,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TestGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TestPlayer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

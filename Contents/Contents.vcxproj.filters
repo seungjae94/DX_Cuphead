@@ -7,8 +7,14 @@
     <Filter Include="PreCompile">
       <UniqueIdentifier>{ded1c384-7199-437e-8685-a18e1a9df407}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameMode">
+    <Filter Include="Level">
       <UniqueIdentifier>{e70dd09c-78c7-4557-b04c-350be78e7537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\TestLevel">
+      <UniqueIdentifier>{1a725af2-30be-4d2a-89a6-02e50c5a6662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\TestLevel\Object">
+      <UniqueIdentifier>{e677c9ea-5550-43c8-9add-d2809c7309b1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -18,8 +24,11 @@
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
+    <ClInclude Include="TestPlayer.h">
+      <Filter>Level\TestLevel\Object</Filter>
+    </ClInclude>
     <ClInclude Include="TestGameMode.h">
-      <Filter>GameMode</Filter>
+      <Filter>Level\TestLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -29,8 +38,11 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
+    <ClCompile Include="TestPlayer.cpp">
+      <Filter>Level\TestLevel\Object</Filter>
+    </ClCompile>
     <ClCompile Include="TestGameMode.cpp">
-      <Filter>GameMode</Filter>
+      <Filter>Level\TestLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
