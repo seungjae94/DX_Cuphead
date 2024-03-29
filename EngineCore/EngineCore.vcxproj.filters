@@ -46,6 +46,24 @@
     <ClInclude Include="WorldObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="DefaultSceneComponent.h">
+      <Filter>Object\EngineContent</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineBuffer.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineIndexBuffer.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMesh.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertex.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertexBuffer.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -93,6 +111,24 @@
     <ClCompile Include="WorldObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="DefaultSceneComponent.cpp">
+      <Filter>Object\EngineContent</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineBuffer.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineIndexBuffer.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMesh.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertexBuffer.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineGraphicDevice_Resources.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -127,6 +163,12 @@
     </Filter>
     <Filter Include="Object\Rendering\Component">
       <UniqueIdentifier>{ec50c5cc-65e0-4ab0-8935-9383e0e099be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\EngineContent">
+      <UniqueIdentifier>{a4fa3acf-78e8-4a6d-af4d-25f8491758d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Mesh">
+      <UniqueIdentifier>{700dd318-fd76-4e30-874a-4e21b1e21291}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

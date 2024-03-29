@@ -4,7 +4,7 @@
 
 ATestPlayer::ATestPlayer() 
 {
-	std::shared_ptr<URenderer> Renderer = CreateDefaultSubobject<URenderer>("Renderer");
+	Renderer = CreateDefaultSubObject<URenderer>("Renderer");
 }
 
 ATestPlayer::~ATestPlayer() 

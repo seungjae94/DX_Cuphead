@@ -174,17 +174,23 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorComponent.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DefaultSceneComponent.h" />
+    <ClInclude Include="EngineBuffer.h" />
     <ClInclude Include="EngineCore.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="EngineGraphicDevice.h" />
+    <ClInclude Include="EngineIndexBuffer.h" />
+    <ClInclude Include="EngineMesh.h" />
     <ClInclude Include="EngineOption.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="EngineRenderTarget.h" />
     <ClInclude Include="EngineTexture.h" />
+    <ClInclude Include="EngineVertex.h" />
+    <ClInclude Include="EngineVertexBuffer.h" />
     <ClInclude Include="GameMode.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="PreCompile.h" />
@@ -197,17 +203,23 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DefaultSceneComponent.cpp" />
+    <ClCompile Include="EngineBuffer.cpp" />
     <ClCompile Include="EngineCore.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineGraphicDevice.cpp" />
+    <ClCompile Include="EngineGraphicDevice_Resources.cpp" />
+    <ClCompile Include="EngineIndexBuffer.cpp" />
+    <ClCompile Include="EngineMesh.cpp" />
     <ClCompile Include="EngineOption.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineRenderTarget.cpp" />
     <ClCompile Include="EngineTexture.cpp" />
+    <ClCompile Include="EngineVertexBuffer.cpp" />
     <ClCompile Include="GameMode.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="PreCompile.cpp">
