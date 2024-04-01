@@ -5,6 +5,8 @@
 ATestPlayer::ATestPlayer() 
 {
 	Renderer = CreateDefaultSubObject<URenderer>("Renderer");
+	Renderer->SetMesh("Rect");
+	Renderer->SetMaterial("2DImage");
 }
 
 ATestPlayer::~ATestPlayer() 

@@ -2,9 +2,14 @@
 #include "EngineBuffer.h"
 
 
+class URenderer;
+class UEngineMesh;
 // 설명 :
 class UEngineVertexBuffer : public UEngineResources<UEngineVertexBuffer>, public UEngineBuffer
 {
+	friend URenderer;
+	friend UEngineMesh;
+
 public:
 	// constrcuter destructer
 	UEngineVertexBuffer();
@@ -31,10 +36,12 @@ protected:
 private:
 	UINT Size = 0;
 	UINT Count = 0;
+	UINT Offset = 0;
 
 	// 점하나의 크기_VertexSize 
 	// 점의 개수 _VertexCount 
 	void ResCreate(const void* _Data, UINT _Size, UINT _Count);
 
+	void Setting();
 };
 

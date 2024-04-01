@@ -16,17 +16,7 @@
 //    Å©±â
 struct FEngineVertex
 {
-public:
 	float4 POSITION;
-	float4 TEXCOORD;
-	float4 COLOR;
+	float4 COLOR0;
+	float4 COLOR1;
 };
-
-
-struct FEngineVertexColor
-{
-public:
-	float4 POSITION;
-	float4 COLOR;
-};
-

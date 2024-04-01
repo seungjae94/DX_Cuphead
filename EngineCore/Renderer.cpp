@@ -25,5 +25,40 @@ void URenderer::Tick(float _DeltaTime)
 
 void URenderer::Render(float _DeltaTime)
 {
+	// 순서는 상관업습니다.
 
+	// 여기에서 이걸 하는 이유는 딱 1개입니다.
+	// 교육용으로 랜더링파이프라인의 순서에 따라 세팅해주려는 것뿐이지
+	// 꼭 아래의 순서대로 세팅을 해야만 랜더링이 되는게 아니에요.
+	// Mesh->Setting()
+	Mesh->InputAssembler1Setting();
+	Material->VertexShaderSetting();
+	Mesh->InputAssembler2Setting();
+	Material->RasterizerSetting();
+	Material->PixelShaderSetting();
+	Mesh->IndexedDraw();
+}	
+
+
+void URenderer::SetMesh(std::string_view _Name)
+{
+	Mesh = UEngineMesh::FindRes(_Name);
+
+	if (nullptr == Mesh)
+	{
+		MsgBoxAssert("존재하지 않는 매쉬를 세팅하려고 했습니다." + std::string(_Name));
+		return;
+	}
+
+}
+
+void URenderer::SetMaterial(std::string_view _Name)
+{
+	Material = UEngineMaterial::FindRes(_Name);
+
+	if (nullptr == Material)
+	{
+		MsgBoxAssert("존재하지 않는 머티리얼를 세팅하려고 했습니다." + std::string(_Name));
+		return;
+	}
 }
