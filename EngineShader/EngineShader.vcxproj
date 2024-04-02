@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <FxCompile Include="ImageShader.fx" />
-    <FxCompile Include="ImageShaderTest.fx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineVertex.hlsli" />

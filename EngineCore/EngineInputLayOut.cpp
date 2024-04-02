@@ -11,6 +11,10 @@ UEngineInputLayOut::UEngineInputLayOut()
 
 UEngineInputLayOut::~UEngineInputLayOut() 
 {
+	if (nullptr != LayOut)
+	{
+		LayOut->Release();
+	}
 }
 
 // 쉐이더도 앞으로 여러종 나올겁니다. ABC 쉐이더가 있다.

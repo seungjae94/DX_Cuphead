@@ -37,21 +37,14 @@ void MeshInit()
 	{
 		std::vector<FEngineVertex> VertexData;
 		VertexData.resize(4);
-		// 0     1
-		//   중앙
-		// 3     2
-		// w에 1을 넣었다.
 
-		// 이녀석가지고 그래픽카드에게 도형을 만들기 위한 점을 저장해줘.
-		VertexData[0] = { {-0.5f, 0.5f, 0.0f, 1.0f} };
-		VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} };
-		VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f} };
-		VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f} };
-
-		// 점은 버퍼가 아니다.
-		// 사각형을 지원 안합니다. directx는 삼각형으로만 픽셀을 건져낼수 있다. 
-		// 삼각형으로 그려야 면이 만들어지는데 점을 4개만 넣었다.
-		std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Rect", VertexData);
+		{
+			VertexData[0] = { {-0.5f, 0.5f, 0.0f, 1.0f} };
+			VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} };
+			VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f} };
+			VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f} };
+			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Rect", VertexData);
+		}
 
 		// 삼각형을 어떻게 그릴지에 대한 순서.
 		std::vector<UINT> IndexData = { 0, 1, 2, 0, 2, 3 };
@@ -60,9 +53,15 @@ void MeshInit()
 
 		UEngineMesh::Create("Rect");
 
-		
+		{
+			VertexData[0].POSITION *= 2.0f;
+			VertexData[1].POSITION *= 2.0f;
+			VertexData[2].POSITION *= 2.0f;
+			VertexData[3].POSITION *= 2.0f;
+			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("FullRect", VertexData);
+		}
 
-		// IndexBuffer
+		UEngineMesh::Create("FullRect", "FullRect", "Rect");
 	}
 
 	// 인풋레이아웃 정보

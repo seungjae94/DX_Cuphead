@@ -12,16 +12,13 @@
 // 각 쉐이더 뒤쪽에는 픽셀이면 _PS
 // 규칙을 만들었습니다. <= 회사마다 매번 달라질수 있다.
 
-// #include "EngineVertex.hlsli"
+#include "EngineVertex.hlsli"
 
-struct FEngineVertex
-{
-    float4 POSITION : POSITION;
-    float4 COLOR0 : COLOR;
-    float4 COLOR1 : COLOR;
-    float4 COLOR2 : COLOR;
-    float4 COLOR3 : COLOR;
-};
+// 인풋레이아웃의 개념
+// 인풋레이아웃은 2가지를 역할을 합니다.
+// 내가 만든 버텍스 버퍼가 특정 시맨틱 가지고 있다는것을 정보를 담아주는 용도.
+// 2번째는 어떤 버텍스 쉐이더에 어떤 시맨틱이 들어가 있는지에 대한 정보를 담당합니다.
+
 
 // 리턴할 구조체도 만들어야 한다.
 struct ImageVSOutPut
@@ -37,7 +34,10 @@ struct ImageVSOutPut
         // 언어를 배울때는 왜 안돼 어리석은 초보적인 생각은 그만두고 배워야한다.
         // 그냥 구조체처럼 초기화 하는게 안되는데.
         ImageVSOutPut Out = (ImageVSOutPut) 0;
-        Out.POSITION = _Input.POSITION;
+    
+        // hlsl 스위즐링(swizzling) 문법.
+        Out.POSITION.xyz = _Input.POSITION.xyz * 2.0f;
+        Out.POSITION.w = 1.0f;
         return Out;
     }
 //}
