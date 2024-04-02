@@ -1,8 +1,11 @@
 #pragma once
 
+class UEngineInputLayOut;
 // Ό³Έν :
 class UEngineShader
 {
+	friend UEngineInputLayOut;
+
 public:
 	// constrcuter destructer
 	UEngineShader();

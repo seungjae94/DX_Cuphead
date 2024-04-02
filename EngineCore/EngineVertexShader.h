@@ -1,11 +1,14 @@
 #pragma once
 #include <EnginePlatform/EngineResources.h>
 #include "EngineShader.h"
+#include "EngineInputLayOut.h"
 
 class UEngineMaterial;
+class UEngineInputLayOut;
 // 설명 :
 class UEngineVertexShader : public UEngineResources<UEngineVertexShader>, public UEngineShader
 {
+	friend UEngineInputLayOut;
 	friend UEngineMaterial;
 
 public:
@@ -38,7 +41,9 @@ protected:
 private:
 	// 실제 셑이할수 있는 쉐이더 핸들
 	ID3D11VertexShader* ShaderPtr = nullptr;
+	ID3D11InputLayout* LayOut = nullptr;
 
+	std::shared_ptr<UEngineInputLayOut> InputLayOut;
 	//                                               5    .   0
 	void ResLoad(std::string_view _EntryPoint, UINT _High, UINT Low);
 

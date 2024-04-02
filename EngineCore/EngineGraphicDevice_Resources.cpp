@@ -25,13 +25,15 @@ void UEngineGraphicDevice::EngineResourcesRelease()
 	UEngineVertexShader::ResourcesRelease();
 	UEnginePixelShader::ResourcesRelease();
 	UEngineRasterizer::ResourcesRelease();
-
 	UEngineMaterial::ResourcesRelease();
 }
 
 // 인풋어셈블러 1과 인풋어셈블러 2의 리소스들을 만들어내는 이니셜라이즈
 void MeshInit()
 {
+	FEngineVertex::Info.AddInputLayOut("POSITION", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT);
+	FEngineVertex::Info.AddInputLayOut("COLOR", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT);
+
 	{
 		std::vector<FEngineVertex> VertexData;
 		VertexData.resize(4);
@@ -111,9 +113,12 @@ void ShaderInit()
 				UEnginePixelShader::Load(FullPath.c_str(), EntryName);
 			}
 		}
-
-
 	}
+
+	// UEngineVertexShader::Load("D:ENgineShader\MeshVertexShader", "AAAA_VS");
+
+	//UEngineVertexShader::Load("AAA.png", EntryName);
+	//UEngineVertexShader::Load("BBB.png", EntryName);
 }
 
 void SettingInit()

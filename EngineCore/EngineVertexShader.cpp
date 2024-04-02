@@ -104,6 +104,7 @@ void UEngineVertexShader::ResLoad(std::string_view _EntryPoint, UINT _High /*= 5
 		MsgBoxAssert("쉐이더 생성에 실패했습니다.");
 		return;
 	}
+
 }
 
 void UEngineVertexShader::Setting()

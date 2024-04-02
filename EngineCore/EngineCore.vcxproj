@@ -175,6 +175,7 @@
     <ClInclude Include="ActorComponent.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DefaultSceneComponent.h" />
+    <ClInclude Include="DirectXHelper.h" />
     <ClInclude Include="EngineBuffer.h" />
     <ClInclude Include="EngineCore.h">
       <SubType>
@@ -182,6 +183,7 @@
     </ClInclude>
     <ClInclude Include="EngineGraphicDevice.h" />
     <ClInclude Include="EngineIndexBuffer.h" />
+    <ClInclude Include="EngineInputLayOut.h" />
     <ClInclude Include="EngineMaterial.h" />
     <ClInclude Include="EngineMesh.h" />
     <ClInclude Include="EngineOption.h">
@@ -209,6 +211,7 @@
     <ClCompile Include="ActorComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DefaultSceneComponent.cpp" />
+    <ClCompile Include="DirectXHelper.cpp" />
     <ClCompile Include="EngineBuffer.cpp" />
     <ClCompile Include="EngineCore.cpp">
       <SubType>
@@ -217,6 +220,7 @@
     <ClCompile Include="EngineGraphicDevice.cpp" />
     <ClCompile Include="EngineGraphicDevice_Resources.cpp" />
     <ClCompile Include="EngineIndexBuffer.cpp" />
+    <ClCompile Include="EngineInputLayOut.cpp" />
     <ClCompile Include="EngineMaterial.cpp" />
     <ClCompile Include="EngineMesh.cpp" />
     <ClCompile Include="EngineOption.cpp">
@@ -228,6 +232,7 @@
     <ClCompile Include="EngineRenderTarget.cpp" />
     <ClCompile Include="EngineShader.cpp" />
     <ClCompile Include="EngineTexture.cpp" />
+    <ClCompile Include="EngineVertex.cpp" />
     <ClCompile Include="EngineVertexBuffer.cpp" />
     <ClCompile Include="EngineVertexShader.cpp" />
     <ClCompile Include="GameMode.cpp" />

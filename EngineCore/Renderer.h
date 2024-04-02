@@ -31,6 +31,7 @@ protected:
 private:
 	void Render(float _DeltaTime);
 
+	std::shared_ptr<UEngineInputLayOut> LayOut;
 	std::shared_ptr<UEngineMesh> Mesh;
 	std::shared_ptr<UEngineMaterial> Material;
 };

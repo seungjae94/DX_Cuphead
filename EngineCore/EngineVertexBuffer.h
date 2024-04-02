@@ -4,9 +4,12 @@
 
 class URenderer;
 class UEngineMesh;
+class UVertexLayOutInfo;
+class UEngineInputLayOut;
 // 설명 :
 class UEngineVertexBuffer : public UEngineResources<UEngineVertexBuffer>, public UEngineBuffer
 {
+	friend UEngineInputLayOut;
 	friend URenderer;
 	friend UEngineMesh;
 
@@ -26,14 +29,16 @@ public:
 	{
 		std::shared_ptr<UEngineVertexBuffer> Res = CreateResName(_Name);
 		Res->ResCreate(&_Data[0], static_cast<UINT>(sizeof(VertexType)), static_cast<UINT>(_Data.size()));
+		Res->LayOutInfoPtr = &VertexType::Info;
 		return Res;
 	}
-
 
 protected:
 	// 점에 대한것
 
 private:
+	UVertexLayOutInfo* LayOutInfoPtr;
+
 	UINT Size = 0;
 	UINT Count = 0;
 	UINT Offset = 0;
