@@ -166,6 +166,9 @@ bool FTransform::RectToPoint(const FTransform& _Left, const FTransform& _Right)
 
 
 FTransform::FTransform() 
+	: Scale(FVector::One)
+	, Rotation(FVector::Zero)
+	, Position(FVector::Zero)
 {
 }
 

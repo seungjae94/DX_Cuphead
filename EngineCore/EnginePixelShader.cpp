@@ -40,6 +40,8 @@ void UEnginePixelShader::ResLoad(std::string_view _EntryPoint, UINT _High /*= 5*
    //UINT Flags2,
    //ID3DBlob** ppCode,
 
+	EntryName = _EntryPoint;
+
 	std::string Path = GetPath();
 	const char* PathPtr = Path.c_str();
 	std::wstring WPath = UEngineString::AnsiToUniCode(PathPtr);
@@ -104,6 +106,8 @@ void UEnginePixelShader::ResLoad(std::string_view _EntryPoint, UINT _High /*= 5*
 		MsgBoxAssert("쉐이더 생성에 실패했습니다.");
 		return;
 	}
+
+	ShaderResCheck();
 }
 
 void UEnginePixelShader::Setting()

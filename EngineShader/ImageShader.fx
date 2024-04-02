@@ -12,7 +12,7 @@
 // 각 쉐이더 뒤쪽에는 픽셀이면 _PS
 // 규칙을 만들었습니다. <= 회사마다 매번 달라질수 있다.
 
-#include "EngineVertex.hlsli"
+#include "EngineShaderBase.hlsli"
 
 // 인풋레이아웃의 개념
 // 인풋레이아웃은 2가지를 역할을 합니다.
@@ -26,39 +26,79 @@ struct ImageVSOutPut
     float4 POSITION : SV_POSITION;
 };
 
-// std::vector<FEngineVertex> VertexData;
-//for(int i = 0;i < VertexData.size(), ++i)
+// 내가 여기에다가 스트럭트를 넣는다고 이게 쉐이더에서 
+// CPU쪽에서 넣어주기로 한 데이터로 인정되지 않아요
+// CPU에서 내가 행렬이나 데이터 등등을 만들어서
+// 넣어주고 싶다면
+// 상수버퍼라고 하는 인터페이스와 전용 문법을 이용해야만
+// 다이렉트에 넣어줄수가 있습니다.
+// hlsl에서 struct 이런 데이터가 있을거야. 라는 정의만 내려줄수 있고
+
+
+//struct FTransform
 //{
-    ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
-    {
+//    float4 Scale;
+//    float4 Rotation;
+//    float4 Position;
+//    float4x4 ScaleMat;
+//    float4x4 RotationMat;
+//    float4x4 PositionMat;
+//    float4x4 World;
+//    float4x4 View;
+//    float4x4 Projection;
+//    float4x4 WVP;
+//};
+
+// 버텍스 쉐이더에 넣어줄수 있
+
+ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
+{
         // 언어를 배울때는 왜 안돼 어리석은 초보적인 생각은 그만두고 배워야한다.
         // 그냥 구조체처럼 초기화 하는게 안되는데.
-        ImageVSOutPut Out = (ImageVSOutPut) 0;
+    ImageVSOutPut Out = (ImageVSOutPut) 0;
     
-        // hlsl 스위즐링(swizzling) 문법.
-        Out.POSITION.xyz = _Input.POSITION.xyz * 2.0f;
-        Out.POSITION.w = 1.0f;
-        return Out;
-    }
-//}
+    Out.POSITION = _Input.POSITION;
+    // 자동컴파일할때 
+    // 상수버퍼를 쉐이더안에서 사용하지 않으면
+    // 상수버퍼를 쓴다고 생각하지 않는다.
+    // 쉐이더는 의미없는 코드를 용납하지 않습니다.
+    // float4x4 POS = mul(_Input.POSITION, WVP);
+    
+    // int a = 1 + 1;
+    
+    // 실제적인 결과에 영향을 미치는 코드를 쳐야만 실제 상수버퍼가 있다고 인지 합니다.
+    Out.POSITION = mul(_Input.POSITION, WVP);
+    Out.POSITION.x = Test.x;
+    
+    
+    //Out.POSITION *= World;
+    //Out.POSITION *= View;
+    //Out.POSITION *= Projection;
+    
+   // hlsl 스위즐링(swizzling) 문법.
+   // Out.POSITION.xyz = _Input.POSITION.xyz * 2.0f;
+   // Out.POSITION.w = 1.0f;
+    return Out;
+}
 
 struct ImagePSOutPut
 {
     float4 COLOR : SV_Target0;
 };
 
-// C++코드로 표현한겁니다.
-// std::vector<Pixel> Pixels
-//for(int i = 0;i < Pixels.size(), ++i)
-//{
-    ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
-    {
+cbuffer OutPutColor : register(b0)
+{
+    float4 Color;
+};
+
+
+ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
+{
         // 언어를 배울때는 왜 안돼 어리석은 초보적인 생각은 그만두고 배워야한다.
         // 그냥 구조체처럼 초기화 하는게 안되는데.
-        ImagePSOutPut Out = (ImagePSOutPut) 0;
+    ImagePSOutPut Out = (ImagePSOutPut) 0;
+    // Out.COLOR = Color;
+    Out.COLOR = float4(1.0f, 0.0f, 0.0f, 1.0f);
     
-        Out.COLOR = float4(1.0f, 0.0f, 0.0f, 1.0f);
-    
-        return Out;
-    }
-//}
+    return Out;
+}

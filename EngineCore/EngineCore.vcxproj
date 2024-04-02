@@ -177,6 +177,7 @@
     <ClInclude Include="DefaultSceneComponent.h" />
     <ClInclude Include="DirectXHelper.h" />
     <ClInclude Include="EngineBuffer.h" />
+    <ClInclude Include="EngineConstantBuffer.h" />
     <ClInclude Include="EngineCore.h">
       <SubType>
       </SubType>
@@ -194,6 +195,7 @@
     <ClInclude Include="EngineRasterizer.h" />
     <ClInclude Include="EngineRenderTarget.h" />
     <ClInclude Include="EngineShader.h" />
+    <ClInclude Include="EngineShaderResources.h" />
     <ClInclude Include="EngineTexture.h" />
     <ClInclude Include="EngineVertex.h" />
     <ClInclude Include="EngineVertexBuffer.h" />
@@ -213,6 +215,7 @@
     <ClCompile Include="DefaultSceneComponent.cpp" />
     <ClCompile Include="DirectXHelper.cpp" />
     <ClCompile Include="EngineBuffer.cpp" />
+    <ClCompile Include="EngineConstantBuffer.cpp" />
     <ClCompile Include="EngineCore.cpp">
       <SubType>
       </SubType>
@@ -231,6 +234,7 @@
     <ClCompile Include="EngineRasterizer.cpp" />
     <ClCompile Include="EngineRenderTarget.cpp" />
     <ClCompile Include="EngineShader.cpp" />
+    <ClCompile Include="EngineShaderResources.cpp" />
     <ClCompile Include="EngineTexture.cpp" />
     <ClCompile Include="EngineVertex.cpp" />
     <ClCompile Include="EngineVertexBuffer.cpp" />

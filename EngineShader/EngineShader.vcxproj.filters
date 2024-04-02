@@ -1,9 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <FxCompile Include="ImageShader.fx" />
+    <Filter Include="2D">
+      <UniqueIdentifier>{663b78b5-f8e6-430f-8b58-10a23cb5f53a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{91e2b8a9-7c11-497f-8198-d3ffa5440701}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="EngineVertex.hlsli" />
+    <FxCompile Include="ImageShader.fx">
+      <Filter>2D</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EngineVertex.hlsli">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="EngineShaderBase.hlsli">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="TransformData.hlsli">
+      <Filter>Header</Filter>
+    </None>
   </ItemGroup>
 </Project>

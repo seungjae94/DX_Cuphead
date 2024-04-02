@@ -11,8 +11,20 @@ enum class ECollisionType
 
 // Ό³Έν :
 class CollisionFunctionInit;
-class FTransform
+struct FTransform
 {
+	float4 Scale;
+	float4 Rotation;
+	float4 Position;
+	float4x4 ScaleMat;
+	float4x4 RotationMat;
+	float4x4 PositionMat;
+	float4x4 World;
+	float4x4 View;
+	float4x4 Projection;
+	float4x4 WVP;
+//};
+
 	friend CollisionFunctionInit;
 
 private:
@@ -161,8 +173,5 @@ public:
 protected:
 
 private:
-	FVector Scale = FVector::One;
-	FVector Rotation = FVector::Zero;
-	FVector Position = FVector::Zero;
 };
 

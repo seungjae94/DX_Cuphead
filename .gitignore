@@ -413,3 +413,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 >>>>>>> 534948cc263be3371bdd5d3a5134ab1db1cc9135
+
+# batch file
+*.bat

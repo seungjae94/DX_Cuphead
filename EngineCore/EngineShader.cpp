@@ -18,3 +18,9 @@ UEngineShader::~UEngineShader()
 	}
 }
 
+
+
+void UEngineShader::ShaderResCheck()
+{
+	Resources.ShaderResourcesCheck(EntryName, ShaderCodeBlob);
+}
