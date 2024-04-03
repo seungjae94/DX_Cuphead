@@ -8,7 +8,7 @@ class UEngineConstantBufferSetter
 public:
 	std::shared_ptr<class UEngineConstantBuffer> Res;
 	// 각 액터마다 가지고 있는 데이터를 세팅할 녀석
-	void* SettingCPU = nullptr;
+	const void* SettingCPU = nullptr;
 };
 
 // 설명 :
@@ -20,6 +20,16 @@ class UEngineShaderResources
 	friend URenderer;
 
 public:
+	template<typename Value>
+	void SettingConstantBuffer(std::string_view _Name, Value& _Data)
+	{
+		SettingConstantBuffer(_Name, &_Data, static_cast<UINT>(sizeof(Value)));
+	}
+
+	void SettingConstantBuffer(std::string_view _Name, const void* _Data, UINT _Size);
+
+	bool IsConstantBuffer(std::string_view _Name);
+
 
 protected:
 

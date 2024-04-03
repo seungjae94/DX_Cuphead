@@ -80,3 +80,37 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 
 	int a = 0;
 }
+
+void UEngineShaderResources::SettingConstantBuffer(std::string_view _Name, const void* _Data, UINT _Size)
+{
+	std::string UpperName = UEngineString::ToUpper(_Name);
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& Pair : ConstantBuffers)
+	{
+		std::map<std::string, UEngineConstantBufferSetter>& ResMap = Pair.second;
+
+		if (false ==  ResMap.contains(UpperName))
+		{
+			continue;
+		}
+
+		ResMap[UpperName].SettingCPU = _Data;
+	}
+}
+
+bool UEngineShaderResources::IsConstantBuffer(std::string_view _Name)
+{
+	std::string UpperName = UEngineString::ToUpper(_Name);
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& Pair : ConstantBuffers)
+	{
+		std::map<std::string, UEngineConstantBufferSetter>& ResMap = Pair.second;
+
+		if (true == ResMap.contains(UpperName))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}

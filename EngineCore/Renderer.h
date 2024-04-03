@@ -32,6 +32,8 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void ResCopy();
+
 private:
 	void Render(float _DeltaTime);
 

@@ -21,9 +21,3 @@ cbuffer FTransform : register(b0)
     float4x4 Projection;
     float4x4 WVP;
 };
-
-cbuffer TestCheck : register(b1)
-{
-    float4 Test;
-};
-

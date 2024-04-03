@@ -12,6 +12,11 @@ AActor::~AActor()
 {
 }
 
+FTransform& AActor::GetActorTransform()
+{
+	return RootComponent->Transform;
+}
+
 void AActor::RootCheck()
 {
 	if (nullptr == RootComponent)
@@ -44,7 +49,10 @@ void AActor::Tick(float _DeltaTime)
 void AActor::PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name)
 {
 
+	_Component->SetActor(this);
 	_Component->SetName(_Name);
+	//_Component->BeginPlay();
+
 	Components.push_back(_Component);
 
 	// shared_ptr을 안전하게 다운캐스팅하는 함수
