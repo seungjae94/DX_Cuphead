@@ -2,7 +2,7 @@
 #include "EngineShaderResources.h"
 #include "EngineConstantBuffer.h"
 
-void UEngineShaderResources::ShaderResourcesCheck(std::string_view _EntryName, ID3DBlob* _ShaderCode)
+void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string_view _EntryName, ID3DBlob* _ShaderCode)
 {
 	// std::string_view _EntryName <= 무슨 쉐이더에 무슨 리소스가 있는지 확인하려고
 
@@ -54,8 +54,13 @@ void UEngineShaderResources::ShaderResourcesCheck(std::string_view _EntryName, I
 
 			BufferInfo->GetDesc(&ConstantBufferDesc);
 
-			// UEngineConstantBuffer::CreateResName()
+			_EntryName;
 
+			// 상수버퍼는 이름이 중요한게 아니라
+			// 바이트가 중요해.
+			std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
+			std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
+			ConstantBuffers[_Type][UpperName].Res = Buffer;
 			break;
 		}
 		case D3D_SIT_TEXTURE:

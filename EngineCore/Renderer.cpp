@@ -1,9 +1,11 @@
 #include "PreCompile.h"
 #include "Renderer.h"
 #include "EngineInputLayOut.h"
+#include "EngineShaderResources.h"
 
 URenderer::URenderer() 
 {
+	Resources = std::make_shared<UEngineShaderResources>();
 }
 
 URenderer::~URenderer() 
@@ -85,5 +87,16 @@ void URenderer::SetMaterial(std::string_view _Name)
 	if (nullptr != Mesh)
 	{
 		LayOut = UEngineInputLayOut::Create(Mesh->VertexBuffer, Material->GetVertexShader());
+	}
+
+	if (true)
+	{
+		std::shared_ptr<UEngineShaderResources> RendererResources = Resources;
+		std::shared_ptr<UEngineShaderResources> VertexResources = Material->GetVertexShader()->Resources;
+		std::shared_ptr<UEngineShaderResources> PixelResources = Material->GetPixelShader()->Resources;
+
+		RendererResources->ConstantBuffers;
+
+		// RendererResources->
 	}
 }

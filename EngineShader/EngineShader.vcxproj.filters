@@ -12,6 +12,9 @@
     <FxCompile Include="ImageShader.fx">
       <Filter>2D</Filter>
     </FxCompile>
+    <FxCompile Include="ColorShader.fx">
+      <Filter>2D</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineVertex.hlsli">

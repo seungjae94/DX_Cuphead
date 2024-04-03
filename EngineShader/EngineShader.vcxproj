@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <FxCompile Include="ColorShader.fx" />
     <FxCompile Include="ImageShader.fx" />
   </ItemGroup>
   <ItemGroup>

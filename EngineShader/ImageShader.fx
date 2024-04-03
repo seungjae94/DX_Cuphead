@@ -81,16 +81,18 @@ ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
     return Out;
 }
 
+// 픽셀쉐이더의 상수버퍼 0번은 달라도 된다.
+cbuffer OutPutColor : register(b0)
+{
+    float4 MulColor;
+    float4 PlusColor;
+};
+
+
 struct ImagePSOutPut
 {
     float4 COLOR : SV_Target0;
 };
-
-cbuffer OutPutColor : register(b0)
-{
-    float4 Color;
-};
-
 
 ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
 {
