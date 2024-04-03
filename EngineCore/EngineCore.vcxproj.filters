@@ -91,6 +91,9 @@
     <ClInclude Include="EngineShaderResources.h">
       <Filter>Resources\ShaderResources</Filter>
     </ClInclude>
+    <ClInclude Include="EngineSampler.h">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -185,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="EngineShaderResources.cpp">
       <Filter>Resources\ShaderResources</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSampler.cpp">
+      <Filter>Resources\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

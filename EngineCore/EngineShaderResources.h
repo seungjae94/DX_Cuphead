@@ -21,6 +21,15 @@ public:
 	void Setting();
 };
 
+class UEngineTextureSetter : public USetterBase
+{
+public:
+	std::shared_ptr<class UEngineTexture> Tex;
+	std::shared_ptr<class UEngineSampler> Smp;
+	//void Setting();
+};
+
+
 // ¼³¸í :
 class URenderer;
 class UEngineShader;
@@ -50,6 +59,8 @@ private:
 	// ÇÈ¼¿½¦ÀÌ´õ¶û 
 	// ¹öÅØ½º ½¦ÀÌ´õ 
 	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>> ConstantBuffers;
+
+	std::map<EShaderType, std::map<std::string, UEngineTextureSetter>> Textures;
 
 };
 

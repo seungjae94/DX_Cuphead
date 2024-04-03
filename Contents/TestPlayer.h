@@ -23,6 +23,7 @@ private:
 
 	URenderer* Renderer;
 
+	float4 Color;
 	const float Speed = 200.0f;
 };
 

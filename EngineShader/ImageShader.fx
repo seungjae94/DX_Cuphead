@@ -58,18 +58,18 @@ ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
     return Out;
 }
 
-// 픽셀쉐이더의 상수버퍼 0번은 달라도 된다.
-cbuffer OutPutColor : register(b0)
-{
-    float4 MulColor;
-    float4 PlusColor;
-};
-
-
 struct ImagePSOutPut
 {
     float4 COLOR : SV_Target0;
 };
+
+// 텍스처는 상수버퍼와 슬롯을 공유하지 않습니다.
+// b0 buffer 0번 슬롯
+// t0 texture 0번 슬롯
+// s0 Sampler 0번 슬롯
+
+Texture2D Image : register(t0);
+SamplerState Sampler : register(s0);
 
 ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
 {
@@ -77,7 +77,9 @@ ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
         // 그냥 구조체처럼 초기화 하는게 안되는데.
     ImagePSOutPut Out = (ImagePSOutPut) 0;
     // Out.COLOR = Color;
-    Out.COLOR = float4(1.0f, 0.0f, 0.0f, 1.0f);
+    // Out.COLOR = float4(1.0f, 0.0f, 0.0f, 1.0f);
+    
+    Out.COLOR = Image.Sample(Sampler, float2(0.0f, 0.0f));
     
     return Out;
 }

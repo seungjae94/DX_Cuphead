@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "TestPlayer.h"
-#include <EngineCore/Renderer.h>
+#include <EngineBase/EngineMath.h>
 
 ATestPlayer::ATestPlayer()
 {
@@ -17,6 +17,7 @@ void ATestPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	SetActorScale3D(FVector(100.0f, 100.0f, 1.0f));
+	Renderer->Resources->SettingConstantBuffer("OutPutColor", Color);
 }
 
 void ATestPlayer::Tick(float _DeltaTime)
@@ -38,6 +39,15 @@ void ATestPlayer::Tick(float _DeltaTime)
 	if (true == UEngineInput::IsPress(VK_RIGHT))
 	{
 		AddActorLocation(FVector::Right * Speed * _DeltaTime);
+	}
+
+	if (true == UEngineInput::IsPress('1'))
+	{
+		Color.R -= _DeltaTime;
+	}
+	if (true == UEngineInput::IsPress('2'))
+	{
+		Color.R += _DeltaTime;
 	}
 }
 

@@ -7,6 +7,12 @@ void UEngineConstantBufferSetter::Setting()
 {
 	// 상수버퍼를 세팅한다.
 
+	if (nullptr == CPUData)
+	{
+		MsgBoxAssert(Res->GetName() + " 상수버퍼에 세팅을 해주지 않았습니다. 해주세요...");
+		return;
+	}
+
 	Res->ChangeData(CPUData, BufferSize);
 
 	Res->Setting(Type, Slot);
@@ -55,6 +61,8 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 
 		D3D_SHADER_INPUT_TYPE Type = ResDesc.Type;
 
+		std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
+
 		switch (Type)
 		{
 		case D3D_SIT_CBUFFER:
@@ -71,7 +79,6 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			// 상수버퍼는 이름이 중요한게 아니라
 			// 바이트가 중요해.
 			std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
-			std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
 
 			UEngineConstantBufferSetter& NewSetter = ConstantBuffers[_Type][UpperName];
 			NewSetter.Type = _Type;
@@ -81,9 +88,13 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			break;
 		}
 		case D3D_SIT_TEXTURE:
-			break;
 		case D3D_SIT_SAMPLER:
+		{
+			UEngineTextureSetter& NewSetter = Textures[_Type][UpperName];
+			NewSetter.Type = _Type;
+			NewSetter.Slot = ResDesc.BindPoint;
 			break;
+		}
 		default:
 			MsgBoxAssert("처리할수 없는 타입입니다.");
 			break;
