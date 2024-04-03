@@ -6,3 +6,11 @@ enum class EShaderType
 	Vertex,
 	Pixel,
 };
+
+
+enum class ECameraType
+{
+	NONE,
+	Perspective,
+	Orthographic,
+};

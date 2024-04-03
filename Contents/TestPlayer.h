@@ -22,5 +22,7 @@ private:
 	void Tick(float _DeltaTime) override;
 
 	URenderer* Renderer;
+
+	const float Speed = 200.0f;
 };
 

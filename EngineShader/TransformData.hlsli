@@ -8,7 +8,7 @@
 // register(b15) 까지
 // 하지만 상수버퍼에는 516kb이상이 되면 세팅이 불가능합니다.
 // 크기에 제한이 있습니다.
-cbuffer FTransform : register(b0)
+cbuffer FTransform : register(b10)
 {
     float4 Scale;
     float4 Rotation;

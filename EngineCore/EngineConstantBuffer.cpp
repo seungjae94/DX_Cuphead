@@ -29,3 +29,56 @@ void UEngineConstantBuffer::ResCreate(UINT _ByteSize)
 		return;
 	}
 }
+
+void UEngineConstantBuffer::Setting(EShaderType _Type, UINT _Slot)
+{
+	switch (_Type)
+	{
+	case EShaderType::Vertex:
+		GEngine->GetDirectXContext()->VSSetConstantBuffers(_Slot, 1, &Buffer);
+		break;
+	case EShaderType::Pixel:
+		GEngine->GetDirectXContext()->PSSetConstantBuffers(_Slot, 1, &Buffer);
+		break;
+	case EShaderType::NONE:
+	default:
+		MsgBoxAssert("처리가 완료되지 않은 상수버퍼 쉐이더 세팅 타입입니다");
+		break;
+	}
+}
+
+void UEngineConstantBuffer::ChangeData(const void* _Data, UINT _Size)
+{
+#ifdef _DEBUG
+	if (nullptr == _Data)
+	{
+		MsgBoxAssert(GetName() + " 상수버퍼에 nullptr인 데이터를 세팅하려고 했습니다.");
+	}
+
+	if (0 >= _Size)
+	{
+		MsgBoxAssert(GetName() + " 상수버퍼에 0이하의 데이터를 세팅하려고 했습니다.");
+	}
+#endif
+
+	D3D11_MAPPED_SUBRESOURCE Data = {};
+
+	// 버퍼를 잠시 변경하기 위해서 열겠다.
+	// 그래픽카드야 이거 쓰지마!
+	// Map 최대한 적게 사용하는게 좋다.
+	GEngine->GetDirectXContext()->Map(Buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &Data);
+
+#ifdef _DEBUG
+	if (nullptr == Data.pData)
+	{
+		MsgBoxAssert(GetName() + " 그래픽카드가 수정을 거부했습니다.");
+	}
+#endif
+
+	// Data.pData 그래픽카드에 넣어주는 주소
+	memcpy_s(Data.pData, BufferInfo.ByteWidth, _Data, BufferInfo.ByteWidth);
+	
+	// 다썼어 다시 잠궈
+	GEngine->GetDirectXContext()->Unmap(Buffer, 0);
+
+}

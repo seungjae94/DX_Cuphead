@@ -2,6 +2,18 @@
 #include "EngineShaderResources.h"
 #include "EngineConstantBuffer.h"
 
+/// UEngineConstantBufferSetter
+void UEngineConstantBufferSetter::Setting()
+{
+	// 상수버퍼를 세팅한다.
+
+	Res->ChangeData(CPUData, BufferSize);
+
+	Res->Setting(Type, Slot);
+}
+
+///
+
 void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string_view _EntryName, ID3DBlob* _ShaderCode)
 {
 	// std::string_view _EntryName <= 무슨 쉐이더에 무슨 리소스가 있는지 확인하려고
@@ -60,7 +72,12 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			// 바이트가 중요해.
 			std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
 			std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
-			ConstantBuffers[_Type][UpperName].Res = Buffer;
+
+			UEngineConstantBufferSetter& NewSetter = ConstantBuffers[_Type][UpperName];
+			NewSetter.Type = _Type;
+			NewSetter.Slot = ResDesc.BindPoint;
+			NewSetter.BufferSize = ConstantBufferDesc.Size;
+			NewSetter.Res = Buffer;
 			break;
 		}
 		case D3D_SIT_TEXTURE:
@@ -94,7 +111,14 @@ void UEngineShaderResources::SettingConstantBuffer(std::string_view _Name, const
 			continue;
 		}
 
-		ResMap[UpperName].SettingCPU = _Data;
+		UEngineConstantBufferSetter& Setter = ResMap[UpperName];
+
+		if (Setter.BufferSize != _Size)
+		{
+			MsgBoxAssert(Setter.Res->GetName() + "의 바이트 크기가 다릅니다." + std::to_string(Setter.BufferSize) + " Vs " + std::to_string(_Size));
+		}
+
+		Setter.CPUData = _Data;
 	}
 }
 
@@ -113,4 +137,18 @@ bool UEngineShaderResources::IsConstantBuffer(std::string_view _Name)
 	}
 
 	return false;
+}
+
+void UEngineShaderResources::SettingAllShaderResources()
+{
+	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& Pair : ConstantBuffers)
+	{
+		std::map<std::string, UEngineConstantBufferSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineConstantBufferSetter>& Setter : ResMap)
+		{
+			Setter.second.Setting();
+		}
+	}
+
 }

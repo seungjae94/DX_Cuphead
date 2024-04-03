@@ -35,6 +35,8 @@ protected:
 	void ResCopy();
 
 private:
+	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
+
 	void Render(float _DeltaTime);
 
 	std::shared_ptr<UEngineInputLayOut> LayOut;
