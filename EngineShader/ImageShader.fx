@@ -80,10 +80,9 @@ struct ImagePSOutPut
 
 
 
-TextureSet(Image, 0)
-#define TextureSet(Name, Slot) Texture2D Name : register(t##Slot##); SamplerState Name##_Sampler : register(s##Slot##);
-// Texture2D Image : register(t0); 
-// SamplerState Image_Sampler : register(s0);
+// TextureSet(Image, 0)
+Texture2D Image : register(t0); 
+SamplerState Image_Sampler : register(s0);
 
 
 
