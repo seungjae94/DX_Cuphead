@@ -1,7 +1,8 @@
 #pragma once
+#include <EnginePlatform/EngineResources.h>
 
 // Ό³Έν :
-class UEngineSampler
+class UEngineSampler : public UEngineResources<UEngineSampler>
 {
 public:
 	// constrcuter destructer

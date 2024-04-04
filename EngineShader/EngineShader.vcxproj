@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineShaderBase.hlsli" />
+    <None Include="EngineTexture.hlsli" />
     <None Include="EngineVertex.hlsli" />
     <None Include="TransformData.hlsli" />
   </ItemGroup>

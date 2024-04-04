@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "EngineShaderResources.h"
 #include "EngineConstantBuffer.h"
+#include "EngineTexture.h"
+#include "EngineSampler.h"
 
 /// UEngineConstantBufferSetter
 void UEngineConstantBufferSetter::Setting()
@@ -88,9 +90,17 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			break;
 		}
 		case D3D_SIT_TEXTURE:
+		{
+			ResDesc.Name;
+			UEngineTextureSetter& NewSetter = Textures[_Type][UpperName];
+			NewSetter.Type = _Type;
+			NewSetter.Slot = ResDesc.BindPoint;
+			break;
+		}
 		case D3D_SIT_SAMPLER:
 		{
-			UEngineTextureSetter& NewSetter = Textures[_Type][UpperName];
+			ResDesc.Name;
+			UEngineSamplerSetter& NewSetter = Samplers[_Type][UpperName];
 			NewSetter.Type = _Type;
 			NewSetter.Slot = ResDesc.BindPoint;
 			break;
@@ -162,4 +172,49 @@ void UEngineShaderResources::SettingAllShaderResources()
 		}
 	}
 
+}
+
+void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::string_view _ImageName, std::string_view _SamperName)
+{
+	std::shared_ptr<UEngineTexture> FindTexture = UEngineTexture::FindRes(_ImageName);
+	std::shared_ptr<UEngineSampler> FindSampler = UEngineSampler::FindRes(_SamperName);
+
+	if (nullptr == FindTexture)
+	{
+		MsgBoxAssert("존재하지 않는 텍스처를 세팅하려고 했습니다.");
+		return;
+	}
+
+	if (nullptr == FindSampler)
+	{
+		MsgBoxAssert("존재하지 않는 샘플러를 세팅하려고 했습니다.");
+		return;
+	}
+
+	std::string UpperName = UEngineString::ToUpper(_TexName);
+	std::string SmpUpperName = UpperName + "_Sampler";
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>>& Pair : Textures)
+	{
+		std::map<std::string, UEngineTextureSetter>& TexMap = Pair.second;
+		std::map<std::string, UEngineSamplerSetter>& SmpMap = Samplers[Pair.first];
+
+		// 샘플러와 텍스처가 한쌍이 아니면 세팅자체를 하지 않는구조 
+		if (false == TexMap.contains(UpperName))
+		{
+			continue;
+		}
+
+		if (false == SmpMap.contains(SmpUpperName))
+		{
+			MsgBoxAssert("텍스처와 한쌍인 샘플러가 존재하지 않습니다");
+			continue;
+		}
+
+		UEngineTextureSetter& TexSetter = TexMap[UpperName];
+		UEngineSamplerSetter& SmpSetter = SmpMap[UpperName];
+
+		TexSetter.Res = FindTexture;
+		SmpSetter.Res = FindSampler;
+	}
 }
