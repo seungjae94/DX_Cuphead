@@ -16,6 +16,15 @@
     <Filter Include="Level\TestLevel\Object">
       <UniqueIdentifier>{e677c9ea-5550-43c8-9add-d2809c7309b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\TitleLevel">
+      <UniqueIdentifier>{e9320e7b-1152-4c4e-ad95-7d873833b0ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\TitleLevel\Object">
+      <UniqueIdentifier>{33c1af55-dabd-4219-b50f-cdacfd4f412a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Constant">
+      <UniqueIdentifier>{b99b2ca3-b3f5-4642-8980-abb313193a0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyCore.h">
@@ -30,6 +39,12 @@
     <ClInclude Include="TestGameMode.h">
       <Filter>Level\TestLevel</Filter>
     </ClInclude>
+    <ClInclude Include="TitleGameMode.h">
+      <Filter>Level\TitleLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScreen.h">
+      <Filter>Level\TitleLevel\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyCore.cpp">
@@ -43,6 +58,12 @@
     </ClCompile>
     <ClCompile Include="TestGameMode.cpp">
       <Filter>Level\TestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <Filter>Level\TitleLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScreen.cpp">
+      <Filter>Level\TitleLevel\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

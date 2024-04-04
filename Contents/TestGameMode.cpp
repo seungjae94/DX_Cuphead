@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "TestGameMode.h"
 #include "TestPlayer.h"
-#include <EngineCore/Camera.h>
 
 ATestGameMode::ATestGameMode() 
 {

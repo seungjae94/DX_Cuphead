@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "MyCore.h"
 #include "TestGameMode.h"
+#include "TitleGameMode.h"
 #include <EngineCore/EngineTexture.h>
 
 UMyCore::UMyCore() 
@@ -15,7 +16,7 @@ void UMyCore::Initialize()
 {
 	LoadResources();
 	CreateLevels();
-	GEngine->ChangeLevel("TestLevel");
+	GEngine->ChangeLevel("TitleLevel");
 }
 
 void UMyCore::LoadResources()
@@ -34,5 +35,6 @@ void UMyCore::LoadResources()
 void UMyCore::CreateLevels()
 {
 	GEngine->CreateLevel<ATestGameMode>("TestLevel");
+	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 }
 

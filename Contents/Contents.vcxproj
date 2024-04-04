@@ -184,6 +184,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TitleGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TitleScreen.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyCore.cpp">
@@ -201,6 +209,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TestPlayer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleScreen.cpp">
       <SubType>
       </SubType>
     </ClCompile>
