@@ -25,14 +25,14 @@ class UEngineTextureSetter : public USetterBase
 {
 public:
 	std::shared_ptr<class UEngineTexture> Res;
-	//void Setting();
+	void Setting();
 };
 
 class UEngineSamplerSetter : public USetterBase
 {
 public:
 	std::shared_ptr<class UEngineSampler> Res;
-	//void Setting();
+	void Setting();
 };
 
 

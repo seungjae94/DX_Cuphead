@@ -20,6 +20,16 @@ void UEngineConstantBufferSetter::Setting()
 	Res->Setting(Type, Slot);
 }
 
+void UEngineTextureSetter::Setting()
+{
+	Res->Setting(Type, Slot);
+}
+
+void UEngineSamplerSetter::Setting()
+{
+	Res->Setting(Type, Slot);
+}
+
 ///
 
 void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string_view _EntryName, ID3DBlob* _ShaderCode)
@@ -172,6 +182,27 @@ void UEngineShaderResources::SettingAllShaderResources()
 		}
 	}
 
+	for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>>& Pair : Textures)
+	{
+		std::map<std::string, UEngineTextureSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineTextureSetter>& Setter : ResMap)
+		{
+			Setter.second.Setting();
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineSamplerSetter>>& Pair : Samplers)
+	{
+		std::map<std::string, UEngineSamplerSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineSamplerSetter>& Setter : ResMap)
+		{
+			Setter.second.Setting();
+		}
+	}
+
+
 }
 
 void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::string_view _ImageName, std::string_view _SamperName)
@@ -192,7 +223,7 @@ void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::stri
 	}
 
 	std::string UpperName = UEngineString::ToUpper(_TexName);
-	std::string SmpUpperName = UpperName + "_Sampler";
+	std::string SmpUpperName = UpperName + "_SAMPLER";
 
 	for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>>& Pair : Textures)
 	{
@@ -212,7 +243,7 @@ void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::stri
 		}
 
 		UEngineTextureSetter& TexSetter = TexMap[UpperName];
-		UEngineSamplerSetter& SmpSetter = SmpMap[UpperName];
+		UEngineSamplerSetter& SmpSetter = SmpMap[SmpUpperName];
 
 		TexSetter.Res = FindTexture;
 		SmpSetter.Res = FindSampler;

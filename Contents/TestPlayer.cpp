@@ -16,8 +16,9 @@ ATestPlayer::~ATestPlayer()
 void ATestPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	SetActorScale3D(FVector(100.0f, 100.0f, 1.0f));
+	SetActorScale3D(FVector(1280.0f, 720.0f, 1.0f));
 	Renderer->Resources->SettingConstantBuffer("OutPutColor", Color);
+	Renderer->Resources->SettingTexture("Image", "title_screen_background.png", "POINT");
 }
 
 void ATestPlayer::Tick(float _DeltaTime)
