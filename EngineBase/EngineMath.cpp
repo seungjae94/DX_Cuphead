@@ -15,6 +15,8 @@ const float4 float4::Up = { 0.0f, 1.0f, 0.0f, 0.0f };
 const float4 float4::Down = { 0.0f, -1.0f, 0.0f, 0.0f };
 
 const float4 float4::Red = { 1.0f, 0.0f, 0.0f, 1.0f };;
+const float4 float4::White = { 1.0f, 1.0f, 1.0f, 1.0f };;
+const float4 float4::Black = { 0.0f, 0.0f, 0.0f, 1.0f };;
 
 const Color8Bit Color8Bit::Black = { 0, 0, 0, 255 };
 const Color8Bit Color8Bit::Red = { 255, 0, 0, 255 };

@@ -47,6 +47,8 @@ public:
 	static const float4 Down;
 
 	static const float4 Red;
+	static const float4 White;
+	static const float4 Black;
 
 	union
 	{

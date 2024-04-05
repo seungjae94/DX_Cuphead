@@ -231,6 +231,12 @@ void UEngineShaderResources::SettingAllShaderResources()
 void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::string_view _ImageName, std::string_view _SamperName)
 {
 	std::shared_ptr<UEngineTexture> FindTexture = UEngineTexture::FindRes(_ImageName);
+	SettingTexture(_TexName, FindTexture, _SamperName);
+}
+
+void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::shared_ptr<UEngineTexture> _Texture, std::string_view _SamperName)
+{
+	std::shared_ptr<UEngineTexture> FindTexture = _Texture;
 	std::shared_ptr<UEngineSampler> FindSampler = UEngineSampler::FindRes(_SamperName);
 
 	if (nullptr == FindTexture)

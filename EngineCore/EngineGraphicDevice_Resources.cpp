@@ -195,6 +195,18 @@ void SettingInit()
 		UEngineSampler::Create("POINT", Desc);
 	}
 
+	{
+		D3D11_SAMPLER_DESC Desc = {};
+
+		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+		Desc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		Desc.MipLODBias = 0.0f; // 보간하지 않는다.
+		Desc.MaxAnisotropy = 1;
+		Desc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_ALWAYS;
+		Desc.MinLOD = -FLT_MAX;
+		Desc.MaxLOD = FLT_MAX;
+		UEngineSampler::Create("LINEAR", Desc);
+	}
 
 }
 
@@ -209,6 +221,20 @@ void MaterialInit()
 
 }
 
+void EngineTextureInit()
+{
+	{
+		// 파일의 헤더
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("EngineResources");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			UEngineTexture::Load(File.GetFullPath());
+		}
+	}
+
+}
 
 // 엔진에서 박스하나도 지원안해주면 
 void UEngineGraphicDevice::EngineResourcesInit()
@@ -217,4 +243,5 @@ void UEngineGraphicDevice::EngineResourcesInit()
 	ShaderInit();
 	SettingInit();
 	MaterialInit();
+	EngineTextureInit();
 }
