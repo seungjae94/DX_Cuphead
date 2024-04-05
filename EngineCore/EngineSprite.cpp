@@ -40,7 +40,7 @@ void UEngineSprite::ResLoadFolder()
 
 		if (nullptr == Texture)
 		{
-			Texture = UEngineTexture::Load(GetPath());
+			Texture = UEngineTexture::Load(Files[i].GetFullPath());
 		}
 		FSpriteInfo TextureInfo;
 		TextureInfo.Texture = Texture;
