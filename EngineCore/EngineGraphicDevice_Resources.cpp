@@ -45,9 +45,9 @@ void MeshInit()
 			// 3    2
 
 			VertexData[0] = { {-0.5f, 0.5f, 0.0f, 1.0f} , {0.0f, 0.0f} };
-			VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} , {2.0f, 0.0f} };
-			VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f}, {2.0f, 2.0f} };
-			VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f}, {0.0f, 2.0f} };
+			VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} , {1.0f, 0.0f} };
+			VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f}, {1.0f, 1.0f} };
+			VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f}, {0.0f, 1.0f} };
 			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Rect", VertexData);
 		}
 
@@ -168,7 +168,7 @@ void SettingInit()
 
 		// 옵션바꾸면서 설명드리겠습니다.
 		// 가로
-		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
 
 		// MIP MAP
 		// MIN_MAG_MIP 나보다 클때든 작을때는 

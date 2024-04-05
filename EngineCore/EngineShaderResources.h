@@ -1,8 +1,9 @@
 #pragma once
 #include "EngineEnums.h"
 #include "EngineConstantBuffer.h"
+#include <EngineBase/NameObject.h>
 
-class USetterBase
+class USetterBase : public UNameObject
 {
 public:
 	EShaderType Type = EShaderType::NONE;

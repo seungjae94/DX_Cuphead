@@ -46,6 +46,8 @@ public:
 	static const float4 Up;
 	static const float4 Down;
 
+	static const float4 Red;
+
 	union
 	{
 		struct
