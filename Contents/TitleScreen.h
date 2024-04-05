@@ -17,8 +17,8 @@ public:
 protected:
 
 private:
-	URenderer* Background = nullptr;
-	URenderer* Characters = nullptr;
+	USpriteRenderer* Background = nullptr;
+	USpriteRenderer* Characters = nullptr;
 	float4 Color;
 
 	void BeginPlay() override;

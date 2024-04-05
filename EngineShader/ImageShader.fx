@@ -52,11 +52,41 @@ struct ImageVSOutPut
 
 // 버텍스 쉐이더에 넣어줄수 있
 
+cbuffer FCuttingData : register(b2)
+{
+    //       0, 0
+    float4 CuttingPosition;
+    //      0.5 0.5
+    float4 CuttingSize;
+};
+
+
 ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
 {
     ImageVSOutPut Out = (ImageVSOutPut) 0;
     Out.POSITION = mul(_Input.POSITION, WVP);
-    Out.TEXCOORD = _Input.TEXCOORD;
+    // Out.TEXCOORD = _Input.TEXCOORD;
+
+    
+    // 00,    1. 0
+    
+    
+    // 01,   1 1
+    
+    Out.TEXCOORD.x = (_Input.TEXCOORD.x * CuttingSize.x) + CuttingPosition.x;
+    Out.TEXCOORD.y = (_Input.TEXCOORD.y * CuttingSize.y) + CuttingPosition.y;
+    
+    // 00,    1. 0
+    
+    
+    // 01,   1 1
+    
+       // Rect에 존재하는 녀석이다.
+    // 0.5 0.5,    1. 0.5
+    
+    
+    // 0.5 1,    1 1
+
     return Out;
 }
 
@@ -100,6 +130,11 @@ ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
     
     // Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
     
+    // Rect에 존재하는 녀석이다.
+    // 00,    10
+    
+    
+    // 01,    11
     Out.COLOR = Sampling(Image, _Input.TEXCOORD);
     Out.COLOR.xyz += PlusColor.xyz;
     // #define Sampling(Name, TEXCOORD) Name##.Sample(##Name##_Sampler, TEXCOORD.xy);

@@ -22,12 +22,19 @@ void UMyCore::Initialize()
 void UMyCore::LoadResources()
 {
 	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("Resources");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		UEngineDirectory CurDir;
+		CurDir.MoveToSearchChild("Resources");
+		CurDir.Move("TitleLevel");
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, true);
 		for (UEngineFile& File : Files)
 		{
-			UEngineTexture::Load(File.GetFullPath());
+			UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
+		for (size_t i = 0; i < Dirs.size(); i++)
+		{
+			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
 		}
 	}
 }

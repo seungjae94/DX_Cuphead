@@ -52,24 +52,43 @@ public:
 		return NewRes;
 	}
 
-	static std::shared_ptr<UEngineSprite> CreateCutting(std::string_view _Path)
+	static std::shared_ptr<UEngineSprite> CreateCutting(std::string_view _Name, UINT _X, UINT _Y)
 	{
-		UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
-		std::string FileName = NewPath.GetFileName();
+		std::shared_ptr<UEngineSprite> FindSprite = FindRes(_Name);
+		std::shared_ptr<UEngineTexture> Texture = nullptr;
 
-		std::shared_ptr<UEngineSprite> NewRes = CreateResName(_Path, FileName);
-		NewRes->ResLoadFolder();
-		return NewRes;
+		if (nullptr == FindSprite)
+		{
+			Texture = UEngineTexture::FindRes(_Name);
+
+			if (nullptr == Texture)
+			{
+				MsgBoxAssert("로드되지 않은 텍스처를 스프라이트로 만들어서 컷팅할수 없습니다." + std::string(_Name));
+				return nullptr;
+			}
+
+			FindSprite = CreateResName(Texture->GetPath(), Texture->GetName());
+		}
+		else {
+			FSpriteInfo Info = FindSprite->GetSpriteInfo(0);
+			Texture = Info.Texture;
+		}
+
+		FindSprite->Cutting(Texture, _X, _Y);
+		return FindSprite;
 	}
 
-
+	size_t GetInfoSize()
+	{
+		return Infos.size();
+	}
 
 	FSpriteInfo GetSpriteInfo(UINT _Index)
 	{
 		return Infos[_Index];
 	}
 
-	// static std::shared_ptr<UEngineSprite> LoadFolder();
+	void Cutting(std::shared_ptr<UEngineTexture> Texture, UINT _X, UINT _Y);
 
 protected:
 

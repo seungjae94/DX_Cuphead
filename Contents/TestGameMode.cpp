@@ -17,7 +17,7 @@ void ATestGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
-	GetWorld()->SpawnActor<ATestPlayer>("TestPlayer");
+	//GetWorld()->SpawnActor<ATestPlayer>("TestPlayer");
 }
 
 void ATestGameMode::Tick(float _DeltaTime)
