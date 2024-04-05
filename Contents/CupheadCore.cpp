@@ -1,25 +1,25 @@
 #include "PreCompile.h"
-#include "MyCore.h"
+#include "CupheadCore.h"
 #include "TestGameMode.h"
 #include "TitleGameMode.h"
 #include <EngineCore/EngineTexture.h>
 
-UMyCore::UMyCore() 
+UCupheadCore::UCupheadCore()
 {
 }
 
-UMyCore::~UMyCore() 
+UCupheadCore::~UCupheadCore()
 {
 }
 
-void UMyCore::Initialize()
+void UCupheadCore::Initialize()
 {
 	LoadResources();
 	CreateLevels();
 	GEngine->ChangeLevel("TitleLevel");
 }
 
-void UMyCore::LoadResources()
+void UCupheadCore::LoadResources()
 {
 	{
 		UEngineDirectory CurDir;
@@ -39,7 +39,7 @@ void UMyCore::LoadResources()
 	}
 }
 
-void UMyCore::CreateLevels()
+void UCupheadCore::CreateLevels()
 {
 	GEngine->CreateLevel<ATestGameMode>("TestLevel");
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");

@@ -9,7 +9,8 @@ ATitleScreen::ATitleScreen()
 	Background->SetSprite("title_screen_background.png");
 	Background->SetSamplering(ETextureSampling::POINT);
 	Characters->CreateAnimation("Dance", "title_screen_characters", 0.0425f);
-	//Characters->SetSamplering(ETextureSampling::POINT);
+	Characters->SetSprite("title_screen_characters");
+	Characters->SetSamplering(ETextureSampling::POINT);
 }
 
 ATitleScreen::~ATitleScreen() 

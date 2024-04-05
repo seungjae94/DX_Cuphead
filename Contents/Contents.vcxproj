@@ -171,7 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="MyCore.h">
+    <ClInclude Include="CupheadCore.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -194,7 +194,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyCore.cpp">
+    <ClCompile Include="CupheadCore.cpp">
       <SubType>
       </SubType>
     </ClCompile>

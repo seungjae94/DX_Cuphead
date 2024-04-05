@@ -27,7 +27,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyCore.h">
+    <ClInclude Include="CupheadCore.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="PreCompile.h">
@@ -47,7 +47,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyCore.cpp">
+    <ClCompile Include="CupheadCore.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
