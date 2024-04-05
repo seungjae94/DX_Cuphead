@@ -23,7 +23,7 @@ void UCupheadCore::LoadResources()
 {
 	{
 		UEngineDirectory CurDir;
-		CurDir.MoveToSearchChild("Resources");
+		CurDir.MoveToSearchChild("ContentsResources");
 		CurDir.Move("TitleLevel");
 		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, true);
 		for (UEngineFile& File : Files)
