@@ -10,15 +10,18 @@ namespace LevelName
 	const std::string TestLevel = "TestLevel";
 	const std::string TitleLevel = "TitleLevel";
 	const std::string OverworldLevel = "OverworldLevel";
+	const std::string BossDragonLevel = "BossDragonLevel";
 };
 
 namespace ImageName
 {
 	const std::string Noise = "common_noise";
 
+	// 타이틀
 	const std::string TitleScreenBack = "title_screen_back.png";
 	const std::string TitleScreenCharacters = "title_screen_characters";
 
+	// 오버월드
 	const std::string OverworldIsle1Back = "overworld_isle1_back.png";
 	const std::string OverworldIsle1Front = "overworld_isle1_front.png";
 	const std::string OverworldIsle1Pixel = "overworld_isle1_pixel.png";
@@ -34,6 +37,8 @@ namespace ImageName
 	const std::string OverworldCharUpIdle = "overworld_char_up_idle";
 	const std::string OverworldCharUpWalk = "overworld_char_up_walk";
 
+	// 보스 드래곤
+	const std::string BossDragonMapBackground = "boss_dragon_map_back.png";
 };
 
 namespace AnimName

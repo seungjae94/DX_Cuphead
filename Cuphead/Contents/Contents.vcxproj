@@ -171,6 +171,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BossDragonMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="BossDragonGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Constant.h">
       <SubType>
       </SubType>
@@ -218,6 +226,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BossDragonMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BossDragonGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Constant.cpp">
       <SubType>
       </SubType>

@@ -5,7 +5,7 @@
 
 ATitleGameMode::ATitleGameMode() 
 {
-
+	InputOn();
 }
 
 ATitleGameMode::~ATitleGameMode() 
@@ -23,7 +23,7 @@ void ATitleGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	if (true == UEngineInput::IsAnykeyDown() && false == UEngineInput::IsDown(VK_LBUTTON))
+	if (true == IsAnykeyDown() && false == IsDown(VK_LBUTTON))
 	{
 		GEngine->ChangeLevel(LevelName::OverworldLevel);
 	}

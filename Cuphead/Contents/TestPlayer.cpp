@@ -23,31 +23,5 @@ void ATestPlayer::BeginPlay()
 void ATestPlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	//if (true == UEngineInput::IsPress(VK_UP))
-	//{
-	//	AddActorLocation(FVector::Up * Speed * _DeltaTime);
-	//}
-	//if (true == UEngineInput::IsPress(VK_DOWN))
-	//{
-	//	AddActorLocation(FVector::Down * Speed * _DeltaTime);
-	//}
-	//if (true == UEngineInput::IsPress(VK_LEFT))
-	//{
-	//	AddActorLocation(FVector::Left * Speed * _DeltaTime);
-	//}
-	//if (true == UEngineInput::IsPress(VK_RIGHT))
-	//{
-	//	AddActorLocation(FVector::Right * Speed * _DeltaTime);
-	//}
-
-	//if (true == UEngineInput::IsPress('1'))
-	//{
-	//	Color.R -= _DeltaTime;
-	//}
-	//if (true == UEngineInput::IsPress('2'))
-	//{
-	//	Color.R += _DeltaTime;
-	//}
 }
 

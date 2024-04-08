@@ -37,6 +37,12 @@
     <Filter Include="Level\02. Overworld Level\Object">
       <UniqueIdentifier>{96f7633d-2038-4299-82e7-729ce7fd7d25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03. Boss Dragon Level">
+      <UniqueIdentifier>{e3a4de10-a250-46e6-91ce-e181d9b26b93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. Boss Dragon Level\Object">
+      <UniqueIdentifier>{654bff13-64c5-4745-8fb9-9268fb87f959}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CupheadCore.h">
@@ -75,6 +81,12 @@
     <ClInclude Include="CupheadGameMode.h">
       <Filter>Level\00. Common</Filter>
     </ClInclude>
+    <ClInclude Include="BossDragonGameMode.h">
+      <Filter>Level\03. Boss Dragon Level</Filter>
+    </ClInclude>
+    <ClInclude Include="BossDragonMap.h">
+      <Filter>Level\03. Boss Dragon Level\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -112,6 +124,12 @@
     </ClCompile>
     <ClCompile Include="CupheadGameMode.cpp">
       <Filter>Level\00. Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDragonGameMode.cpp">
+      <Filter>Level\03. Boss Dragon Level</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDragonMap.cpp">
+      <Filter>Level\03. Boss Dragon Level\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
