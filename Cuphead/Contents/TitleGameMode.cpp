@@ -16,8 +16,6 @@ void ATitleGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation({ 0.0f, 0.0f, -100.0f });
 	GetWorld()->SpawnActor<ATitleScreen>("TitleScreen");
 }
 
@@ -25,7 +23,7 @@ void ATitleGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	if (true == UEngineInput::IsAnykeyDown())
+	if (true == UEngineInput::IsAnykeyDown() && false == UEngineInput::IsDown(VK_LBUTTON))
 	{
 		GEngine->ChangeLevel(LevelName::OverworldLevel);
 	}

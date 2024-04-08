@@ -13,22 +13,28 @@
     <Filter Include="Constant">
       <UniqueIdentifier>{b99b2ca3-b3f5-4642-8980-abb313193a0f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\00. TestLevel">
-      <UniqueIdentifier>{1a725af2-30be-4d2a-89a6-02e50c5a6662}</UniqueIdentifier>
+    <Filter Include="Level\00. Common">
+      <UniqueIdentifier>{0dea75ff-33ef-41bf-9bd5-22bd0753a155}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\00. TestLevel\Object">
-      <UniqueIdentifier>{e677c9ea-5550-43c8-9add-d2809c7309b1}</UniqueIdentifier>
+    <Filter Include="Level\00. Common\Object">
+      <UniqueIdentifier>{86c8a861-a33d-4c73-875e-2f54cea18554}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\01. TitleLevel">
+    <Filter Include="Level\01. Title Level">
       <UniqueIdentifier>{e9320e7b-1152-4c4e-ad95-7d873833b0ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\01. TitleLevel\Object">
+    <Filter Include="Level\01. Title Level\Object">
       <UniqueIdentifier>{33c1af55-dabd-4219-b50f-cdacfd4f412a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\02. OverworldLevel">
+    <Filter Include="Level\99. Test Level">
+      <UniqueIdentifier>{1a725af2-30be-4d2a-89a6-02e50c5a6662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\99. Test Level\Object">
+      <UniqueIdentifier>{e677c9ea-5550-43c8-9add-d2809c7309b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\02. Overworld Level">
       <UniqueIdentifier>{4395b6c6-86db-4be6-b54d-27c3dc515949}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\02. OverworldLevel\Object">
+    <Filter Include="Level\02. Overworld Level\Object">
       <UniqueIdentifier>{96f7633d-2038-4299-82e7-729ce7fd7d25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -40,28 +46,34 @@
       <Filter>PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="TestPlayer.h">
-      <Filter>Level\00. TestLevel\Object</Filter>
+      <Filter>Level\99. Test Level\Object</Filter>
     </ClInclude>
     <ClInclude Include="TestGameMode.h">
-      <Filter>Level\00. TestLevel</Filter>
+      <Filter>Level\99. Test Level</Filter>
     </ClInclude>
     <ClInclude Include="TitleGameMode.h">
-      <Filter>Level\01. TitleLevel</Filter>
+      <Filter>Level\01. Title Level</Filter>
     </ClInclude>
     <ClInclude Include="TitleScreen.h">
-      <Filter>Level\01. TitleLevel\Object</Filter>
+      <Filter>Level\01. Title Level\Object</Filter>
     </ClInclude>
     <ClInclude Include="OverworldGameMode.h">
-      <Filter>Level\02. OverworldLevel</Filter>
+      <Filter>Level\02. Overworld Level</Filter>
     </ClInclude>
     <ClInclude Include="OverworldPlayer.h">
-      <Filter>Level\02. OverworldLevel\Object</Filter>
+      <Filter>Level\02. Overworld Level\Object</Filter>
     </ClInclude>
     <ClInclude Include="Constant.h">
       <Filter>Constant</Filter>
     </ClInclude>
     <ClInclude Include="OverworldMap.h">
-      <Filter>Level\02. OverworldLevel\Object</Filter>
+      <Filter>Level\02. Overworld Level\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Noise.h">
+      <Filter>Level\00. Common\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CupheadGameMode.h">
+      <Filter>Level\00. Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,28 +84,34 @@
       <Filter>PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="TestPlayer.cpp">
-      <Filter>Level\00. TestLevel\Object</Filter>
+      <Filter>Level\99. Test Level\Object</Filter>
     </ClCompile>
     <ClCompile Include="TestGameMode.cpp">
-      <Filter>Level\00. TestLevel</Filter>
+      <Filter>Level\99. Test Level</Filter>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
-      <Filter>Level\01. TitleLevel</Filter>
+      <Filter>Level\01. Title Level</Filter>
     </ClCompile>
     <ClCompile Include="TitleScreen.cpp">
-      <Filter>Level\01. TitleLevel\Object</Filter>
+      <Filter>Level\01. Title Level\Object</Filter>
     </ClCompile>
     <ClCompile Include="OverworldGameMode.cpp">
-      <Filter>Level\02. OverworldLevel</Filter>
+      <Filter>Level\02. Overworld Level</Filter>
     </ClCompile>
     <ClCompile Include="OverworldPlayer.cpp">
-      <Filter>Level\02. OverworldLevel\Object</Filter>
+      <Filter>Level\02. Overworld Level\Object</Filter>
     </ClCompile>
     <ClCompile Include="Constant.cpp">
       <Filter>Constant</Filter>
     </ClCompile>
     <ClCompile Include="OverworldMap.cpp">
-      <Filter>Level\02. OverworldLevel\Object</Filter>
+      <Filter>Level\02. Overworld Level\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Noise.cpp">
+      <Filter>Level\00. Common\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CupheadGameMode.cpp">
+      <Filter>Level\00. Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

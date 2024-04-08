@@ -1,8 +1,9 @@
 #pragma once
+#include "CupheadGameMode.h"
 
-class AOverworldGameMode : public AGameMode
+class AOverworldGameMode : public ACupheadGameMode
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(ACupheadGameMode)
 public:
 	AOverworldGameMode();
 	~AOverworldGameMode();

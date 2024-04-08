@@ -9,7 +9,7 @@ ATitleScreen::ATitleScreen()
 
 	Background->SetSprite(ImageName::TitleScreenBack);
 	Characters->SetSprite(ImageName::TitleScreenCharacters);
-	Characters->CreateAnimation(AnimName::TitleDance, ImageName::TitleScreenCharacters, 0.0425f);
+	Characters->CreateAnimation(AnimName::TitleDance, ImageName::TitleScreenCharacters, 0.04f);
 }
 
 ATitleScreen::~ATitleScreen() 

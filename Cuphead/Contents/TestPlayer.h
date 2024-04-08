@@ -21,7 +21,7 @@ private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	//USpriteRenderer* Renderer;
+	USpriteRenderer* Renderer = nullptr;
 
 	float4 Color;
 	const float Speed = 200.0f;

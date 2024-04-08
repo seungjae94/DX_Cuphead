@@ -179,6 +179,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="CupheadGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Noise.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="OverworldGameMode.h">
       <SubType>
       </SubType>
@@ -215,6 +223,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="CupheadCore.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CupheadGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Noise.cpp">
       <SubType>
       </SubType>
     </ClCompile>

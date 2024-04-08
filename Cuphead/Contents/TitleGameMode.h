@@ -1,8 +1,9 @@
 #pragma once
+#include "CupheadGameMode.h"
 
-class ATitleGameMode : public AGameMode
+class ATitleGameMode : public ACupheadGameMode
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(ACupheadGameMode)
 public:
 	// constructor destructor
 	ATitleGameMode();

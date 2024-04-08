@@ -14,6 +14,8 @@ namespace LevelName
 
 namespace ImageName
 {
+	const std::string Noise = "common_noise";
+
 	const std::string TitleScreenBack = "title_screen_back.png";
 	const std::string TitleScreenCharacters = "title_screen_characters";
 
@@ -24,4 +26,5 @@ namespace ImageName
 namespace AnimName
 {
 	const std::string TitleDance = "Dance";
+	const std::string Noise = "Noise";
 };

@@ -4,7 +4,8 @@
 
 ATestPlayer::ATestPlayer()
 {
-
+	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer->SetSprite("test_rect.png");
 }
 
 ATestPlayer::~ATestPlayer()
@@ -14,7 +15,9 @@ ATestPlayer::~ATestPlayer()
 void ATestPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	SetActorScale3D(FVector(1280.0f, 720.0f, 1.0f));
+	
+	Renderer->Transform.SetPosition(FVector::Zero);
+	Renderer->Transform.SetScale({ 50.0f, 50.0f, 1.0f });
 }
 
 void ATestPlayer::Tick(float _DeltaTime)

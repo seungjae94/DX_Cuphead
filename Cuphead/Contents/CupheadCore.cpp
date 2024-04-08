@@ -18,7 +18,7 @@ void UCupheadCore::Initialize()
 {
 	LoadResources();
 	CreateLevels();
-	GEngine->ChangeLevel("TitleLevel");
+	GEngine->ChangeLevel(LevelName::TitleLevel);
 }
 
 void UCupheadCore::LoadResources()
@@ -44,6 +44,23 @@ void UCupheadCore::LoadResources()
 		UEngineDirectory CurDir;
 		CurDir.MoveToSearchChild("ContentsResources");
 		CurDir.Move("OverworldLevel");
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
+		for (size_t i = 0; i < Dirs.size(); i++)
+		{
+			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
+		}
+	}
+
+	{
+		UEngineDirectory CurDir;
+		CurDir.MoveToSearchChild("ContentsResources");
+		CurDir.Move("Common");
 		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, true);
 		for (UEngineFile& File : Files)
 		{
