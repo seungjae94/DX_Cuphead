@@ -17,5 +17,14 @@ protected:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
+
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+
+	// ImageScaleMap[AnimName][Scale]
+	std::map<std::string, FVector> ImageScaleMap;
+
+	void InitImageScaleMap();
+	void ChangeAnimation(std::string _AnimName);
 };
 

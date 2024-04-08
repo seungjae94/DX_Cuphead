@@ -20,6 +20,6 @@ void AOverworldGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	GetWorld()->SpawnActor<AOverworldMap>("Map");
 	GetWorld()->SpawnActor<AOverworldPlayer>("Player");
+	GetWorld()->SpawnActor<AOverworldMap>("Map");
 }
