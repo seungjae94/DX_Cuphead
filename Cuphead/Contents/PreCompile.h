@@ -7,3 +7,4 @@
 #include <EngineCore/Camera.h>
 #include <EngineCore/EngineShaderResources.h>
 #include <EngineCore/EngineSprite.h>
+#include <EngineCore/EngineCore.h>

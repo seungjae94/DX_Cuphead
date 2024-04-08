@@ -171,7 +171,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Constant.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CupheadCore.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="OverworldGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="OverworldMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="OverworldPlayer.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -194,7 +210,23 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Constant.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="CupheadCore.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="OverworldGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="OverworldMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="OverworldPlayer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
