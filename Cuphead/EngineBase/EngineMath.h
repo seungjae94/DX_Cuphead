@@ -96,6 +96,13 @@ public:
 
 	}
 
+	float4(unsigned int _X, unsigned int _Y)
+		: X(static_cast<float>(_X)), Y(static_cast<float>(_Y)), Z(0.0f), W(1.0f)
+	{
+
+	}
+
+
 	float4(float _X, float _Y)
 		: X(_X), Y(_Y), Z(1.0f), W(1.0f)
 	{

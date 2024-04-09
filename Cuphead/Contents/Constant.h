@@ -46,14 +46,14 @@ namespace AnimName
 	const std::string TitleDance = "Dance";
 	const std::string Noise = "Noise";
 
-	const std::string DownIdle = "DownIdle";
-	const std::string DownWalk = "DownWalk";
-	const std::string RightDownIdle = "RightDownIdle";
-	const std::string RightDownWalk = "RightDownWalk";
-	const std::string RightUpIdle = "RightUpIdle";
-	const std::string RightUpWalk = "RightUpWalk";
-	const std::string UpIdle = "UpIdle";
-	const std::string UpWalk = "UpWalk";
-	const std::string RightIdle = "RightIdle";
-	const std::string RightWalk = "RightWalk";
+	const std::string OverworldCharDownIdle = "DownIdle";
+	const std::string OverworldCharDownWalk = "DownWalk";
+	const std::string OverworldCharRightDownIdle = "RightDownIdle";
+	const std::string OverworldCharRightDownWalk = "RightDownWalk";
+	const std::string OverworldCharRightUpIdle = "RightUpIdle";
+	const std::string OverworldCharRightUpWalk = "RightUpWalk";
+	const std::string OverworldCharUpIdle = "UpIdle";
+	const std::string OverworldCharUpWalk = "UpWalk";
+	const std::string OverworldCharRightIdle = "RightIdle";
+	const std::string OverworldCharRightWalk = "RightWalk";
 };

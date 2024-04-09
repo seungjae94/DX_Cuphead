@@ -135,3 +135,7 @@ void UEngineTexture::Setting(EShaderType _Type, UINT _Slot)
 	}
 }
 
+Color8Bit UEngineTexture::GetColor(unsigned int _X, unsigned int _Y, Color8Bit _DefaultColor)
+{
+	return Color8Bit();
+}

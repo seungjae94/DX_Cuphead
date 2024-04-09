@@ -3,4 +3,5 @@
 #pragma comment (lib, "EngineBase.lib")
 #pragma comment (lib, "EnginePlatform.lib")
 #pragma comment (lib, "EngineCore.lib")
+#pragma comment (lib, "ContentsUtil.lib")
 #pragma comment (lib, "Contents.lib")

@@ -8,3 +8,6 @@
 #include <EngineCore/EngineShaderResources.h>
 #include <EngineCore/EngineSprite.h>
 #include <EngineCore/EngineCore.h>
+
+#include <ContentsUtil/PreCompile.h>
+#include <ContentsUtil/RendererUtil.h>
