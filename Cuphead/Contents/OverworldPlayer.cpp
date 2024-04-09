@@ -7,16 +7,16 @@ AOverworldPlayer::AOverworldPlayer()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 
 	Renderer->SetSprite(ImageName::OverworldCharDownIdle);
-	CreateAnimation(AnimName::OverworldCharDownIdle, ImageName::OverworldCharDownIdle, 0.1f);
-	CreateAnimation(AnimName::OverworldCharDownWalk, ImageName::OverworldCharDownWalk, 0.1f);
-	CreateAnimation(AnimName::OverworldCharRightIdle, ImageName::OverworldCharRightIdle, 0.1f);
-	CreateAnimation(AnimName::OverworldCharRightWalk, ImageName::OverworldCharRightWalk, 0.1f);
-	CreateAnimation(AnimName::OverworldCharUpIdle, ImageName::OverworldCharUpIdle, 0.1f);
-	CreateAnimation(AnimName::OverworldCharUpWalk, ImageName::OverworldCharUpWalk, 0.1f);
-	CreateAnimation(AnimName::OverworldCharRightDownIdle, ImageName::OverworldCharRightDownIdle, 0.1f);
-	CreateAnimation(AnimName::OverworldCharRightDownWalk, ImageName::OverworldCharRightDownWalk, 0.1f);
-	CreateAnimation(AnimName::OverworldCharRightUpIdle, ImageName::OverworldCharRightUpIdle, 0.1f);
-	CreateAnimation(AnimName::OverworldCharRightUpWalk, ImageName::OverworldCharRightUpWalk, 0.1f);
+	CreateAnimation(AnimName::OverworldCharDownIdle, ImageName::OverworldCharDownIdle, 0.067f);
+	CreateAnimation(AnimName::OverworldCharDownWalk, ImageName::OverworldCharDownWalk, 0.067f);
+	CreateAnimation(AnimName::OverworldCharRightIdle, ImageName::OverworldCharRightIdle, 0.067f);
+	CreateAnimation(AnimName::OverworldCharRightWalk, ImageName::OverworldCharRightWalk, 0.067f);
+	CreateAnimation(AnimName::OverworldCharUpIdle, ImageName::OverworldCharUpIdle, 0.067f);
+	CreateAnimation(AnimName::OverworldCharUpWalk, ImageName::OverworldCharUpWalk, 0.067f);
+	CreateAnimation(AnimName::OverworldCharRightDownIdle, ImageName::OverworldCharRightDownIdle, 0.067f);
+	CreateAnimation(AnimName::OverworldCharRightDownWalk, ImageName::OverworldCharRightDownWalk, 0.067f);
+	CreateAnimation(AnimName::OverworldCharRightUpIdle, ImageName::OverworldCharRightUpIdle, 0.067f);
+	CreateAnimation(AnimName::OverworldCharRightUpWalk, ImageName::OverworldCharRightUpWalk, 0.067f);
 
 	InputOn();
 }
@@ -42,7 +42,6 @@ void AOverworldPlayer::Tick(float _DeltaTime)
 	if (true == IsDown(VK_LEFT))
 	{
 		ChangeAnimation(AnimName::OverworldCharRightIdle);
-		URendererUtil::HorFlip(Renderer);
 	}
 
 	if (true == IsDown(VK_RIGHT))

@@ -8,7 +8,9 @@ ATitleScreen::ATitleScreen()
 	Background = CreateDefaultSubObject<USpriteRenderer>("Background");
 
 	Background->SetSprite(ImageName::TitleScreenBack);
+	Background->SetAutoSize(1.0f, true);
 	Characters->SetSprite(ImageName::TitleScreenCharacters);
+	Characters->SetAutoSize(1.0f, true);
 	Characters->CreateAnimation(AnimName::TitleDance, ImageName::TitleScreenCharacters, 0.04f);
 }
 
@@ -24,14 +26,14 @@ void ATitleScreen::BeginPlay()
 	SetActorScale3D({ 1280.0f, 720.0f, 1.0f });
 
 	Background->Transform.SetPosition({ 0.0f, 0.0f, 0.0f });
-	Characters->Transform.SetPosition({ 0.0f, -60.0f, 0.0f });
-	Background->Transform.SetScale({ 1280.0f, 720.0f, 1.0f });
-	Characters->Transform.SetScale({ 1067.0f, 600.0f, 1.0f });
 	Characters->ChangeAnimation(AnimName::TitleDance);
 }
 
 void ATitleScreen::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	FVector Scale = Characters->Transform.GetScale();
+	Characters->Transform.SetPosition({ 0.0f, -361.0f + Scale.ihY(), 0.0f});
 }
 
