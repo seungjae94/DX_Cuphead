@@ -45,5 +45,6 @@ private:
 
 	bool IsPressArrowKey();
 	void RefreshDirection();
+	void RefreshFlip();
 };
 

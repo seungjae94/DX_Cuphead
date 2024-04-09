@@ -11,6 +11,5 @@
 #include <EngineCore/StateManager.h>
 
 #include <ContentsUtil/PreCompile.h>
-#include <ContentsUtil/RendererUtil.h>
 #include <ContentsUtil/Constant.h>
 #include <ContentsUtil/Converter.h>

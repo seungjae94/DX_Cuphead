@@ -21,6 +21,7 @@ void AOverworldPlayer::IdleStart()
 {
 	std::string AnimName = TransDirectionToAnimName(Direction, true);
 	Renderer->ChangeAnimation(AnimName);
+	RefreshFlip();
 }
 
 void AOverworldPlayer::Idle(float _DeltaTime)
@@ -54,6 +55,7 @@ void AOverworldPlayer::Walk(float _DeltaTime)
 	// 방향 갱신
 	RefreshDirection();
 	DirectionVector = UConverter::ConvDirectionToFVector(Direction);
+	RefreshFlip();
 
 	// 애니메이션 갱신
 	std::string AnimName = TransDirectionToAnimName(Direction, false);
@@ -111,5 +113,24 @@ void AOverworldPlayer::RefreshDirection()
 	else if (true == IsPress(VK_DOWN))
 	{
 		Direction = EDirection::Down;
+	}
+}
+
+void AOverworldPlayer::RefreshFlip()
+{
+	switch (Direction)
+	{
+	case EDirection::Right:
+	case EDirection::RightUp:
+	case EDirection::RightDown:
+	case EDirection::Up:
+	case EDirection::Down:
+		Renderer->SetDir(EEngineDir::Right);
+		break;
+	case EDirection::LeftUp:
+	case EDirection::Left:
+	case EDirection::LeftDown:
+		Renderer->SetDir(EEngineDir::Left);
+		break;
 	}
 }

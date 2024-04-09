@@ -1,24 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="RendererUtil.h" />
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="Constant.h">
       <Filter>Constant</Filter>
     </ClInclude>
-    <ClInclude Include="Converter.h" />
+    <ClInclude Include="Converter.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RendererUtil.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="Constant.cpp">
       <Filter>Constant</Filter>
     </ClCompile>
-    <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="Converter.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -26,6 +28,9 @@
     </Filter>
     <Filter Include="Constant">
       <UniqueIdentifier>{c3d10500-9f2b-4601-a22c-2f7ce340ce6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{6528831f-d9f4-4a13-808a-65e9349aa464}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
