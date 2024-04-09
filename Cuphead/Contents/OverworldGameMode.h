@@ -1,6 +1,8 @@
 #pragma once
 #include "CupheadGameMode.h"
 
+class AOverworldMap;
+
 class AOverworldGameMode : public ACupheadGameMode
 {
 	GENERATED_BODY(ACupheadGameMode)
@@ -16,6 +18,8 @@ public:
 protected:
 
 private:
+	std::shared_ptr<AOverworldMap> Map = nullptr;
+
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 };

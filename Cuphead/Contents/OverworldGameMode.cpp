@@ -16,7 +16,7 @@ void AOverworldGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	GetWorld()->SpawnActor<AOverworldPlayer>("Player");
-	GetWorld()->SpawnActor<AOverworldMap>("Map");
+	Map = GetWorld()->SpawnActor<AOverworldMap>("Map");
 
 	InputOn();
 }
@@ -29,5 +29,11 @@ void AOverworldGameMode::Tick(float _DeltaTime)
 	if (true == IsDown('B'))
 	{
 		GEngine->ChangeLevel(GLevelName::BossDragonLevel);
+	}
+
+	// 충돌맵 온오프
+	if (true == IsDown('C'))
+	{
+		Map->ToggleColMap();
 	}
 }

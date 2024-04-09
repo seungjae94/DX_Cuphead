@@ -61,9 +61,19 @@ void AOverworldPlayer::Walk(float _DeltaTime)
 	std::string AnimName = TransDirectionToAnimName(Direction, false);
 	Renderer->ChangeAnimation(AnimName);
 
-	// 이동 처리
+	// 이동 시뮬레이션
+	FVector OriginalPos = GetActorLocation();
 	AddActorLocation(DirectionVector * MoveSpeed * _DeltaTime);
 
+	// 충돌 체크
+	// - 충돌이 발생한 경우 위치를 되돌린다.
+	if (true == CheckCollision())
+	{
+		SetActorLocation(OriginalPos);
+		return;
+	}
+
+	// 카메라 이동 처리
 	float CameraZ = GetWorld()->GetMainCamera()->GetActorLocation().Z;
 	FVector CameraLocation = GetActorLocation();
 	CameraLocation.Z = CameraZ;
@@ -138,4 +148,18 @@ void AOverworldPlayer::RefreshFlip()
 		Renderer->SetDir(EEngineDir::Left);
 		break;
 	}
+}
+
+bool AOverworldPlayer::CheckCollision()
+{
+	std::shared_ptr<UEngineTexture> MapTex = UEngineTexture::FindRes(GImageName::OverworldIsle1Pixel);
+	FVector MapTexScale = MapTex->GetScale();
+
+	FVector MapTexLeftTop = -MapTexScale.Half2D();
+	MapTexLeftTop.Y = -MapTexLeftTop.Y;
+	FVector ActorPos = GetActorLocation();
+	FVector MapTexLeftTopRelativePos = ActorPos - MapTexLeftTop;
+	MapTexLeftTopRelativePos.Y = -MapTexLeftTopRelativePos.Y;
+	Color8Bit ColMapColor = MapTex->GetColor(MapTexLeftTopRelativePos, Color8Bit::Black);
+	return ColMapColor == Color8Bit::Black;
 }

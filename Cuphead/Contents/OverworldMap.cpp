@@ -5,10 +5,16 @@ AOverworldMap::AOverworldMap()
 {
 	Back = CreateDefaultSubObject<USpriteRenderer>("Back");
 	Front = CreateDefaultSubObject<USpriteRenderer>("Front");
+	Col = CreateDefaultSubObject<USpriteRenderer>("Col");
 }
 
 AOverworldMap::~AOverworldMap()
 {
+}
+
+void AOverworldMap::ToggleColMap()
+{
+	Col->SetActive(!Col->IsActive());
 }
 
 void AOverworldMap::BeginPlay()
@@ -22,6 +28,12 @@ void AOverworldMap::BeginPlay()
 	Front->SetSprite(GImageName::OverworldIsle1Front);
 	Front->SetOrder(ERenderingOrder::Front);
 	Front->SetAutoSize(1.0f, true);
+
+	Col->SetSprite(GImageName::OverworldIsle1Pixel);
+	Col->SetOrder(ERenderingOrder::Collider);
+	Col->SetAutoSize(1.0f, true);
+
+	Col->SetActive(false);
 }
 
 void AOverworldMap::Tick(float _DeltaTime)

@@ -14,7 +14,7 @@ void AOverworldPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorLocation({ 0.0f, 0.0f, 0.0f });
+	SetActorLocation({ 100.0f, 0.0f, 0.0f });
 
 	Renderer->SetSprite(GImageName::OverworldCharDownIdle);
 	Renderer->SetAutoSize(1.0f, true);

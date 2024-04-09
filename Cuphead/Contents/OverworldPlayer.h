@@ -46,5 +46,6 @@ private:
 	bool IsPressArrowKey();
 	void RefreshDirection();
 	void RefreshFlip();
+	bool CheckCollision();
 };
 

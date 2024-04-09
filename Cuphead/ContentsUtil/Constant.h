@@ -69,6 +69,7 @@ enum class ERenderingOrder
 	Back,
 	Character,
 	Front,
+	Collider,
 	UI
 };
 
