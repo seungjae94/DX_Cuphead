@@ -19,6 +19,9 @@ private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	USpriteRenderer* Background = nullptr;
+	USpriteRenderer* Background0 = nullptr;
+	USpriteRenderer* Background1 = nullptr;
+	FVector MapScale;
+	const float BackgroundSpeed = 200.0f;
 };
 

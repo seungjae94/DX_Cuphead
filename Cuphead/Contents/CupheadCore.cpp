@@ -18,7 +18,7 @@ void UCupheadCore::Initialize()
 {
 	LoadResources();
 	CreateLevels();
-	GEngine->ChangeLevel(LevelName::TitleLevel);
+	GEngine->ChangeLevel(LevelName::BossDragonLevel);
 }
 
 void UCupheadCore::LoadResources()
