@@ -17,5 +17,5 @@ void ACupheadGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation({ 0.0f, 0.0f, -100.0f });
 
-	//GetWorld()->SpawnActor<ANoise>("Noise");
+	GetWorld()->SpawnActor<ANoise>("Noise");
 }

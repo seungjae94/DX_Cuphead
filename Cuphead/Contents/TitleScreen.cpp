@@ -18,7 +18,7 @@ void ATitleScreen::BeginPlay()
 
 	SetActorScale3D({ 1280.0f, 720.0f, 1.0f });
 
-	Background->SetOrder(ERenderingOrder::Back);
+	Background->SetOrder(ERenderingOrder::Back0);
 	Background->SetSprite(GImageName::TitleScreenBack);
 	Background->SetAutoSize(1.0f, true);
 	Background->Transform.SetPosition({ 0.0f, 0.0f, 0.0f });

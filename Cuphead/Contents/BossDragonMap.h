@@ -21,6 +21,7 @@ private:
 
 	USpriteRenderer* Background0 = nullptr;
 	USpriteRenderer* Background1 = nullptr;
+	USpriteRenderer* Tower = nullptr;
 	FVector MapScale;
 	const float BackgroundSpeed = 200.0f;
 };

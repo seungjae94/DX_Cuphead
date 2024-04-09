@@ -24,9 +24,6 @@ private:
 	const float ColRadius = 20.0f;
 	const float MoveSpeed = 200.0f;
 
-	// ImageNameMap[AnimName] = ImageName
-	std::map<std::string, std::string> ImageNameMap;
-
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 

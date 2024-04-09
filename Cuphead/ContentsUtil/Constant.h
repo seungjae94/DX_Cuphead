@@ -39,6 +39,7 @@ namespace GImageName
 
 	// º¸½º µå·¡°ï
 	const std::string BossDragonMapBackground = "boss_dragon_map_back.png";
+	const std::string BossDragonMapTower = "boss_dragon_map_tower";
 };
 
 namespace GAnimName
@@ -56,6 +57,8 @@ namespace GAnimName
 	const std::string OverworldCharUpWalk = "UpWalk";
 	const std::string OverworldCharRightIdle = "RightIdle";
 	const std::string OverworldCharRightWalk = "RightWalk";
+
+	const std::string BossDragonMapTower = "BossDragonMapTower";
 };
 
 namespace GStateName
@@ -66,7 +69,8 @@ namespace GStateName
 
 enum class ERenderingOrder
 {
-	Back,
+	Back0,
+	Back1,
 	Character,
 	Front,
 	Collider,
