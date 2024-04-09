@@ -23,6 +23,7 @@ private:
 	FVector ColCenter = FVector::Down * 30.0f;
 	const float ColRadius = 20.0f;
 	const float MoveSpeed = 200.0f;
+	std::string PrevAnimName = "";
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

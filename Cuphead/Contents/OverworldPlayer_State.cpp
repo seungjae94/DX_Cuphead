@@ -59,7 +59,11 @@ void AOverworldPlayer::Walk(float _DeltaTime)
 
 	// 애니메이션 갱신
 	std::string AnimName = TransDirectionToAnimName(Direction, false);
-	Renderer->ChangeAnimation(AnimName);
+	if (AnimName != PrevAnimName)
+	{
+		Renderer->ChangeAnimation(AnimName);
+		PrevAnimName = AnimName;
+	}
 
 	// 이동 시뮬레이션
 	FVector OriginalPos = GetActorLocation();
