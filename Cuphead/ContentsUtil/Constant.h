@@ -1,11 +1,11 @@
 #pragma once
 
-namespace Constant
+namespace GConstant
 {
 	
 };
 
-namespace LevelName
+namespace GLevelName
 {
 	const std::string TestLevel = "TestLevel";
 	const std::string TitleLevel = "TitleLevel";
@@ -13,7 +13,7 @@ namespace LevelName
 	const std::string BossDragonLevel = "BossDragonLevel";
 };
 
-namespace ImageName
+namespace GImageName
 {
 	const std::string Noise = "common_noise";
 
@@ -41,7 +41,7 @@ namespace ImageName
 	const std::string BossDragonMapBackground = "boss_dragon_map_back.png";
 };
 
-namespace AnimName
+namespace GAnimName
 {
 	const std::string TitleDance = "Dance";
 	const std::string Noise = "Noise";
@@ -58,10 +58,28 @@ namespace AnimName
 	const std::string OverworldCharRightWalk = "RightWalk";
 };
 
+namespace GStateName
+{
+	const std::string Idle = "Idle";
+	const std::string Walk = "Walk";
+}
+
 enum class ERenderingOrder
 {
 	Back,
 	Character,
 	Front,
 	UI
+};
+
+enum class EDirection
+{
+	Right,
+	RightUp,
+	Up,
+	LeftUp,
+	Left,
+	LeftDown,
+	Down,
+	RightDown,
 };

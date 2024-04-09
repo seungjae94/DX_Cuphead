@@ -254,6 +254,8 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="OverworldPlayer_Anim.cpp" />
+    <ClCompile Include="OverworldPlayer_State.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

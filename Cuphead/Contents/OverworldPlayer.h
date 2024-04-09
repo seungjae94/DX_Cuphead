@@ -12,11 +12,15 @@ public:
 	AOverworldPlayer& operator=(const AOverworldPlayer& _Other) = delete;
 	AOverworldPlayer& operator=(AOverworldPlayer&& _Other) noexcept = delete;
 
-protected:
 
+protected:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
+	UStateManager StateManager;
+	EDirection Direction = EDirection::Down;
+	FVector DirectionVector = FVector::Down;
+	const float MoveSpeed = 200.0f;
 
 	// ImageNameMap[AnimName] = ImageName
 	std::map<std::string, std::string> ImageNameMap;
@@ -26,7 +30,20 @@ private:
 
 private:
 	// 유틸 함수
-	void CreateAnimation(std::string _AnimName, std::string _ImageName, float _Inter);
-	void ChangeAnimation(std::string _AnimName);
+	static std::string TransDirectionToAnimName(EDirection _Direction, bool _IsIdle);
+
+	void AnimationInit();
+	void StateInit();
+
+	void IdleStart();
+	void Idle(float _DeltaTime);
+	void IdleEnd();
+
+	void WalkStart();
+	void Walk(float _DeltaTime);
+	void WalkEnd();
+
+	bool IsPressArrowKey();
+	void RefreshDirection();
 };
 

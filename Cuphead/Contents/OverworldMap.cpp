@@ -15,11 +15,11 @@ void AOverworldMap::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Back->SetSprite(ImageName::OverworldIsle1Back);
+	Back->SetSprite(GImageName::OverworldIsle1Back);
 	Back->SetOrder(ERenderingOrder::Back);
 	Back->SetAutoSize(1.0f, true);
 
-	Front->SetSprite(ImageName::OverworldIsle1Front);
+	Front->SetSprite(GImageName::OverworldIsle1Front);
 	Front->SetOrder(ERenderingOrder::Front);
 	Front->SetAutoSize(1.0f, true);
 }

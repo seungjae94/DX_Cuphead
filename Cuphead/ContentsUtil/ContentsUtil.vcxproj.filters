@@ -8,6 +8,7 @@
     <ClInclude Include="Constant.h">
       <Filter>Constant</Filter>
     </ClInclude>
+    <ClInclude Include="Converter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RendererUtil.cpp" />
@@ -17,6 +18,7 @@
     <ClCompile Include="Constant.cpp">
       <Filter>Constant</Filter>
     </ClCompile>
+    <ClCompile Include="Converter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">

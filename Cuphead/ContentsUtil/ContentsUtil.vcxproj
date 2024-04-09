@@ -164,6 +164,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Constant.h" />
+    <ClInclude Include="Converter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PreCompile.h">
       <SubType>
       </SubType>
@@ -175,6 +179,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Constant.cpp" />
+    <ClCompile Include="Converter.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <SubType>
       </SubType>

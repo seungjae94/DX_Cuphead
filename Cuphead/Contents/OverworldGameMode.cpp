@@ -28,6 +28,6 @@ void AOverworldGameMode::Tick(float _DeltaTime)
 	// 보스 레벨로 이동
 	if (true == IsDown('B'))
 	{
-		GEngine->ChangeLevel(LevelName::BossDragonLevel);
+		GEngine->ChangeLevel(GLevelName::BossDragonLevel);
 	}
 }

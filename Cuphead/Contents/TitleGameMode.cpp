@@ -28,7 +28,7 @@ void ATitleGameMode::Tick(float _DeltaTime)
 		&& false == IsDown(VK_RBUTTON) 
 		&& false == IsDown(GEngine->GetEngineOption().FreeCameraKey))
 	{
-		GEngine->ChangeLevel(LevelName::OverworldLevel);
+		GEngine->ChangeLevel(GLevelName::OverworldLevel);
 	}
 }
 

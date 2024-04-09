@@ -18,7 +18,7 @@ void UCupheadCore::Initialize()
 {
 	LoadResources();
 	CreateLevels();
-	GEngine->ChangeLevel(LevelName::BossDragonLevel);
+	GEngine->ChangeLevel(GLevelName::OverworldLevel);
 }
 
 void UCupheadCore::LoadResources()
@@ -94,9 +94,9 @@ void UCupheadCore::LoadResources()
 
 void UCupheadCore::CreateLevels()
 {
-	GEngine->CreateLevel<ATestGameMode>(LevelName::TestLevel);
-	GEngine->CreateLevel<ATitleGameMode>(LevelName::TitleLevel);
-	GEngine->CreateLevel<AOverworldGameMode>(LevelName::OverworldLevel);
-	GEngine->CreateLevel<ABossDragonGameMode>(LevelName::BossDragonLevel);
+	GEngine->CreateLevel<ATestGameMode>(GLevelName::TestLevel);
+	GEngine->CreateLevel<ATitleGameMode>(GLevelName::TitleLevel);
+	GEngine->CreateLevel<AOverworldGameMode>(GLevelName::OverworldLevel);
+	GEngine->CreateLevel<ABossDragonGameMode>(GLevelName::BossDragonLevel);
 }
 

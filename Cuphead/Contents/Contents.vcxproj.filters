@@ -122,5 +122,11 @@
     <ClCompile Include="BossDragonMap.cpp">
       <Filter>Level\03. Boss Dragon Level\Object</Filter>
     </ClCompile>
+    <ClCompile Include="OverworldPlayer_Anim.cpp">
+      <Filter>Level\02. Overworld Level\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="OverworldPlayer_State.cpp">
+      <Filter>Level\02. Overworld Level\Object</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

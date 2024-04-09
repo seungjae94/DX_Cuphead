@@ -19,15 +19,15 @@ void ATitleScreen::BeginPlay()
 	SetActorScale3D({ 1280.0f, 720.0f, 1.0f });
 
 	Background->SetOrder(ERenderingOrder::Back);
-	Background->SetSprite(ImageName::TitleScreenBack);
+	Background->SetSprite(GImageName::TitleScreenBack);
 	Background->SetAutoSize(1.0f, true);
 	Background->Transform.SetPosition({ 0.0f, 0.0f, 0.0f });
 
 	Characters->SetOrder(ERenderingOrder::Front);
-	Characters->SetSprite(ImageName::TitleScreenCharacters);
+	Characters->SetSprite(GImageName::TitleScreenCharacters);
 	Characters->SetAutoSize(1.0f, true);
-	Characters->CreateAnimation(AnimName::TitleDance, ImageName::TitleScreenCharacters, 0.04f);
-	Characters->ChangeAnimation(AnimName::TitleDance);
+	Characters->CreateAnimation(GAnimName::TitleDance, GImageName::TitleScreenCharacters, 0.04f);
+	Characters->ChangeAnimation(GAnimName::TitleDance);
 }
 
 void ATitleScreen::Tick(float _DeltaTime)

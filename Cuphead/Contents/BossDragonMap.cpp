@@ -17,11 +17,11 @@ void ABossDragonMap::BeginPlay()
 
 	MapScale = { 1280.0f, 720.0f };
 
-	Background0->SetSprite(ImageName::BossDragonMapBackground);
+	Background0->SetSprite(GImageName::BossDragonMapBackground);
 	Background0->SetOrder(ERenderingOrder::Back);
 	Background0->Transform.SetScale(MapScale);
 
-	Background1->SetSprite(ImageName::BossDragonMapBackground);
+	Background1->SetSprite(GImageName::BossDragonMapBackground);
 	Background1->SetOrder(ERenderingOrder::Back);
 	Background1->Transform.SetScale(MapScale);
 
