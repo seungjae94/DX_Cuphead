@@ -74,10 +74,7 @@ void AOverworldPlayer::Walk(float _DeltaTime)
 	}
 
 	// 카메라 이동 처리
-	float CameraZ = GetWorld()->GetMainCamera()->GetActorLocation().Z;
-	FVector CameraLocation = GetActorLocation();
-	CameraLocation.Z = CameraZ;
-	GetWorld()->GetMainCamera()->SetActorLocation(CameraLocation);
+	BringCamera();
 }
 
 void AOverworldPlayer::WalkEnd()
@@ -157,9 +154,9 @@ bool AOverworldPlayer::CheckCollision()
 
 	FVector MapTexLeftTop = -MapTexScale.Half2D();
 	MapTexLeftTop.Y = -MapTexLeftTop.Y;
-	FVector ActorPos = GetActorLocation();
-	FVector MapTexLeftTopRelativePos = ActorPos - MapTexLeftTop;
-	MapTexLeftTopRelativePos.Y = -MapTexLeftTopRelativePos.Y;
-	Color8Bit ColMapColor = MapTex->GetColor(MapTexLeftTopRelativePos, Color8Bit::Black);
+	FVector CollisionCenterPos = GetActorLocation() + ColCenter;
+	FVector TestPixel = CollisionCenterPos + DirectionVector * ColRadius - MapTexLeftTop;
+	TestPixel.Y = -TestPixel.Y;
+	Color8Bit ColMapColor = MapTex->GetColor(TestPixel, Color8Bit::Black);
 	return ColMapColor == Color8Bit::Black;
 }

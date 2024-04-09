@@ -15,6 +15,7 @@ void AOverworldPlayer::BeginPlay()
 	Super::BeginPlay();
 
 	SetActorLocation({ 100.0f, 0.0f, 0.0f });
+	BringCamera();
 
 	Renderer->SetSprite(GImageName::OverworldCharDownIdle);
 	Renderer->SetAutoSize(1.0f, true);
@@ -31,4 +32,13 @@ void AOverworldPlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	StateManager.Update(_DeltaTime);
+}
+
+
+void AOverworldPlayer::BringCamera()
+{
+	float CameraZ = GetWorld()->GetMainCamera()->GetActorLocation().Z;
+	FVector CameraLocation = GetActorLocation();
+	CameraLocation.Z = CameraZ;
+	GetWorld()->GetMainCamera()->SetActorLocation(CameraLocation);
 }

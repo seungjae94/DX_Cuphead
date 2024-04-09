@@ -20,6 +20,8 @@ private:
 	UStateManager StateManager;
 	EDirection Direction = EDirection::Down;
 	FVector DirectionVector = FVector::Down;
+	FVector ColCenter = FVector::Down * 30.0f;
+	const float ColRadius = 20.0f;
 	const float MoveSpeed = 200.0f;
 
 	// ImageNameMap[AnimName] = ImageName
@@ -34,7 +36,9 @@ private:
 
 	void AnimationInit();
 	void StateInit();
+	void BringCamera();
 
+	// 상태 함수
 	void IdleStart();
 	void Idle(float _DeltaTime);
 	void IdleEnd();
