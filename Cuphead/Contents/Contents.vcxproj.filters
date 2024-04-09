@@ -10,9 +10,6 @@
     <Filter Include="Level">
       <UniqueIdentifier>{e70dd09c-78c7-4557-b04c-350be78e7537}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Constant">
-      <UniqueIdentifier>{b99b2ca3-b3f5-4642-8980-abb313193a0f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\00. Common">
       <UniqueIdentifier>{0dea75ff-33ef-41bf-9bd5-22bd0753a155}</UniqueIdentifier>
     </Filter>
@@ -69,9 +66,6 @@
     <ClInclude Include="OverworldPlayer.h">
       <Filter>Level\02. Overworld Level\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Constant.h">
-      <Filter>Constant</Filter>
-    </ClInclude>
     <ClInclude Include="OverworldMap.h">
       <Filter>Level\02. Overworld Level\Object</Filter>
     </ClInclude>
@@ -112,9 +106,6 @@
     </ClCompile>
     <ClCompile Include="OverworldPlayer.cpp">
       <Filter>Level\02. Overworld Level\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Constant.cpp">
-      <Filter>Constant</Filter>
     </ClCompile>
     <ClCompile Include="OverworldMap.cpp">
       <Filter>Level\02. Overworld Level\Object</Filter>

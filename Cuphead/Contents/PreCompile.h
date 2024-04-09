@@ -11,3 +11,4 @@
 
 #include <ContentsUtil/PreCompile.h>
 #include <ContentsUtil/RendererUtil.h>
+#include <ContentsUtil/Constant.h>

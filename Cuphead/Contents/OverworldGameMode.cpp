@@ -2,11 +2,9 @@
 #include "OverworldGameMode.h"
 #include "OverworldMap.h"
 #include "OverworldPlayer.h"
-#include "Constant.h"
 
 AOverworldGameMode::AOverworldGameMode()
 {
-	InputOn();
 }
 
 AOverworldGameMode::~AOverworldGameMode()
@@ -19,6 +17,8 @@ void AOverworldGameMode::BeginPlay()
 
 	GetWorld()->SpawnActor<AOverworldPlayer>("Player");
 	GetWorld()->SpawnActor<AOverworldMap>("Map");
+
+	InputOn();
 }
 
 void AOverworldGameMode::Tick(float _DeltaTime)

@@ -57,3 +57,11 @@ namespace AnimName
 	const std::string OverworldCharRightIdle = "RightIdle";
 	const std::string OverworldCharRightWalk = "RightWalk";
 };
+
+enum class ERenderingOrder
+{
+	Back,
+	Character,
+	Front,
+	UI
+};

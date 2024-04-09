@@ -1,14 +1,10 @@
 #include "PreCompile.h"
 #include "OverworldMap.h"
-#include "Constant.h"
 
 AOverworldMap::AOverworldMap()
 {
 	Back = CreateDefaultSubObject<USpriteRenderer>("Back");
 	Front = CreateDefaultSubObject<USpriteRenderer>("Front");
-
-	Back->SetSprite(ImageName::OverworldIsle1Back);
-	Front->SetSprite(ImageName::OverworldIsle1Front);
 }
 
 AOverworldMap::~AOverworldMap()
@@ -19,10 +15,13 @@ void AOverworldMap::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Back->Transform.SetPosition(FVector::Zero);
-	Back->Transform.SetScale({ 4000.0f, 2200.0f, 1.0f });
-	Front->Transform.SetPosition(FVector::Zero);
-	Front->Transform.SetScale({ 4000.0f, 2200.0f, 1.0f });
+	Back->SetSprite(ImageName::OverworldIsle1Back);
+	Back->SetOrder(ERenderingOrder::Back);
+	Back->SetAutoSize(1.0f, true);
+
+	Front->SetSprite(ImageName::OverworldIsle1Front);
+	Front->SetOrder(ERenderingOrder::Front);
+	Front->SetAutoSize(1.0f, true);
 }
 
 void AOverworldMap::Tick(float _DeltaTime)

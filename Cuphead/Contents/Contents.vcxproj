@@ -179,10 +179,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Constant.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="CupheadCore.h">
       <SubType>
       </SubType>
@@ -231,10 +227,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BossDragonGameMode.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Constant.cpp">
       <SubType>
       </SubType>
     </ClCompile>

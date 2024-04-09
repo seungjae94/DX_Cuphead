@@ -5,16 +5,25 @@
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
+    <ClInclude Include="Constant.h">
+      <Filter>Constant</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RendererUtil.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
+    <ClCompile Include="Constant.cpp">
+      <Filter>Constant</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
       <UniqueIdentifier>{46861b8d-5528-4284-817f-cfbd064d7c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Constant">
+      <UniqueIdentifier>{c3d10500-9f2b-4601-a22c-2f7ce340ce6a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

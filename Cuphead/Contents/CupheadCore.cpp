@@ -1,6 +1,5 @@
 #include "PreCompile.h"
 #include "CupheadCore.h"
-#include "Constant.h"
 #include "TestGameMode.h"
 #include "TitleGameMode.h"
 #include "OverworldGameMode.h"

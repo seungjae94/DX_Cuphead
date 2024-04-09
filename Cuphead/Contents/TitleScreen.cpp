@@ -1,17 +1,10 @@
 #include "PreCompile.h"
 #include "TitleScreen.h"
-#include "Constant.h"
 
 ATitleScreen::ATitleScreen() 
 {
-	Characters = CreateDefaultSubObject<USpriteRenderer>("Characters");
 	Background = CreateDefaultSubObject<USpriteRenderer>("Background");
-
-	Background->SetSprite(ImageName::TitleScreenBack);
-	Background->SetAutoSize(1.0f, true);
-	Characters->SetSprite(ImageName::TitleScreenCharacters);
-	Characters->SetAutoSize(1.0f, true);
-	Characters->CreateAnimation(AnimName::TitleDance, ImageName::TitleScreenCharacters, 0.04f);
+	Characters = CreateDefaultSubObject<USpriteRenderer>("Characters");
 }
 
 ATitleScreen::~ATitleScreen() 
@@ -25,7 +18,15 @@ void ATitleScreen::BeginPlay()
 
 	SetActorScale3D({ 1280.0f, 720.0f, 1.0f });
 
+	Background->SetOrder(ERenderingOrder::Back);
+	Background->SetSprite(ImageName::TitleScreenBack);
+	Background->SetAutoSize(1.0f, true);
 	Background->Transform.SetPosition({ 0.0f, 0.0f, 0.0f });
+
+	Characters->SetOrder(ERenderingOrder::Front);
+	Characters->SetSprite(ImageName::TitleScreenCharacters);
+	Characters->SetAutoSize(1.0f, true);
+	Characters->CreateAnimation(AnimName::TitleDance, ImageName::TitleScreenCharacters, 0.04f);
 	Characters->ChangeAnimation(AnimName::TitleDance);
 }
 

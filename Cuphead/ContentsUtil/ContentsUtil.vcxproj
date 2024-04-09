@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Constant.h" />
     <ClInclude Include="PreCompile.h">
       <SubType>
       </SubType>
@@ -173,6 +174,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Constant.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <SubType>
       </SubType>

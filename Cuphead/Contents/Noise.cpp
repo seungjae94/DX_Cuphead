@@ -1,5 +1,4 @@
 #include "PreCompile.h"
-#include "Constant.h"
 #include "Noise.h"
 
 ANoise::ANoise()
