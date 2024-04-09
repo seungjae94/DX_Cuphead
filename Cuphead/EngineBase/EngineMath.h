@@ -339,6 +339,15 @@ public:
 		return X == 0.0f && Y == 0.0f;
 	}
 
+	unsigned int uiX() const
+	{
+		return static_cast<unsigned int>(std::lround(X));
+	}
+
+	unsigned int uiY() const
+	{
+		return static_cast<unsigned int>(std::lround(Y));
+	}
 
 	int iX() const
 	{

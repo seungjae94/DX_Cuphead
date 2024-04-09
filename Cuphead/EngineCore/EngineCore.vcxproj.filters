@@ -106,6 +106,9 @@
     <ClInclude Include="EngineBlend.h">
       <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
+    <ClInclude Include="StateManager.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -213,6 +216,9 @@
     <ClCompile Include="EngineBlend.cpp">
       <Filter>Resources\RenderingSetting</Filter>
     </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -277,6 +283,9 @@
     </Filter>
     <Filter Include="ThirdParty\DirectXTex\Inc">
       <UniqueIdentifier>{b3ba1108-7a0b-43ff-a68c-b262b895c90a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{05fbd999-f404-4b49-8c66-6ff85094b961}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
