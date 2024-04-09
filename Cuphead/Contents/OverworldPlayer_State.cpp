@@ -63,6 +63,11 @@ void AOverworldPlayer::Walk(float _DeltaTime)
 
 	// 이동 처리
 	AddActorLocation(DirectionVector * MoveSpeed * _DeltaTime);
+
+	float CameraZ = GetWorld()->GetMainCamera()->GetActorLocation().Z;
+	FVector CameraLocation = GetActorLocation();
+	CameraLocation.Z = CameraZ;
+	GetWorld()->GetMainCamera()->SetActorLocation(CameraLocation);
 }
 
 void AOverworldPlayer::WalkEnd()
