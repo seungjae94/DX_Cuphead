@@ -179,6 +179,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BossFarmGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="BossFarmMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="CupheadCore.h">
       <SubType>
       </SubType>
@@ -200,6 +208,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="OverworldPlayer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -230,6 +242,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BossFarmGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BossFarmMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="CupheadCore.cpp">
       <SubType>
       </SubType>
@@ -256,6 +276,10 @@
     </ClCompile>
     <ClCompile Include="OverworldPlayer_Anim.cpp" />
     <ClCompile Include="OverworldPlayer_State.cpp" />
+    <ClCompile Include="Player.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

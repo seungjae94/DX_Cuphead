@@ -3,6 +3,7 @@
 #include "TestGameMode.h"
 #include "TitleGameMode.h"
 #include "OverworldGameMode.h"
+#include "BossFarmGameMode.h"
 #include "BossDragonGameMode.h"
 #include <EngineCore/EngineTexture.h>
 
@@ -18,7 +19,7 @@ void UCupheadCore::Initialize()
 {
 	LoadResources();
 	CreateLevels();
-	GEngine->ChangeLevel(GLevelName::OverworldLevel);
+	GEngine->ChangeLevel(GLevelName::BossFarmLevel);
 }
 
 void UCupheadCore::LoadResources()
@@ -97,6 +98,7 @@ void UCupheadCore::CreateLevels()
 	GEngine->CreateLevel<ATestGameMode>(GLevelName::TestLevel);
 	GEngine->CreateLevel<ATitleGameMode>(GLevelName::TitleLevel);
 	GEngine->CreateLevel<AOverworldGameMode>(GLevelName::OverworldLevel);
+	GEngine->CreateLevel<ABossFarmGameMode>(GLevelName::BossFarmLevel);
 	GEngine->CreateLevel<ABossDragonGameMode>(GLevelName::BossDragonLevel);
 }
 

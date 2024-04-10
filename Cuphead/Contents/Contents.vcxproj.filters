@@ -34,10 +34,10 @@
     <Filter Include="Level\02. Overworld Level\Object">
       <UniqueIdentifier>{96f7633d-2038-4299-82e7-729ce7fd7d25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\03. Boss Dragon Level">
-      <UniqueIdentifier>{e3a4de10-a250-46e6-91ce-e181d9b26b93}</UniqueIdentifier>
+    <Filter Include="Level\03. Boss Level">
+      <UniqueIdentifier>{ce1250bf-f538-4193-a853-4031a3169d83}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\03. Boss Dragon Level\Object">
+    <Filter Include="Level\03. Boss Level\Object">
       <UniqueIdentifier>{654bff13-64c5-4745-8fb9-9268fb87f959}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -75,11 +75,20 @@
     <ClInclude Include="CupheadGameMode.h">
       <Filter>Level\00. Common</Filter>
     </ClInclude>
-    <ClInclude Include="BossDragonGameMode.h">
-      <Filter>Level\03. Boss Dragon Level</Filter>
-    </ClInclude>
     <ClInclude Include="BossDragonMap.h">
-      <Filter>Level\03. Boss Dragon Level\Object</Filter>
+      <Filter>Level\03. Boss Level\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFarmGameMode.h">
+      <Filter>Level\03. Boss Level</Filter>
+    </ClInclude>
+    <ClInclude Include="BossDragonGameMode.h">
+      <Filter>Level\03. Boss Level</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFarmMap.h">
+      <Filter>Level\03. Boss Level\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Level\03. Boss Level\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,17 +125,26 @@
     <ClCompile Include="CupheadGameMode.cpp">
       <Filter>Level\00. Common</Filter>
     </ClCompile>
-    <ClCompile Include="BossDragonGameMode.cpp">
-      <Filter>Level\03. Boss Dragon Level</Filter>
-    </ClCompile>
     <ClCompile Include="BossDragonMap.cpp">
-      <Filter>Level\03. Boss Dragon Level\Object</Filter>
+      <Filter>Level\03. Boss Level\Object</Filter>
     </ClCompile>
     <ClCompile Include="OverworldPlayer_Anim.cpp">
       <Filter>Level\02. Overworld Level\Object</Filter>
     </ClCompile>
     <ClCompile Include="OverworldPlayer_State.cpp">
       <Filter>Level\02. Overworld Level\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFarmGameMode.cpp">
+      <Filter>Level\03. Boss Level</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDragonGameMode.cpp">
+      <Filter>Level\03. Boss Level</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFarmMap.cpp">
+      <Filter>Level\03. Boss Level\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Level\03. Boss Level\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

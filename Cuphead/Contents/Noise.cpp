@@ -20,6 +20,8 @@ void ANoise::BeginPlay()
 	Renderer->Transform.SetPosition(FVector::Zero);
 	Renderer->Transform.SetScale({1280.0f, 720.0f, 1.0f});
 	Renderer->ChangeAnimation(GAnimName::Noise);
+
+	Renderer->SetActive(false);
 }
 
 void ANoise::Tick(float _DeltaTime)
