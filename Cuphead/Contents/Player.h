@@ -69,6 +69,10 @@ private:
 	void Dash(float _DeltaTime);
 	void DashEnd();
 
+	void SitStart();
+	void Sit(float _DeltaTime);
+	void SitEnd();
+
 private:
 	// 유틸 함수
 	bool IsPressArrowKey();

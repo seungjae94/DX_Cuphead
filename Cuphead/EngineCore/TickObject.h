@@ -1,5 +1,8 @@
 #pragma once
 #include "EngineDefines.h"
+#include <functional>
+#include <memory>
+#include <EngineBase/EngineDebug.h>
 
 class UEngineTickCallBack
 {
