@@ -17,10 +17,13 @@ public:
 protected:
 
 private:
-	const float RunSpeed = 400.0f;
+	const float RunSpeed = 500.0f;
 	EDirection Direction = EDirection::Right;
 	UStateManager StateManager;
 	USpriteRenderer* Renderer = nullptr;
+
+	const float FireDelay = 0.25f;
+	float FireTime = 0.0f;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

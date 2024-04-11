@@ -84,6 +84,9 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting(GImageName::PlayerRightRunShoot, 16, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerLeftSit, 5, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerRightSit, 5, 1);
+
+		UEngineSprite::CreateCutting(GImageName::BulletSpawn, 4, 1);
+		UEngineSprite::CreateCutting(GImageName::BulletMove, 8, 1);
 	}
 
 	{

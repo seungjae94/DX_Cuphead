@@ -52,8 +52,7 @@ namespace GImageName
 
 	// ÃÑ¾Ë
 	const std::string BulletSpawn = "bullet_spawn.png";
-	const std::string BulletLeft = "bullet_left.png";
-	const std::string BulletRight = "bullet_right.png";
+	const std::string BulletMove = "bullet_move.png";
 	const std::string BulletDestroy = "bullet_destroy.png";
 
 	// º¸½º µå·¡°ï
@@ -91,8 +90,7 @@ namespace GAnimName
 
 	// ÃÑ¾Ë
 	const std::string BulletSpawn = "bullet_spawn";
-	const std::string BulletLeft = "bullet_left";
-	const std::string BulletRight = "bullet_right";
+	const std::string BulletMove = "bullet_move";
 	const std::string BulletDestroy = "bullet_destroy";
 
 	// º¸½º µå·¡°ï
@@ -105,6 +103,10 @@ namespace GStateName
 	const std::string Walk = "Walk";
 	const std::string Run = "Run";
 	const std::string Sit = "Sit";
+
+	const std::string Spawn = "Spawn";
+	const std::string Move = "Move";
+	const std::string Destroy = "Destroy";
 }
 
 enum class ERenderingOrder

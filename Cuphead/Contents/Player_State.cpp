@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Player.h"
+#include "Bullet.h"
 
 void APlayer::StateInit()
 {
@@ -24,12 +25,26 @@ void APlayer::IdleStart()
 
 void APlayer::Idle(float _DeltaTime)
 {
+	FireTime -= _DeltaTime;
+
 	if (true == IsPressArrowKey())
 	{
 		StateManager.ChangeState(GStateName::Run);
 		return;
 	}
 
+	if (true == IsPress('X'))
+	{
+		if (FireTime > 0.0f)
+		{
+			return;
+		}
+
+		std::shared_ptr<ABullet> Bullet = GetWorld()->SpawnActor<ABullet>("Bullet");
+		Bullet->SetDirection(Direction);
+
+		FireTime = FireDelay;
+	}
 }
 
 void APlayer::IdleEnd()
@@ -43,6 +58,8 @@ void APlayer::RunStart()
 
 void APlayer::Run(float _DeltaTime)
 {
+	FireTime -= _DeltaTime;
+
 	if (false == IsPressArrowKey())
 	{
 		StateManager.ChangeState(GStateName::Idle);
