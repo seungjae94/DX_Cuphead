@@ -78,6 +78,8 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting(GImageName::PlayerRightIdle, 5, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerLeftJump, 8, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerRightJump, 8, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerLeftDash, 8, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerRightDash, 8, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerLeftShoot, 3, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerRightShoot, 3, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerLeftRun, 16, 1);

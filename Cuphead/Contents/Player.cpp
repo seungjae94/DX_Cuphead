@@ -49,7 +49,10 @@ void APlayer::Tick(float _DeltaTime)
 void APlayer::PhysicsUpdate(float _DeltaTime)
 {
 	// 이동 시뮬레이션
-	Velocity += Gravity * _DeltaTime;
+	if (true == ApplyGravity)
+	{
+		Velocity += Gravity * _DeltaTime;
+	}
 
 	if (Velocity.X > RunSpeed)
 	{

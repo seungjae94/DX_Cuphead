@@ -36,6 +36,7 @@ void APlayer::IdleStart()
 void APlayer::Idle(float _DeltaTime)
 {
 	FireTime -= _DeltaTime;
+	PrevStateName = GStateName::Idle;
 
 	if (true == IsPressArrowKey())
 	{
@@ -61,6 +62,12 @@ void APlayer::Idle(float _DeltaTime)
 		StateManager.ChangeState(GStateName::Jump);
 		return;
 	}
+
+	if (true == IsDown(VK_SHIFT))
+	{
+		StateManager.ChangeState(GStateName::Dash);
+		return;
+	}
 }
 
 void APlayer::IdleEnd()
@@ -75,6 +82,7 @@ void APlayer::RunStart()
 void APlayer::Run(float _DeltaTime)
 {
 	FireTime -= _DeltaTime;
+	PrevStateName = GStateName::Run;
 
 	if (false == IsPressArrowKey())
 	{
@@ -98,6 +106,12 @@ void APlayer::Run(float _DeltaTime)
 		StateManager.ChangeState(GStateName::Jump);
 		return;
 	}
+
+	if (true == IsDown(VK_SHIFT))
+	{
+		StateManager.ChangeState(GStateName::Dash);
+		return;
+	}
 }
 
 void APlayer::RunEnd()
@@ -112,6 +126,8 @@ void APlayer::JumpStart()
 
 void APlayer::Jump(float _DeltaTime)
 {
+	PrevStateName = GStateName::Jump;
+
 	if (true == OnGroundValue)
 	{
 		StateManager.ChangeState(GStateName::Idle);
@@ -130,7 +146,11 @@ void APlayer::Jump(float _DeltaTime)
 		Velocity.X = 0.0f;
 	}
 
-	// ÃÑ¾Ë ·ÎÁ÷
+	if (true == IsDown(VK_SHIFT))
+	{
+		StateManager.ChangeState(GStateName::Dash);
+		return;
+	}
 }
 
 void APlayer::JumpEnd()
@@ -139,10 +159,20 @@ void APlayer::JumpEnd()
 
 void APlayer::DashStart()
 {
+	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftDash, GAnimName::PlayerRightDash);
+	Velocity.X = UConverter::ConvDirectionToFVector(Direction).X* RunSpeed;
+	Velocity.Y = 0.0f;
+	ApplyGravity = false;
+	DelayCallBack(0.5f, [this]() {
+		ApplyGravity = true;
+		Velocity -= JumpImpulse;
+		StateManager.ChangeState(PrevStateName);
+	});
 }
 
 void APlayer::Dash(float _DeltaTime)
 {
+
 }
 
 void APlayer::DashEnd()

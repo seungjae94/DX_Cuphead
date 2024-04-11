@@ -17,6 +17,8 @@ public:
 protected:
 
 private:
+	std::string PrevStateName = GStateName::Idle;
+
 	const FVector JumpImpulse = { 0.0f, 1250.0f, 0.0f };
 	const FVector Gravity = { 0.0f, -3200.0f, 0.0f };
 	FVector Velocity = FVector::Zero;
@@ -28,6 +30,7 @@ private:
 	const float ColRadius = 40.0f;
 
 	const float RunSpeed = 400.0f;
+	const float DashSpeed = 4000.0f;
 
 	EDirection Direction = EDirection::Right;
 	UStateManager StateManager;
