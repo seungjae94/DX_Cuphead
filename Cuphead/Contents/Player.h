@@ -17,11 +17,16 @@ public:
 protected:
 
 private:
+	const FVector JumpImpulse = { 0.0f, 1000.0f, 0.0f };
+	const FVector Gravity = { 0.0f, -2000.0f, 0.0f };
+	bool OnGroundValue = true;
 	FVector Velocity = FVector::Zero;
 
-	const float JumpAcc = 2000.0f;
-	const float Gravity = 980.0f;
-	const float RunSpeed = 500.0f;
+	FVector ColCenter = FVector::Down * 50.0f;
+	const float ColRadius = 40.0f;
+
+	const float RunSpeed = 800.0f;
+
 	EDirection Direction = EDirection::Right;
 	UStateManager StateManager;
 	USpriteRenderer* Renderer = nullptr;
@@ -31,7 +36,7 @@ private:
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-
+	void PhysicsUpdate(float _DeltaTime);
 private:
 	// 애니메이션 초기화
 	void AnimationInit();
@@ -60,5 +65,6 @@ private:
 	bool IsPressArrowKey();
 	bool IsDirectionLeft() const;
 	void RefreshDirection();
+	bool CheckCollision();
 };
 

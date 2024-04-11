@@ -25,6 +25,7 @@ void APlayer::StateInit()
 
 void APlayer::IdleStart()
 {
+	Velocity.X = 0.0f;
 	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftIdle, GAnimName::PlayerRightIdle);
 }
 
@@ -86,7 +87,7 @@ void APlayer::Run(float _DeltaTime)
 		ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftRun, GAnimName::PlayerRightRun);
 	}
 
-	AddActorLocation(UConverter::ConvDirectionToFVector(Direction) * RunSpeed * _DeltaTime);
+	Velocity.X = UConverter::ConvDirectionToFVector(Direction).X * RunSpeed;
 }
 
 void APlayer::RunEnd()
@@ -96,11 +97,19 @@ void APlayer::RunEnd()
 void APlayer::JumpStart()
 {
 	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftJump, GAnimName::PlayerRightJump);
-	
+	Velocity += JumpImpulse;
+
+	int a = 0;
 }
 
 void APlayer::Jump(float _DeltaTime)
 {
+	if (true == OnGroundValue)
+	{
+		StateManager.ChangeState(GStateName::Idle);
+		return;
+	}
+
 	// ÃÑ¾Ë ·ÎÁ÷
 }
 
