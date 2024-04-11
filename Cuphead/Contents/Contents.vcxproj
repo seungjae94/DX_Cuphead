@@ -280,6 +280,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Player_Anim.cpp" />
     <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

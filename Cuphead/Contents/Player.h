@@ -17,8 +17,8 @@ public:
 protected:
 
 private:
-	const float RunSpeed = 100.0f;
-	bool IsLeft = false;
+	const float RunSpeed = 400.0f;
+	EDirection Direction = EDirection::Right;
 	UStateManager StateManager;
 	USpriteRenderer* Renderer = nullptr;
 private:
@@ -26,6 +26,12 @@ private:
 	void Tick(float _DeltaTime) override;
 
 private:
+	// 애니메이션 초기화
+	void AnimationInit();
+
+	// 상태 초기화
+	void StateInit();
+
 	// 상태 함수
 	void IdleStart();
 	void Idle(float _DeltaTime);
@@ -34,5 +40,9 @@ private:
 	void RunStart();
 	void Run(float _DeltaTime);
 	void RunEnd();
+
+private:
+	// 유틸 함수
+	bool IsPressArrowKey();
 };
 

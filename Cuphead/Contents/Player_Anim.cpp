@@ -1,0 +1,16 @@
+#include "PreCompile.h"
+#include "Player.h"
+
+void APlayer::AnimationInit()
+{
+	Renderer->CreateAnimation(GAnimName::PlayerLeftIdle, GImageName::PlayerLeftIdle, 0.1f);
+	Renderer->CreateAnimation(GAnimName::PlayerRightIdle, GImageName::PlayerRightIdle, 0.1f);
+	Renderer->CreateAnimation(GAnimName::PlayerLeftShoot, GImageName::PlayerLeftShoot, 0.1f);
+	Renderer->CreateAnimation(GAnimName::PlayerRightShoot, GImageName::PlayerRightShoot, 0.1f);
+	Renderer->CreateAnimation(GAnimName::PlayerLeftRun, GImageName::PlayerLeftRun, 1/24.0f);
+	Renderer->CreateAnimation(GAnimName::PlayerRightRun, GImageName::PlayerRightRun, 1/24.0f);
+	Renderer->CreateAnimation(GAnimName::PlayerLeftRunShoot, GImageName::PlayerLeftRunShoot, 0.1f);
+	Renderer->CreateAnimation(GAnimName::PlayerRightRunShoot, GImageName::PlayerRightRunShoot, 0.1f);
+	Renderer->CreateAnimation(GAnimName::PlayerLeftSit, GImageName::PlayerLeftSit, 0.1f);
+	Renderer->CreateAnimation(GAnimName::PlayerRightSit, GImageName::PlayerRightSit, 0.1f);
+}

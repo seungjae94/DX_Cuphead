@@ -29,9 +29,6 @@ private:
 	void Tick(float _DeltaTime) override;
 
 private:
-	// 유틸 함수
-	static std::string TransDirectionToAnimName(EDirection _Direction, bool _IsIdle);
-
 	void AnimationInit();
 	void StateInit();
 	void BringCamera();
@@ -45,6 +42,9 @@ private:
 	void Walk(float _DeltaTime);
 	void WalkEnd();
 
+private:
+	// 유틸 함수
+	static std::string TransDirectionToAnimName(EDirection _Direction, bool _IsIdle);
 	bool IsPressArrowKey();
 	void RefreshDirection();
 	void RefreshFlip();
