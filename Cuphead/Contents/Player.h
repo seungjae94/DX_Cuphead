@@ -17,10 +17,12 @@ public:
 protected:
 
 private:
-	const FVector JumpImpulse = { 0.0f, 1000.0f, 0.0f };
-	const FVector Gravity = { 0.0f, -2000.0f, 0.0f };
-	bool OnGroundValue = true;
+	const FVector JumpImpulse = { 0.0f, 1250.0f, 0.0f };
+	const FVector Gravity = { 0.0f, -3200.0f, 0.0f };
 	FVector Velocity = FVector::Zero;
+
+	bool OnGroundValue = true;
+	bool ApplyGravity = false;
 
 	FVector ColCenter = FVector::Down * 50.0f;
 	const float ColRadius = 40.0f;
@@ -59,6 +61,10 @@ private:
 	void JumpStart();
 	void Jump(float _DeltaTime);
 	void JumpEnd();
+
+	void DashStart();
+	void Dash(float _DeltaTime);
+	void DashEnd();
 
 private:
 	// 유틸 함수

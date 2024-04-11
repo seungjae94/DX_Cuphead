@@ -21,6 +21,10 @@ void APlayer::StateInit()
 	StateManager.SetStartFunction(GStateName::Jump, std::bind(&APlayer::JumpStart, this));
 	StateManager.SetUpdateFunction(GStateName::Jump, std::bind(&APlayer::Jump, this, std::placeholders::_1));
 	StateManager.SetEndFunction(GStateName::Jump, std::bind(&APlayer::JumpEnd, this));
+
+	StateManager.SetStartFunction(GStateName::Dash, std::bind(&APlayer::DashStart, this));
+	StateManager.SetUpdateFunction(GStateName::Dash, std::bind(&APlayer::Dash, this, std::placeholders::_1));
+	StateManager.SetEndFunction(GStateName::Dash, std::bind(&APlayer::DashEnd, this));
 }
 
 void APlayer::IdleStart()
@@ -117,12 +121,11 @@ void APlayer::Jump(float _DeltaTime)
 	EDirection PrevDirection = Direction;
 	RefreshDirection();
 
-	if (PrevDirection != Direction)
+	if (true == IsPressArrowKey())
 	{
 		Velocity.X = UConverter::ConvDirectionToFVector(Direction).X * RunSpeed;
 	}
-
-	if (false == IsPressArrowKey())
+	else
 	{
 		Velocity.X = 0.0f;
 	}
@@ -131,5 +134,17 @@ void APlayer::Jump(float _DeltaTime)
 }
 
 void APlayer::JumpEnd()
+{
+}
+
+void APlayer::DashStart()
+{
+}
+
+void APlayer::Dash(float _DeltaTime)
+{
+}
+
+void APlayer::DashEnd()
 {
 }

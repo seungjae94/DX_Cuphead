@@ -43,6 +43,8 @@ namespace GImageName
 	const std::string PlayerRightIdle = "player_right_idle.png";
 	const std::string PlayerLeftJump = "player_left_jump.png";
 	const std::string PlayerRightJump = "player_right_jump.png";
+	const std::string PlayerLeftDash = "player_left_dash.png";
+	const std::string PlayerRightDash = "player_right_dash.png";
 	const std::string PlayerLeftShoot = "player_left_shoot.png";
 	const std::string PlayerRightShoot = "player_right_shoot.png";
 	const std::string PlayerLeftRun = "player_left_run.png";
@@ -83,6 +85,8 @@ namespace GAnimName
 	const std::string PlayerRightIdle = "player_right_idle";
 	const std::string PlayerLeftJump = "player_left_jump";
 	const std::string PlayerRightJump = "player_right_jump";
+	const std::string PlayerLeftDash = "player_left_dash";
+	const std::string PlayerRightDash = "player_right_dash";
 	const std::string PlayerLeftShoot = "player_left_shoot";
 	const std::string PlayerRightShoot = "player_right_shoot";
 	const std::string PlayerLeftRun = "player_left_run";
