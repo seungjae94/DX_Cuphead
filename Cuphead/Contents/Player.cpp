@@ -43,12 +43,12 @@ bool APlayer::IsDirectionLeft() const
 
 void APlayer::RefreshDirection()
 {
-	if (true == IsPress(VK_LEFT))
-	{
-		Direction = EDirection::Left;
-	}
-	else if (true == IsPress(VK_RIGHT))
+	if (true == IsPress(VK_RIGHT))
 	{
 		Direction = EDirection::Right;
+	}
+	else if (true == IsPress(VK_LEFT))
+	{
+		Direction = EDirection::Left;
 	}
 }

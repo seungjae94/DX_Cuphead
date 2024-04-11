@@ -50,6 +50,12 @@ namespace GImageName
 	const std::string PlayerLeftSit = "player_left_sit.png";
 	const std::string PlayerRightSit = "player_right_sit.png";
 
+	// ÃÑ¾Ë
+	const std::string BulletSpawn = "bullet_spawn.png";
+	const std::string BulletLeft = "bullet_left.png";
+	const std::string BulletRight = "bullet_right.png";
+	const std::string BulletDestroy = "bullet_destroy.png";
+
 	// º¸½º µå·¡°ï
 	const std::string BossDragonMapBackground = "boss_dragon_map_back.png";
 	const std::string BossDragonMapTower = "boss_dragon_map_tower";
@@ -83,6 +89,13 @@ namespace GAnimName
 	const std::string PlayerLeftSit = "player_left_sit";
 	const std::string PlayerRightSit = "player_right_sit";
 
+	// ÃÑ¾Ë
+	const std::string BulletSpawn = "bullet_spawn";
+	const std::string BulletLeft = "bullet_left";
+	const std::string BulletRight = "bullet_right";
+	const std::string BulletDestroy = "bullet_destroy";
+
+	// º¸½º µå·¡°ï
 	const std::string BossDragonMapTower = "BossDragonMapTower";
 };
 

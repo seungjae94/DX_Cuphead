@@ -90,6 +90,9 @@
     <ClInclude Include="Player.h">
       <Filter>Level\03. Boss Level\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Level\03. Boss Level\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -150,6 +153,9 @@
       <Filter>Level\03. Boss Level\Object</Filter>
     </ClCompile>
     <ClCompile Include="Player_Anim.cpp">
+      <Filter>Level\03. Boss Level\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
       <Filter>Level\03. Boss Level\Object</Filter>
     </ClCompile>
   </ItemGroup>
