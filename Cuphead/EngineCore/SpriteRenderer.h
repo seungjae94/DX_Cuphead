@@ -81,6 +81,7 @@ public:
 	
 protected:
 	void Tick(float _DeltaTime) override;
+	void MaterialSettingEnd() override;
 
 private:
 	bool AutoSize = false;

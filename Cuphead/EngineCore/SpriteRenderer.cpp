@@ -59,11 +59,6 @@ USpriteRenderer::USpriteRenderer()
 {
 	SetMesh("Rect");
 	SetMaterial("2DImage");
-	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
-	CurTexture = nullptr;
-	Resources->SettingConstantBuffer("ResultColorValue", PlusColor);
-	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
-
 }
 
 
@@ -81,6 +76,15 @@ void USpriteRenderer::SetAutoSize(float _ScaleRatio, bool _AutoSize)
 	{
 		SetSpriteInfo(CurInfo);
 	}
+}
+
+void USpriteRenderer::MaterialSettingEnd()
+{
+	Super::MaterialSettingEnd();
+	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
+	CurTexture = nullptr;
+	Resources->SettingConstantBuffer("ResultColorValue", PlusColor);
+	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
 }
 
 
