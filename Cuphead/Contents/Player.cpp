@@ -73,8 +73,14 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 	FVector PrevPos = GetActorLocation();
 	AddActorLocation(Velocity * _DeltaTime);
 
+	if (true == CheckCollision(FVector::Left)
+		|| true == CheckCollision(FVector::Right))
+	{
+		SetActorLocation(PrevPos);
+	}
+
 	// 바닥 충돌 체크
-	if (true == CheckCollision())
+	if (true == CheckCollision(FVector::Down))
 	{
 		OnGroundValue = true;
 	}
@@ -106,7 +112,7 @@ void APlayer::RefreshDirection()
 	}
 }
 
-bool APlayer::CheckCollision()
+bool APlayer::CheckCollision(const FVector& _Direction)
 {
 	std::shared_ptr<UEngineTexture> MapTex = UEngineTexture::FindRes("boss_farm_map_col.png");
 	FVector MapTexScale = MapTex->GetScale();
@@ -114,7 +120,7 @@ bool APlayer::CheckCollision()
 	FVector MapTexLeftTop = -MapTexScale.Half2D();
 	MapTexLeftTop.Y = -MapTexLeftTop.Y;
 	FVector CollisionCenterPos = GetActorLocation() + ColCenter;
-	FVector TestPixel = CollisionCenterPos + FVector::Down * ColRadius - MapTexLeftTop;
+	FVector TestPixel = CollisionCenterPos + _Direction * ColRadius - MapTexLeftTop;
 	TestPixel.Y = -TestPixel.Y;
 	Color8Bit ColMapColor = MapTex->GetColor(TestPixel, Color8Bit::Black);
 	return ColMapColor == Color8Bit::Black;

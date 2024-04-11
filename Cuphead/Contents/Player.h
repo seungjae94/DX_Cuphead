@@ -82,7 +82,7 @@ private:
 	bool IsPressArrowKey();
 	bool IsDirectionLeft() const;
 	void RefreshDirection();
-	bool CheckCollision();
+	bool CheckCollision(const FVector& _Direction);
 	FVector GetBulletSpawnLocation();
 	EDirection GetBulletSpawnDirection();
 };
