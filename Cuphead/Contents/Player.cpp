@@ -33,12 +33,33 @@ void APlayer::Tick(float _DeltaTime)
 
 	StateManager.Update(_DeltaTime);
 	PhysicsUpdate(_DeltaTime);
+
+	// 디버그 메시지
+	{
+		std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player Velocity : {}\n", Velocity.ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
 
 void APlayer::PhysicsUpdate(float _DeltaTime)
 {
 	// 이동 시뮬레이션
 	Velocity += Gravity * _DeltaTime;
+
+	if (Velocity.X > RunSpeed)
+	{
+		Velocity.X = RunSpeed;
+	}
+
+	if (Velocity.X < -RunSpeed)
+	{
+		Velocity.X = -RunSpeed;
+	}
 
 	if (true == OnGroundValue && Velocity.Y < 0.0f)
 	{
@@ -52,7 +73,6 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 	if (true == CheckCollision())
 	{
 		OnGroundValue = true;
-		SetActorLocation(PrevPos);
 	}
 	else
 	{

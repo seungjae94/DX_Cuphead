@@ -25,7 +25,7 @@ private:
 	FVector ColCenter = FVector::Down * 50.0f;
 	const float ColRadius = 40.0f;
 
-	const float RunSpeed = 800.0f;
+	const float RunSpeed = 400.0f;
 
 	EDirection Direction = EDirection::Right;
 	UStateManager StateManager;

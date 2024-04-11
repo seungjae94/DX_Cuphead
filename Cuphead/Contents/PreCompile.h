@@ -9,6 +9,7 @@
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/Camera.h>
 #include <EngineCore/StateManager.h>
+#include <EngineCore/EngineDebugMsgWindow.h>
 
 #include <ContentsUtil/PreCompile.h>
 #include <ContentsUtil/Constant.h>

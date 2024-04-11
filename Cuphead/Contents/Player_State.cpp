@@ -88,6 +88,12 @@ void APlayer::Run(float _DeltaTime)
 	}
 
 	Velocity.X = UConverter::ConvDirectionToFVector(Direction).X * RunSpeed;
+
+	if (true == IsDown('Z'))
+	{
+		StateManager.ChangeState(GStateName::Jump);
+		return;
+	}
 }
 
 void APlayer::RunEnd()
@@ -98,8 +104,6 @@ void APlayer::JumpStart()
 {
 	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftJump, GAnimName::PlayerRightJump);
 	Velocity += JumpImpulse;
-
-	int a = 0;
 }
 
 void APlayer::Jump(float _DeltaTime)
@@ -108,6 +112,19 @@ void APlayer::Jump(float _DeltaTime)
 	{
 		StateManager.ChangeState(GStateName::Idle);
 		return;
+	}
+
+	EDirection PrevDirection = Direction;
+	RefreshDirection();
+
+	if (PrevDirection != Direction)
+	{
+		Velocity.X = UConverter::ConvDirectionToFVector(Direction).X * RunSpeed;
+	}
+
+	if (false == IsPressArrowKey())
+	{
+		Velocity.X = 0.0f;
 	}
 
 	// ÃÑ¾Ë ·ÎÁ÷
