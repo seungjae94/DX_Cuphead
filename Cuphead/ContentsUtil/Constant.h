@@ -129,7 +129,8 @@ enum class ERenderingOrder
 	Bullet,
 	Front,
 	Collider,
-	UI
+	UI,
+	Noise,
 };
 
 enum class EDirection
