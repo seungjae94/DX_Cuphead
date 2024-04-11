@@ -24,7 +24,7 @@ private:
 	FVector Velocity = FVector::Zero;
 
 	bool OnGroundValue = true;
-	bool ApplyGravity = false;
+	bool ApplyGravity = true;
 
 	FVector ColCenter = FVector::Down * 50.0f;
 	const float ColRadius = 40.0f;

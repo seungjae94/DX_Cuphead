@@ -25,12 +25,16 @@ void APlayer::StateInit()
 	StateManager.SetStartFunction(GStateName::Dash, std::bind(&APlayer::DashStart, this));
 	StateManager.SetUpdateFunction(GStateName::Dash, std::bind(&APlayer::Dash, this, std::placeholders::_1));
 	StateManager.SetEndFunction(GStateName::Dash, std::bind(&APlayer::DashEnd, this));
+
+	StateManager.SetStartFunction(GStateName::Sit, std::bind(&APlayer::SitStart, this));
+	StateManager.SetUpdateFunction(GStateName::Sit, std::bind(&APlayer::Sit, this, std::placeholders::_1));
+	StateManager.SetEndFunction(GStateName::Sit, std::bind(&APlayer::SitEnd, this));
 }
 
 void APlayer::IdleStart()
 {
-	Velocity.X = 0.0f;
 	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftIdle, GAnimName::PlayerRightIdle);
+	Velocity = FVector::Zero;
 }
 
 void APlayer::Idle(float _DeltaTime)
@@ -66,6 +70,12 @@ void APlayer::Idle(float _DeltaTime)
 	if (true == IsDown(VK_SHIFT))
 	{
 		StateManager.ChangeState(GStateName::Dash);
+		return;
+	}
+
+	if (true == IsPress(VK_DOWN))
+	{
+		StateManager.ChangeState(GStateName::Sit);
 		return;
 	}
 }
@@ -110,6 +120,12 @@ void APlayer::Run(float _DeltaTime)
 	if (true == IsDown(VK_SHIFT))
 	{
 		StateManager.ChangeState(GStateName::Dash);
+		return;
+	}
+
+	if (true == IsPress(VK_DOWN))
+	{
+		StateManager.ChangeState(GStateName::Sit);
 		return;
 	}
 }
@@ -176,5 +192,30 @@ void APlayer::Dash(float _DeltaTime)
 }
 
 void APlayer::DashEnd()
+{
+}
+
+void APlayer::SitStart()
+{
+	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftSit, GAnimName::PlayerRightSit);
+	Velocity = FVector::Zero;
+}
+
+void APlayer::Sit(float _DeltaTime)
+{
+	if (true == IsPress('Z'))
+	{
+		StateManager.ChangeState(GStateName::Jump);
+		return;
+	}
+
+	if (false == IsPress(VK_DOWN))
+	{
+		StateManager.ChangeState(GStateName::Idle);
+		return;
+	}
+}
+
+void APlayer::SitEnd()
 {
 }
