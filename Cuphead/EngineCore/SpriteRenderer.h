@@ -77,6 +77,11 @@ public:
 
 	void SetDir(EEngineDir _Dir);
 
+	inline EEngineDir GetDir() const
+	{
+		return Dir;
+	}
+
 	bool IsCurAnimationEnd();
 	
 protected:

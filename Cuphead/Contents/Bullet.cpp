@@ -14,7 +14,7 @@ void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite();
+	Renderer->SetSprite(GImageName::BulletSpawn);
 	Renderer->SetAutoSize(1.0f, true);
 
 	Renderer->CreateAnimation(GAnimName::BulletSpawn, GImageName::BulletSpawn, 0.1f);

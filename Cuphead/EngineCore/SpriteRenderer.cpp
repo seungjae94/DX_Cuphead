@@ -66,7 +66,6 @@ USpriteRenderer::~USpriteRenderer()
 {
 }
 
-
 void USpriteRenderer::SetAutoSize(float _ScaleRatio, bool _AutoSize)
 {
 	AutoSize = _AutoSize;
