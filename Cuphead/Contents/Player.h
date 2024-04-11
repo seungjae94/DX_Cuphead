@@ -17,6 +17,22 @@ public:
 protected:
 
 private:
+	const float RunSpeed = 100.0f;
+	bool IsLeft = false;
+	UStateManager StateManager;
+	USpriteRenderer* Renderer = nullptr;
+private:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
+private:
+	// 상태 함수
+	void IdleStart();
+	void Idle(float _DeltaTime);
+	void IdleEnd();
+
+	void RunStart();
+	void Run(float _DeltaTime);
+	void RunEnd();
 };
 

@@ -28,7 +28,7 @@ void UCupheadCore::LoadResources()
 		UEngineDirectory CurDir;
 		CurDir.MoveToSearchChild("ContentsResources");
 		CurDir.Move("TitleLevel");
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, true);
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
 		for (UEngineFile& File : Files)
 		{
 			UEngineSprite::Load(File.GetFullPath());
@@ -45,7 +45,7 @@ void UCupheadCore::LoadResources()
 		UEngineDirectory CurDir;
 		CurDir.MoveToSearchChild("ContentsResources");
 		CurDir.Move("OverworldLevel");
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, true);
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
 		for (UEngineFile& File : Files)
 		{
 			UEngineSprite::Load(File.GetFullPath());
@@ -61,8 +61,36 @@ void UCupheadCore::LoadResources()
 	{
 		UEngineDirectory CurDir;
 		CurDir.MoveToSearchChild("ContentsResources");
+		CurDir.Move("Player");
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
+		for (UEngineFile& File : Files)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
+		for (size_t i = 0; i < Dirs.size(); i++)
+		{
+			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
+		}
+
+		UEngineSprite::CreateCutting(GImageName::PlayerLeftIdle, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerRightIdle, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerLeftShoot, 3, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerRightShoot, 3, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerLeftRun, 16, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerRightRun, 16, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerLeftRunShoot, 16, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerRightRunShoot, 16, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerLeftSit, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerRightSit, 5, 1);
+	}
+
+	{
+		UEngineDirectory CurDir;
+		CurDir.MoveToSearchChild("ContentsResources");
 		CurDir.Move("BossDragonLevel");
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, true);
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
 		for (UEngineFile& File : Files)
 		{
 			UEngineSprite::Load(File.GetFullPath());
@@ -79,7 +107,7 @@ void UCupheadCore::LoadResources()
 		UEngineDirectory CurDir;
 		CurDir.MoveToSearchChild("ContentsResources");
 		CurDir.Move("Common");
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, true);
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
 		for (UEngineFile& File : Files)
 		{
 			UEngineSprite::Load(File.GetFullPath());

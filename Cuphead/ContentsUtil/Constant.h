@@ -2,7 +2,7 @@
 
 namespace GConstant
 {
-	
+
 };
 
 namespace GLevelName
@@ -38,6 +38,18 @@ namespace GImageName
 	const std::string OverworldCharUpIdle = "overworld_char_up_idle";
 	const std::string OverworldCharUpWalk = "overworld_char_up_walk";
 
+	// 플레이어
+	const std::string PlayerLeftIdle = "player_left_idle.png";
+	const std::string PlayerRightIdle = "player_right_idle.png";
+	const std::string PlayerLeftShoot = "player_left_shoot.png";
+	const std::string PlayerRightShoot = "player_right_shoot.png";
+	const std::string PlayerLeftRun = "player_left_run.png";
+	const std::string PlayerRightRun = "player_right_run.png";
+	const std::string PlayerLeftRunShoot = "player_left_run_shoot.png";
+	const std::string PlayerRightRunShoot = "player_right_run_shoot.png";
+	const std::string PlayerLeftSit = "player_left_sit.png";
+	const std::string PlayerRightSit = "player_right_sit.png";
+
 	// 보스 드래곤
 	const std::string BossDragonMapBackground = "boss_dragon_map_back.png";
 	const std::string BossDragonMapTower = "boss_dragon_map_tower";
@@ -59,6 +71,18 @@ namespace GAnimName
 	const std::string OverworldCharRightIdle = "RightIdle";
 	const std::string OverworldCharRightWalk = "RightWalk";
 
+	// 플레이어
+	const std::string PlayerLeftIdle = "player_left_idle";
+	const std::string PlayerRightIdle = "player_right_idle";
+	const std::string PlayerLeftShoot = "player_left_shoot";
+	const std::string PlayerRightShoot = "player_right_shoot";
+	const std::string PlayerLeftRun = "player_left_run";
+	const std::string PlayerRightRun = "player_right_run";
+	const std::string PlayerLeftRunShoot = "player_left_run_shoot";
+	const std::string PlayerRightRunShoot = "player_right_run_shoot";
+	const std::string PlayerLeftSit = "player_left_sit";
+	const std::string PlayerRightSit = "player_right_sit";
+
 	const std::string BossDragonMapTower = "BossDragonMapTower";
 };
 
@@ -66,6 +90,8 @@ namespace GStateName
 {
 	const std::string Idle = "Idle";
 	const std::string Walk = "Walk";
+	const std::string Run = "Run";
+	const std::string Sit = "Sit";
 }
 
 enum class ERenderingOrder

@@ -1,8 +1,9 @@
 #pragma once
+#include "CupheadGameMode.h"
 
-class ABossFarmGameMode : public AGameMode
+class ABossFarmGameMode : public ACupheadGameMode
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(ACupheadGameMode)
 public:
 	// constructor destructor
 	ABossFarmGameMode();
