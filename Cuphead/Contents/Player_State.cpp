@@ -19,14 +19,7 @@ void APlayer::StateInit()
 
 void APlayer::IdleStart()
 {
-	if (Direction == EDirection::Left)
-	{
-		Renderer->ChangeAnimation(GAnimName::PlayerLeftIdle);
-	}
-	else
-	{
-		Renderer->ChangeAnimation(GAnimName::PlayerRightIdle);
-	}
+	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftIdle, GAnimName::PlayerRightIdle);
 }
 
 void APlayer::Idle(float _DeltaTime)
@@ -45,14 +38,7 @@ void APlayer::IdleEnd()
 
 void APlayer::RunStart()
 {
-	if (Direction == EDirection::Left)
-	{
-		Renderer->ChangeAnimation(GAnimName::PlayerLeftRun);
-	}
-	else
-	{
-		Renderer->ChangeAnimation(GAnimName::PlayerRightRun);
-	}
+	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftRun, GAnimName::PlayerRightRun);
 }
 
 void APlayer::Run(float _DeltaTime)
@@ -63,33 +49,16 @@ void APlayer::Run(float _DeltaTime)
 		return;
 	}
 
-	bool DirectionChanged = false;
 	EDirection PrevDirection = Direction;
 
-	if (true == IsPress(VK_LEFT))
-	{
-		Direction = EDirection::Left;
-	}
-	else
-	{
-		Direction = EDirection::Right;
-	}
-
+	RefreshDirection();
 
 	if (PrevDirection != Direction)
 	{
-		if (Direction == EDirection::Left)
-		{
-			Renderer->ChangeAnimation(GAnimName::PlayerLeftRun);
-		}
-		else
-		{
-			Renderer->ChangeAnimation(GAnimName::PlayerRightRun);
-		}
+		ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftRun, GAnimName::PlayerRightRun);
 	}
 
 	AddActorLocation(UConverter::ConvDirectionToFVector(Direction) * RunSpeed * _DeltaTime);
-
 }
 
 void APlayer::RunEnd()

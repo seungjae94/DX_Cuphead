@@ -14,3 +14,15 @@ void APlayer::AnimationInit()
 	Renderer->CreateAnimation(GAnimName::PlayerLeftSit, GImageName::PlayerLeftSit, 0.1f);
 	Renderer->CreateAnimation(GAnimName::PlayerRightSit, GImageName::PlayerRightSit, 0.1f);
 }
+
+void APlayer::ChangeAnimationIf(bool _Cond, std::string_view _IfAnim, std::string_view _ElseAnim)
+{
+	if (true == _Cond)
+	{
+		Renderer->ChangeAnimation(_IfAnim);
+	}
+	else
+	{
+		Renderer->ChangeAnimation(_ElseAnim);
+	}
+}

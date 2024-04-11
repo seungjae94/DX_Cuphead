@@ -35,3 +35,20 @@ bool APlayer::IsPressArrowKey()
 {
 	return IsPress(VK_LEFT) || IsPress(VK_RIGHT);
 }
+
+bool APlayer::IsDirectionLeft() const
+{
+	return Direction == EDirection::Left;
+}
+
+void APlayer::RefreshDirection()
+{
+	if (true == IsPress(VK_LEFT))
+	{
+		Direction = EDirection::Left;
+	}
+	else if (true == IsPress(VK_RIGHT))
+	{
+		Direction = EDirection::Right;
+	}
+}

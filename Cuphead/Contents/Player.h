@@ -29,6 +29,9 @@ private:
 	// 애니메이션 초기화
 	void AnimationInit();
 
+	// 애니메이션 함수
+	void ChangeAnimationIf(bool _Cond, std::string_view _IfAnim, std::string_view _ElseAnim);
+
 	// 상태 초기화
 	void StateInit();
 
@@ -44,5 +47,7 @@ private:
 private:
 	// 유틸 함수
 	bool IsPressArrowKey();
+	bool IsDirectionLeft() const;
+	void RefreshDirection();
 };
 
