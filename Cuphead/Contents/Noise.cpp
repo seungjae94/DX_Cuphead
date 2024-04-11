@@ -4,9 +4,6 @@
 ANoise::ANoise()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	
-	Renderer->SetSprite(GImageName::Noise);
-	Renderer->CreateAnimation(GAnimName::Noise, GImageName::Noise, 0.05f);
 }
 
 ANoise::~ANoise()
@@ -17,14 +14,19 @@ void ANoise::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->Transform.SetPosition(FVector::Zero);
-	Renderer->Transform.SetScale({1280.0f, 720.0f, 1.0f});
-	Renderer->ChangeAnimation(GAnimName::Noise);
+	Renderer->SetMaterial("Noise");
+	Renderer->SetSprite(GImageName::Noise);
+	Renderer->SetOrder(ERenderingOrder::UI);
+	Renderer->CreateAnimation(GAnimName::Noise, GImageName::Noise, 0.05f);
 
-	Renderer->SetActive(false);
+	SetActorLocation(FVector::Zero);
+	SetActorScale3D({1280.0f, 720.0f, 1.0f});
+	Renderer->ChangeAnimation(GAnimName::Noise);
 }
 
 void ANoise::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	SetActorLocation(GetWorld()->GetMainCamera()->GetActorLocation());
 }

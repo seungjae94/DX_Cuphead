@@ -17,9 +17,20 @@ UCupheadCore::~UCupheadCore()
 
 void UCupheadCore::Initialize()
 {
+	CreateMaterials();
 	LoadResources();
 	CreateLevels();
 	GEngine->ChangeLevel(GLevelName::BossFarmLevel);
+}
+
+void UCupheadCore::CreateMaterials()
+{
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Noise");
+		Mat->SetVertexShader("ImageShader.fx");
+		Mat->SetPixelShader("ImageShader.fx");
+		Mat->SetBlend("Overlay");
+	}
 }
 
 void UCupheadCore::LoadResources()

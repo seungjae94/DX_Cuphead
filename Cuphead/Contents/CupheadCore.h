@@ -17,6 +17,7 @@ public:
 protected:
 	void Initialize() override;
 private:
+	void CreateMaterials();
 	void LoadResources();
 	void CreateLevels();
 };
