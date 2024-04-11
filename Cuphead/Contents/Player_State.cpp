@@ -39,7 +39,6 @@ void APlayer::IdleStart()
 
 void APlayer::Idle(float _DeltaTime)
 {
-	FireTime -= _DeltaTime;
 	PrevStateName = GStateName::Idle;
 
 	if (true == IsPressArrowKey())
@@ -50,15 +49,7 @@ void APlayer::Idle(float _DeltaTime)
 
 	if (true == IsPress('X'))
 	{
-		if (FireTime > 0.0f)
-		{
-			return;
-		}
-
-		std::shared_ptr<ABullet> Bullet = GetWorld()->SpawnActor<ABullet>("Bullet");
-		Bullet->SetDirection(Direction);
-
-		FireTime = FireDelay;
+		Fire();
 	}
 
 	if (true == IsDown('Z'))
@@ -91,7 +82,6 @@ void APlayer::RunStart()
 
 void APlayer::Run(float _DeltaTime)
 {
-	FireTime -= _DeltaTime;
 	PrevStateName = GStateName::Run;
 
 	if (false == IsPressArrowKey())
@@ -110,6 +100,11 @@ void APlayer::Run(float _DeltaTime)
 	}
 
 	Velocity.X = UConverter::ConvDirectionToFVector(Direction).X * RunSpeed;
+
+	if (true == IsPress('X'))
+	{
+		Fire();
+	}
 
 	if (true == IsDown('Z'))
 	{
@@ -162,6 +157,11 @@ void APlayer::Jump(float _DeltaTime)
 		Velocity.X = 0.0f;
 	}
 
+	if (true == IsPress('X'))
+	{
+		Fire();
+	}
+
 	if (true == IsDown(VK_SHIFT))
 	{
 		StateManager.ChangeState(GStateName::Dash);
@@ -188,7 +188,10 @@ void APlayer::DashStart()
 
 void APlayer::Dash(float _DeltaTime)
 {
-
+	if (true == IsPress('X'))
+	{
+		Fire();
+	}
 }
 
 void APlayer::DashEnd()
@@ -203,6 +206,11 @@ void APlayer::SitStart()
 
 void APlayer::Sit(float _DeltaTime)
 {
+	if (true == IsPress('X'))
+	{
+		Fire();
+	}
+
 	if (true == IsPress('Z'))
 	{
 		StateManager.ChangeState(GStateName::Jump);
@@ -219,3 +227,71 @@ void APlayer::Sit(float _DeltaTime)
 void APlayer::SitEnd()
 {
 }
+
+void APlayer::Fire()
+{
+	if (FireTime > 0.0f)
+	{
+		return;
+	}
+
+	std::shared_ptr<ABullet> Bullet = GetWorld()->SpawnActor<ABullet>("Bullet");
+	Bullet->SetActorLocation(GetBulletSpawnLocation());
+	Bullet->SetDirection(GetBulletSpawnDirection());
+
+	FireTime = FireDelay;
+}
+
+FVector APlayer::GetBulletSpawnLocation()
+{
+	EDirection BulletDirection = GetBulletSpawnDirection();
+	FVector BulletDirectionVector = UConverter::ConvDirectionToFVector(BulletDirection);
+	return GetActorLocation() + BulletDirectionVector * FireRadius;
+}
+
+EDirection APlayer::GetBulletSpawnDirection()
+{
+	if (true == IsPress(VK_LEFT))
+	{
+		if (true == IsPress(VK_UP))
+		{
+			return EDirection::LeftUp;
+		}
+	}
+
+	if (true == IsPress(VK_RIGHT))
+	{
+		if (true == IsPress(VK_UP))
+		{
+			return EDirection::RightUp;
+		}
+	}
+
+	if (Direction == EDirection::Left)
+	{
+		if (true == IsPress(VK_UP))
+		{
+			return EDirection::Up;
+		}
+		else
+		{
+			return EDirection::Left;
+		}
+	}
+
+	if (Direction == EDirection::Right)
+	{
+		if (true == IsPress(VK_UP))
+		{
+			return EDirection::Up;
+		}
+		else
+		{
+			return EDirection::Right;
+		}
+	}
+
+	return EDirection::Right;
+}
+
+

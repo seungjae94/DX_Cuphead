@@ -29,6 +29,8 @@ private:
 	FVector ColCenter = FVector::Down * 50.0f;
 	const float ColRadius = 40.0f;
 
+	const float FireRadius = 40.0f;
+
 	const float RunSpeed = 400.0f;
 	const float DashSpeed = 4000.0f;
 
@@ -36,7 +38,7 @@ private:
 	UStateManager StateManager;
 	USpriteRenderer* Renderer = nullptr;
 
-	const float FireDelay = 0.25f;
+	const float FireDelay = 0.15f;
 	float FireTime = 0.0f;
 private:
 	void BeginPlay() override;
@@ -73,11 +75,15 @@ private:
 	void Sit(float _DeltaTime);
 	void SitEnd();
 
+	void Fire();
+
 private:
 	// 유틸 함수
 	bool IsPressArrowKey();
 	bool IsDirectionLeft() const;
 	void RefreshDirection();
 	bool CheckCollision();
+	FVector GetBulletSpawnLocation();
+	EDirection GetBulletSpawnDirection();
 };
 

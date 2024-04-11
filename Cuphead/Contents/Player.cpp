@@ -31,6 +31,7 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	FireTime -= _DeltaTime;
 	StateManager.Update(_DeltaTime);
 	PhysicsUpdate(_DeltaTime);
 

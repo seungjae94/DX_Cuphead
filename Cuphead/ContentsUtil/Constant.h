@@ -56,7 +56,7 @@ namespace GImageName
 
 	// ÃÑ¾Ë
 	const std::string BulletSpawn = "bullet_spawn.png";
-	const std::string BulletMove = "bullet_move.png";
+	const std::string BulletMove = "bullet_move";
 	const std::string BulletDestroy = "bullet_destroy.png";
 
 	// º¸½º µå·¡°ï
@@ -126,6 +126,7 @@ enum class ERenderingOrder
 	Back2,
 	Back3,
 	Character,
+	Bullet,
 	Front,
 	Collider,
 	UI

@@ -20,7 +20,7 @@ private:
 	USpriteRenderer* Renderer = nullptr;
 	UStateManager StateManager;
 	EDirection Direction = EDirection::Right;
-	const float Speed = 1000.0f;
+	const float Speed = 2000.0f;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

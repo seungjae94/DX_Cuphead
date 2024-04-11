@@ -13,6 +13,7 @@ ABullet::~ABullet()
 void ABullet::SetDirection(EDirection _Direction)
 {
 	Direction = _Direction;
+	StateManager.ChangeState(GStateName::Move);
 }
 
 void ABullet::BeginPlay()
@@ -21,8 +22,6 @@ void ABullet::BeginPlay()
 
 	AnimationInit();
 	StateInit();
-
-	StateManager.ChangeState(GStateName::Spawn);
 }
 
 void ABullet::Tick(float _DeltaTime)
@@ -34,32 +33,20 @@ void ABullet::Tick(float _DeltaTime)
 
 void ABullet::AnimationInit()
 {
-	Renderer->SetSprite(GImageName::BulletSpawn);
-	Renderer->SetAutoSize(1.0f, true);
+	Renderer->SetSprite(GImageName::BulletMove);
+	Renderer->SetAutoSize(0.9f, true);
+	Renderer->SetOrder(ERenderingOrder::Bullet);
 
-	Renderer->CreateAnimation(GAnimName::BulletSpawn, GImageName::BulletSpawn, 0.1f, false);
 	Renderer->CreateAnimation(GAnimName::BulletMove, GImageName::BulletMove, 0.1f);
 	Renderer->CreateAnimation(GAnimName::BulletDestroy, GImageName::BulletDestroy, 0.1f, false);
-
-	Renderer->SetFrameCallback(GAnimName::BulletSpawn, 4, [=]() {
-		StateManager.ChangeState(GStateName::Move);
-	});
 }
 
 void ABullet::StateInit()
 {
-	StateManager.CreateState(GStateName::Spawn);
 	StateManager.CreateState(GStateName::Move);
 	StateManager.CreateState(GStateName::Destroy);
 
-	std::function<void()> SpawnStartFunc = [=]() {
-		Renderer->ChangeAnimation(GAnimName::BulletSpawn);
-	};
-	std::function<void(float)> SpawnUpdateFunc = [](float _DeltaTime) {};
-	std::function<void()> SpawnEndFunc = []() {};
-	StateManager.SetFunction(GStateName::Spawn, SpawnStartFunc, SpawnUpdateFunc, SpawnEndFunc);
-
-	std::function<void()> MoveStartFunc = [=]() {
+	std::function<void()> MoveStartFunc = [this]() {
 		this->RefreshRotation();
 		Renderer->ChangeAnimation(GAnimName::BulletMove);
 	};
