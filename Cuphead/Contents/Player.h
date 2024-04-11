@@ -17,6 +17,10 @@ public:
 protected:
 
 private:
+	FVector Velocity = FVector::Zero;
+
+	const float JumpAcc = 2000.0f;
+	const float Gravity = 980.0f;
 	const float RunSpeed = 500.0f;
 	EDirection Direction = EDirection::Right;
 	UStateManager StateManager;
@@ -46,6 +50,10 @@ private:
 	void RunStart();
 	void Run(float _DeltaTime);
 	void RunEnd();
+
+	void JumpStart();
+	void Jump(float _DeltaTime);
+	void JumpEnd();
 
 private:
 	// 유틸 함수

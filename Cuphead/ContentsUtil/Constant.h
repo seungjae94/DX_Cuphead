@@ -41,6 +41,8 @@ namespace GImageName
 	// 플레이어
 	const std::string PlayerLeftIdle = "player_left_idle.png";
 	const std::string PlayerRightIdle = "player_right_idle.png";
+	const std::string PlayerLeftJump = "player_left_jump.png";
+	const std::string PlayerRightJump = "player_right_jump.png";
 	const std::string PlayerLeftShoot = "player_left_shoot.png";
 	const std::string PlayerRightShoot = "player_right_shoot.png";
 	const std::string PlayerLeftRun = "player_left_run.png";
@@ -79,6 +81,8 @@ namespace GAnimName
 	// 플레이어
 	const std::string PlayerLeftIdle = "player_left_idle";
 	const std::string PlayerRightIdle = "player_right_idle";
+	const std::string PlayerLeftJump = "player_left_jump";
+	const std::string PlayerRightJump = "player_right_jump";
 	const std::string PlayerLeftShoot = "player_left_shoot";
 	const std::string PlayerRightShoot = "player_right_shoot";
 	const std::string PlayerLeftRun = "player_left_run";
@@ -103,6 +107,8 @@ namespace GStateName
 	const std::string Walk = "Walk";
 	const std::string Run = "Run";
 	const std::string Sit = "Sit";
+	const std::string Dash = "Dash";
+	const std::string Jump = "Jump";
 
 	const std::string Spawn = "Spawn";
 	const std::string Move = "Move";
@@ -113,6 +119,8 @@ enum class ERenderingOrder
 {
 	Back0,
 	Back1,
+	Back2,
+	Back3,
 	Character,
 	Front,
 	Collider,

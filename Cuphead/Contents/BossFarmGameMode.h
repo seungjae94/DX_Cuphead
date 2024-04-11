@@ -1,6 +1,8 @@
 #pragma once
 #include "CupheadGameMode.h"
 
+class ABossFarmMap;
+
 class ABossFarmGameMode : public ACupheadGameMode
 {
 	GENERATED_BODY(ACupheadGameMode)
@@ -16,7 +18,8 @@ public:
 	ABossFarmGameMode& operator=(ABossFarmGameMode&& _Other) noexcept = delete;
 
 protected:
-
+private:
+	std::shared_ptr<ABossFarmMap> Map = nullptr;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

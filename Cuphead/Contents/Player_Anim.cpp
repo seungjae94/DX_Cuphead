@@ -5,6 +5,8 @@ void APlayer::AnimationInit()
 {
 	Renderer->CreateAnimation(GAnimName::PlayerLeftIdle, GImageName::PlayerLeftIdle, 0.1f);
 	Renderer->CreateAnimation(GAnimName::PlayerRightIdle, GImageName::PlayerRightIdle, 0.1f);
+	Renderer->CreateAnimation(GAnimName::PlayerLeftJump, GImageName::PlayerLeftJump, 0.1f);
+	Renderer->CreateAnimation(GAnimName::PlayerRightJump, GImageName::PlayerRightJump, 0.1f);
 	Renderer->CreateAnimation(GAnimName::PlayerLeftShoot, GImageName::PlayerLeftShoot, 0.1f);
 	Renderer->CreateAnimation(GAnimName::PlayerRightShoot, GImageName::PlayerRightShoot, 0.1f);
 	Renderer->CreateAnimation(GAnimName::PlayerLeftRun, GImageName::PlayerLeftRun, 1/24.0f);

@@ -4,10 +4,11 @@
 
 void APlayer::StateInit()
 {
-	StateManager.CreateState("Idle");
-	StateManager.CreateState("Run");
-	StateManager.CreateState("Sit");
-	StateManager.CreateState("Dash");
+	StateManager.CreateState(GStateName::Idle);
+	StateManager.CreateState(GStateName::Run);
+	StateManager.CreateState(GStateName::Sit);
+	StateManager.CreateState(GStateName::Dash);
+	StateManager.CreateState(GStateName::Jump);
 
 	StateManager.SetStartFunction(GStateName::Idle, std::bind(&APlayer::IdleStart, this));
 	StateManager.SetUpdateFunction(GStateName::Idle, std::bind(&APlayer::Idle, this, std::placeholders::_1));
@@ -16,6 +17,10 @@ void APlayer::StateInit()
 	StateManager.SetStartFunction(GStateName::Run, std::bind(&APlayer::RunStart, this));
 	StateManager.SetUpdateFunction(GStateName::Run, std::bind(&APlayer::Run, this, std::placeholders::_1));
 	StateManager.SetEndFunction(GStateName::Run, std::bind(&APlayer::RunEnd, this));
+
+	StateManager.SetStartFunction(GStateName::Jump, std::bind(&APlayer::JumpStart, this));
+	StateManager.SetUpdateFunction(GStateName::Jump, std::bind(&APlayer::Jump, this, std::placeholders::_1));
+	StateManager.SetEndFunction(GStateName::Jump, std::bind(&APlayer::JumpEnd, this));
 }
 
 void APlayer::IdleStart()
@@ -44,6 +49,12 @@ void APlayer::Idle(float _DeltaTime)
 		Bullet->SetDirection(Direction);
 
 		FireTime = FireDelay;
+	}
+
+	if (true == IsDown('Z'))
+	{
+		StateManager.ChangeState(GStateName::Jump);
+		return;
 	}
 }
 
@@ -79,5 +90,20 @@ void APlayer::Run(float _DeltaTime)
 }
 
 void APlayer::RunEnd()
+{
+}
+
+void APlayer::JumpStart()
+{
+	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftJump, GAnimName::PlayerRightJump);
+	
+}
+
+void APlayer::Jump(float _DeltaTime)
+{
+	// ÃÑ¾Ë ·ÎÁ÷
+}
+
+void APlayer::JumpEnd()
 {
 }

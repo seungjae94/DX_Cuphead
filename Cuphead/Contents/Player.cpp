@@ -14,7 +14,10 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SetActorLocation({0.0f, -190.0f, 0.0f});
+
 	Renderer->SetSprite(GImageName::PlayerRightIdle);
+	Renderer->SetOrder(ERenderingOrder::Character);
 	Renderer->SetAutoSize(1.0f, true);
 
 	AnimationInit();

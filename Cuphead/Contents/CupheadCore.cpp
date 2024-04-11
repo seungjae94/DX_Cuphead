@@ -76,6 +76,8 @@ void UCupheadCore::LoadResources()
 
 		UEngineSprite::CreateCutting(GImageName::PlayerLeftIdle, 5, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerRightIdle, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerLeftJump, 8, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerRightJump, 8, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerLeftShoot, 3, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerRightShoot, 3, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerLeftRun, 16, 1);
@@ -87,6 +89,23 @@ void UCupheadCore::LoadResources()
 
 		UEngineSprite::CreateCutting(GImageName::BulletSpawn, 4, 1);
 		UEngineSprite::CreateCutting(GImageName::BulletMove, 8, 1);
+	}
+
+	{
+		UEngineDirectory CurDir;
+		CurDir.MoveToSearchChild("ContentsResources");
+		CurDir.Move("BossFarmLevel");
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
+		for (UEngineFile& File : Files)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
+		for (size_t i = 0; i < Dirs.size(); i++)
+		{
+			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
+		}
 	}
 
 	{

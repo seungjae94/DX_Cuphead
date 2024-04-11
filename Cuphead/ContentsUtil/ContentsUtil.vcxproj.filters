@@ -10,6 +10,9 @@
     <ClInclude Include="Converter.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -21,6 +24,9 @@
     <ClCompile Include="Converter.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -31,6 +37,9 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{6528831f-d9f4-4a13-808a-65e9349aa464}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{4b70eb56-9d4e-4a8b-b428-5305d8b49b40}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

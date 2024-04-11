@@ -14,9 +14,19 @@ public:
 	ABossFarmMap& operator=(const ABossFarmMap& _Other) = delete;
 	ABossFarmMap& operator=(ABossFarmMap&& _Other) noexcept = delete;
 
+	void ToggleColMap();
+
 protected:
 
 private:
-
+	USpriteRenderer* Back0 = nullptr;
+	USpriteRenderer* Back1 = nullptr;
+	USpriteRenderer* Back2 = nullptr;
+	USpriteRenderer* Back3 = nullptr;
+	USpriteRenderer* Front = nullptr;
+	USpriteRenderer* Col = nullptr;
+private:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 };
 
