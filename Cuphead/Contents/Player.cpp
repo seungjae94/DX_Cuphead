@@ -36,13 +36,17 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	FireTime -= _DeltaTime;
+	StateManager.Update(_DeltaTime);
+	SpriteDirUpdate(_DeltaTime);
+	PhysicsUpdate(_DeltaTime);
+	DebugMsgUpdate(_DeltaTime);
+}
+
+void APlayer::SpriteDirUpdate(float _DeltaTime)
+{
 	EEngineDir PrevDirection = Direction;
 	RefreshDirection();
 	Renderer->SetDir(Direction);
-
-	StateManager.Update(_DeltaTime);
-	PhysicsUpdate(_DeltaTime);
-	DebugMsgUpdate(_DeltaTime);
 }
 
 void APlayer::PhysicsUpdate(float _DeltaTime)

@@ -203,7 +203,6 @@ void APlayer::DashStart()
 
 void APlayer::Dash(float _DeltaTime)
 {
-	Fire();
 }
 
 void APlayer::DashEnd()

@@ -1,5 +1,12 @@
 #pragma once
 
+enum class RunState
+{
+	Run,
+	RunShootHalfUp,
+	RunShootForward,
+};
+
 class APlayer : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -54,6 +61,7 @@ private:
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+	void SpriteDirUpdate(float _DeltaTime);
 	void PhysicsUpdate(float _DeltaTime);
 	void DebugMsgUpdate(float _DeltaTime);
 private:
