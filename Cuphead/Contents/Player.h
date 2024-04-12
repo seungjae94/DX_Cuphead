@@ -17,44 +17,50 @@ public:
 protected:
 
 private:
-	std::string PrevStateName = GStateName::Idle;
+	// Rendering
+	USpriteRenderer* Renderer = nullptr;
 
+	// State
+	std::string CurStateName = GStateName::Idle;
+	std::string PrevStateName = GStateName::Idle;
+	UStateManager StateManager;
+
+	// Physics
 	const FVector JumpImpulse = { 0.0f, 1250.0f, 0.0f };
 	const FVector Gravity = { 0.0f, -3200.0f, 0.0f };
 	FVector Velocity = FVector::Zero;
-
 	bool OnGroundValue = true;
 	bool ApplyGravity = true;
 
 	FVector ColCenter = FVector::Down * 50.0f;
 	const float ColRadius = 40.0f;
 
-	const float FireRadius = 40.0f;
-
-	const float RunSpeed = 400.0f;
-	const float DashSpeed = 4000.0f;
-
-	EDirection Direction = EDirection::Right;
-	UStateManager StateManager;
-	USpriteRenderer* Renderer = nullptr;
-
-	const float FireDelay = 0.15f;
+	// Fire
+	const float FireDelay = 1 / 7.5f;
 	float FireTime = 0.0f;
+	const float FireRadius = 40.0f;
+	const float Atk = 10.0f; /*원작 총알의 데미지는 4*/
+
+	// Move
+	const float RunSpeed = 400.0f;
+	const float DashSpeed = 800.0f;
+	const float DashTime = 0.3f;
+	EEngineDir Direction = EEngineDir::Right;
+
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void PhysicsUpdate(float _DeltaTime);
+	void DebugMsgUpdate(float _DeltaTime);
 private:
-	// 애니메이션 초기화
+	// 애니메이션
 	void AnimationInit();
-
-	// 애니메이션 함수
 	void ChangeAnimationIf(bool _Cond, std::string_view _IfAnim, std::string_view _ElseAnim);
 
-	// 상태 초기화
+	// 상태
 	void StateInit();
+	void ChangeState(std::string_view _StateName);
 
-	// 상태 함수
 	void IdleStart();
 	void Idle(float _DeltaTime);
 	void IdleEnd();

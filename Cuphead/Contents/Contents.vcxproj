@@ -219,6 +219,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Potato.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="TestGameMode.h">
       <SubType>
@@ -290,6 +294,10 @@
     </ClCompile>
     <ClCompile Include="Player_Anim.cpp" />
     <ClCompile Include="Player_State.cpp" />
+    <ClCompile Include="Potato.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

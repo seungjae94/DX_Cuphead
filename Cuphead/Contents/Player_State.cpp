@@ -31,6 +31,14 @@ void APlayer::StateInit()
 	StateManager.SetEndFunction(GStateName::Sit, std::bind(&APlayer::SitEnd, this));
 }
 
+void APlayer::ChangeState(std::string_view _StateName)
+{
+	PrevStateName = CurStateName;
+	StateManager.ChangeState(_StateName);
+	CurStateName = _StateName;
+}
+
+
 void APlayer::IdleStart()
 {
 	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftIdle, GAnimName::PlayerRightIdle);
@@ -39,8 +47,6 @@ void APlayer::IdleStart()
 
 void APlayer::Idle(float _DeltaTime)
 {
-	PrevStateName = GStateName::Idle;
-
 	if (true == IsPressArrowKey())
 	{
 		StateManager.ChangeState(GStateName::Run);
@@ -82,15 +88,13 @@ void APlayer::RunStart()
 
 void APlayer::Run(float _DeltaTime)
 {
-	PrevStateName = GStateName::Run;
-
 	if (false == IsPressArrowKey())
 	{
 		StateManager.ChangeState(GStateName::Idle);
 		return;
 	}
 
-	EDirection PrevDirection = Direction;
+	EEngineDir PrevDirection = Direction;
 
 	RefreshDirection();
 
@@ -99,7 +103,7 @@ void APlayer::Run(float _DeltaTime)
 		ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftRun, GAnimName::PlayerRightRun);
 	}
 
-	Velocity.X = UConverter::ConvDirectionToFVector(Direction).X * RunSpeed;
+	Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * RunSpeed;
 
 	if (true == IsPress('X'))
 	{
@@ -137,20 +141,18 @@ void APlayer::JumpStart()
 
 void APlayer::Jump(float _DeltaTime)
 {
-	PrevStateName = GStateName::Jump;
-
 	if (true == OnGroundValue)
 	{
 		StateManager.ChangeState(GStateName::Idle);
 		return;
 	}
 
-	EDirection PrevDirection = Direction;
+	EEngineDir PrevDirection = Direction;
 	RefreshDirection();
 
 	if (true == IsPressArrowKey())
 	{
-		Velocity.X = UConverter::ConvDirectionToFVector(Direction).X * RunSpeed;
+		Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * RunSpeed;
 	}
 	else
 	{
@@ -176,14 +178,14 @@ void APlayer::JumpEnd()
 void APlayer::DashStart()
 {
 	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftDash, GAnimName::PlayerRightDash);
-	Velocity.X = UConverter::ConvDirectionToFVector(Direction).X* RunSpeed;
+	Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * DashSpeed;
 	Velocity.Y = 0.0f;
 	ApplyGravity = false;
-	DelayCallBack(0.5f, [this]() {
+	DelayCallBack(DashTime, [this]() {
 		ApplyGravity = true;
 		Velocity -= JumpImpulse;
 		StateManager.ChangeState(PrevStateName);
-	});
+		});
 }
 
 void APlayer::Dash(float _DeltaTime)
@@ -267,7 +269,7 @@ EDirection APlayer::GetBulletSpawnDirection()
 		}
 	}
 
-	if (Direction == EDirection::Left)
+	if (Direction == EEngineDir::Left)
 	{
 		if (true == IsPress(VK_UP))
 		{
@@ -279,7 +281,7 @@ EDirection APlayer::GetBulletSpawnDirection()
 		}
 	}
 
-	if (Direction == EDirection::Right)
+	if (Direction == EEngineDir::Right)
 	{
 		if (true == IsPress(VK_UP))
 		{

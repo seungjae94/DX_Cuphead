@@ -14,7 +14,7 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorLocation({ 0.0f, -190.0f, 0.0f });
+	SetActorLocation({ 0.0f, -185.0f, 0.0f });
 
 	Renderer->SetSprite(GImageName::PlayerRightIdle);
 	Renderer->SetOrder(ERenderingOrder::Character);
@@ -34,17 +34,7 @@ void APlayer::Tick(float _DeltaTime)
 	FireTime -= _DeltaTime;
 	StateManager.Update(_DeltaTime);
 	PhysicsUpdate(_DeltaTime);
-
-	// 디버그 메시지
-	{
-		std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Player Velocity : {}\n", Velocity.ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
+	DebugMsgUpdate(_DeltaTime);
 }
 
 void APlayer::PhysicsUpdate(float _DeltaTime)
@@ -53,16 +43,6 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 	if (true == ApplyGravity)
 	{
 		Velocity += Gravity * _DeltaTime;
-	}
-
-	if (Velocity.X > RunSpeed)
-	{
-		Velocity.X = RunSpeed;
-	}
-
-	if (Velocity.X < -RunSpeed)
-	{
-		Velocity.X = -RunSpeed;
 	}
 
 	if (true == OnGroundValue && Velocity.Y < 0.0f)
@@ -90,6 +70,34 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 	}
 }
 
+void APlayer::DebugMsgUpdate(float _DeltaTime)
+{
+	{
+		std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player Velocity : {}\n", Velocity.ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player OnGround : {}\n", OnGroundValue == true ? "true" : "false");
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player CurState : {}\n", CurStateName);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player PrevState : {}\n", PrevStateName);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+}
+
 bool APlayer::IsPressArrowKey()
 {
 	return IsPress(VK_LEFT) || IsPress(VK_RIGHT);
@@ -97,18 +105,18 @@ bool APlayer::IsPressArrowKey()
 
 bool APlayer::IsDirectionLeft() const
 {
-	return Direction == EDirection::Left;
+	return Direction == EEngineDir::Left;
 }
 
 void APlayer::RefreshDirection()
 {
 	if (true == IsPress(VK_RIGHT))
 	{
-		Direction = EDirection::Right;
+		Direction = EEngineDir::Right;
 	}
 	else if (true == IsPress(VK_LEFT))
 	{
-		Direction = EDirection::Left;
+		Direction = EEngineDir::Left;
 	}
 }
 

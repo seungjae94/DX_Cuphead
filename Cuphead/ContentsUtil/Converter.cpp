@@ -40,6 +40,21 @@ FVector UConverter::ConvDirectionToFVector(EDirection _Direction)
 	return Result;
 }
 
+FVector UConverter::ConvEngineDirToFVector(EEngineDir _Direction)
+{
+	if (EEngineDir::Left == _Direction)
+	{
+		return ConvDirectionToFVector(EDirection::Left);
+	}
+	else if (EEngineDir::Right == _Direction)
+	{
+		return ConvDirectionToFVector(EDirection::Right);
+	}
+
+	MsgBoxAssert("EEngineDir을 잘못 설정했습니다.");
+	return FVector::Zero;
+}
+
 UConverter::UConverter()
 {
 }
