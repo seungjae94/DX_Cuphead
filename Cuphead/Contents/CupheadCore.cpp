@@ -86,11 +86,6 @@ void UCupheadCore::LoadResources()
 		}
 
 		UEngineSprite::CreateCutting(GImageName::PlayerIdle, 5, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerAimUp, 5, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerAimHalfUp, 5, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerAimForward, 5, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerAimHalfDown, 5, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerAimDown, 5, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerJump, 8, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerDash, 8, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerSit, 5, 1);

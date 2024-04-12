@@ -40,11 +40,6 @@ namespace GImageName
 
 	// 플레이어
 	const std::string PlayerIdle = "player_idle.png";
-	const std::string PlayerAimUp = "player_aim_up.png";
-	const std::string PlayerAimHalfUp = "player_aim_halfup.png";
-	const std::string PlayerAimForward = "player_aim_forward.png";
-	const std::string PlayerAimHalfDown = "player_aim_halfdown.png";
-	const std::string PlayerAimDown = "player_aim_down.png";
 	const std::string PlayerShootUp = "player_shoot_up";
 	const std::string PlayerShootHalfUp = "player_shoot_halfup";
 	const std::string PlayerShootForward = "player_shoot_forward";
@@ -85,11 +80,6 @@ namespace GAnimName
 
 	// 플레이어
 	const std::string PlayerIdle = "player_idle";
-	const std::string PlayerAimUp = "player_aim_up";
-	const std::string PlayerAimHalfUp = "player_aim_halfup";
-	const std::string PlayerAimForward = "player_aim_forward";
-	const std::string PlayerAimHalfDown = "player_aim_halfdown";
-	const std::string PlayerAimDown = "player_aim_down";
 	const std::string PlayerShootUp = "player_shoot_up";
 	const std::string PlayerShootHalfUp = "player_shoot_halfup";
 	const std::string PlayerShootForward = "player_shoot_forward";

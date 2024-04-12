@@ -4,11 +4,6 @@
 void APlayer::AnimationInit()
 {
 	Renderer->CreateAnimation(GAnimName::PlayerIdle, GImageName::PlayerIdle, 1 / 12.0f);
-	Renderer->CreateAnimation(GAnimName::PlayerAimUp, GImageName::PlayerAimUp, 1 / 12.0f);
-	Renderer->CreateAnimation(GAnimName::PlayerAimHalfUp, GImageName::PlayerAimHalfUp, 1 / 12.0f);
-	Renderer->CreateAnimation(GAnimName::PlayerAimForward, GImageName::PlayerAimForward, 1 / 12.0f);
-	Renderer->CreateAnimation(GAnimName::PlayerAimHalfDown, GImageName::PlayerAimHalfDown, 1 / 12.0f);
-	Renderer->CreateAnimation(GAnimName::PlayerAimDown, GImageName::PlayerAimDown, 1 / 12.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerShootUp, GImageName::PlayerShootUp, 1 / 12.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerShootHalfUp, GImageName::PlayerShootHalfUp, 1 / 12.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerShootForward, GImageName::PlayerShootForward, 1 / 12.0f);
