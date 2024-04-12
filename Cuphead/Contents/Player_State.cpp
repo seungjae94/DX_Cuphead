@@ -61,7 +61,7 @@ void APlayer::Idle(float _DeltaTime)
 
 	if (true == IsDown('Z'))
 	{
-		StateManager.ChangeState(GStateName::Jump);
+		ChangeState(GStateName::Jump);
 		return;
 	}
 

@@ -56,11 +56,14 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 
 	FVector PrevPos = GetActorLocation();
 	AddActorLocation(Velocity * _DeltaTime);
+	FVector NextPos = GetActorLocation();
 
 	if (true == CheckCollision(FVector::Left)
 		|| true == CheckCollision(FVector::Right))
 	{
-		SetActorLocation(PrevPos);
+		FVector TargetPos = NextPos;
+		TargetPos.X = PrevPos.X;
+		SetActorLocation(TargetPos);
 	}
 
 	// 바닥 충돌 체크
