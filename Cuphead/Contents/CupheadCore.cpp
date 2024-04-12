@@ -85,20 +85,16 @@ void UCupheadCore::LoadResources()
 			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
 		}
 
-		UEngineSprite::CreateCutting(GImageName::PlayerLeftIdle, 5, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerRightIdle, 5, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerLeftJump, 8, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerRightJump, 8, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerLeftDash, 8, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerRightDash, 8, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerLeftShoot, 3, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerRightShoot, 3, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerLeftRun, 16, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerRightRun, 16, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerLeftRunShoot, 16, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerRightRunShoot, 16, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerLeftSit, 5, 1);
-		UEngineSprite::CreateCutting(GImageName::PlayerRightSit, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerIdle, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerAimUp, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerAimHalfUp, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerAimForward, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerAimHalfDown, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerAimDown, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerJump, 8, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerDash, 8, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerSit, 5, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerRun, 16, 1);
 
 		UEngineSprite::CreateCutting(GImageName::BulletSpawn, 4, 1);
 	}

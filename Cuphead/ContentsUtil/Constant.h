@@ -39,20 +39,23 @@ namespace GImageName
 	const std::string OverworldCharUpWalk = "overworld_char_up_walk";
 
 	// 플레이어
-	const std::string PlayerLeftIdle = "player_left_idle.png";
-	const std::string PlayerRightIdle = "player_right_idle.png";
-	const std::string PlayerLeftJump = "player_left_jump.png";
-	const std::string PlayerRightJump = "player_right_jump.png";
-	const std::string PlayerLeftDash = "player_left_dash.png";
-	const std::string PlayerRightDash = "player_right_dash.png";
-	const std::string PlayerLeftShoot = "player_left_shoot.png";
-	const std::string PlayerRightShoot = "player_right_shoot.png";
-	const std::string PlayerLeftRun = "player_left_run.png";
-	const std::string PlayerRightRun = "player_right_run.png";
-	const std::string PlayerLeftRunShoot = "player_left_run_shoot.png";
-	const std::string PlayerRightRunShoot = "player_right_run_shoot.png";
-	const std::string PlayerLeftSit = "player_left_sit.png";
-	const std::string PlayerRightSit = "player_right_sit.png";
+	const std::string PlayerIdle = "player_idle.png";
+	const std::string PlayerAimUp = "player_aim_up.png";
+	const std::string PlayerAimHalfUp = "player_aim_halfup.png";
+	const std::string PlayerAimForward = "player_aim_forward.png";
+	const std::string PlayerAimHalfDown = "player_aim_halfdown.png";
+	const std::string PlayerAimDown = "player_aim_down.png";
+	const std::string PlayerShootUp = "player_shoot_up";
+	const std::string PlayerShootHalfUp = "player_shoot_halfup";
+	const std::string PlayerShootForward = "player_shoot_forward";
+	const std::string PlayerShootHalfDown = "player_shoot_halfdown";
+	const std::string PlayerShootDown = "player_shoot_down";
+	const std::string PlayerRun = "player_run.png";
+	const std::string PlayerRunShootHalfUp = "player_run_shoot_halfup";
+	const std::string PlayerRunShootForward = "player_run_shoot_forward";
+	const std::string PlayerJump = "player_jump.png";
+	const std::string PlayerDash = "player_dash.png";
+	const std::string PlayerSit = "player_sit.png";
 
 	// 총알
 	const std::string BulletSpawn = "bullet_spawn.png";
@@ -81,20 +84,23 @@ namespace GAnimName
 	const std::string OverworldCharRightWalk = "RightWalk";
 
 	// 플레이어
-	const std::string PlayerLeftIdle = "player_left_idle";
-	const std::string PlayerRightIdle = "player_right_idle";
-	const std::string PlayerLeftJump = "player_left_jump";
-	const std::string PlayerRightJump = "player_right_jump";
-	const std::string PlayerLeftDash = "player_left_dash";
-	const std::string PlayerRightDash = "player_right_dash";
-	const std::string PlayerLeftShoot = "player_left_shoot";
-	const std::string PlayerRightShoot = "player_right_shoot";
-	const std::string PlayerLeftRun = "player_left_run";
-	const std::string PlayerRightRun = "player_right_run";
-	const std::string PlayerLeftRunShoot = "player_left_run_shoot";
-	const std::string PlayerRightRunShoot = "player_right_run_shoot";
-	const std::string PlayerLeftSit = "player_left_sit";
-	const std::string PlayerRightSit = "player_right_sit";
+	const std::string PlayerIdle = "player_idle";
+	const std::string PlayerAimUp = "player_aim_up";
+	const std::string PlayerAimHalfUp = "player_aim_halfup";
+	const std::string PlayerAimForward = "player_aim_forward";
+	const std::string PlayerAimHalfDown = "player_aim_halfdown";
+	const std::string PlayerAimDown = "player_aim_down";
+	const std::string PlayerShootUp = "player_shoot_up";
+	const std::string PlayerShootHalfUp = "player_shoot_halfup";
+	const std::string PlayerShootForward = "player_shoot_forward";
+	const std::string PlayerShootHalfDown = "player_shoot_halfdown";
+	const std::string PlayerShootDown = "player_shoot_down";
+	const std::string PlayerRun = "player_run";
+	const std::string PlayerRunShootHalfUp = "player_run_shoot_halfup";
+	const std::string PlayerRunShootForward = "player_run_shoot_forward";
+	const std::string PlayerJump = "player_jump";
+	const std::string PlayerDash = "player_dash";
+	const std::string PlayerSit = "player_sit";
 
 	// 총알
 	const std::string BulletSpawn = "bullet_spawn";

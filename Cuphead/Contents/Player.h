@@ -59,7 +59,7 @@ private:
 
 	// ป๓ลย
 	void StateInit();
-	void ChangeState(std::string_view _StateName);
+	void ChangeState(std::string _StateName);
 
 	void IdleStart();
 	void Idle(float _DeltaTime);

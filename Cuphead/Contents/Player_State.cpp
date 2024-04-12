@@ -31,7 +31,7 @@ void APlayer::StateInit()
 	StateManager.SetEndFunction(GStateName::Sit, std::bind(&APlayer::SitEnd, this));
 }
 
-void APlayer::ChangeState(std::string_view _StateName)
+void APlayer::ChangeState(std::string _StateName)
 {
 	PrevStateName = CurStateName;
 	StateManager.ChangeState(_StateName);
@@ -41,7 +41,8 @@ void APlayer::ChangeState(std::string_view _StateName)
 
 void APlayer::IdleStart()
 {
-	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftIdle, GAnimName::PlayerRightIdle);
+	Renderer->ChangeAnimation(GAnimName::PlayerIdle);
+	//ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerIdle, GAnimName::PlayerRightIdle);
 	Velocity = FVector::Zero;
 }
 
@@ -49,7 +50,7 @@ void APlayer::Idle(float _DeltaTime)
 {
 	if (true == IsPressArrowKey())
 	{
-		StateManager.ChangeState(GStateName::Run);
+		ChangeState(GStateName::Run);
 		return;
 	}
 
@@ -66,13 +67,13 @@ void APlayer::Idle(float _DeltaTime)
 
 	if (true == IsDown(VK_SHIFT))
 	{
-		StateManager.ChangeState(GStateName::Dash);
+		ChangeState(GStateName::Dash);
 		return;
 	}
 
 	if (true == IsPress(VK_DOWN))
 	{
-		StateManager.ChangeState(GStateName::Sit);
+		ChangeState(GStateName::Sit);
 		return;
 	}
 }
@@ -83,24 +84,17 @@ void APlayer::IdleEnd()
 
 void APlayer::RunStart()
 {
-	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftRun, GAnimName::PlayerRightRun);
+	Renderer->ChangeAnimation(GAnimName::PlayerRun);
+
+	//ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftRun, GAnimName::PlayerRightRun);
 }
 
 void APlayer::Run(float _DeltaTime)
 {
 	if (false == IsPressArrowKey())
 	{
-		StateManager.ChangeState(GStateName::Idle);
+		ChangeState(GStateName::Idle);
 		return;
-	}
-
-	EEngineDir PrevDirection = Direction;
-
-	RefreshDirection();
-
-	if (PrevDirection != Direction)
-	{
-		ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftRun, GAnimName::PlayerRightRun);
 	}
 
 	Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * RunSpeed;
@@ -112,19 +106,19 @@ void APlayer::Run(float _DeltaTime)
 
 	if (true == IsDown('Z'))
 	{
-		StateManager.ChangeState(GStateName::Jump);
+		ChangeState(GStateName::Jump);
 		return;
 	}
 
 	if (true == IsDown(VK_SHIFT))
 	{
-		StateManager.ChangeState(GStateName::Dash);
+		ChangeState(GStateName::Dash);
 		return;
 	}
 
 	if (true == IsPress(VK_DOWN))
 	{
-		StateManager.ChangeState(GStateName::Sit);
+		ChangeState(GStateName::Sit);
 		return;
 	}
 }
@@ -135,7 +129,8 @@ void APlayer::RunEnd()
 
 void APlayer::JumpStart()
 {
-	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftJump, GAnimName::PlayerRightJump);
+	Renderer->ChangeAnimation(GAnimName::PlayerJump);
+	//ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftJump, GAnimName::PlayerRightJump);
 	Velocity += JumpImpulse;
 }
 
@@ -143,7 +138,7 @@ void APlayer::Jump(float _DeltaTime)
 {
 	if (true == OnGroundValue)
 	{
-		StateManager.ChangeState(GStateName::Idle);
+		ChangeState(GStateName::Idle);
 		return;
 	}
 
@@ -166,7 +161,7 @@ void APlayer::Jump(float _DeltaTime)
 
 	if (true == IsDown(VK_SHIFT))
 	{
-		StateManager.ChangeState(GStateName::Dash);
+		ChangeState(GStateName::Dash);
 		return;
 	}
 }
@@ -177,15 +172,17 @@ void APlayer::JumpEnd()
 
 void APlayer::DashStart()
 {
-	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftDash, GAnimName::PlayerRightDash);
+	Renderer->ChangeAnimation(GAnimName::PlayerDash);
+	//ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftDash, GAnimName::PlayerRightDash);
 	Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * DashSpeed;
 	Velocity.Y = 0.0f;
 	ApplyGravity = false;
 	DelayCallBack(DashTime, [this]() {
 		ApplyGravity = true;
 		Velocity -= JumpImpulse;
-		StateManager.ChangeState(PrevStateName);
-		});
+		UEngineDebug::OutPutDebugText(PrevStateName);
+		ChangeState(PrevStateName);
+	});
 }
 
 void APlayer::Dash(float _DeltaTime)
@@ -202,7 +199,8 @@ void APlayer::DashEnd()
 
 void APlayer::SitStart()
 {
-	ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftSit, GAnimName::PlayerRightSit);
+	Renderer->ChangeAnimation(GAnimName::PlayerSit);
+	//ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftSit, GAnimName::PlayerRightSit);
 	Velocity = FVector::Zero;
 }
 
@@ -215,13 +213,13 @@ void APlayer::Sit(float _DeltaTime)
 
 	if (true == IsPress('Z'))
 	{
-		StateManager.ChangeState(GStateName::Jump);
+		ChangeState(GStateName::Jump);
 		return;
 	}
 
 	if (false == IsPress(VK_DOWN))
 	{
-		StateManager.ChangeState(GStateName::Idle);
+		ChangeState(GStateName::Idle);
 		return;
 	}
 }

@@ -16,7 +16,7 @@ void APlayer::BeginPlay()
 
 	SetActorLocation({ 0.0f, -185.0f, 0.0f });
 
-	Renderer->SetSprite(GImageName::PlayerRightIdle);
+	Renderer->SetSprite(GImageName::PlayerIdle);
 	Renderer->SetOrder(ERenderingOrder::Character);
 	Renderer->SetAutoSize(1.0f, true);
 
@@ -32,6 +32,10 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	FireTime -= _DeltaTime;
+	EEngineDir PrevDirection = Direction;
+	RefreshDirection();
+	Renderer->SetDir(Direction);
+
 	StateManager.Update(_DeltaTime);
 	PhysicsUpdate(_DeltaTime);
 	DebugMsgUpdate(_DeltaTime);
