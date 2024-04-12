@@ -1,5 +1,7 @@
 #pragma once
 
+class ANoise;
+
 class AOverworldPlayer : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -12,6 +14,7 @@ public:
 	AOverworldPlayer& operator=(const AOverworldPlayer& _Other) = delete;
 	AOverworldPlayer& operator=(AOverworldPlayer&& _Other) noexcept = delete;
 
+	void SetNoise(ANoise* _Noise);
 
 protected:
 
@@ -29,14 +32,18 @@ private:
 	const float MoveSpeed = 200.0f;
 	std::string PrevAnimName = "";
 
+	ANoise* Noise = nullptr;
+
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-
+	void DebugMsgUpdate(float _DeltaTime);
 private:
 	void AnimationInit();
 	void StateInit();
 	void BringCamera();
+	void BringNoise();
 
+private:
 	// 상태 함수
 	void IdleStart();
 	void Idle(float _DeltaTime);

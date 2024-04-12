@@ -1,5 +1,7 @@
 #pragma once
 
+class ANoise;
+
 class ACupheadGameMode : public AGameMode
 {
 	GENERATED_BODY(AActor)
@@ -13,6 +15,7 @@ public:
 	ACupheadGameMode& operator=(ACupheadGameMode&& _Other) noexcept = delete;
 
 protected:
+	ANoise* Noise = nullptr;
 	void BeginPlay() override;
 
 private:

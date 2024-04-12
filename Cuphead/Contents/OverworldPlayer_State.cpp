@@ -79,6 +79,9 @@ void AOverworldPlayer::Walk(float _DeltaTime)
 
 	// 카메라 이동 처리
 	BringCamera();
+
+	// 노이즈 이동 처리
+	BringNoise();
 }
 
 void AOverworldPlayer::WalkEnd()

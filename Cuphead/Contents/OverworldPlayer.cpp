@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "OverworldPlayer.h"
+#include "Noise.h"
 
 AOverworldPlayer::AOverworldPlayer()
 {
@@ -12,6 +13,11 @@ AOverworldPlayer::AOverworldPlayer()
 
 AOverworldPlayer::~AOverworldPlayer()
 {
+}
+
+void AOverworldPlayer::SetNoise(ANoise* _Noise)
+{
+	Noise = _Noise;
 }
 
 void AOverworldPlayer::BeginPlay()
@@ -36,8 +42,29 @@ void AOverworldPlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	StateManager.Update(_DeltaTime);
+
+	DebugMsgUpdate(_DeltaTime);
 }
 
+void AOverworldPlayer::DebugMsgUpdate(float _DeltaTime)
+{
+	{
+		std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
+		std::string Msg = std::format("Camera Position : {}\n", CameraPos.ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		float FPS = 1 / _DeltaTime;
+		std::string Msg = std::format("FPS : {}\n", std::to_string(FPS));
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+}
 
 void AOverworldPlayer::BringCamera()
 {
@@ -45,4 +72,9 @@ void AOverworldPlayer::BringCamera()
 	FVector CameraLocation = GetActorLocation();
 	CameraLocation.Z = CameraZ;
 	GetWorld()->GetMainCamera()->SetActorLocation(CameraLocation);
+}
+
+void AOverworldPlayer::BringNoise()
+{
+	Noise->SetActorLocation(GetActorLocation());
 }

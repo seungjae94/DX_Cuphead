@@ -15,7 +15,8 @@ void AOverworldGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorld()->SpawnActor<AOverworldPlayer>("Player");
+	std::shared_ptr<AOverworldPlayer> Player = GetWorld()->SpawnActor<AOverworldPlayer>("Player");
+	Player->SetNoise(Noise);
 	Map = GetWorld()->SpawnActor<AOverworldMap>("Map");
 
 	InputOn();
@@ -28,7 +29,7 @@ void AOverworldGameMode::Tick(float _DeltaTime)
 	// 보스 레벨로 이동
 	if (true == IsDown('B'))
 	{
-		GEngine->ChangeLevel(GLevelName::BossDragonLevel);
+		GEngine->ChangeLevel(GLevelName::BossFarmLevel);
 	}
 
 	// 충돌맵 온오프
