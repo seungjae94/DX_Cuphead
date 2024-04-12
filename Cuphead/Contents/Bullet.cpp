@@ -7,7 +7,7 @@ ABullet::ABullet()
 	SetRoot(Root);
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetParent(Root);
+	Renderer->SetupAttachment(Root);
 }
 
 ABullet::~ABullet()

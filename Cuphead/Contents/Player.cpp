@@ -7,7 +7,7 @@ APlayer::APlayer()
 	SetRoot(Root);
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetParent(Root);
+	Renderer->SetupAttachment(Root);
 }
 
 APlayer::~APlayer()

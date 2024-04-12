@@ -7,22 +7,22 @@ ABossFarmMap::ABossFarmMap()
 	SetRoot(Root);
 
 	Back0 = CreateDefaultSubObject<USpriteRenderer>("Back0");
-	Back0->SetParent(Root);
+	Back0->SetupAttachment(Root);
 
 	Back1 = CreateDefaultSubObject<USpriteRenderer>("Back1");
-	Back1->SetParent(Root);
+	Back1->SetupAttachment(Root);
 
 	Back2 = CreateDefaultSubObject<USpriteRenderer>("Back2");
-	Back2->SetParent(Root);
+	Back2->SetupAttachment(Root);
 
 	Back3 = CreateDefaultSubObject<USpriteRenderer>("Back3");
-	Back3->SetParent(Root);
+	Back3->SetupAttachment(Root);
 
 	Front = CreateDefaultSubObject<USpriteRenderer>("Front");
-	Front->SetParent(Root);
+	Front->SetupAttachment(Root);
 
 	Col = CreateDefaultSubObject<USpriteRenderer>("Col");
-	Col->SetParent(Root);
+	Col->SetupAttachment(Root);
 }
 
 ABossFarmMap::~ABossFarmMap()

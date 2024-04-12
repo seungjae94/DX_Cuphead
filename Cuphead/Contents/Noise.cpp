@@ -7,7 +7,7 @@ ANoise::ANoise()
 	SetRoot(Root);
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetParent(Root);
+	Renderer->SetupAttachment(Root);
 }
 
 ANoise::~ANoise()

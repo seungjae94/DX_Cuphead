@@ -7,10 +7,10 @@ ABossDragonMap::ABossDragonMap()
 	SetRoot(Root);
 
 	Background0 = CreateDefaultSubObject<USpriteRenderer>("Background0");
-	Background0->SetParent(Root);
+	Background0->SetupAttachment(Root);
 
 	Background1 = CreateDefaultSubObject<USpriteRenderer>("Background1");
-	Background1->SetParent(Root);
+	Background1->SetupAttachment(Root);
 }
 
 ABossDragonMap::~ABossDragonMap()

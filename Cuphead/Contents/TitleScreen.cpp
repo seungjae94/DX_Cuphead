@@ -7,10 +7,10 @@ ATitleScreen::ATitleScreen()
 	SetRoot(Root);
 
 	Background = CreateDefaultSubObject<USpriteRenderer>("Background");
-	Background->SetParent(Root);
+	Background->SetupAttachment(Root);
 
 	Characters = CreateDefaultSubObject<USpriteRenderer>("Characters");
-	Characters->SetParent(Root);
+	Characters->SetupAttachment(Root);
 }
 
 ATitleScreen::~ATitleScreen() 

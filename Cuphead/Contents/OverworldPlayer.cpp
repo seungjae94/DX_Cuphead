@@ -7,7 +7,7 @@ AOverworldPlayer::AOverworldPlayer()
 	SetRoot(Root);
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetParent(Root);
+	Renderer->SetupAttachment(Root);
 }
 
 AOverworldPlayer::~AOverworldPlayer()

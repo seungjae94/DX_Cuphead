@@ -8,7 +8,7 @@ ATestPlayer::ATestPlayer()
 	SetRoot(Root);
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetParent(Root);
+	Renderer->SetupAttachment(Root);
 }
 
 ATestPlayer::~ATestPlayer()

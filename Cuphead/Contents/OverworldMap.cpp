@@ -7,13 +7,13 @@ AOverworldMap::AOverworldMap()
 	SetRoot(Root);
 
 	Back = CreateDefaultSubObject<USpriteRenderer>("Back");
-	Back->SetParent(Root);
+	Back->SetupAttachment(Root);
 
 	Front = CreateDefaultSubObject<USpriteRenderer>("Front");
-	Front->SetParent(Root);
+	Front->SetupAttachment(Root);
 
 	Col = CreateDefaultSubObject<USpriteRenderer>("Col");
-	Col->SetParent(Root);
+	Col->SetupAttachment(Root);
 }
 
 AOverworldMap::~AOverworldMap()
