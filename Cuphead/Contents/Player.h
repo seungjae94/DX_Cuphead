@@ -17,9 +17,11 @@ public:
 protected:
 
 private:
-	// Rendering
+	// ÄÄÆ÷³ÍÆ®
+	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 
+private:
 	// State
 	std::string CurStateName = GStateName::Idle;
 	std::string PrevStateName = GStateName::Idle;

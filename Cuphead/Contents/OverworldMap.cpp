@@ -3,9 +3,17 @@
 
 AOverworldMap::AOverworldMap()
 {
+	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+	SetRoot(Root);
+
 	Back = CreateDefaultSubObject<USpriteRenderer>("Back");
+	Back->SetParent(Root);
+
 	Front = CreateDefaultSubObject<USpriteRenderer>("Front");
+	Front->SetParent(Root);
+
 	Col = CreateDefaultSubObject<USpriteRenderer>("Col");
+	Col->SetParent(Root);
 }
 
 AOverworldMap::~AOverworldMap()

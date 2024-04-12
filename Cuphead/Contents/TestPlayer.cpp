@@ -4,8 +4,11 @@
 
 ATestPlayer::ATestPlayer()
 {
+	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+	SetRoot(Root);
+
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetSprite("test_rect.png");
+	Renderer->SetParent(Root);
 }
 
 ATestPlayer::~ATestPlayer()
@@ -16,8 +19,9 @@ void ATestPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	Renderer->Transform.SetPosition(FVector::Zero);
-	Renderer->Transform.SetScale({ 50.0f, 50.0f, 1.0f });
+	Renderer->SetSprite("test_rect.png");
+	Renderer->SetPosition(FVector::Zero);
+	Renderer->SetScale({ 50.0f, 50.0f, 1.0f });
 }
 
 void ATestPlayer::Tick(float _DeltaTime)

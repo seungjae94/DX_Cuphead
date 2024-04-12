@@ -3,8 +3,14 @@
 
 ABossDragonMap::ABossDragonMap()
 {
+	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+	SetRoot(Root);
+
 	Background0 = CreateDefaultSubObject<USpriteRenderer>("Background0");
+	Background0->SetParent(Root);
+
 	Background1 = CreateDefaultSubObject<USpriteRenderer>("Background1");
+	Background1->SetParent(Root);
 }
 
 ABossDragonMap::~ABossDragonMap()

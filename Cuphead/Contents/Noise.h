@@ -16,6 +16,7 @@ protected:
 
 
 private:
+	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	
 	void BeginPlay() override;

@@ -21,8 +21,12 @@ private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+private:
+	// ÄÄÆ÷³ÍÆ®
+	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 
+private:
 	float4 Color;
 	const float Speed = 200.0f;
 };

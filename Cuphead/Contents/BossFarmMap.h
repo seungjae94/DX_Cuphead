@@ -19,6 +19,7 @@ public:
 protected:
 
 private:
+	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Back0 = nullptr;
 	USpriteRenderer* Back1 = nullptr;
 	USpriteRenderer* Back2 = nullptr;

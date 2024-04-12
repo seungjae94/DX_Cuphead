@@ -2,7 +2,7 @@
 
 namespace GConstant
 {
-
+	const FVector WindowScale = { 1280.0f, 720.0f, 0.0f };
 };
 
 namespace GLevelName

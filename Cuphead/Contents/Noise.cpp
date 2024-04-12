@@ -3,7 +3,11 @@
 
 ANoise::ANoise()
 {
+	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+	SetRoot(Root);
+
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer->SetParent(Root);
 }
 
 ANoise::~ANoise()
@@ -17,10 +21,7 @@ void ANoise::BeginPlay()
 	//Renderer->SetMaterial("Noise");
 	Renderer->SetSprite(GImageName::Noise);
 	Renderer->SetOrder(ERenderingOrder::Noise);
-
-	SetActorLocation(FVector::Zero);
-	SetActorScale3D({1280.0f, 720.0f, 1.0f});
-
+	Renderer->SetScale(GConstant::WindowScale);
 	Renderer->CreateAnimation(GAnimName::Noise, GImageName::Noise, 0.05f);
 	Renderer->ChangeAnimation(GAnimName::Noise);
 }

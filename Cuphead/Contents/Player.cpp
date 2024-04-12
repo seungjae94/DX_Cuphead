@@ -3,7 +3,11 @@
 
 APlayer::APlayer()
 {
+	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+	SetRoot(Root);
+
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer->SetParent(Root);
 }
 
 APlayer::~APlayer()

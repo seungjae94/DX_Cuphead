@@ -16,7 +16,11 @@ public:
 protected:
 
 private:
+	// ÄÄÆ÷³ÍÆ®
+	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+
+private:
 	UStateManager StateManager;
 	EDirection Direction = EDirection::Down;
 	FVector DirectionVector = FVector::Down;

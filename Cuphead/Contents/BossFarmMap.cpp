@@ -3,12 +3,26 @@
 
 ABossFarmMap::ABossFarmMap()
 {
+	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+	SetRoot(Root);
+
 	Back0 = CreateDefaultSubObject<USpriteRenderer>("Back0");
+	Back0->SetParent(Root);
+
 	Back1 = CreateDefaultSubObject<USpriteRenderer>("Back1");
+	Back1->SetParent(Root);
+
 	Back2 = CreateDefaultSubObject<USpriteRenderer>("Back2");
+	Back2->SetParent(Root);
+
 	Back3 = CreateDefaultSubObject<USpriteRenderer>("Back3");
+	Back3->SetParent(Root);
+
 	Front = CreateDefaultSubObject<USpriteRenderer>("Front");
+	Front->SetParent(Root);
+
 	Col = CreateDefaultSubObject<USpriteRenderer>("Col");
+	Col->SetParent(Root);
 }
 
 ABossFarmMap::~ABossFarmMap()

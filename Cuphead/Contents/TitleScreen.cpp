@@ -3,8 +3,14 @@
 
 ATitleScreen::ATitleScreen() 
 {
+	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
+	SetRoot(Root);
+
 	Background = CreateDefaultSubObject<USpriteRenderer>("Background");
+	Background->SetParent(Root);
+
 	Characters = CreateDefaultSubObject<USpriteRenderer>("Characters");
+	Characters->SetParent(Root);
 }
 
 ATitleScreen::~ATitleScreen() 
@@ -16,12 +22,9 @@ void ATitleScreen::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D({ 1280.0f, 720.0f, 1.0f });
-
 	Background->SetOrder(ERenderingOrder::Back0);
 	Background->SetSprite(GImageName::TitleScreenBack);
 	Background->SetAutoSize(1.0f, true);
-	Background->Transform.SetPosition({ 0.0f, 0.0f, 0.0f });
 
 	Characters->SetOrder(ERenderingOrder::Front);
 	Characters->SetSprite(GImageName::TitleScreenCharacters);

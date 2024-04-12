@@ -1,7 +1,8 @@
 #pragma once
 
-class APotato
+class APotato : public AActor
 {
+	GENERATED_BODY(AActor)
 public:
 	APotato();
 	~APotato();
@@ -15,7 +16,8 @@ protected:
 
 
 private:
-
+	// ÄÄÆ÷³ÍÆ®
+	UDefaultSceneComponent* Root = nullptr;
 
 };
 

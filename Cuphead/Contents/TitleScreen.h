@@ -17,6 +17,7 @@ public:
 protected:
 
 private:
+	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Background = nullptr;
 	USpriteRenderer* Characters = nullptr;
 	float4 Color;

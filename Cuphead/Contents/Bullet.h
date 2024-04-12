@@ -17,7 +17,11 @@ public:
 protected:
 
 private:
+	// ÄÄÆ÷³ÍÆ®
+	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+	
+private:
 	UStateManager StateManager;
 	EDirection Direction = EDirection::Right;
 	const float Speed = 2000.0f;
