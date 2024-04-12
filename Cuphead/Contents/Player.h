@@ -49,9 +49,9 @@ private:
 	// Fire
 	const float FireDelay = 1 / 7.5f;
 	float FireTime = 0.0f;
-	const float FireRadius = 40.0f;
 	const float Atk = 10.0f; /*원작 총알의 데미지는 4*/
 	bool IsFire = false;
+	FTransform BulletSpawnTrans;
 
 	// Move
 	const float RunSpeed = 400.0f;
@@ -99,7 +99,15 @@ private:
 	void Sit(float _DeltaTime);
 	void SitEnd();
 
+private:
+	// 공격
 	void Fire();
+	FVector GetBulletSpawnLocation();
+	FVector GetBulletSpawnLocation_Jump();
+	FVector GetBulletSpawnLocation_Idle();
+	FVector GetBulletSpawnLocation_Run();
+	FVector GetBulletSpawnLocation_Sit();
+	EDirection GetBulletSpawnDirection();
 
 private:
 	// 유틸 함수
@@ -110,7 +118,5 @@ private:
 	void RefreshRunAnimation();
 
 	bool CheckCollision(const FVector& _ColPoint);
-	FVector GetBulletSpawnLocation();
-	EDirection GetBulletSpawnDirection();
 };
 

@@ -170,5 +170,8 @@
     <ClCompile Include="Potato.cpp">
       <Filter>Level\03. Boss Farm Level\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Player_Fire.cpp">
+      <Filter>Level\03. Boss Farm Level\Object</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
