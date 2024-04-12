@@ -135,6 +135,12 @@ bool APlayer::IsDirectionLeft() const
 
 void APlayer::RefreshDirection()
 {
+	// 대시 동작 중에는 방향을 전환하지 않는다.
+	if (GStateName::Dash == CurStateName)
+	{
+		return;
+	}
+
 	if (true == IsPress(VK_RIGHT))
 	{
 		Direction = EEngineDir::Right;
