@@ -47,15 +47,12 @@ void APlayer::IdleStart()
 
 void APlayer::Idle(float _DeltaTime)
 {
+	Fire();
+
 	if (true == IsPressArrowKey())
 	{
 		ChangeState(GStateName::Run);
 		return;
-	}
-
-	if (true == IsPress('X'))
-	{
-		Fire();
 	}
 
 	if (true == IsDown('Z'))
@@ -84,10 +81,34 @@ void APlayer::IdleEnd()
 void APlayer::RunStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerRun);
+	IsFire = false;
 }
 
 void APlayer::Run(float _DeltaTime)
 {
+	bool PrevIsFire = IsFire;
+
+	Fire();
+
+	if (PrevIsFire != IsFire)
+	{
+		if (true == IsFire)
+		{
+			if (true == IsPress(VK_UP))
+			{
+				Renderer->ChangeAnimation(GAnimName::PlayerRunShootHalfUp);
+			}
+			else
+			{
+				Renderer->ChangeAnimation(GAnimName::PlayerRunShootForward);
+			}
+		}
+		else
+		{
+			Renderer->ChangeAnimation(GAnimName::PlayerRun);
+		}
+	}
+
 	if (false == IsPressArrowKey())
 	{
 		ChangeState(GStateName::Idle);
@@ -95,11 +116,6 @@ void APlayer::Run(float _DeltaTime)
 	}
 
 	Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * RunSpeed;
-
-	if (true == IsPress('X'))
-	{
-		Fire();
-	}
 
 	if (true == IsDown('Z'))
 	{
@@ -138,6 +154,8 @@ void APlayer::JumpStart()
 
 void APlayer::Jump(float _DeltaTime)
 {
+	Fire();
+
 	if (true == OnGroundValue)
 	{
 		ChangeState(GStateName::Idle);
@@ -155,11 +173,6 @@ void APlayer::Jump(float _DeltaTime)
 	else
 	{
 		Velocity.X = 0.0f;
-	}
-
-	if (true == IsPress('X'))
-	{
-		Fire();
 	}
 
 	if (true == IsDown(VK_SHIFT) && false == IsDashed)
@@ -190,10 +203,7 @@ void APlayer::DashStart()
 
 void APlayer::Dash(float _DeltaTime)
 {
-	if (true == IsPress('X'))
-	{
-		Fire();
-	}
+	Fire();
 }
 
 void APlayer::DashEnd()
@@ -203,16 +213,12 @@ void APlayer::DashEnd()
 void APlayer::SitStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerSit);
-	//ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftSit, GAnimName::PlayerRightSit);
 	Velocity = FVector::Zero;
 }
 
 void APlayer::Sit(float _DeltaTime)
 {
-	if (true == IsPress('X'))
-	{
-		Fire();
-	}
+	Fire();
 
 	if (true == IsPress('Z'))
 	{
@@ -233,6 +239,14 @@ void APlayer::SitEnd()
 
 void APlayer::Fire()
 {
+	if (false == IsPress('X'))
+	{
+		IsFire = false;
+		return;
+	}
+
+	IsFire = true;
+
 	if (FireTime > 0.0f)
 	{
 		return;

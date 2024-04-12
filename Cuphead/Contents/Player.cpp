@@ -103,6 +103,11 @@ void APlayer::DebugMsgUpdate(float _DeltaTime)
 		std::string Msg = std::format("Player PrevState : {}\n", PrevStateName);
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+
+	{
+		std::string Msg = std::format("Player IsFire : {}\n", IsFire == true ? "true" : "false");
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
 
 bool APlayer::IsPressArrowKey()

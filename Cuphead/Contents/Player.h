@@ -40,6 +40,7 @@ private:
 	float FireTime = 0.0f;
 	const float FireRadius = 40.0f;
 	const float Atk = 10.0f; /*원작 총알의 데미지는 4*/
+	bool IsFire = false;
 
 	// Move
 	const float RunSpeed = 400.0f;
