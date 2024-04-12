@@ -1,11 +1,11 @@
 #include "PreCompile.h"
 #include "StateManager.h"
 
-UStateManager::UStateManager() 
+UStateManager::UStateManager()
 {
 }
 
-UStateManager::~UStateManager() 
+UStateManager::~UStateManager()
 {
 }
 
@@ -27,6 +27,8 @@ void UStateManager::ChangeState(std::string_view _Name)
 	{
 		MsgBoxAssert("존재하지 않는 스테이트로 체인지 하려고 했습니다." + std::string(_Name));
 	}
+
+	CurStateName = _Name;
 }
 
 void UStateManager::Update(float _Time)

@@ -23,6 +23,7 @@ void APlayer::BeginPlay()
 	Renderer->SetSprite(GImageName::PlayerIdle);
 	Renderer->SetOrder(ERenderingOrder::Character);
 	Renderer->SetAutoSize(1.0f, true);
+	Renderer->SetPivot(EPivot::BOT);
 
 	AnimationInit();
 	StateInit();
@@ -66,8 +67,7 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 	AddActorLocation(Velocity * _DeltaTime);
 	FVector NextPos = GetActorLocation();
 
-	if (true == CheckCollision(FVector::Left)
-		|| true == CheckCollision(FVector::Right))
+	if (true == CheckCollision(ColLeftPoint) || true == CheckCollision(ColRightPoint))
 	{
 		FVector TargetPos = NextPos;
 		TargetPos.X = PrevPos.X;
@@ -75,7 +75,7 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 	}
 
 	// 바닥 충돌 체크
-	if (true == CheckCollision(FVector::Down))
+	if (true == CheckCollision(ColBotPoint))
 	{
 		OnGroundValue = true;
 	}
@@ -89,6 +89,11 @@ void APlayer::DebugMsgUpdate(float _DeltaTime)
 {
 	{
 		std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player Renderer Scale : {}\n", Renderer->GetWorldScale().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
@@ -140,15 +145,15 @@ void APlayer::RefreshDirection()
 	}
 }
 
-bool APlayer::CheckCollision(const FVector& _Direction)
+bool APlayer::CheckCollision(const FVector& _ColPoint)
 {
 	std::shared_ptr<UEngineTexture> MapTex = UEngineTexture::FindRes("boss_farm_map_col.png");
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector MapTexLeftTop = -MapTexScale.Half2D();
 	MapTexLeftTop.Y = -MapTexLeftTop.Y;
-	FVector CollisionCenterPos = GetActorLocation() + ColCenter;
-	FVector TestPixel = CollisionCenterPos + _Direction * ColRadius - MapTexLeftTop;
+	FVector ColTestPoint = GetActorLocation() + _ColPoint;
+	FVector TestPixel = ColTestPoint - MapTexLeftTop;
 	TestPixel.Y = -TestPixel.Y;
 	Color8Bit ColMapColor = MapTex->GetColor(TestPixel, Color8Bit::Black);
 	return ColMapColor == Color8Bit::Black;

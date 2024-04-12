@@ -41,8 +41,9 @@ private:
 	bool OnGroundValue = true;
 	bool ApplyGravity = true;
 
-	FVector ColCenter = FVector::Down * 50.0f;
-	const float ColRadius = 40.0f;
+	FVector ColBotPoint = FVector::Zero;
+	FVector ColLeftPoint = { -30.0f, 50.0f, 0.0f };
+	FVector ColRightPoint = { 30.0f, 50.0f, 0.0f };
 
 	// Fire
 	const float FireDelay = 1 / 7.5f;
@@ -100,7 +101,7 @@ private:
 	bool IsPressArrowKey();
 	bool IsDirectionLeft() const;
 	void RefreshDirection();
-	bool CheckCollision(const FVector& _Direction);
+	bool CheckCollision(const FVector& _ColPoint);
 	FVector GetBulletSpawnLocation();
 	EDirection GetBulletSpawnDirection();
 };

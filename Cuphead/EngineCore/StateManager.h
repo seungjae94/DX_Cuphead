@@ -24,7 +24,7 @@ public:
 	UStateManager& operator=(UStateManager&& _Other) noexcept = delete;
 
 	void CreateState(std::string_view _Name);
-	void SetFunction(std::string_view _Name, 
+	void SetFunction(std::string_view _Name,
 		std::function<void()> _Start = nullptr,
 		std::function<void(float)> _Update = nullptr,
 		std::function<void()> _End = nullptr
@@ -38,6 +38,11 @@ public:
 
 	void ChangeState(std::string_view _Name);
 
+	inline std::string GetCurStateName() const
+	{
+		return CurStateName;
+	}
+
 	void Update(float _Time);
 
 protected:
@@ -46,5 +51,6 @@ protected:
 private:
 	std::map<std::string, std::shared_ptr<UState>> States;
 	std::shared_ptr<UState> CurState = nullptr;
+	std::string CurStateName;
 };
 
