@@ -114,6 +114,7 @@ namespace GAnimName
 namespace GStateName
 {
 	const std::string Idle = "Idle";
+	const std::string Aim = "Aim";
 	const std::string Walk = "Walk";
 	const std::string Run = "Run";
 	const std::string Sit = "Sit";
@@ -141,6 +142,7 @@ enum class ERenderingOrder
 
 enum class EDirection
 {
+	Zero,
 	Right,
 	RightUp,
 	Up,

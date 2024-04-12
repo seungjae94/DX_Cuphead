@@ -55,6 +55,44 @@ FVector UConverter::ConvEngineDirToFVector(EEngineDir _Direction)
 	return FVector::Zero;
 }
 
+EDirection UConverter::ConvActorInputToDirection(AActor* _Actor)
+{
+	if (true == _Actor->IsPress(VK_RIGHT))
+	{
+		if (true == _Actor->IsPress(VK_UP))
+		{
+			return EDirection::RightUp;
+		}
+		else if (true == _Actor->IsPress(VK_DOWN))
+		{
+			return EDirection::RightDown;
+		}
+		return EDirection::Right;
+	}
+	else if (true == _Actor->IsPress(VK_LEFT))
+	{
+		if (true == _Actor->IsPress(VK_UP))
+		{
+			return EDirection::LeftUp;
+		}
+		else if (true == _Actor->IsPress(VK_DOWN))
+		{
+			return EDirection::LeftDown;
+		}
+		return EDirection::Left;
+	}
+	else if (true == _Actor->IsPress(VK_UP))
+	{
+		return EDirection::Up;
+	}
+	else if (true == _Actor->IsPress(VK_DOWN))
+	{
+		return EDirection::Down;
+	}
+	
+	return EDirection::Zero;
+}
+
 UConverter::UConverter()
 {
 }

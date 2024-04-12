@@ -38,7 +38,6 @@ void APlayer::ChangeState(std::string _StateName)
 	CurStateName = _StateName;
 }
 
-
 void APlayer::IdleStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerIdle);
@@ -48,6 +47,7 @@ void APlayer::IdleStart()
 void APlayer::Idle(float _DeltaTime)
 {
 	Fire();
+	RefreshIdleAnimation();
 
 	if (true == IsPressArrowKey())
 	{
@@ -86,28 +86,8 @@ void APlayer::RunStart()
 
 void APlayer::Run(float _DeltaTime)
 {
-	bool PrevIsFire = IsFire;
-
 	Fire();
-
-	if (PrevIsFire != IsFire)
-	{
-		if (true == IsFire)
-		{
-			if (true == IsPress(VK_UP))
-			{
-				Renderer->ChangeAnimation(GAnimName::PlayerRunShootHalfUp);
-			}
-			else
-			{
-				Renderer->ChangeAnimation(GAnimName::PlayerRunShootForward);
-			}
-		}
-		else
-		{
-			Renderer->ChangeAnimation(GAnimName::PlayerRun);
-		}
-	}
+	RefreshRunAnimation();
 
 	if (false == IsPressArrowKey())
 	{
@@ -198,7 +178,7 @@ void APlayer::DashStart()
 		Velocity -= JumpImpulse;
 		UEngineDebug::OutPutDebugText(PrevStateName);
 		ChangeState(PrevStateName);
-	});
+		});
 }
 
 void APlayer::Dash(float _DeltaTime)
@@ -310,4 +290,67 @@ EDirection APlayer::GetBulletSpawnDirection()
 	return EDirection::Right;
 }
 
+void APlayer::RefreshIdleAnimation()
+{
+	std::string AnimName;
 
+	// Idle
+	if (false == IsPress('X'))
+	{
+		AnimName = GAnimName::PlayerIdle;
+		ChangeAnimationIfChanged(AnimName);
+		return;
+	}
+
+	// Shoot
+	EDirection ArrowDirection = UConverter::ConvActorInputToDirection(this);
+
+	switch (ArrowDirection)
+	{
+	case EDirection::Zero:
+	case EDirection::Left:
+	case EDirection::Right:
+		AnimName = GAnimName::PlayerShootForward;
+		break;
+	case EDirection::Up:
+	case EDirection::LeftUp:
+	case EDirection::RightUp:
+		AnimName = GAnimName::PlayerShootUp;
+		break;
+	case EDirection::Down:
+	case EDirection::LeftDown:
+	case EDirection::RightDown:
+		AnimName = GAnimName::PlayerShootDown;
+		break;
+	default:
+		MsgBoxAssert("Idle 상태에서 방향이 " + std::to_string(static_cast<int>(ArrowDirection)) + "일 수 없습니다.");
+		break;
+	}
+
+	ChangeAnimationIfChanged(AnimName);
+}
+
+void APlayer::RefreshRunAnimation()
+{
+	std::string AnimName;
+
+	// Run
+	if (false == IsPress('X'))
+	{
+		AnimName = GAnimName::PlayerRun;
+		ChangeAnimationIfChanged(AnimName);
+		return;
+	}
+
+	// RunShoot
+	if (true == IsPress(VK_UP))
+	{
+		AnimName = GAnimName::PlayerRunShootHalfUp;
+	}
+	else
+	{
+		AnimName = GAnimName::PlayerRunShootForward;
+	}
+
+	ChangeAnimationIfChanged(AnimName);
+}

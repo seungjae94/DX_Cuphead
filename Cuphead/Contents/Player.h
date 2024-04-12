@@ -32,6 +32,7 @@ private:
 	// State
 	std::string CurStateName = GStateName::Idle;
 	std::string PrevStateName = GStateName::Idle;
+	std::string CurAnimName = GAnimName::PlayerIdle;
 	UStateManager StateManager;
 
 	// Physics
@@ -68,7 +69,7 @@ private:
 private:
 	// 애니메이션
 	void AnimationInit();
-	void ChangeAnimationIf(bool _Cond, std::string_view _IfAnim, std::string_view _ElseAnim);
+	void ChangeAnimationIfChanged(std::string _AnimName);
 
 	// 상태
 	void StateInit();
@@ -77,6 +78,10 @@ private:
 	void IdleStart();
 	void Idle(float _DeltaTime);
 	void IdleEnd();
+
+	void AimStart();
+	void Aim(float _DeltaTime);
+	void AimEnd();
 
 	void RunStart();
 	void Run(float _DeltaTime);
@@ -101,6 +106,9 @@ private:
 	bool IsPressArrowKey();
 	bool IsDirectionLeft() const;
 	void RefreshDirection();
+	void RefreshIdleAnimation();
+	void RefreshRunAnimation();
+
 	bool CheckCollision(const FVector& _ColPoint);
 	FVector GetBulletSpawnLocation();
 	EDirection GetBulletSpawnDirection();

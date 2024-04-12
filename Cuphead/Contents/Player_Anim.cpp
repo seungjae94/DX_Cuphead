@@ -22,14 +22,13 @@ void APlayer::AnimationInit()
 	Renderer->CreateAnimation(GAnimName::PlayerSit, GImageName::PlayerSit, 1 / 12.0f);
 }
 
-void APlayer::ChangeAnimationIf(bool _Cond, std::string_view _IfAnim, std::string_view _ElseAnim)
+void APlayer::ChangeAnimationIfChanged(std::string _AnimName)
 {
-	if (true == _Cond)
+	if (_AnimName == CurAnimName)
 	{
-		Renderer->ChangeAnimation(_IfAnim);
+		return;
 	}
-	else
-	{
-		Renderer->ChangeAnimation(_ElseAnim);
-	}
+
+	CurAnimName = _AnimName;
+	Renderer->ChangeAnimation(_AnimName);
 }
