@@ -1,7 +1,8 @@
 #pragma once
 #include <map>
+#include <EngineBase/NameObject.h>
 
-class UState
+class UState : public UNameObject
 {
 public:
 	std::function<void()> Start;
@@ -40,7 +41,7 @@ public:
 
 	inline std::string GetCurStateName() const
 	{
-		return CurStateName;
+		return CurState->GetName();
 	}
 
 	void Update(float _Time);
@@ -51,6 +52,5 @@ protected:
 private:
 	std::map<std::string, std::shared_ptr<UState>> States;
 	std::shared_ptr<UState> CurState = nullptr;
-	std::string CurStateName;
 };
 
