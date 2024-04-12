@@ -42,7 +42,6 @@ void APlayer::ChangeState(std::string _StateName)
 void APlayer::IdleStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerIdle);
-	//ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerIdle, GAnimName::PlayerRightIdle);
 	Velocity = FVector::Zero;
 }
 
@@ -85,8 +84,6 @@ void APlayer::IdleEnd()
 void APlayer::RunStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerRun);
-
-	//ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftRun, GAnimName::PlayerRightRun);
 }
 
 void APlayer::Run(float _DeltaTime)
@@ -130,7 +127,12 @@ void APlayer::RunEnd()
 void APlayer::JumpStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerJump);
-	//ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftJump, GAnimName::PlayerRightJump);
+	if (true == IsDashed)
+	{
+		Velocity.Y = 0.0f;
+		return;
+	}
+
 	Velocity += JumpImpulse;
 }
 
@@ -139,6 +141,7 @@ void APlayer::Jump(float _DeltaTime)
 	if (true == OnGroundValue)
 	{
 		ChangeState(GStateName::Idle);
+		IsDashed = false;
 		return;
 	}
 
@@ -159,8 +162,9 @@ void APlayer::Jump(float _DeltaTime)
 		Fire();
 	}
 
-	if (true == IsDown(VK_SHIFT))
+	if (true == IsDown(VK_SHIFT) && false == IsDashed)
 	{
+		IsDashed = true;
 		ChangeState(GStateName::Dash);
 		return;
 	}
@@ -173,7 +177,6 @@ void APlayer::JumpEnd()
 void APlayer::DashStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerDash);
-	//ChangeAnimationIf(IsDirectionLeft(), GAnimName::PlayerLeftDash, GAnimName::PlayerRightDash);
 	Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * DashSpeed;
 	Velocity.Y = 0.0f;
 	ApplyGravity = false;

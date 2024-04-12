@@ -46,6 +46,7 @@ private:
 	const float DashSpeed = 800.0f;
 	const float DashTime = 0.3f;
 	EEngineDir Direction = EEngineDir::Right;
+	bool IsDashed = false;
 
 private:
 	void BeginPlay() override;
