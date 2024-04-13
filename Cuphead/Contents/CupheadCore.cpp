@@ -20,7 +20,7 @@ void UCupheadCore::Initialize()
 	CreateMaterials();
 	LoadResources();
 	CreateLevels();
-	GEngine->ChangeLevel(GLevelName::BossFarmLevel);
+	GEngine->ChangeLevel(GLevelName::OverworldLevel);
 }
 
 void UCupheadCore::CreateMaterials()

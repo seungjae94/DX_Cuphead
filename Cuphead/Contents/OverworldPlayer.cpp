@@ -68,9 +68,19 @@ void AOverworldPlayer::DebugMsgUpdate(float _DeltaTime)
 
 void AOverworldPlayer::BringCamera()
 {
+	FVector Diff = GetActorLocation() - GetWorld()->GetMainCamera()->GetActorLocation();
+	float Dist = Diff.Size2D();
+
+	if (Dist < 1.0f)
+	{
+		return;
+	}
+
 	float CameraZ = GetWorld()->GetMainCamera()->GetActorLocation().Z;
 	FVector CameraLocation = GetActorLocation();
 	CameraLocation.Z = CameraZ;
+
+
 	GetWorld()->GetMainCamera()->SetActorLocation(CameraLocation);
 }
 
