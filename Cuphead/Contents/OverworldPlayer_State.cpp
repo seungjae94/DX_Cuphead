@@ -21,6 +21,7 @@ void AOverworldPlayer::IdleStart()
 {
 	std::string AnimName = TransDirectionToAnimName(Direction, true);
 	Renderer->ChangeAnimation(AnimName);
+	PrevAnimName = AnimName;
 	RefreshFlip();
 }
 
