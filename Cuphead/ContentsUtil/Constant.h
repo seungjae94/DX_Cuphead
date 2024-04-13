@@ -52,6 +52,10 @@ namespace GImageName
 	const std::string PlayerDash = "player_dash.png";
 	const std::string PlayerSit = "player_sit.png";
 
+	// 플레이어 먼지
+	const std::string PlayerLandingDust = "player_landing_dust";
+	const std::string PlayerDashDust = "player_dash_dust";
+
 	// 총알
 	const std::string BulletSpawn = "bullet_spawn.png";
 	const std::string BulletMove = "bullet_move";
@@ -91,6 +95,10 @@ namespace GAnimName
 	const std::string PlayerJump = "player_jump";
 	const std::string PlayerDash = "player_dash";
 	const std::string PlayerSit = "player_sit";
+
+	// 플레이어 먼지
+	const std::string PlayerLandingDust = "player_landing_dust";
+	const std::string PlayerDashDust = "player_dash_dust";
 
 	// 총알
 	const std::string BulletSpawn = "bullet_spawn";

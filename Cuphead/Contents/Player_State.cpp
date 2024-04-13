@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "AnimationEffect.h"
 
 void APlayer::StateInit()
 {
@@ -34,8 +35,8 @@ void APlayer::StateInit()
 void APlayer::ChangeState(std::string _StateName)
 {
 	PrevStateName = CurStateName;
-	StateManager.ChangeState(_StateName);
 	CurStateName = _StateName;
+	StateManager.ChangeState(_StateName);
 }
 
 void APlayer::IdleStart()
@@ -165,6 +166,12 @@ void APlayer::Jump(float _DeltaTime)
 
 void APlayer::JumpEnd()
 {
+	if (GStateName::Idle == CurStateName)
+	{
+		AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("AnimationEffect").get();
+		Effect->SetActorLocation(GetActorLocation());
+		Effect->Init(ERenderingOrder::Character, {GAnimName::PlayerLandingDust, GImageName::PlayerLandingDust, 0.1f}, true);
+	}
 }
 
 void APlayer::DashStart()

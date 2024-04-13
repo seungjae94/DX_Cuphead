@@ -19,9 +19,6 @@
     <Filter Include="Level\01. Title Level">
       <UniqueIdentifier>{e9320e7b-1152-4c4e-ad95-7d873833b0ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\01. Title Level\Object">
-      <UniqueIdentifier>{33c1af55-dabd-4219-b50f-cdacfd4f412a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\99. Test Level">
       <UniqueIdentifier>{1a725af2-30be-4d2a-89a6-02e50c5a6662}</UniqueIdentifier>
     </Filter>
@@ -31,20 +28,17 @@
     <Filter Include="Level\02. Overworld Level">
       <UniqueIdentifier>{4395b6c6-86db-4be6-b54d-27c3dc515949}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\02. Overworld Level\Object">
-      <UniqueIdentifier>{96f7633d-2038-4299-82e7-729ce7fd7d25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\03. Boss Farm Level">
+    <Filter Include="Level\03. Boss Level">
       <UniqueIdentifier>{ce1250bf-f538-4193-a853-4031a3169d83}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\03. Boss Farm Level\Object">
+    <Filter Include="Level\03. Boss Level\Farm">
+      <UniqueIdentifier>{b40ac2c8-7ebf-4973-93ac-f9137305d34f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. Boss Level\Dragon">
+      <UniqueIdentifier>{c1e86c65-d9b3-4cf8-9233-3f6dfdb9613a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. Boss Level\Common">
       <UniqueIdentifier>{654bff13-64c5-4745-8fb9-9268fb87f959}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\04. Boss Dragon Level">
-      <UniqueIdentifier>{21533d60-fd69-460f-b3e8-d33d91665b53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\04. Boss Dragon Level\Object">
-      <UniqueIdentifier>{5511e6b9-3547-49fd-9332-3eb4c6aa82e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,17 +57,8 @@
     <ClInclude Include="TitleGameMode.h">
       <Filter>Level\01. Title Level</Filter>
     </ClInclude>
-    <ClInclude Include="TitleScreen.h">
-      <Filter>Level\01. Title Level\Object</Filter>
-    </ClInclude>
     <ClInclude Include="OverworldGameMode.h">
       <Filter>Level\02. Overworld Level</Filter>
-    </ClInclude>
-    <ClInclude Include="OverworldPlayer.h">
-      <Filter>Level\02. Overworld Level\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="OverworldMap.h">
-      <Filter>Level\02. Overworld Level\Object</Filter>
     </ClInclude>
     <ClInclude Include="Noise.h">
       <Filter>Level\00. Common\Object</Filter>
@@ -81,26 +66,38 @@
     <ClInclude Include="CupheadGameMode.h">
       <Filter>Level\00. Common</Filter>
     </ClInclude>
-    <ClInclude Include="BossFarmGameMode.h">
-      <Filter>Level\03. Boss Farm Level</Filter>
-    </ClInclude>
-    <ClInclude Include="BossFarmMap.h">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
+      <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
+      <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
-    <ClInclude Include="BossDragonGameMode.h">
-      <Filter>Level\04. Boss Dragon Level</Filter>
-    </ClInclude>
-    <ClInclude Include="BossDragonMap.h">
-      <Filter>Level\04. Boss Dragon Level\Object</Filter>
+    <ClInclude Include="BossFarmMap.h">
+      <Filter>Level\03. Boss Level\Farm</Filter>
     </ClInclude>
     <ClInclude Include="Potato.h">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
+      <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFarmGameMode.h">
+      <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClInclude>
+    <ClInclude Include="OverworldMap.h">
+      <Filter>Level\02. Overworld Level</Filter>
+    </ClInclude>
+    <ClInclude Include="OverworldPlayer.h">
+      <Filter>Level\02. Overworld Level</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScreen.h">
+      <Filter>Level\01. Title Level</Filter>
+    </ClInclude>
+    <ClInclude Include="BossDragonMap.h">
+      <Filter>Level\03. Boss Level\Dragon</Filter>
+    </ClInclude>
+    <ClInclude Include="BossDragonGameMode.h">
+      <Filter>Level\03. Boss Level\Dragon</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationEffect.h">
+      <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,17 +116,8 @@
     <ClCompile Include="TitleGameMode.cpp">
       <Filter>Level\01. Title Level</Filter>
     </ClCompile>
-    <ClCompile Include="TitleScreen.cpp">
-      <Filter>Level\01. Title Level\Object</Filter>
-    </ClCompile>
     <ClCompile Include="OverworldGameMode.cpp">
       <Filter>Level\02. Overworld Level</Filter>
-    </ClCompile>
-    <ClCompile Include="OverworldPlayer.cpp">
-      <Filter>Level\02. Overworld Level\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="OverworldMap.cpp">
-      <Filter>Level\02. Overworld Level\Object</Filter>
     </ClCompile>
     <ClCompile Include="Noise.cpp">
       <Filter>Level\00. Common\Object</Filter>
@@ -137,41 +125,53 @@
     <ClCompile Include="CupheadGameMode.cpp">
       <Filter>Level\00. Common</Filter>
     </ClCompile>
-    <ClCompile Include="OverworldPlayer_Anim.cpp">
-      <Filter>Level\02. Overworld Level\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="OverworldPlayer_State.cpp">
-      <Filter>Level\02. Overworld Level\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="BossFarmGameMode.cpp">
-      <Filter>Level\03. Boss Farm Level</Filter>
-    </ClCompile>
-    <ClCompile Include="BossFarmMap.cpp">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
+      <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
     <ClCompile Include="Player_State.cpp">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
+      <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
     <ClCompile Include="Player_Anim.cpp">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
+      <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="BossDragonGameMode.cpp">
-      <Filter>Level\04. Boss Dragon Level</Filter>
-    </ClCompile>
-    <ClCompile Include="BossDragonMap.cpp">
-      <Filter>Level\04. Boss Dragon Level\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Potato.cpp">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
+      <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
     <ClCompile Include="Player_Fire.cpp">
-      <Filter>Level\03. Boss Farm Level\Object</Filter>
+      <Filter>Level\03. Boss Level\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFarmMap.cpp">
+      <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="Potato.cpp">
+      <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFarmGameMode.cpp">
+      <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="OverworldMap.cpp">
+      <Filter>Level\02. Overworld Level</Filter>
+    </ClCompile>
+    <ClCompile Include="OverworldPlayer.cpp">
+      <Filter>Level\02. Overworld Level</Filter>
+    </ClCompile>
+    <ClCompile Include="OverworldPlayer_Anim.cpp">
+      <Filter>Level\02. Overworld Level</Filter>
+    </ClCompile>
+    <ClCompile Include="OverworldPlayer_State.cpp">
+      <Filter>Level\02. Overworld Level</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScreen.cpp">
+      <Filter>Level\01. Title Level</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDragonMap.cpp">
+      <Filter>Level\03. Boss Level\Dragon</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDragonGameMode.cpp">
+      <Filter>Level\03. Boss Level\Dragon</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationEffect.cpp">
+      <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
