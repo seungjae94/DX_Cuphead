@@ -62,6 +62,8 @@ void ABossFarmMap::BeginPlay()
 	Col->SetAutoSize(1.0f, true);
 
 	Col->SetActive(false);
+
+	Back0->SetPosition({ 0.0f, 1.0f, 0.0f });
 }
 
 void ABossFarmMap::Tick(float _DeltaTime)

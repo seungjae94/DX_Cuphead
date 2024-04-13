@@ -57,6 +57,7 @@ private:
 	const float RunSpeed = 400.0f;
 	const float DashSpeed = 800.0f;
 	const float DashTime = 0.3f;
+	const FVector DashDustPos = { 0.0f, 50.0f, 0.0f };
 	EEngineDir Direction = EEngineDir::Right;
 	bool IsDashed = false;
 

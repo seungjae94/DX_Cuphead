@@ -170,7 +170,7 @@ void APlayer::JumpEnd()
 	{
 		AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("AnimationEffect").get();
 		Effect->SetActorLocation(GetActorLocation());
-		Effect->Init(ERenderingOrder::Character, {GAnimName::PlayerLandingDust, GImageName::PlayerLandingDust, 0.1f}, true);
+		Effect->Init(ERenderingOrder::Character, { GAnimName::PlayerLandingDust, GImageName::PlayerLandingDust, 0.1f }, true);
 	}
 }
 
@@ -186,6 +186,11 @@ void APlayer::DashStart()
 		UEngineDebug::OutPutDebugText(PrevStateName);
 		ChangeState(PrevStateName);
 		});
+
+	// 대시 먼지
+	AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("AnimationEffect").get();
+	Effect->SetActorLocation(GetActorLocation() + DashDustPos);
+	Effect->Init(ERenderingOrder::Character, { GAnimName::PlayerDashDust, GImageName::PlayerDashDust, 1 / 24.0f }, true);
 }
 
 void APlayer::Dash(float _DeltaTime)
