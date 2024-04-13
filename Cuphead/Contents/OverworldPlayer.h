@@ -32,6 +32,10 @@ private:
 	const float MoveSpeed = 200.0f;
 	std::string PrevAnimName = "";
 
+	bool IsLeftFoot = true;
+	const float DustTime = 0.25f;
+	float DustTimer = 0.25f;
+
 	ANoise* Noise = nullptr;
 
 	void BeginPlay() override;
@@ -60,5 +64,6 @@ private:
 	void RefreshDirection();
 	void RefreshFlip();
 	bool CheckCollision();
+	void CreateDustAnimationEffect(float _DeltaTime);
 };
 

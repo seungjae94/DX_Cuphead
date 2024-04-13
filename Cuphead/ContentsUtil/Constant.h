@@ -38,6 +38,8 @@ namespace GImageName
 	const std::string OverworldCharUpIdle = "overworld_char_up_idle";
 	const std::string OverworldCharUpWalk = "overworld_char_up_walk";
 
+	const std::string OverworldCharDust = "overworld_char_dust";
+
 	// 플레이어
 	const std::string PlayerIdle = "player_idle.png";
 	const std::string PlayerShootUp = "player_shoot_up";
@@ -71,6 +73,7 @@ namespace GAnimName
 	const std::string TitleDance = "Dance";
 	const std::string Noise = "Noise";
 
+	// 오버월드
 	const std::string OverworldCharDownIdle = "DownIdle";
 	const std::string OverworldCharDownWalk = "DownWalk";
 	const std::string OverworldCharRightDownIdle = "RightDownIdle";
@@ -81,6 +84,8 @@ namespace GAnimName
 	const std::string OverworldCharUpWalk = "UpWalk";
 	const std::string OverworldCharRightIdle = "RightIdle";
 	const std::string OverworldCharRightWalk = "RightWalk";
+
+	const std::string OverworldCharDust = "overworld_char_dust";
 
 	// 플레이어
 	const std::string PlayerIdle = "player_idle";

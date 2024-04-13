@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "OverworldPlayer.h"
+#include "AnimationEffect.h"
 
 void AOverworldPlayer::StateInit()
 {
@@ -66,6 +67,9 @@ void AOverworldPlayer::Walk(float _DeltaTime)
 		PrevAnimName = AnimName;
 	}
 
+	// 먼지 애니메이션 이펙트 생성
+	CreateDustAnimationEffect(_DeltaTime);
+
 	// 이동 시뮬레이션
 	FVector OriginalPos = GetActorLocation();
 	AddActorLocation(DirectionVector * MoveSpeed * _DeltaTime);
@@ -77,12 +81,6 @@ void AOverworldPlayer::Walk(float _DeltaTime)
 		SetActorLocation(OriginalPos);
 		return;
 	}
-
-	// 카메라 이동 처리
-	BringCamera();
-
-	// 노이즈 이동 처리
-	BringNoise();
 }
 
 void AOverworldPlayer::WalkEnd()
@@ -167,4 +165,29 @@ bool AOverworldPlayer::CheckCollision()
 	TestPixel.Y = -TestPixel.Y;
 	Color8Bit ColMapColor = MapTex->GetColor(TestPixel, Color8Bit::Black);
 	return ColMapColor == Color8Bit::Black;
+}
+
+void AOverworldPlayer::CreateDustAnimationEffect(float _DeltaTime)
+{
+	DustTimer -= _DeltaTime;
+
+	if (DustTimer >= 0.0f)
+	{
+		return;
+	}
+	DustTimer = DustTime;
+
+	AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("Effect").get();
+
+	if (true == IsLeftFoot)
+	{
+		Effect->SetActorLocation(GetActorLocation() + FVector::Left * 15.0f);
+	}
+	else
+	{
+		Effect->SetActorLocation(GetActorLocation() + FVector::Right * 15.0f);
+	}
+	IsLeftFoot = !IsLeftFoot;
+
+	Effect->Init(ERenderingOrder::Back1, { GAnimName::OverworldCharDust, GImageName::OverworldCharDust, 1 / 24.0f }, true);
 }

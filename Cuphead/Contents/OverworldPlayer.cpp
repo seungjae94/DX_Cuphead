@@ -26,7 +26,7 @@ void AOverworldPlayer::BeginPlay()
 
 	SetActorLocation({ 100.0f, 0.0f, 0.0f });
 	BringCamera();
-
+	
 	Renderer->SetSprite(GImageName::OverworldCharDownIdle);
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetOrder(ERenderingOrder::Character);
@@ -42,6 +42,12 @@ void AOverworldPlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	StateManager.Update(_DeltaTime);
+
+	// 카메라 이동 처리
+	BringCamera();
+
+	// 노이즈 이동 처리
+	BringNoise();
 
 	DebugMsgUpdate(_DeltaTime);
 }

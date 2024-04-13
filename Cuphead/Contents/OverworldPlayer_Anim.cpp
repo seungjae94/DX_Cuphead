@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "OverworldPlayer.h"
+#include "AnimationEffect.h"
 
 void AOverworldPlayer::AnimationInit()
 {
