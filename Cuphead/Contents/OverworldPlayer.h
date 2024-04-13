@@ -29,12 +29,12 @@ private:
 	FVector DirectionVector = FVector::Down;
 	FVector ColCenter = FVector::Down * 30.0f;
 	const float ColRadius = 20.0f;
-	const float MoveSpeed = 200.0f;
+	const float MoveSpeed = 250.0f;
 	std::string PrevAnimName = "";
 
 	bool IsLeftFoot = true;
-	const float DustTime = 0.25f;
-	float DustTimer = 0.25f;
+	const float DustTime = 1 / 3.0f;
+	float DustTimer = 0.0f;
 
 	ANoise* Noise = nullptr;
 
