@@ -14,7 +14,10 @@ public:
 
 	void PlayGroundIntroAnimation();
 	void PlayPotatoIntroAnimation();
-
+	void PlayGroundIdleAnimation();
+	void PlayPotatoIdleAnimation();
+	void SetGroundFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
+	void SetPotatoFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 protected:
 
 

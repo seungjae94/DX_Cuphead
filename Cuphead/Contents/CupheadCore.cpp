@@ -111,6 +111,7 @@ void UCupheadCore::LoadResources()
 		}
 
 		UEngineSprite::CreateCutting("potato_intro.png", 11, 1);
+		UEngineSprite::CreateCutting("potato_idle.png", 4, 1);
 		UEngineSprite::CreateCutting("potato_ground_intro.png", 16, 1);
 	}
 

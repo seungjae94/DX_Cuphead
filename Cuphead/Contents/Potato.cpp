@@ -27,14 +27,40 @@ void APotato::PlayPotatoIntroAnimation()
 	PotatoRenderer->ChangeAnimation("potato_intro");
 }
 
+void APotato::PlayGroundIdleAnimation()
+{
+	GroundRenderer->ChangeAnimation("ground_idle");
+}
+
+void APotato::PlayPotatoIdleAnimation()
+{
+	PotatoRenderer->ChangeAnimation("potato_idle");
+}
+
+void APotato::SetPotatoFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
+{
+	PotatoRenderer->SetFrameCallback(_AnimName, _Frame, _Callback);
+}
+
+void APotato::SetGroundFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
+{
+	GroundRenderer->SetFrameCallback(_AnimName, _Frame, _Callback);
+}
+
 void APotato::BeginPlay()
 {
 	Super::BeginPlay();
 
 	PotatoRenderer->CreateAnimation("potato_intro", "potato_intro.png", 1 / 12.0f, false);
+	PotatoRenderer->CreateAnimation("potato_idle", "potato_idle.png", 1 / 6.0f, true);
 	GroundRenderer->CreateAnimation("ground_intro", "potato_ground_intro.png",
 		std::vector<float>(28, 1 / 18.0f),
 		{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
+	GroundRenderer->CreateAnimation("ground_idle", "potato_ground_idle.png", 1 / 12.0f, false);
+
+	GroundRenderer->SetFrameCallback("ground_intro", 20, [this]() {
+		PotatoRenderer->ChangeAnimation("potato_intro");
+	});
 
 	PotatoRenderer->SetOrder(ERenderingOrder::Back5);
 	GroundRenderer->SetOrder(ERenderingOrder::Back6);
