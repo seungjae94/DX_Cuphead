@@ -12,11 +12,11 @@ ABossFarmMap::ABossFarmMap()
 	Back1 = CreateDefaultSubObject<USpriteRenderer>("Back1");
 	Back1->SetupAttachment(Root);
 
-	Back2 = CreateDefaultSubObject<USpriteRenderer>("Back2");
-	Back2->SetupAttachment(Root);
-
-	Back3 = CreateDefaultSubObject<USpriteRenderer>("Back3");
+	Back3 = CreateDefaultSubObject<USpriteRenderer>("Back2");
 	Back3->SetupAttachment(Root);
+
+	Back4 = CreateDefaultSubObject<USpriteRenderer>("Back3");
+	Back4->SetupAttachment(Root);
 
 	Front = CreateDefaultSubObject<USpriteRenderer>("Front");
 	Front->SetupAttachment(Root);
@@ -42,22 +42,22 @@ void ABossFarmMap::BeginPlay()
 
 	Back0->SetSprite("boss_farm_map_back0.png");
 	Back1->SetSprite("boss_farm_map_back1.png");
-	Back2->SetSprite("boss_farm_map_back2.png");
 	Back3->SetSprite("boss_farm_map_back3.png");
+	Back4->SetSprite("boss_farm_map_back4.png");
 	Front->SetSprite("boss_farm_map_front.png");
 	Col->SetSprite("boss_farm_map_col.png");
 
 	Back0->SetOrder(ERenderingOrder::Back0);
 	Back1->SetOrder(ERenderingOrder::Back1);
-	Back2->SetOrder(ERenderingOrder::Back2);
 	Back3->SetOrder(ERenderingOrder::Back3);
+	Back4->SetOrder(ERenderingOrder::Back4);
 	Front->SetOrder(ERenderingOrder::Front);
 	Col->SetOrder(ERenderingOrder::Collider);
 
 	Back0->SetAutoSize(1.0f, true);
 	Back1->SetAutoSize(1.0f, true);
-	Back2->SetAutoSize(1.0f, true);
 	Back3->SetAutoSize(1.0f, true);
+	Back4->SetAutoSize(1.0f, true);
 	Front->SetAutoSize(1.0f, true);
 	Col->SetAutoSize(1.0f, true);
 

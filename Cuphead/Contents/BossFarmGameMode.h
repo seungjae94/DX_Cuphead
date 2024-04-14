@@ -2,6 +2,7 @@
 #include "CupheadGameMode.h"
 
 class ABossFarmMap;
+class APotato;
 
 class ABossFarmGameMode : public ACupheadGameMode
 {
@@ -19,9 +20,24 @@ public:
 
 protected:
 private:
-	std::shared_ptr<ABossFarmMap> Map = nullptr;
+	ABossFarmMap* Map = nullptr;
+	APotato* Potato = nullptr;
+	UStateManager StateManager;
+private:
+	// 초기화 함수
+	void StateInit();
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
+private:
+	// 상태 함수
+	void IntroStart();
+	void Intro(float _DeltaTime);
+	void IntroEnd();
+
+	void PotatoBattleStart();
+	void PotatoBattle(float _DeltaTime);
+	void PotatoBattleEnd();
 };
 

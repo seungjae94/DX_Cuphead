@@ -20,7 +20,7 @@ void UCupheadCore::Initialize()
 	CreateMaterials();
 	LoadResources();
 	CreateLevels();
-	GEngine->ChangeLevel(GLevelName::OverworldLevel);
+	GEngine->ChangeLevel(GLevelName::BossFarmLevel);
 }
 
 void UCupheadCore::CreateMaterials()
@@ -109,6 +109,9 @@ void UCupheadCore::LoadResources()
 		{
 			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
 		}
+
+		UEngineSprite::CreateCutting("potato_intro.png", 11, 1);
+		UEngineSprite::CreateCutting("potato_ground_intro.png", 16, 1);
 	}
 
 	{

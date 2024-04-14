@@ -258,6 +258,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BossFarmGameMode_State.cpp" />
     <ClCompile Include="BossFarmMap.cpp">
       <SubType>
       </SubType>

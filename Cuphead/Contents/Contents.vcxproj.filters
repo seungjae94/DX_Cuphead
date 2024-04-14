@@ -173,5 +173,8 @@
     <ClCompile Include="AnimationEffect.cpp">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
+    <ClCompile Include="BossFarmGameMode_State.cpp">
+      <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
