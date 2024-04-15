@@ -30,9 +30,11 @@ void ABossFarmGameMode::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	StateManager.Update(_DeltaTime);
+	DebugUpdate(_DeltaTime);
+}
 
-	if (true == IsDown(VK_F2))
-	{
-		Map->ToggleColMap();
-	}
+void ABossFarmGameMode::DebugUpdate(float _DeltaTime)
+{
+	std::string Msg = std::format("Game State : {}\n", StateManager.GetCurStateName());
+	UEngineDebugMsgWindow::PushMsg(Msg);
 }

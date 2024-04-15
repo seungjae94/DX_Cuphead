@@ -29,7 +29,7 @@ private:
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-
+	void DebugUpdate(float _DeltaTime);
 private:
 	// 상태 함수
 	void IntroStart();
@@ -39,5 +39,13 @@ private:
 	void PotatoBattleStart();
 	void PotatoBattle(float _DeltaTime);
 	void PotatoBattleEnd();
+
+	void OnionBattleStart();
+	void OnionBattle(float _DeltaTime);
+	void OnionBattleEnd();
+
+	void CarrotBattleStart();
+	void CarrotBattle(float _DeltaTime);
+	void CarrotBattleEnd();
 };
 

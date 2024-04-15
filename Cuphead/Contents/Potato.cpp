@@ -60,14 +60,29 @@ bool APotato::IsFinished()
 	return "FINISH" == StateManager.GetCurStateName();;
 }
 
+std::string APotato::GetCurStateName() const
+{
+	return StateManager.GetCurStateName();
+}
+
 void APotato::Damage(int _Damage)
 {
+	if ("FAINT" == StateManager.GetCurStateName())
+	{
+		return;
+	}
+
 	Hp -= _Damage;
 
 	PotatoRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.5f });
 	DelayCallBack(0.3f, [this]() {
 		PotatoRenderer->SetPlusColor(FVector::Zero);
-	});
+		});
+
+	if (Hp <= 0.0f)
+	{
+		StateManager.ChangeState("Faint");
+	}
 }
 
 void APotato::SetGroundFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
@@ -88,7 +103,7 @@ void APotato::BeginPlay()
 	PotatoRenderer->SetPosition({ 0.0f, -50.0f });
 	GroundRenderer->SetPosition({ 0.0f, -80.0f });
 	Collision->SetPosition(PotatoRenderer->GetLocalPosition() + FVector(0.0f, 200.0f, 0.0f));
-	Collision->SetScale({300.0f, 400.0f});
+	Collision->SetScale({ 300.0f, 400.0f });
 
 	CollisionRenderer->SetPosition(Collision->GetLocalPosition());
 	CollisionRenderer->SetScale(Collision->GetLocalScale());
@@ -99,10 +114,10 @@ void APotato::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	StateManager.Update(_DeltaTime);
-	DebugMsgUpdate(_DeltaTime);
+	DebugUpdate(_DeltaTime);
 }
 
-void APotato::DebugMsgUpdate(float _DeltaTime)
+void APotato::DebugUpdate(float _DeltaTime)
 {
 	{
 		std::string Msg = std::format("Potato Hp : {}\n", Hp);
@@ -113,16 +128,6 @@ void APotato::DebugMsgUpdate(float _DeltaTime)
 		std::string Msg = std::format("Potato State : {}\n", StateManager.GetCurStateName());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
-
-	{
-		std::string Msg = std::format("Potato AttackWaitTimer : {}\n", AttackWaitTimer);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Potato AttackTimer : {}\n", AttackTimer);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
 }
 
 void APotato::RendererInit()
@@ -130,6 +135,9 @@ void APotato::RendererInit()
 	PotatoRenderer->CreateAnimation("potato_intro", "potato_intro.png", 1 / 12.0f, false);
 	PotatoRenderer->CreateAnimation("potato_idle", "potato_idle.png", 1 / 6.0f, true);
 	PotatoRenderer->CreateAnimation("potato_attack", "potato_attack.png", 1 / 24.0f, false);
+	PotatoRenderer->CreateAnimation("potato_faint", "potato_faint.png",
+		std::vector<float>(12, 1 / 12.0f),
+		{ 2, 3, 4, 5, 6, 7, 8, 6, 5, 4, 3 }, true);
 	GroundRenderer->CreateAnimation("ground_intro", "potato_ground_intro.png",
 		std::vector<float>(28, 1 / 18.0f),
 		{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
@@ -145,12 +153,11 @@ void APotato::RendererInit()
 	PotatoRenderer->SetPivot(EPivot::BOT);
 	GroundRenderer->SetPivot(EPivot::BOT);
 
-	PotatoRenderer->SetAutoSize(1.0f, true);
-	GroundRenderer->SetAutoSize(1.0f, true);
+	PotatoRenderer->SetAutoSize(1.25f, true);
+	GroundRenderer->SetAutoSize(1.25f, true);
 
 	CollisionRenderer->SetSprite("debug_rect.png");
 	CollisionRenderer->SetOrder(ERenderingOrder::Collider);
-	CollisionRenderer->SetAlpha(0.5f);
 }
 
 void APotato::StateInit()
@@ -183,6 +190,12 @@ void APotato::StateInit()
 		std::bind(&APotato::FaintStart, this),
 		std::bind(&APotato::Faint, this, std::placeholders::_1),
 		std::bind(&APotato::FaintEnd, this)
+	);
+
+	StateManager.SetFunction("Finish",
+		std::bind(&APotato::FinishStart, this),
+		std::bind(&APotato::Finish, this, std::placeholders::_1),
+		std::bind(&APotato::FinishEnd, this)
 	);
 
 	StateManager.ChangeState("Idle");
@@ -270,12 +283,42 @@ void APotato::AttackWaitEnd()
 
 void APotato::FaintStart()
 {
+	PotatoRenderer->ChangeAnimation("potato_faint");
+	Collision->SetActive(false);
+	CollisionRenderer->SetActive(false);
+
+	ShrinkTimer = ShrinkWaitTime;
 }
 
 void APotato::Faint(float _DeltaTime)
 {
+	ShrinkTimer -= _DeltaTime;
+
+	if (ShrinkTimer < 0.0f)
+	{
+		PotatoRenderer->AddPosition(FVector::Down * 200.0f * _DeltaTime);
+	}
+
+	if (ShrinkTimer < -3.0f)
+	{
+		StateManager.ChangeState(GStateName::Finish);
+	}
 }
 
 void APotato::FaintEnd()
+{
+}
+
+void APotato::FinishStart()
+{
+	PotatoRenderer->SetActive(false);
+	GroundRenderer->SetActive(false);
+}
+
+void APotato::Finish(float _DeltaTime)
+{
+}
+
+void APotato::FinishEnd()
 {
 }

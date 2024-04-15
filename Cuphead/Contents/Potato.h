@@ -22,6 +22,7 @@ public:
 
 	void TransToAttackState();
 	bool IsFinished();
+	std::string GetCurStateName() const;
 
 	void Damage(int _Damage) override;
 
@@ -46,6 +47,9 @@ private:
 
 	const std::vector<float> AttackDelays = { 1.0f, 0.8f, 0.6f };
 	float AttackTimer = 0.0f;
+
+	const float ShrinkWaitTime = 2.0f;
+	float ShrinkTimer = 0.0f;
 private:
 	// 전투 정보
 	const int MaxHp = 360;
@@ -53,7 +57,7 @@ private:
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-	void DebugMsgUpdate(float _DeltaTime);
+	void DebugUpdate(float _DeltaTime);
 private:
 	void RendererInit();
 	void StateInit();
@@ -74,5 +78,9 @@ private:
 	void FaintStart();
 	void Faint(float _DeltaTime);
 	void FaintEnd();
+
+	void FinishStart();
+	void Finish(float _DeltaTime);
+	void FinishEnd();
 };
 

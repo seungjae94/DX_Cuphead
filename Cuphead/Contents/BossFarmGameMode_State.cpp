@@ -6,7 +6,7 @@ void ABossFarmGameMode::StateInit()
 {
 	StateManager.CreateState("Intro");
 	StateManager.CreateState("PotatoBattle");
-	StateManager.CreateState("PotatoDestroy");
+	StateManager.CreateState("OnionBattle");
 
 	StateManager.SetFunction("Intro",
 		std::bind(&ABossFarmGameMode::IntroStart, this),
@@ -18,6 +18,12 @@ void ABossFarmGameMode::StateInit()
 		std::bind(&ABossFarmGameMode::PotatoBattleStart, this),
 		std::bind(&ABossFarmGameMode::PotatoBattle, this, std::placeholders::_1),
 		std::bind(&ABossFarmGameMode::PotatoBattleEnd, this)
+	);
+
+	StateManager.SetFunction("OnionBattle",
+		std::bind(&ABossFarmGameMode::OnionBattleStart, this),
+		std::bind(&ABossFarmGameMode::OnionBattle, this, std::placeholders::_1),
+		std::bind(&ABossFarmGameMode::OnionBattleEnd, this)
 	);
 
 	StateManager.ChangeState("Intro");
@@ -57,8 +63,36 @@ void ABossFarmGameMode::PotatoBattleStart()
 
 void ABossFarmGameMode::PotatoBattle(float _DeltaTime)
 {
+	if (GStateName::Finish == Potato->GetCurStateName())
+	{
+		StateManager.ChangeState("OnionBattle");
+	}
 }
 
 void ABossFarmGameMode::PotatoBattleEnd()
+{
+}
+
+void ABossFarmGameMode::OnionBattleStart()
+{
+}
+
+void ABossFarmGameMode::OnionBattle(float _DeltaTime)
+{
+}
+
+void ABossFarmGameMode::OnionBattleEnd()
+{
+}
+
+void ABossFarmGameMode::CarrotBattleStart()
+{
+}
+
+void ABossFarmGameMode::CarrotBattle(float _DeltaTime)
+{
+}
+
+void ABossFarmGameMode::CarrotBattleEnd()
 {
 }
