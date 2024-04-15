@@ -9,17 +9,23 @@ enum class EChaseType
 	Special
 };
 
-class BossAttack : public AActor
+class ABossAttack : public AActor
 {
 	GENERATED_BODY(AActor)
 public:
-	BossAttack();
-	~BossAttack();
+	ABossAttack();
+	~ABossAttack();
 
-	BossAttack(const BossAttack& _Other) = delete;
-	BossAttack(BossAttack&& _Other) noexcept = delete;
-	BossAttack& operator=(const BossAttack& _Other) = delete;
-	BossAttack& operator=(BossAttack&& _Other) noexcept = delete;
+	ABossAttack(const ABossAttack& _Other) = delete;
+	ABossAttack(ABossAttack&& _Other) noexcept = delete;
+	ABossAttack& operator=(const ABossAttack& _Other) = delete;
+	ABossAttack& operator=(ABossAttack&& _Other) noexcept = delete;
+
+	void SetOrder(ERenderingOrder _Order);
+	void SetSprite(std::string_view _ImageName);
+	void SetAnimation(std::string_view _AnimName, std::string_view _ImageName, float _Inter, bool _Loop = true);
+
+	void SetVelocity(const FVector& _Velocity, bool _RotateImage = false, const FVector& _RotationDeg = FVector::Zero);
 
 protected:
 
@@ -30,7 +36,12 @@ private:
 private:
 	// ·ÎÁ÷
 	bool Destroyable = false;
-	bool Parrayable = false;
+	bool Parryable = false;
 	EChaseType ChaseType = EChaseType::None;
+
+	FVector Velocity = FVector::Zero;
+private:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 };
 

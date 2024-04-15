@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Potato.h"
+#include "BossAttack.h"
 
 APotato::APotato()
 {
@@ -63,6 +64,10 @@ void APotato::BeginPlay()
 
 	RendererInit();
 	StateInit();
+
+	SetActorLocation({ 450.0f, -250.0f });
+	PotatoRenderer->SetPosition({ 0.0f, -50.0f });
+	GroundRenderer->SetPosition({ 0.0f, -80.0f });
 }
 
 void APotato::Tick(float _DeltaTime)
@@ -113,9 +118,6 @@ void APotato::RendererInit()
 
 	PotatoRenderer->SetAutoSize(1.0f, true);
 	GroundRenderer->SetAutoSize(1.0f, true);
-
-	PotatoRenderer->SetPosition({ 450.0f, -320.0f });
-	GroundRenderer->SetPosition({ 450.0f, -350.0f });
 }
 
 void APotato::StateInit()
@@ -181,16 +183,30 @@ void APotato::Attack(float _DeltaTime)
 		return;
 	}
 
-	PotatoRenderer->ChangeAnimation("potato_attack");
-	
-	AttackTimer = AttackDelays[AttackPhase];
-
 	if (MaxAttackCount == AttackCount)
 	{
 		StateManager.ChangeState("AttackWait");
+		return;
 	}
 
+	ABossAttack* Attack = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
+	Attack->SetOrder(ERenderingOrder::Bullet);
+	Attack->SetActorLocation(GetActorLocation() + FVector(-30.0f, 30.0f, 0.0f));
+	Attack->SetVelocity(FVector::Left * 650.0f);
+
 	++AttackCount;
+
+	PotatoRenderer->ChangeAnimation("potato_attack");
+	if (MaxAttackCount == AttackCount)
+	{
+		Attack->SetAnimation("potato_attack_snake", "potato_attack_snake.png", 1 / 12.0f, true);
+	}
+	else
+	{
+		Attack->SetAnimation("potato_attack_ball", "potato_attack_ball.png", 1 / 12.0f, true);
+	}
+
+	AttackTimer = AttackDelays[AttackPhase];
 }
 
 void APotato::AttackEnd()
