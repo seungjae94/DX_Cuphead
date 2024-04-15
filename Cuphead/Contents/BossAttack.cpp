@@ -8,13 +8,23 @@ ABossAttack::ABossAttack()
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
+
+	Collision = CreateDefaultSubObject<UCollision>("Collision");
+	Collision->SetupAttachment(Root);
+	Collision->SetCollisionGroup(ECollisionGroup::Bullet);
+	Collision->SetCollisionType(ECollisionType::Box);
+
+	CollisionRenderer = CreateDefaultSubObject<USpriteRenderer>("CollisionRenderer");
+	CollisionRenderer->SetupAttachment(Renderer);
+	CollisionRenderer->SetSprite("debug_rect.png");
+	CollisionRenderer->SetOrder(ERenderingOrder::Collider);
 }
 
 ABossAttack::~ABossAttack()
 {
 }
 
-void ABossAttack::SetOrder(ERenderingOrder _Order)
+void ABossAttack::SetRenderingOrder(ERenderingOrder _Order)
 {
 	Renderer->SetOrder(_Order);
 }
@@ -22,12 +32,12 @@ void ABossAttack::SetOrder(ERenderingOrder _Order)
 void ABossAttack::SetSprite(std::string_view _ImageName)
 {
 	Renderer->SetSprite(_ImageName);
+	Renderer->SetAutoSize(1.0f, true);
 }
 
 void ABossAttack::SetAnimation(std::string_view _AnimName, std::string_view _ImageName, float _Inter, bool _Loop)
 {
-	Renderer->SetSprite(_ImageName);
-	Renderer->SetAutoSize(1.0f, true);
+	SetSprite(_ImageName);
 
 	Renderer->CreateAnimation(_AnimName, _ImageName, _Inter, _Loop);
 	Renderer->ChangeAnimation(_AnimName);

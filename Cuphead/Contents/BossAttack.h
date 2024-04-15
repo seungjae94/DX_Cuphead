@@ -21,7 +21,7 @@ public:
 	ABossAttack& operator=(const ABossAttack& _Other) = delete;
 	ABossAttack& operator=(ABossAttack&& _Other) noexcept = delete;
 
-	void SetOrder(ERenderingOrder _Order);
+	void SetRenderingOrder(ERenderingOrder _Order);
 	void SetSprite(std::string_view _ImageName);
 	void SetAnimation(std::string_view _AnimName, std::string_view _ImageName, float _Inter, bool _Loop = true);
 
@@ -33,6 +33,8 @@ private:
 	// 컴포넌트
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+	UCollision* Collision = nullptr;
+	USpriteRenderer* CollisionRenderer = nullptr;
 private:
 	// 로직
 	bool Destroyable = false;
