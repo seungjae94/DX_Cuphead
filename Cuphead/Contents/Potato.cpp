@@ -63,6 +63,11 @@ bool APotato::IsFinished()
 void APotato::Damage(int _Damage)
 {
 	Hp -= _Damage;
+
+	PotatoRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.5f });
+	DelayCallBack(0.3f, [this]() {
+		PotatoRenderer->SetPlusColor(FVector::Zero);
+	});
 }
 
 void APotato::SetGroundFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
