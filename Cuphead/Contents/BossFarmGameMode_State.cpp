@@ -52,7 +52,7 @@ void ABossFarmGameMode::IntroEnd()
 
 void ABossFarmGameMode::PotatoBattleStart()
 {
-	Potato->PlayPotatoIdleAnimation();
+	Potato->TransToAttackState();
 }
 
 void ABossFarmGameMode::PotatoBattle(float _DeltaTime)

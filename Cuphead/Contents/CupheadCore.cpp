@@ -113,6 +113,12 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting("potato_intro.png", 11, 1);
 		UEngineSprite::CreateCutting("potato_idle.png", 4, 1);
 		UEngineSprite::CreateCutting("potato_ground_intro.png", 16, 1);
+		UEngineSprite::CreateCutting("potato_attack.png", 20, 1);
+		UEngineSprite::CreateCutting("potato_attack_dust.png", 14, 1);
+		UEngineSprite::CreateCutting("potato_attack_ball.png", 8, 1);
+		UEngineSprite::CreateCutting("potato_attack_ball_destroy.png", 7, 1);
+		UEngineSprite::CreateCutting("potato_attack_snake.png", 4, 1);
+		UEngineSprite::CreateCutting("potato_attack_snake_destroy.png", 5, 1);
 	}
 
 	{
