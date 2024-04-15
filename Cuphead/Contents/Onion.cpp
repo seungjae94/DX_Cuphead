@@ -8,10 +8,14 @@ AOnion::AOnion()
 
 	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
 	OnionRenderer = CreateDefaultSubObject<USpriteRenderer>("Potato");
+	LeftTearRenderer = CreateDefaultSubObject<USpriteRenderer>("Tear");
+	RightTearRenderer = CreateDefaultSubObject<USpriteRenderer>("Tear");
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 
 	GroundRenderer->SetupAttachment(Root);
 	OnionRenderer->SetupAttachment(Root);
+	LeftTearRenderer->SetupAttachment(Root);
+	RightTearRenderer->SetupAttachment(Root);
 	Collision->SetupAttachment(Root);
 
 	Collision->SetCollisionGroup(ECollisionGroup::Monster);
@@ -64,6 +68,9 @@ void AOnion::BeginPlay()
 	StateInit();
 
 	SetActorLocation({0.0f, -325.0f});
+
+	LeftTearRenderer->SetPosition({-300.0f, 350.0f});
+	RightTearRenderer->SetPosition({300.0f, 350.0f});
 }
 
 void AOnion::Tick(float _DeltaTime)
@@ -91,6 +98,14 @@ void AOnion::RendererInit()
 		{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
 	GroundRenderer->CreateAnimation("ground_idle", "onion_ground_idle.png", 1 / 12.0f, false);
 
+	LeftTearRenderer->CreateAnimation("onion_tear_start", "onion_tear_start.png", 1 / 12.0f, false);
+	LeftTearRenderer->CreateAnimation("onion_tear_loop", "onion_tear_loop.png", 1 / 12.0f, true);
+	LeftTearRenderer->CreateAnimation("onion_tear_end", "onion_tear_end.png", 1 / 12.0f, false);
+
+	RightTearRenderer->CreateAnimation("onion_tear_start", "onion_tear_start.png", 1 / 12.0f, false);
+	RightTearRenderer->CreateAnimation("onion_tear_loop", "onion_tear_loop.png", 1 / 12.0f, true);
+	RightTearRenderer->CreateAnimation("onion_tear_end", "onion_tear_end.png", 1 / 12.0f, false);
+
 	GroundRenderer->SetFrameCallback("ground_intro", 20, [this]() {
 		OnionRenderer->ChangeAnimation("onion_intro");
 	});
@@ -109,12 +124,18 @@ void AOnion::RendererInit()
 
 	OnionRenderer->SetOrder(ERenderingOrder::Back5);
 	GroundRenderer->SetOrder(ERenderingOrder::Back6);
+	LeftTearRenderer->SetOrder(ERenderingOrder::Back6);
+	RightTearRenderer->SetOrder(ERenderingOrder::Back6);
 
 	OnionRenderer->SetPivot(EPivot::BOT);
 	GroundRenderer->SetPivot(EPivot::BOT);
 
 	OnionRenderer->SetAutoSize(1.0f, true);
 	GroundRenderer->SetAutoSize(1.5f, true);
+	LeftTearRenderer->SetAutoSize(1.0f, true);
+	RightTearRenderer->SetAutoSize(1.0f, true);
+
+	LeftTearRenderer->SetDir(EEngineDir::Left);
 }
 
 void AOnion::StateInit()
@@ -173,6 +194,8 @@ void AOnion::IdleEnd()
 void AOnion::AttackStart()
 {
 	OnionRenderer->ChangeAnimation("onion_cry_start");
+	LeftTearRenderer->ChangeAnimation("onion_tear_start");
+	RightTearRenderer->ChangeAnimation("onion_tear_start");
 }
 
 void AOnion::Attack(float _DeltaTime)

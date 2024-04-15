@@ -38,6 +38,8 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* GroundRenderer = nullptr;
 	USpriteRenderer* OnionRenderer = nullptr;
+	USpriteRenderer* LeftTearRenderer = nullptr;
+	USpriteRenderer* RightTearRenderer = nullptr;
 	UCollision* Collision = nullptr;
 private:
 	// 로직 처리
