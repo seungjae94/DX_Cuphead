@@ -105,6 +105,9 @@
     <ClInclude Include="Enemy.h">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
+    <ClInclude Include="Onion.h">
+      <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -187,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Level\03. Boss Level\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Onion.cpp">
+      <Filter>Level\03. Boss Level\Farm</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

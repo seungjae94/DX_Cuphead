@@ -2,6 +2,7 @@
 #include "BossFarmGameMode.h"
 #include "Player.h"
 #include "Potato.h"
+#include "Onion.h"
 #include "BossFarmMap.h"
 
 ABossFarmGameMode::ABossFarmGameMode()
@@ -19,6 +20,7 @@ void ABossFarmGameMode::BeginPlay()
 	GetWorld()->SpawnActor<APlayer>("Player");
 	Map = GetWorld()->SpawnActor<ABossFarmMap>("Map").get();
 	Potato = GetWorld()->SpawnActor<APotato>("Potato").get();
+	Onion = GetWorld()->SpawnActor<AOnion>("Onion").get();
 
 	StateInit();
 

@@ -3,6 +3,7 @@
 
 class ABossFarmMap;
 class APotato;
+class AOnion;
 
 class ABossFarmGameMode : public ACupheadGameMode
 {
@@ -22,6 +23,7 @@ protected:
 private:
 	ABossFarmMap* Map = nullptr;
 	APotato* Potato = nullptr;
+	AOnion* Onion = nullptr;
 	UStateManager StateManager;
 private:
 	// 초기화 함수
@@ -39,6 +41,10 @@ private:
 	void PotatoBattleStart();
 	void PotatoBattle(float _DeltaTime);
 	void PotatoBattleEnd();
+
+	void OnionIntroStart();
+	void OnionIntro(float _DeltaTime);
+	void OnionIntroEnd();
 
 	void OnionBattleStart();
 	void OnionBattle(float _DeltaTime);

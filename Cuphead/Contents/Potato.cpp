@@ -85,11 +85,6 @@ void APotato::Damage(int _Damage)
 	}
 }
 
-void APotato::SetGroundFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
-{
-	GroundRenderer->SetFrameCallback(_AnimName, _Frame, _Callback);
-}
-
 void APotato::BeginPlay()
 {
 	Super::BeginPlay();
@@ -145,7 +140,11 @@ void APotato::RendererInit()
 
 	GroundRenderer->SetFrameCallback("ground_intro", 20, [this]() {
 		PotatoRenderer->ChangeAnimation("potato_intro");
-		});
+	});
+
+	GroundRenderer->SetFrameCallback("ground_intro", 27, [this]() {
+		GroundRenderer->ChangeAnimation("ground_idle");
+	});
 
 	PotatoRenderer->SetOrder(ERenderingOrder::Back5);
 	GroundRenderer->SetOrder(ERenderingOrder::Back6);

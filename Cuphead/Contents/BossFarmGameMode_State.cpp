@@ -1,11 +1,13 @@
 #include "PreCompile.h"
 #include "BossFarmGameMode.h"
 #include "Potato.h"
+#include "Onion.h"
 
 void ABossFarmGameMode::StateInit()
 {
 	StateManager.CreateState("Intro");
 	StateManager.CreateState("PotatoBattle");
+	StateManager.CreateState("OnionIntro");
 	StateManager.CreateState("OnionBattle");
 
 	StateManager.SetFunction("Intro",
@@ -18,6 +20,12 @@ void ABossFarmGameMode::StateInit()
 		std::bind(&ABossFarmGameMode::PotatoBattleStart, this),
 		std::bind(&ABossFarmGameMode::PotatoBattle, this, std::placeholders::_1),
 		std::bind(&ABossFarmGameMode::PotatoBattleEnd, this)
+	);
+
+	StateManager.SetFunction("OnionIntro",
+		std::bind(&ABossFarmGameMode::OnionIntroStart, this),
+		std::bind(&ABossFarmGameMode::OnionIntro, this, std::placeholders::_1),
+		std::bind(&ABossFarmGameMode::OnionIntroEnd, this)
 	);
 
 	StateManager.SetFunction("OnionBattle",
@@ -38,9 +46,6 @@ void ABossFarmGameMode::IntroStart()
 
 	// 감자 등장 애니메이션
 	Potato->PlayGroundIntroAnimation();
-	Potato->SetGroundFrameCallback("ground_intro", 27, [this]() {
-		Potato->PlayGroundIdleAnimation();
-	});
 	Potato->SetPotatoFrameCallback("potato_intro", 9, [this]() {
 		StateManager.ChangeState("PotatoBattle");
 	});
@@ -66,7 +71,7 @@ void ABossFarmGameMode::PotatoBattle(float _DeltaTime)
 	if (GStateName::Finish == Potato->GetCurStateName())
 	{
 		Potato->Destroy();
-		StateManager.ChangeState("OnionBattle");
+		StateManager.ChangeState("OnionIntro");
 	}
 }
 
@@ -74,8 +79,26 @@ void ABossFarmGameMode::PotatoBattleEnd()
 {
 }
 
+void ABossFarmGameMode::OnionIntroStart()
+{
+	// 양파 등장 애니메이션
+	Onion->PlayGroundIntroAnimation();
+	Onion->SetOnionFrameCallback("onion_intro", 9, [this]() {
+		StateManager.ChangeState("OnionBattle");
+	});
+}
+
+void ABossFarmGameMode::OnionIntro(float _DeltaTime)
+{
+}
+
+void ABossFarmGameMode::OnionIntroEnd()
+{
+}
+
 void ABossFarmGameMode::OnionBattleStart()
 {
+	//Onion->TransToAttackState();
 }
 
 void ABossFarmGameMode::OnionBattle(float _DeltaTime)
