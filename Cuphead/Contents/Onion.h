@@ -13,6 +13,8 @@ public:
 	AOnion& operator=(const AOnion& _Other) = delete;
 	AOnion& operator=(AOnion&& _Other) noexcept = delete;
 
+	void SetCollisionActive(bool _Active);
+
 	void PlayGroundIntroAnimation();
 	void PlayOnionIntroAnimation();
 
@@ -41,6 +43,7 @@ private:
 	USpriteRenderer* LeftTearRenderer = nullptr;
 	USpriteRenderer* RightTearRenderer = nullptr;
 	UCollision* Collision = nullptr;
+	USpriteRenderer* CollisionRenderer = nullptr;
 private:
 	// 로직 처리
 	UStateManager StateManager;

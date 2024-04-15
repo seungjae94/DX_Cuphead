@@ -7,16 +7,18 @@ AOnion::AOnion()
 	SetRoot(Root);
 
 	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
-	OnionRenderer = CreateDefaultSubObject<USpriteRenderer>("Potato");
-	LeftTearRenderer = CreateDefaultSubObject<USpriteRenderer>("Tear");
-	RightTearRenderer = CreateDefaultSubObject<USpriteRenderer>("Tear");
+	OnionRenderer = CreateDefaultSubObject<USpriteRenderer>("Onion");
+	LeftTearRenderer = CreateDefaultSubObject<USpriteRenderer>("LeftTear");
+	RightTearRenderer = CreateDefaultSubObject<USpriteRenderer>("RightTear");
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
+	CollisionRenderer = CreateDefaultSubObject<USpriteRenderer>("CollisionRenderer");
 
 	GroundRenderer->SetupAttachment(Root);
 	OnionRenderer->SetupAttachment(Root);
 	LeftTearRenderer->SetupAttachment(Root);
 	RightTearRenderer->SetupAttachment(Root);
 	Collision->SetupAttachment(Root);
+	CollisionRenderer->SetupAttachment(Root);
 
 	Collision->SetCollisionGroup(ECollisionGroup::Monster);
 	Collision->SetCollisionType(ECollisionType::Rect);
@@ -24,6 +26,12 @@ AOnion::AOnion()
 
 AOnion::~AOnion()
 {
+}
+
+void AOnion::SetCollisionActive(bool _Active)
+{
+	Collision->SetActive(_Active);
+	CollisionRenderer->SetActive(_Active);
 }
 
 void AOnion::PlayGroundIntroAnimation()
@@ -53,6 +61,22 @@ void AOnion::SetOnionFrameCallback(std::string_view _AnimName, int _Frame, std::
 
 void AOnion::Damage(int _Damage)
 {
+	if ("FAINT" == StateManager.GetCurStateName())
+	{
+		return;
+	}
+
+	Hp -= _Damage;
+
+	OnionRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.5f });
+	DelayCallBack(0.2f, [this]() {
+		OnionRenderer->SetPlusColor(FVector::Zero);
+	});
+
+	if (Hp <= 0.0f)
+	{
+		StateManager.ChangeState("Faint");
+	}
 }
 
 void AOnion::StateChangeToAttack()
@@ -64,6 +88,8 @@ void AOnion::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SetHp(400);
+
 	RendererInit();
 	StateInit();
 
@@ -72,6 +98,14 @@ void AOnion::BeginPlay()
 	GroundRenderer->SetPosition({ 0.0f, -35.0f });
 	LeftTearRenderer->SetPosition({-350.0f, 555.0f});
 	RightTearRenderer->SetPosition({330.0f, 555.0f});
+
+	Collision->SetPosition(OnionRenderer->GetLocalPosition() + FVector(0.0f, 250.0f, 0.0f));
+	Collision->SetScale({ 600.0f, 500.0f });
+	Collision->SetActive(false);
+
+	CollisionRenderer->SetPosition(Collision->GetLocalPosition());
+	CollisionRenderer->SetScale(Collision->GetLocalScale());
+	CollisionRenderer->SetActive(false);
 }
 
 void AOnion::Tick(float _DeltaTime)
@@ -84,6 +118,10 @@ void AOnion::Tick(float _DeltaTime)
 
 void AOnion::DebugUpdate(float _DeltaTime)
 {
+	{
+		std::string Msg = std::format("Onion Hp : {}\n", Hp);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
 
 void AOnion::RendererInit()
@@ -109,6 +147,8 @@ void AOnion::RendererInit()
 
 	GroundRenderer->SetFrameCallback("ground_intro", 20, [this]() {
 		OnionRenderer->ChangeAnimation("onion_intro");
+		Collision->SetActive(true);
+		CollisionRenderer->SetActive(true);
 	});
 
 	GroundRenderer->SetFrameCallback("ground_intro", 27, [this]() {
@@ -145,6 +185,9 @@ void AOnion::RendererInit()
 	RightTearRenderer->SetAutoSize(0.95f, true);
 
 	LeftTearRenderer->SetDir(EEngineDir::Left);
+
+	CollisionRenderer->SetSprite("debug_rect.png");
+	CollisionRenderer->SetOrder(ERenderingOrder::Collider);
 }
 
 void AOnion::StateInit()

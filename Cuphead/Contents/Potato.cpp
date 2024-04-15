@@ -75,7 +75,7 @@ void APotato::Damage(int _Damage)
 	Hp -= _Damage;
 
 	PotatoRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.5f });
-	DelayCallBack(0.3f, [this]() {
+	DelayCallBack(0.2f, [this]() {
 		PotatoRenderer->SetPlusColor(FVector::Zero);
 		});
 
