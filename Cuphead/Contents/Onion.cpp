@@ -67,10 +67,11 @@ void AOnion::BeginPlay()
 	RendererInit();
 	StateInit();
 
-	SetActorLocation({0.0f, -325.0f});
+	SetActorLocation({0.0f, -335.0f});
 
-	LeftTearRenderer->SetPosition({-300.0f, 350.0f});
-	RightTearRenderer->SetPosition({300.0f, 350.0f});
+	GroundRenderer->SetPosition({ 0.0f, -35.0f });
+	LeftTearRenderer->SetPosition({-350.0f, 555.0f});
+	RightTearRenderer->SetPosition({330.0f, 555.0f});
 }
 
 void AOnion::Tick(float _DeltaTime)
@@ -122,6 +123,14 @@ void AOnion::RendererInit()
 		OnionRenderer->ChangeAnimation("onion_cry_loop");
 	});
 
+	LeftTearRenderer->SetFrameCallback("onion_tear_start", 4, [this]() {
+		LeftTearRenderer->ChangeAnimation("onion_tear_loop");
+	});
+
+	RightTearRenderer->SetFrameCallback("onion_tear_start", 4, [this]() {
+		RightTearRenderer->ChangeAnimation("onion_tear_loop");
+	});
+
 	OnionRenderer->SetOrder(ERenderingOrder::Back5);
 	GroundRenderer->SetOrder(ERenderingOrder::Back6);
 	LeftTearRenderer->SetOrder(ERenderingOrder::Back6);
@@ -131,9 +140,9 @@ void AOnion::RendererInit()
 	GroundRenderer->SetPivot(EPivot::BOT);
 
 	OnionRenderer->SetAutoSize(1.0f, true);
-	GroundRenderer->SetAutoSize(1.5f, true);
-	LeftTearRenderer->SetAutoSize(1.0f, true);
-	RightTearRenderer->SetAutoSize(1.0f, true);
+	GroundRenderer->SetAutoSize(1.25f, true);
+	LeftTearRenderer->SetAutoSize(0.95f, true);
+	RightTearRenderer->SetAutoSize(0.95f, true);
 
 	LeftTearRenderer->SetDir(EEngineDir::Left);
 }
