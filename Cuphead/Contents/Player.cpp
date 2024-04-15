@@ -107,20 +107,20 @@ void APlayer::DebugMsgUpdate(float _DeltaTime)
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
-	{
-		std::string Msg = std::format("Player CurState : {}\n", CurStateName);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
+	//{
+	//	std::string Msg = std::format("Player CurState : {}\n", CurStateName);
+	//	UEngineDebugMsgWindow::PushMsg(Msg);
+	//}
 
-	{
-		std::string Msg = std::format("Player PrevState : {}\n", PrevStateName);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
+	//{
+	//	std::string Msg = std::format("Player PrevState : {}\n", PrevStateName);
+	//	UEngineDebugMsgWindow::PushMsg(Msg);
+	//}
 
-	{
-		std::string Msg = std::format("Player IsFire : {}\n", IsFire == true ? "true" : "false");
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
+	//{
+	//	std::string Msg = std::format("Player IsFire : {}\n", IsFire == true ? "true" : "false");
+	//	UEngineDebugMsgWindow::PushMsg(Msg);
+	//}
 }
 
 bool APlayer::IsPressArrowKey()

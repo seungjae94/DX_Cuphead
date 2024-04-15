@@ -26,6 +26,12 @@ void UCupheadCore::Initialize()
 void UCupheadCore::CreateMaterials()
 {
 	{
+		std::shared_ptr<UEngineMaterial> Box = UEngineMaterial::Create("Box");
+		Box->SetVertexShader("ColorShader.fx");
+		Box->SetPixelShader("ColorShader.fx");
+	}
+
+	{
 		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Noise");
 		Mat->SetVertexShader("ImageShader.fx");
 		Mat->SetPixelShader("ImageShader.fx");

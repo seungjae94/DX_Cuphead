@@ -7,6 +7,7 @@
 #include <EngineCore/GameMode.h>
 #include <EngineCore/Actor.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/Collision.h>
 #include <EngineCore/DefaultSceneComponent.h>
 #include <EngineCore/Camera.h>
 #include <EngineCore/StateManager.h>

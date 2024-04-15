@@ -8,6 +8,17 @@ ABullet::ABullet()
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
+
+	Collision = CreateDefaultSubObject<UCollision>("Collision");
+	Collision->SetupAttachment(Root);
+	Collision->SetCollisionGroup(ECollisionGroup::Bullet);
+	Collision->SetCollisionType(ECollisionType::Rect);
+	Collision->SetScale({ 100.0f, 50.0f, 1.0f });
+
+	CollisionRenderer = CreateDefaultSubObject<USpriteRenderer>("CollisionRenderer");
+	CollisionRenderer->SetupAttachment(Root);
+	CollisionRenderer->SetPosition(Collision->GetLocalPosition());
+	CollisionRenderer->SetScale(Collision->GetLocalScale());
 }
 
 ABullet::~ABullet()
@@ -24,6 +35,10 @@ void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
 
+	DelayCallBack(1.0f, [this]() {
+		Destroy();
+	});
+
 	AnimationInit();
 	StateInit();
 }
@@ -33,6 +48,11 @@ void ABullet::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	StateManager.Update(_DeltaTime);
+	DebugMsgUpdate(_DeltaTime);
+}
+
+void ABullet::DebugMsgUpdate(float _DeltaTime)
+{
 }
 
 void ABullet::AnimationInit()
@@ -43,6 +63,10 @@ void ABullet::AnimationInit()
 
 	Renderer->CreateAnimation(GAnimName::BulletMove, GImageName::BulletMove, 0.1f);
 	Renderer->CreateAnimation(GAnimName::BulletDestroy, GImageName::BulletDestroy, 0.1f, false);
+
+	CollisionRenderer->SetSprite("debug_rect.png");
+	CollisionRenderer->SetOrder(ERenderingOrder::Collider);
+	CollisionRenderer->SetAlpha(0.5f);
 }
 
 void ABullet::StateInit()
@@ -53,7 +77,7 @@ void ABullet::StateInit()
 	std::function<void()> MoveStartFunc = [this]() {
 		this->RefreshRotation();
 		Renderer->ChangeAnimation(GAnimName::BulletMove);
-	};
+		};
 	std::function<void(float)> MoveUpdateFunc = std::bind(&ABullet::Move, this, std::placeholders::_1);
 	std::function<void()> MoveEndFunc = []() {};
 	StateManager.SetFunction(GStateName::Move, MoveStartFunc, MoveUpdateFunc, MoveEndFunc);
@@ -95,4 +119,16 @@ void ABullet::Move(float _DeltaTime)
 {
 	FVector Displacement = UConverter::ConvDirectionToFVector(Direction) * Speed * _DeltaTime;
 	AddActorLocation(Displacement);
+
+	Collision->CollisionEnter(ECollisionGroup::Monster, [=](std::shared_ptr<UCollision> _Collison)
+	{
+		std::string Msg = std::format("Collision Enter!");
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	});
+
+	Collision->CollisionStay(ECollisionGroup::Monster, [=](std::shared_ptr<UCollision> _Collison)
+	{
+		std::string Msg = std::format("Collision Stay!");
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	});
 }

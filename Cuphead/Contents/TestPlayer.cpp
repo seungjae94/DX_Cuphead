@@ -19,7 +19,7 @@ void ATestPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	Renderer->SetSprite("test_rect.png");
+	Renderer->SetSprite("debug_rect.png");
 	Renderer->SetPosition(FVector::Zero);
 	Renderer->SetScale({ 50.0f, 50.0f, 1.0f });
 }

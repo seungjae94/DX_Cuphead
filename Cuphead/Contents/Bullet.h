@@ -20,7 +20,8 @@ private:
 	// 컴포넌트
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
-	
+	UCollision* Collision = nullptr;
+	USpriteRenderer* CollisionRenderer = nullptr;
 private:
 	UStateManager StateManager;
 	EDirection Direction = EDirection::Right;
@@ -28,6 +29,7 @@ private:
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+	void DebugMsgUpdate(float _DeltaTime);
 private:
 	// 초기화 함수
 	void AnimationInit();

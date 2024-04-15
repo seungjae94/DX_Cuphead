@@ -129,6 +129,13 @@ namespace GStateName
 	const std::string Destroy = "Destroy";
 }
 
+enum class ECollisionGroup
+{
+	Bullet,
+	Monster,
+	Character,
+};
+
 enum class ERenderingOrder
 {
 	Back0,
