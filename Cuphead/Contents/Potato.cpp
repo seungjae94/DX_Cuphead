@@ -60,6 +60,11 @@ bool APotato::IsFinished()
 	return "FINISH" == StateManager.GetCurStateName();;
 }
 
+void APotato::Damage(int _Damage)
+{
+	Hp -= _Damage;
+}
+
 void APotato::SetGroundFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
 {
 	GroundRenderer->SetFrameCallback(_AnimName, _Frame, _Callback);
@@ -68,6 +73,8 @@ void APotato::SetGroundFrameCallback(std::string_view _AnimName, int _Frame, std
 void APotato::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SetHp(360);
 
 	RendererInit();
 	StateInit();
@@ -93,6 +100,11 @@ void APotato::Tick(float _DeltaTime)
 void APotato::DebugMsgUpdate(float _DeltaTime)
 {
 	{
+		std::string Msg = std::format("Potato Hp : {}\n", Hp);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
 		std::string Msg = std::format("Potato State : {}\n", StateManager.GetCurStateName());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
@@ -104,21 +116,6 @@ void APotato::DebugMsgUpdate(float _DeltaTime)
 
 	{
 		std::string Msg = std::format("Potato AttackTimer : {}\n", AttackTimer);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Potato Renderer Scale : {}\n", PotatoRenderer->GetWorldScale().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Potato Collision Position : {}\n", Collision->GetWorldPosition().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Potato Collision Scale : {}\n", Collision->GetWorldScale().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }

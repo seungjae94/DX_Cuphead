@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 ABullet::ABullet()
 {
@@ -120,15 +121,16 @@ void ABullet::Move(float _DeltaTime)
 	FVector Displacement = UConverter::ConvDirectionToFVector(Direction) * Speed * _DeltaTime;
 	AddActorLocation(Displacement);
 
-	Collision->CollisionEnter(ECollisionGroup::Monster, [=](std::shared_ptr<UCollision> _Collison)
+	Collision->CollisionEnter(ECollisionGroup::Monster, [=](std::shared_ptr<UCollision> _Collision)
 	{
-		std::string Msg = std::format("Collision Enter!");
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	});
+		// 상태, 애니메이션 변경
+		AEnemy* Enemy = dynamic_cast<AEnemy*>(_Collision->GetActor());
 
-	Collision->CollisionStay(ECollisionGroup::Monster, [=](std::shared_ptr<UCollision> _Collison)
-	{
-		std::string Msg = std::format("Collision Stay!");
-		UEngineDebugMsgWindow::PushMsg(Msg);
+		if (nullptr == Enemy)
+		{
+			return;
+		}
+
+		Enemy->Damage(Damage);
 	});
 }

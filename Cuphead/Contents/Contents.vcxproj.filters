@@ -102,6 +102,9 @@
     <ClInclude Include="BossAttack.h">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Level\03. Boss Level\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -180,6 +183,9 @@
       <Filter>Level\03. Boss Level\Farm</Filter>
     </ClCompile>
     <ClCompile Include="BossAttack.cpp">
+      <Filter>Level\03. Boss Level\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
   </ItemGroup>

@@ -25,6 +25,8 @@ private:
 private:
 	UStateManager StateManager;
 	EDirection Direction = EDirection::Right;
+
+	const int Damage = 4;
 	const float Speed = 2000.0f;
 
 	void BeginPlay() override;

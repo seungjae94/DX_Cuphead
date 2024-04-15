@@ -1,8 +1,9 @@
 #pragma once
+#include "Enemy.h"
 
-class APotato : public AActor
+class APotato : public AEnemy
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(AEnemy)
 public:
 	APotato();
 	~APotato();
@@ -21,6 +22,8 @@ public:
 
 	void TransToAttackState();
 	bool IsFinished();
+
+	void Damage(int _Damage) override;
 
 protected:
 
@@ -43,6 +46,10 @@ private:
 
 	const std::vector<float> AttackDelays = { 1.0f, 0.8f, 0.6f };
 	float AttackTimer = 0.0f;
+private:
+	// 전투 정보
+	const int MaxHp = 360;
+	int Hp = 360;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
