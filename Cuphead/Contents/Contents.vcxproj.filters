@@ -99,6 +99,9 @@
     <ClInclude Include="AnimationEffect.h">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
+    <ClInclude Include="BossAttack.h">
+      <Filter>Level\03. Boss Level\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -175,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="BossFarmGameMode_State.cpp">
       <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="BossAttack.cpp">
+      <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

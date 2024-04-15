@@ -182,7 +182,7 @@ void APotato::Attack(float _DeltaTime)
 	}
 
 	PotatoRenderer->ChangeAnimation("potato_attack");
-	// TODO: °ø »ý¼º
+	
 	AttackTimer = AttackDelays[AttackPhase];
 
 	if (MaxAttackCount == AttackCount)
