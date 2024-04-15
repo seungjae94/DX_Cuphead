@@ -67,7 +67,7 @@ void ABullet::AnimationInit()
 
 	CollisionRenderer->SetSprite("debug_rect.png");
 	CollisionRenderer->SetOrder(ERenderingOrder::Collider);
-	CollisionRenderer->SetAlpha(0.5f);
+	CollisionRenderer->SetActive(false);
 }
 
 void ABullet::StateInit()

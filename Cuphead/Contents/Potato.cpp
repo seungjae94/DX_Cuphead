@@ -158,6 +158,7 @@ void APotato::RendererInit()
 
 	CollisionRenderer->SetSprite("debug_rect.png");
 	CollisionRenderer->SetOrder(ERenderingOrder::Collider);
+	CollisionRenderer->SetActive(false);
 }
 
 void APotato::StateInit()

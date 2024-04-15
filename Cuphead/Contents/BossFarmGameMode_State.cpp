@@ -65,6 +65,7 @@ void ABossFarmGameMode::PotatoBattle(float _DeltaTime)
 {
 	if (GStateName::Finish == Potato->GetCurStateName())
 	{
+		Potato->Destroy();
 		StateManager.ChangeState("OnionBattle");
 	}
 }
