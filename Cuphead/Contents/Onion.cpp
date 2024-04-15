@@ -51,6 +51,11 @@ void AOnion::Damage(int _Damage)
 {
 }
 
+void AOnion::StateChangeToAttack()
+{
+	StateManager.ChangeState("Attack");
+}
+
 void AOnion::BeginPlay()
 {
 	Super::BeginPlay();
@@ -76,9 +81,9 @@ void AOnion::DebugUpdate(float _DeltaTime)
 void AOnion::RendererInit()
 {
 	OnionRenderer->CreateAnimation("onion_intro", "onion_intro.png", 1 / 12.0f, false);
-	OnionRenderer->CreateAnimation("onion_idle", "onion_idle.png", 1 / 12.0f, true);
-	OnionRenderer->CreateAnimation("onion_cry_first", "onion_cry_first.png", 1 / 12.0f, false);
-	OnionRenderer->CreateAnimation("onion_cry_second", "onion_cry_second.png", 1 / 12.0f, false);
+	OnionRenderer->CreateAnimation("onion_idle", "onion_idle.png", 1 / 12.0f, false);
+	OnionRenderer->CreateAnimation("onion_cry_intro", "onion_cry_intro.png", 1 / 12.0f, false);
+	OnionRenderer->CreateAnimation("onion_cry_start", "onion_cry_start.png", 1 / 12.0f, false);
 	OnionRenderer->CreateAnimation("onion_cry_loop", "onion_cry_loop.png", 1 / 12.0f, true);
 	
 	GroundRenderer->CreateAnimation("ground_intro", "onion_ground_intro.png",
@@ -92,6 +97,14 @@ void AOnion::RendererInit()
 
 	GroundRenderer->SetFrameCallback("ground_intro", 27, [this]() {
 		GroundRenderer->ChangeAnimation("ground_idle");
+	});
+
+	OnionRenderer->SetFrameCallback("onion_intro", 23, [this]() {
+		OnionRenderer->ChangeAnimation("onion_cry_intro");
+	});
+
+	OnionRenderer->SetFrameCallback("onion_cry_start", 10, [this]() {
+		OnionRenderer->ChangeAnimation("onion_cry_loop");
 	});
 
 	OnionRenderer->SetOrder(ERenderingOrder::Back5);
@@ -159,6 +172,7 @@ void AOnion::IdleEnd()
 
 void AOnion::AttackStart()
 {
+	OnionRenderer->ChangeAnimation("onion_cry_start");
 }
 
 void AOnion::Attack(float _DeltaTime)

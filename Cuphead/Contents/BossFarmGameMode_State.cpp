@@ -63,7 +63,7 @@ void ABossFarmGameMode::IntroEnd()
 
 void ABossFarmGameMode::PotatoBattleStart()
 {
-	Potato->TransToAttackState();
+	Potato->StateChangeToAttack();
 }
 
 void ABossFarmGameMode::PotatoBattle(float _DeltaTime)
@@ -83,7 +83,7 @@ void ABossFarmGameMode::OnionIntroStart()
 {
 	// 양파 등장 애니메이션
 	Onion->PlayGroundIntroAnimation();
-	Onion->SetOnionFrameCallback("onion_intro", 9, [this]() {
+	Onion->SetOnionFrameCallback("onion_cry_intro", 5, [this]() {
 		StateManager.ChangeState("OnionBattle");
 	});
 }
@@ -98,7 +98,7 @@ void ABossFarmGameMode::OnionIntroEnd()
 
 void ABossFarmGameMode::OnionBattleStart()
 {
-	//Onion->TransToAttackState();
+	Onion->StateChangeToAttack();
 }
 
 void ABossFarmGameMode::OnionBattle(float _DeltaTime)

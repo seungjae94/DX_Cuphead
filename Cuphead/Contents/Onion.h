@@ -23,6 +23,8 @@ public:
 
 	void Damage(int _Damage) override;
 
+	void StateChangeToAttack();
+
 protected:
 private:
 	void BeginPlay() override;

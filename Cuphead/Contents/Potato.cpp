@@ -50,7 +50,7 @@ void APotato::SetPotatoFrameCallback(std::string_view _AnimName, int _Frame, std
 	PotatoRenderer->SetFrameCallback(_AnimName, _Frame, _Callback);
 }
 
-void APotato::TransToAttackState()
+void APotato::StateChangeToAttack()
 {
 	StateManager.ChangeState("Attack");
 }

@@ -19,7 +19,7 @@ public:
 	void PlayPotatoIdleAnimation();
 	void SetPotatoFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 
-	void TransToAttackState();
+	void StateChangeToAttack();
 	bool IsFinished();
 	std::string GetCurStateName() const;
 
