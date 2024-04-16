@@ -9,12 +9,10 @@ ACarrot::ACarrot()
 	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
 	CarrotRenderer = CreateDefaultSubObject<USpriteRenderer>("Carrot");
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
-	CollisionRenderer = CreateDefaultSubObject<USpriteRenderer>("CollisionRenderer");
 
 	GroundRenderer->SetupAttachment(Root);
 	CarrotRenderer->SetupAttachment(Root);
 	Collision->SetupAttachment(Root);
-	CollisionRenderer->SetupAttachment(Root);
 
 	Collision->SetCollisionGroup(ECollisionGroup::Monster);
 	Collision->SetCollisionType(ECollisionType::Rect);
@@ -38,9 +36,6 @@ void ACarrot::BeginPlay()
 	GroundRenderer->SetPosition({ 0.0f, -80.0f });
 	Collision->SetPosition(CarrotRenderer->GetLocalPosition() + FVector(0.0f, 200.0f, 0.0f));
 	Collision->SetScale({ 300.0f, 400.0f });
-
-	CollisionRenderer->SetPosition(Collision->GetLocalPosition());
-	CollisionRenderer->SetScale(Collision->GetLocalScale());
 }
 
 void ACarrot::Tick(float _DeltaTime)
@@ -93,10 +88,6 @@ void ACarrot::RendererInit()
 
 	CarrotRenderer->SetAutoSize(1.0f, true);
 	GroundRenderer->SetAutoSize(1.0f, true);
-
-	CollisionRenderer->SetSprite("debug_rect.png");
-	CollisionRenderer->SetOrder(ERenderingOrder::Collider);
-	CollisionRenderer->SetActive(false);
 }
 
 void ACarrot::StateInit()

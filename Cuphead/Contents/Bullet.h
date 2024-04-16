@@ -21,7 +21,6 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	UCollision* Collision = nullptr;
-	USpriteRenderer* CollisionRenderer = nullptr;
 private:
 	UStateManager StateManager;
 	EDirection Direction = EDirection::Right;

@@ -25,6 +25,8 @@ class ULevel;
 class UEngineCore
 {
 public:
+	bool IsDebug;
+
 	// constrcuter destructer
 	UEngineCore();
 	~UEngineCore();

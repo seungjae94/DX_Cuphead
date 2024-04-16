@@ -13,11 +13,6 @@ ABossAttack::ABossAttack()
 	Collision->SetupAttachment(Root);
 	Collision->SetCollisionGroup(ECollisionGroup::Bullet);
 	Collision->SetCollisionType(ECollisionType::Box);
-
-	CollisionRenderer = CreateDefaultSubObject<USpriteRenderer>("CollisionRenderer");
-	CollisionRenderer->SetupAttachment(Renderer);
-	CollisionRenderer->SetSprite("debug_rect.png");
-	CollisionRenderer->SetOrder(ERenderingOrder::Collider);
 }
 
 ABossAttack::~ABossAttack()

@@ -33,7 +33,6 @@ private:
 	USpriteRenderer* GroundRenderer = nullptr;
 	USpriteRenderer* CarrotRenderer = nullptr;
 	UCollision* Collision = nullptr;
-	USpriteRenderer* CollisionRenderer = nullptr;
 private:
 	// 로직 처리
 	UStateManager StateManager;

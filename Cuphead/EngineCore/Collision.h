@@ -90,6 +90,7 @@ public:
 
 protected:
 	void BeginPlay() override;
+	void Tick(float _Delta) override;
 
 private:
 	ECollisionType CollisionType = ECollisionType::CirCle;

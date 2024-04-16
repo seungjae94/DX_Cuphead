@@ -34,7 +34,6 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	UCollision* Collision = nullptr;
-	USpriteRenderer* CollisionRenderer = nullptr;
 private:
 	// ·ÎÁ÷
 	bool Destroyable = false;

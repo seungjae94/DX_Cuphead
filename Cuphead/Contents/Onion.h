@@ -39,7 +39,6 @@ private:
 	USpriteRenderer* LeftTearRenderer = nullptr;
 	USpriteRenderer* RightTearRenderer = nullptr;
 	UCollision* Collision = nullptr;
-	USpriteRenderer* CollisionRenderer = nullptr;
 private:
 	// 로직 처리
 	UStateManager StateManager;

@@ -1,5 +1,7 @@
 #include "PreCompile.h"
 #include "Collision.h"
+#include "EngineDebug3D.h"
+#include "EngineCore.h"
 
 UCollision::UCollision() 
 {
@@ -112,5 +114,32 @@ void UCollision::SetOrder(int _Order)
 	if (nullptr != GetWorld())
 	{
 		GetWorld()->ChangeOrderCollision(shared_from_this(), PrevOrder, _Order);
+	}
+}
+
+
+void UCollision::Tick(float _Delta)
+{
+	Super::Tick(_Delta);
+	if (false == GEngine->IsDebug)
+	{
+		return;
+	}
+
+	switch (CollisionType)
+	{
+	case ECollisionType::Point:
+	case ECollisionType::CirCle:
+	case ECollisionType::Rect:
+	case ECollisionType::RotRect:
+	case ECollisionType::Sphere:
+	case ECollisionType::Box:
+	case ECollisionType::RotBox:
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Black);
+		break;
+	case ECollisionType::Max:
+		break;
+	default:
+		break;
 	}
 }

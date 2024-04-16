@@ -10,12 +10,10 @@ APotato::APotato()
 	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
 	PotatoRenderer = CreateDefaultSubObject<USpriteRenderer>("Potato");
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
-	CollisionRenderer = CreateDefaultSubObject<USpriteRenderer>("CollisionRenderer");
 
 	GroundRenderer->SetupAttachment(Root);
 	PotatoRenderer->SetupAttachment(Root);
 	Collision->SetupAttachment(Root);
-	CollisionRenderer->SetupAttachment(Root);
 
 	Collision->SetCollisionGroup(ECollisionGroup::Monster);
 	Collision->SetCollisionType(ECollisionType::Rect);
@@ -94,9 +92,6 @@ void APotato::BeginPlay()
 	GroundRenderer->SetPosition({ 0.0f, -80.0f });
 	Collision->SetPosition(PotatoRenderer->GetLocalPosition() + FVector(0.0f, 200.0f, 0.0f));
 	Collision->SetScale({ 300.0f, 400.0f });
-
-	CollisionRenderer->SetPosition(Collision->GetLocalPosition());
-	CollisionRenderer->SetScale(Collision->GetLocalScale());
 }
 
 void APotato::Tick(float _DeltaTime)
@@ -149,10 +144,6 @@ void APotato::RendererInit()
 
 	PotatoRenderer->SetAutoSize(1.25f, true);
 	GroundRenderer->SetAutoSize(1.25f, true);
-
-	CollisionRenderer->SetSprite("debug_rect.png");
-	CollisionRenderer->SetOrder(ERenderingOrder::Collider);
-	CollisionRenderer->SetActive(false);
 }
 
 void APotato::StateInit()
@@ -280,7 +271,6 @@ void APotato::FaintStart()
 {
 	PotatoRenderer->ChangeAnimation("potato_faint");
 	Collision->SetActive(false);
-	CollisionRenderer->SetActive(false);
 
 	ShrinkTimer = ShrinkWaitTime;
 }

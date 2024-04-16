@@ -15,11 +15,6 @@ ABullet::ABullet()
 	Collision->SetCollisionGroup(ECollisionGroup::Bullet);
 	Collision->SetCollisionType(ECollisionType::Rect);
 	Collision->SetScale({ 100.0f, 50.0f, 1.0f });
-
-	CollisionRenderer = CreateDefaultSubObject<USpriteRenderer>("CollisionRenderer");
-	CollisionRenderer->SetupAttachment(Root);
-	CollisionRenderer->SetPosition(Collision->GetLocalPosition());
-	CollisionRenderer->SetScale(Collision->GetLocalScale());
 }
 
 ABullet::~ABullet()
@@ -64,10 +59,6 @@ void ABullet::AnimationInit()
 
 	Renderer->CreateAnimation(GAnimName::BulletMove, GImageName::BulletMove, 0.1f);
 	Renderer->CreateAnimation(GAnimName::BulletDestroy, GImageName::BulletDestroy, 0.1f, false);
-
-	CollisionRenderer->SetSprite("debug_rect.png");
-	CollisionRenderer->SetOrder(ERenderingOrder::Collider);
-	CollisionRenderer->SetActive(false);
 }
 
 void ABullet::StateInit()
