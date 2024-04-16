@@ -29,10 +29,9 @@ AOnion::~AOnion()
 {
 }
 
-void AOnion::SetCollisionActive(bool _Active)
+bool AOnion::IsFinished() const
 {
-	Collision->SetActive(_Active);
-	CollisionRenderer->SetActive(_Active);
+	return "Finish" == StateManager.GetCurStateName();
 }
 
 void AOnion::PlayGroundIntroAnimation()

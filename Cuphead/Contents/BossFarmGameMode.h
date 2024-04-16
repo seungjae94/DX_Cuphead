@@ -4,6 +4,7 @@
 class ABossFarmMap;
 class APotato;
 class AOnion;
+class ACarrot;
 
 class ABossFarmGameMode : public ACupheadGameMode
 {
@@ -24,6 +25,7 @@ private:
 	ABossFarmMap* Map = nullptr;
 	APotato* Potato = nullptr;
 	AOnion* Onion = nullptr;
+	ACarrot* Carrot = nullptr;
 	UStateManager StateManager;
 private:
 	// 초기화 함수
@@ -49,6 +51,10 @@ private:
 	void OnionBattleStart();
 	void OnionBattle(float _DeltaTime);
 	void OnionBattleEnd();
+
+	void CarrotIntroStart();
+	void CarrotIntro(float _DeltaTime);
+	void CarrotIntroEnd();
 
 	void CarrotBattleStart();
 	void CarrotBattle(float _DeltaTime);

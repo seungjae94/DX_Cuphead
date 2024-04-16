@@ -20,7 +20,6 @@ void ABossFarmGameMode::BeginPlay()
 	GetWorld()->SpawnActor<APlayer>("Player");
 	Map = GetWorld()->SpawnActor<ABossFarmMap>("Map").get();
 	Potato = GetWorld()->SpawnActor<APotato>("Potato").get();
-	Onion = GetWorld()->SpawnActor<AOnion>("Onion").get();
 
 	StateInit();
 

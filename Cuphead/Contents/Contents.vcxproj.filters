@@ -114,6 +114,9 @@
     <ClInclude Include="CupheadDebugWindow.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="Carrot.h">
+      <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -202,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="CupheadDebugWindow.cpp">
       <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Carrot.cpp">
+      <Filter>Level\03. Boss Level\Farm</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

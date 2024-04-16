@@ -13,20 +13,16 @@ public:
 	AOnion& operator=(const AOnion& _Other) = delete;
 	AOnion& operator=(AOnion&& _Other) noexcept = delete;
 
-	void SetCollisionActive(bool _Active);
-
 	void PlayGroundIntroAnimation();
 	void PlayOnionIntroAnimation();
-
 	void PlayGroundIdleAnimation();
 	void PlayOnionIdleAnimation();
-
 	void SetOnionFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 
-	void Damage(int _Damage) override;
-
 	void StateChangeToAttack();
+	bool IsFinished() const;
 
+	void Damage(int _Damage) override;
 protected:
 private:
 	void BeginPlay() override;
