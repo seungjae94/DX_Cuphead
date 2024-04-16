@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Carrot.h"
+#include "BossAttack.h"
 
 ACarrot::ACarrot()
 {
@@ -62,7 +63,21 @@ void ACarrot::DebugUpdate(float _DeltaTime)
 void ACarrot::RendererInit()
 {
 	CarrotRenderer->CreateAnimation("carrot_intro", "carrot_intro", 1 / 12.0f, false);
-	CarrotRenderer->CreateAnimation("carrot_idle", "carrot_idle.png", 1 / 12.0f, true);
+	
+	std::vector<int> Indexes;
+	for (int i = 0; i < 18; ++i)
+	{
+		Indexes.push_back(i);
+	}
+	for (int i = 17; i > 0; --i)
+	{
+		Indexes.push_back(i);
+	}
+
+	CarrotRenderer->CreateAnimation("carrot_idle", "carrot_idle.png", 
+		std::vector(35, 1/12.0f),
+		Indexes, true);
+
 	CarrotRenderer->CreateAnimation("carrot_idle_to_beam", "carrot_idle_to_beam.png", 1 / 12.0f, false);
 	CarrotRenderer->CreateAnimation("carrot_beam_body", "carrot_beam_body.png", 1 / 12.0f, true);
 	CarrotRenderer->CreateAnimation("carrot_beam_eye", "carrot_beam_eye.png", 1 / 12.0f, true);
@@ -94,7 +109,7 @@ void ACarrot::StateInit()
 {
 	StateManager.CreateState("Idle");
 	StateManager.CreateState("Attack");
-	StateManager.CreateState("AttackWait");
+	StateManager.CreateState("Beam");
 	StateManager.CreateState("Faint");
 	StateManager.CreateState("Finish");
 
@@ -110,10 +125,10 @@ void ACarrot::StateInit()
 		std::bind(&ACarrot::AttackEnd, this)
 	);
 
-	StateManager.SetFunction("AttackWait",
-		std::bind(&ACarrot::AttackWaitStart, this),
-		std::bind(&ACarrot::AttackWait, this, std::placeholders::_1),
-		std::bind(&ACarrot::AttackWaitEnd, this)
+	StateManager.SetFunction("Beam",
+		std::bind(&ACarrot::BeamStart, this),
+		std::bind(&ACarrot::Beam, this, std::placeholders::_1),
+		std::bind(&ACarrot::BeamEnd, this)
 	);
 
 	StateManager.SetFunction("Faint",
@@ -145,25 +160,54 @@ void ACarrot::IdleEnd()
 
 void ACarrot::AttackStart()
 {
+	CarrotRenderer->ChangeAnimation("carrot_idle");
+
+	AttackCount = MaxAttackCount;
+	AttackTimer = AttackInterval;
 }
 
 void ACarrot::Attack(float _DeltaTime)
 {
+	AttackTimer -= _DeltaTime;
+
+	if (AttackTimer >= 0.0f)
+	{
+		return;
+	}
+
+	ABossAttack* Proj = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
+	Proj->SetRenderingOrder(ERenderingOrder::Bullet);
+
+	float RandomX = Random.RandomFloat(-640.0f, 640.0f);
+
+	Proj->SetActorLocation({ RandomX, 400.0f, 0.0f });
+	Proj->SetVelocity(FVector::Down * 650.0f);
+	Proj->SetAnimation("carrot_proj", "carrot_proj.png", 1 / 12.0f, true);
+
+	--AttackCount;
+	AttackTimer = AttackInterval;
+
+	if (AttackCount <= 0)
+	{
+		StateManager.ChangeState("Beam");
+		return;
+	}
 }
+
 
 void ACarrot::AttackEnd()
 {
 }
 
-void ACarrot::AttackWaitStart()
+void ACarrot::BeamStart()
 {
 }
 
-void ACarrot::AttackWait(float _DeltaTime)
+void ACarrot::Beam(float _DeltaTime)
 {
 }
 
-void ACarrot::AttackWaitEnd()
+void ACarrot::BeamEnd()
 {
 }
 

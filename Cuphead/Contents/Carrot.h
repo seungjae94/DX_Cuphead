@@ -26,7 +26,13 @@ public:
 
 protected:
 
-
+private:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+	void DebugUpdate(float _DeltaTime);
+private:
+	void RendererInit();
+	void StateInit();
 private:
 	// 컴포넌트
 	UDefaultSceneComponent* Root = nullptr;
@@ -36,13 +42,21 @@ private:
 private:
 	// 로직 처리
 	UStateManager StateManager;
-private:
-	void BeginPlay() override;
-	void Tick(float _DeltaTime) override;
-	void DebugUpdate(float _DeltaTime);
-private:
-	void RendererInit();
-	void StateInit();
+	UEngineRandom Random;
+
+	const int MaxAttackCount = 4;
+	const float AttackInterval = 2.0f;
+	int AttackCount = 4;
+	float AttackTimer = 0.0f;
+
+	const int MaxBeamCount = 3;
+	int BeamCount = 3;
+
+	const float BeamInterval = 2.0f;
+	float BeamTimer = 0.0f;
+
+	const float ShrinkWaitTime = 2.0f;
+	float ShrinkTimer = 0.0f;
 private:
 	// 상태 함수
 	void IdleStart();
@@ -53,9 +67,9 @@ private:
 	void Attack(float _DeltaTime);
 	void AttackEnd();
 
-	void AttackWaitStart();
-	void AttackWait(float _DeltaTime);
-	void AttackWaitEnd();
+	void BeamStart();
+	void Beam(float _DeltaTime);
+	void BeamEnd();
 
 	void FaintStart();
 	void Faint(float _DeltaTime);

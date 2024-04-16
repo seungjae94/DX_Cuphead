@@ -137,7 +137,7 @@ void ABossFarmGameMode::CarrotIntroStart()
 	// 당근 등장 애니메이션
 	Carrot = GetWorld()->SpawnActor<ACarrot>("Carrot").get();
 	Carrot->PlayGroundIntroAnimation();
-	Carrot->SetCarrotFrameCallback("carrot_intro", 28, [this]() {
+	Carrot->SetCarrotFrameCallback("carrot_intro", 24, [this]() {
 		StateManager.ChangeState("CarrotBattle");
 	});
 }
@@ -154,6 +154,7 @@ void ABossFarmGameMode::CarrotIntroEnd()
 
 void ABossFarmGameMode::CarrotBattleStart()
 {
+	Carrot->StateChangeToAttack();
 }
 
 void ABossFarmGameMode::CarrotBattle(float _DeltaTime)
