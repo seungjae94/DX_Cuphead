@@ -49,8 +49,8 @@ void ABossFarmGameMode::StateInit()
 		std::bind(&ABossFarmGameMode::CarrotBattleEnd, this)
 	);
 
-	StateManager.ChangeState("Intro");
-	//StateManager.ChangeState("CarrotIntroStart");
+	//StateManager.ChangeState("Intro");
+	StateManager.ChangeState("CarrotIntro");
 }
 
 
@@ -61,6 +61,7 @@ void ABossFarmGameMode::IntroStart()
 	// Ready Wallop 애니메이션
 
 	// 감자 등장 애니메이션
+	Potato = GetWorld()->SpawnActor<APotato>("Potato").get();
 	Potato->PlayGroundIntroAnimation();
 	Potato->SetPotatoFrameCallback("potato_intro", 9, [this]() {
 		StateManager.ChangeState("PotatoBattle");

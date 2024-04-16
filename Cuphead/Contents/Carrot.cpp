@@ -31,11 +31,11 @@ void ACarrot::BeginPlay()
 	RendererInit();
 	StateInit();
 
-	SetActorLocation({ 0.0f, 0.0f });
-	CarrotRenderer->SetPosition({ 0.0f, -50.0f });
-	GroundRenderer->SetPosition({ 0.0f, -80.0f });
-	Collision->SetPosition(CarrotRenderer->GetLocalPosition() + FVector(0.0f, 200.0f, 0.0f));
-	Collision->SetScale({ 300.0f, 400.0f });
+	SetActorLocation({ 0.0f, -270.0f });
+	CarrotRenderer->SetPosition({ 0.0f, 0.0f });
+	GroundRenderer->SetPosition({ 0.0f, -20.0f });
+	Collision->SetPosition(CarrotRenderer->GetLocalPosition() + FVector(0.0f, 250.0f, 0.0f));
+	Collision->SetScale({ 300.0f, 500.0f });
 }
 
 void ACarrot::Tick(float _DeltaTime)
@@ -61,7 +61,7 @@ void ACarrot::DebugUpdate(float _DeltaTime)
 
 void ACarrot::RendererInit()
 {
-	CarrotRenderer->CreateAnimation("carrot_intro", "carrot_intro.png", 1 / 12.0f, false);
+	CarrotRenderer->CreateAnimation("carrot_intro", "carrot_intro", 1 / 12.0f, false);
 	CarrotRenderer->CreateAnimation("carrot_idle", "carrot_idle.png", 1 / 12.0f, true);
 	CarrotRenderer->CreateAnimation("carrot_idle_to_beam", "carrot_idle_to_beam.png", 1 / 12.0f, false);
 	CarrotRenderer->CreateAnimation("carrot_beam_body", "carrot_beam_body.png", 1 / 12.0f, true);
@@ -73,25 +73,62 @@ void ACarrot::RendererInit()
 	GroundRenderer->CreateAnimation("ground_idle", "carrot_ground_idle.png", 1 / 12.0f, false);
 
 	GroundRenderer->SetFrameCallback("ground_intro", 20, [this]() {
-		CarrotRenderer->ChangeAnimation("potato_intro");
+		CarrotRenderer->ChangeAnimation("carrot_intro");
 		});
 
 	GroundRenderer->SetFrameCallback("ground_intro", 27, [this]() {
 		GroundRenderer->ChangeAnimation("ground_idle");
 		});
 
-	CarrotRenderer->SetOrder(ERenderingOrder::Back5);
-	GroundRenderer->SetOrder(ERenderingOrder::Back6);
+	CarrotRenderer->SetOrder(ERenderingOrder::Back3);
+	GroundRenderer->SetOrder(ERenderingOrder::Back4);
 
 	CarrotRenderer->SetPivot(EPivot::BOT);
 	GroundRenderer->SetPivot(EPivot::BOT);
 
-	CarrotRenderer->SetAutoSize(1.0f, true);
-	GroundRenderer->SetAutoSize(1.0f, true);
+	CarrotRenderer->SetAutoSize(1.2f, true);
+	GroundRenderer->SetAutoSize(1.2f, true);
 }
 
 void ACarrot::StateInit()
 {
+	StateManager.CreateState("Idle");
+	StateManager.CreateState("Attack");
+	StateManager.CreateState("AttackWait");
+	StateManager.CreateState("Faint");
+	StateManager.CreateState("Finish");
+
+	StateManager.SetFunction("Idle",
+		std::bind(&ACarrot::IdleStart, this),
+		std::bind(&ACarrot::Idle, this, std::placeholders::_1),
+		std::bind(&ACarrot::IdleEnd, this)
+	);
+
+	StateManager.SetFunction("Attack",
+		std::bind(&ACarrot::AttackStart, this),
+		std::bind(&ACarrot::Attack, this, std::placeholders::_1),
+		std::bind(&ACarrot::AttackEnd, this)
+	);
+
+	StateManager.SetFunction("AttackWait",
+		std::bind(&ACarrot::AttackWaitStart, this),
+		std::bind(&ACarrot::AttackWait, this, std::placeholders::_1),
+		std::bind(&ACarrot::AttackWaitEnd, this)
+	);
+
+	StateManager.SetFunction("Faint",
+		std::bind(&ACarrot::FaintStart, this),
+		std::bind(&ACarrot::Faint, this, std::placeholders::_1),
+		std::bind(&ACarrot::FaintEnd, this)
+	);
+
+	StateManager.SetFunction("Finish",
+		std::bind(&ACarrot::FinishStart, this),
+		std::bind(&ACarrot::Finish, this, std::placeholders::_1),
+		std::bind(&ACarrot::FinishEnd, this)
+	);
+
+	StateManager.ChangeState("Idle");
 }
 
 void ACarrot::IdleStart()
