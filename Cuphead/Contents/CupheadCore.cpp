@@ -136,6 +136,7 @@ void UCupheadCore::LoadResources()
 
 		UEngineSprite::CreateCutting("onion_intro.png", 24, 1);
 		UEngineSprite::CreateCutting("onion_idle.png", 14, 1);
+		UEngineSprite::CreateCutting("onion_faint.png", 15, 1);
 		UEngineSprite::CreateCutting("onion_ground_intro.png", 16, 1);
 		UEngineSprite::CreateCutting("onion_cry_intro.png", 6, 1);
 		UEngineSprite::CreateCutting("onion_cry_start.png", 11, 1);

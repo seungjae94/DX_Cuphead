@@ -134,11 +134,12 @@ void AOnion::RendererInit()
 {
 	OnionRenderer->CreateAnimation("onion_intro", "onion_intro.png", 1 / 12.0f, false);
 	OnionRenderer->CreateAnimation("onion_idle", "onion_idle.png", 1 / 12.0f, false);
+	OnionRenderer->CreateAnimation("onion_faint", "onion_faint.png", 1 / 24.0f, true);
 	OnionRenderer->CreateAnimation("onion_cry_intro", "onion_cry_intro.png", 1 / 12.0f, false);
 	OnionRenderer->CreateAnimation("onion_cry_start", "onion_cry_start.png", 1 / 12.0f, false);
 	OnionRenderer->CreateAnimation("onion_cry_loop", "onion_cry_loop.png", 1 / 12.0f, true);
 	OnionRenderer->CreateAnimation("onion_cry_wait", "onion_cry_wait.png", 1 / 12.0f, true);
-	
+
 	GroundRenderer->CreateAnimation("ground_intro", "onion_ground_intro.png",
 		std::vector<float>(28, 1 / 18.0f),
 		{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
@@ -330,10 +331,29 @@ void AOnion::AttackWaitEnd()
 
 void AOnion::FaintStart()
 {
+	OnionRenderer->ChangeAnimation("onion_faint");
+	LeftTearRenderer->SetActive(false);
+	RightTearRenderer->SetActive(false);
+
+	Collision->SetActive(false);
+	CollisionRenderer->SetActive(false);
+
+	ShrinkTimer = ShrinkWaitTime;
 }
 
 void AOnion::Faint(float _DeltaTime)
 {
+	ShrinkTimer -= _DeltaTime;
+
+	if (ShrinkTimer < 0.0f)
+	{
+		OnionRenderer->AddPosition(FVector::Down * 200.0f * _DeltaTime);
+	}
+
+	if (ShrinkTimer < -3.0f)
+	{
+		StateManager.ChangeState(GStateName::Finish);
+	}
 }
 
 void AOnion::FaintEnd()
@@ -342,6 +362,8 @@ void AOnion::FaintEnd()
 
 void AOnion::FinishStart()
 {
+	OnionRenderer->SetActive(false);
+	GroundRenderer->SetActive(false);
 }
 
 void AOnion::Finish(float _DeltaTime)

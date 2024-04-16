@@ -57,6 +57,8 @@ private:
 	float AttackTotalTimer = 0.0f;
 	float AttackTimer = 0.0f;
 
+	const float ShrinkWaitTime = 2.0f;
+	float ShrinkTimer = 0.0f;
 private:
 	// 상태 함수
 	void IdleStart();
