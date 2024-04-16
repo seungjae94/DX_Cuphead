@@ -123,6 +123,11 @@ void AOnion::DebugUpdate(float _DeltaTime)
 		std::string Msg = std::format("Onion Hp : {}\n", Hp);
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+
+	{
+		std::string Msg = std::format("Onion State : {}\n", StateManager.GetCurStateName());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
 
 void AOnion::RendererInit()
@@ -132,6 +137,7 @@ void AOnion::RendererInit()
 	OnionRenderer->CreateAnimation("onion_cry_intro", "onion_cry_intro.png", 1 / 12.0f, false);
 	OnionRenderer->CreateAnimation("onion_cry_start", "onion_cry_start.png", 1 / 12.0f, false);
 	OnionRenderer->CreateAnimation("onion_cry_loop", "onion_cry_loop.png", 1 / 12.0f, true);
+	OnionRenderer->CreateAnimation("onion_cry_wait", "onion_cry_wait.png", 1 / 12.0f, true);
 	
 	GroundRenderer->CreateAnimation("ground_intro", "onion_ground_intro.png",
 		std::vector<float>(28, 1 / 18.0f),
@@ -302,10 +308,20 @@ void AOnion::AttackEnd()
 
 void AOnion::AttackWaitStart()
 {
+	AttackWaitTimer = AttackWaitTime;
+	OnionRenderer->ChangeAnimation("onion_cry_wait");
+	LeftTearRenderer->ChangeAnimation("onion_tear_end");
+	RightTearRenderer->ChangeAnimation("onion_tear_end");
 }
 
 void AOnion::AttackWait(float _DeltaTime)
 {
+	AttackWaitTimer -= _DeltaTime;
+
+	if (AttackWaitTimer < 0.0f)
+	{
+		StateManager.ChangeState("Attack");
+	}
 }
 
 void AOnion::AttackWaitEnd()

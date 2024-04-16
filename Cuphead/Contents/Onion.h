@@ -48,12 +48,12 @@ private:
 	// 로직 처리
 	UStateManager StateManager;
 	
-	const float AttackWaitTime = 3.0f;
+	const float AttackWaitTime = 2.0f;
 	float AttackWaitTimer = 0.0f;
 
 	UEngineRandom Random;
 	const float AttackTotalTime = 10.0f;
-	const float AttackInterval = 0.5f;
+	const float AttackInterval = 1.0f;
 	float AttackTotalTimer = 0.0f;
 	float AttackTimer = 0.0f;
 
