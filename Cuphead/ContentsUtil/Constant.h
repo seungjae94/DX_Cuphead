@@ -116,19 +116,19 @@ namespace GAnimName
 
 namespace GStateName
 {
-	const std::string Idle = "IDLE";
-	const std::string Aim = "AIM";
-	const std::string Walk = "WALK";
-	const std::string Run = "RUN";
-	const std::string Sit = "SIT";
-	const std::string Dash = "DASH";
-	const std::string Jump = "JUMP";
+	const std::string Idle = "Idle";
+	const std::string Aim = "Aim";
+	const std::string Walk = "Walk";
+	const std::string Run = "Run";
+	const std::string Sit = "Sit";
+	const std::string Dash = "Dash";
+	const std::string Jump = "Jump";
 
-	const std::string Spawn = "SPAWN";
-	const std::string Move = "MOVE";
-	const std::string Destroy = "DESTROY";
+	const std::string Spawn = "Spawn";
+	const std::string Move = "Move";
+	const std::string Destroy = "Destroy";
 
-	const std::string Finish = "FINISH";
+	const std::string Finish = "Finish";
 }
 
 enum class ECollisionGroup

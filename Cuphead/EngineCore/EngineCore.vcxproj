@@ -184,6 +184,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineDebug3D.h" />
     <ClInclude Include="EngineDebugMsgWindow.h" />
     <ClInclude Include="EngineDefines.h" />
     <ClInclude Include="EngineEditorGUI.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="ThirdParty\DirectxTex\inc\DirectXTex.h" />
     <ClInclude Include="TickObject.h" />
+    <ClInclude Include="TileRenderer.h" />
     <ClInclude Include="WorldObject.h" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +244,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineDebug3D.cpp" />
     <ClCompile Include="EngineDebugMsgWindow.cpp" />
     <ClCompile Include="EngineEditorGUI.cpp" />
     <ClCompile Include="EngineEditorWindow.cpp" />
@@ -286,6 +289,7 @@
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TickObject.cpp" />
+    <ClCompile Include="TileRenderer.cpp" />
     <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
   <ItemGroup>

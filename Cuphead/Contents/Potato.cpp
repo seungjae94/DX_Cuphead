@@ -57,7 +57,7 @@ void APotato::StateChangeToAttack()
 
 bool APotato::IsFinished()
 {
-	return "FINISH" == StateManager.GetCurStateName();;
+	return "Finish" == StateManager.GetCurStateName();;
 }
 
 std::string APotato::GetCurStateName() const
@@ -67,7 +67,7 @@ std::string APotato::GetCurStateName() const
 
 void APotato::Damage(int _Damage)
 {
-	if ("FAINT" == StateManager.GetCurStateName())
+	if ("Faint" == StateManager.GetCurStateName())
 	{
 		return;
 	}
