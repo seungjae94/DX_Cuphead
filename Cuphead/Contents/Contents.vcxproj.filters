@@ -40,6 +40,9 @@
     <Filter Include="Level\03. Boss Level\Common">
       <UniqueIdentifier>{654bff13-64c5-4745-8fb9-9268fb87f959}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{5ea4a7a1-725c-426e-8ee9-506fb4c58d30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CupheadCore.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="Onion.h">
       <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClInclude>
+    <ClInclude Include="CupheadDebugWindow.h">
+      <Filter>Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="Onion.cpp">
       <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="CupheadDebugWindow.cpp">
+      <Filter>Debug</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include "OverworldGameMode.h"
 #include "BossFarmGameMode.h"
 #include "BossDragonGameMode.h"
+#include "CupheadDebugWindow.h"
 #include <EngineCore/EngineTexture.h>
 
 UCupheadCore::UCupheadCore()
@@ -17,10 +18,16 @@ UCupheadCore::~UCupheadCore()
 
 void UCupheadCore::Initialize()
 {
+	CreateDebugWindows();
 	CreateMaterials();
 	LoadResources();
 	CreateLevels();
 	GEngine->ChangeLevel(GLevelName::BossFarmLevel);
+}
+
+void UCupheadCore::CreateDebugWindows()
+{
+	UEngineEditorGUI::CreateEditorWindow<UCupheadDebugWindow>("CupheadDebugWindow");
 }
 
 void UCupheadCore::CreateMaterials()

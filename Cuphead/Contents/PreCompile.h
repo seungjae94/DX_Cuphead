@@ -12,6 +12,8 @@
 #include <EngineCore/Camera.h>
 #include <EngineCore/StateManager.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
+#include <EngineCore/EngineEditorWindow.h>
+#include <EngineCore/EngineEditorGUI.h>
 
 #include <ContentsUtil/PreCompile.h>
 #include <ContentsUtil/Constant.h>
