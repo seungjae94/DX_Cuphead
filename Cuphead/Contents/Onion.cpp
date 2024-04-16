@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Onion.h"
+#include "BossAttack.h"
 
 AOnion::AOnion()
 {
@@ -248,10 +249,51 @@ void AOnion::AttackStart()
 	OnionRenderer->ChangeAnimation("onion_cry_start");
 	LeftTearRenderer->ChangeAnimation("onion_tear_start");
 	RightTearRenderer->ChangeAnimation("onion_tear_start");
+
+	AttackTotalTimer = AttackTotalTime;
+	AttackTimer = AttackInterval;
 }
 
 void AOnion::Attack(float _DeltaTime)
 {
+	AttackTotalTimer -= _DeltaTime;
+	AttackTimer -= _DeltaTime;
+
+	if (AttackTotalTimer < 0.0f)
+	{
+		StateManager.ChangeState("AttackWait");
+		return;
+	}
+
+	if (AttackTimer >= 0.0f)
+	{
+		return;
+	}
+
+	ABossAttack* Attack = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
+	Attack->SetRenderingOrder(ERenderingOrder::Bullet);
+
+	float RandomX = 0.0f; 
+	while (RandomX > -300.0f && RandomX < 300.0f)
+	{
+		RandomX = Random.RandomFloat(-640.0f, 640.0f);
+	}
+
+	int RandomValue = Random.RandomInt(0, 9);
+
+	Attack->SetActorLocation({RandomX, 300.0f, 0.0f});
+	Attack->SetVelocity(FVector::Down * 650.0f);
+
+	if (0 == RandomValue)
+	{
+		Attack->SetAnimation("onion_attack_pink", "onion_attack_pink.png", 1 / 12.0f, true);
+	}
+	else
+	{
+		Attack->SetAnimation("onion_attack", "onion_attack.png", 1 / 12.0f, true);
+	}
+
+	AttackTimer = AttackInterval;
 }
 
 void AOnion::AttackEnd()

@@ -37,6 +37,7 @@ private:
 private:
 	// 로직 처리
 	UStateManager StateManager;
+
 	int AttackPhase = -1;
 	const float AttackWaitTime = 3.0f;
 	float AttackWaitTimer = 0.0f;
