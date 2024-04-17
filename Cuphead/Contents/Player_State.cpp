@@ -248,6 +248,18 @@ void APlayer::HitStart()
 	Renderer->ChangeAnimation(GAnimName::PlayerHit);
 	Velocity = FVector::Zero;
 	DelayCallBack(0.5f, [this]() {
+		if (GStateName::Dash == PrevStateName)
+		{
+			if (true == OnGroundValue)
+			{
+				StateManager.ChangeState(GStateName::Idle);
+				return;
+			}
+
+			StateManager.ChangeState(GStateName::Jump);
+			return;
+		}
+
 		StateManager.ChangeState(PrevStateName);
 	});
 	Collision->SetActive(false);
