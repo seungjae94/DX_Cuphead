@@ -71,7 +71,6 @@ private:
 
 private:
 	int Hp = 3;
-
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

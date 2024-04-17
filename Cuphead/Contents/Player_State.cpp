@@ -241,10 +241,11 @@ void APlayer::SitEnd()
 void APlayer::HitStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerHit);
+	Velocity = FVector::Zero;
 	DelayCallBack(0.5f, [this]() {
 		StateManager.ChangeState(PrevStateName);
 	});
-	//Collision->SetActive(false);
+	Collision->SetActive(false);
 }
 
 void APlayer::Hit(float _DeltaTime)
@@ -253,7 +254,9 @@ void APlayer::Hit(float _DeltaTime)
 
 void APlayer::HitEnd()
 {
-	//Collision->SetActive(true);
+	DelayCallBack(5.0f, [this]() {
+		Collision->SetActive(true);
+	});
 }
 
 void APlayer::RefreshIdleAnimation()

@@ -22,6 +22,7 @@ APlayer::~APlayer()
 void APlayer::Damage()
 {
 	--Hp;
+	StateManager.ChangeState(GStateName::Hit);
 }
 
 void APlayer::BeginPlay()
@@ -105,6 +106,11 @@ void APlayer::DebugUpdate(float _DeltaTime)
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
+	{
+		std::string Msg = std::format("Player OnGround : {}\n", OnGroundValue == true ? "true" : "false");
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
 	//{
 	//	std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
 	//	UEngineDebugMsgWindow::PushMsg(Msg);
@@ -119,11 +125,6 @@ void APlayer::DebugUpdate(float _DeltaTime)
 	//	std::string Msg = std::format("Player Velocity : {}\n", Velocity.ToString());
 	//	UEngineDebugMsgWindow::PushMsg(Msg);
 	//}
-
-	{
-		std::string Msg = std::format("Player OnGround : {}\n", OnGroundValue == true ? "true" : "false");
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
 
 	//{
 	//	std::string Msg = std::format("Player CurState : {}\n", CurStateName);
