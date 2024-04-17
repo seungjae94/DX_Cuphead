@@ -53,6 +53,7 @@ namespace GImageName
 	const std::string PlayerJump = "player_jump.png";
 	const std::string PlayerDash = "player_dash.png";
 	const std::string PlayerSit = "player_sit.png";
+	const std::string PlayerHit = "player_hit.png";
 
 	// 플레이어 먼지
 	const std::string PlayerLandingDust = "player_landing_dust";
@@ -100,6 +101,7 @@ namespace GAnimName
 	const std::string PlayerJump = "player_jump";
 	const std::string PlayerDash = "player_dash";
 	const std::string PlayerSit = "player_sit";
+	const std::string PlayerHit = "player_hit";
 
 	// 플레이어 먼지
 	const std::string PlayerLandingDust = "player_landing_dust";
@@ -121,6 +123,7 @@ namespace GStateName
 	const std::string Walk = "Walk";
 	const std::string Run = "Run";
 	const std::string Sit = "Sit";
+	const std::string Hit = "Hit";
 	const std::string Dash = "Dash";
 	const std::string Jump = "Jump";
 

@@ -8,6 +8,9 @@ APlayer::APlayer()
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
+
+	Collision = CreateDefaultSubObject<UCollision>("Collision");
+	Collision->SetupAttachment(Root);
 }
 
 APlayer::~APlayer()
@@ -24,6 +27,9 @@ void APlayer::BeginPlay()
 	Renderer->SetOrder(ERenderingOrder::Character);
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetPivot(EPivot::BOT);
+
+	Collision->SetScale(CollisionDefaultScale);
+	Collision->SetPosition(CollisionDefaultPosition);
 
 	AnimationInit();
 	StateInit();

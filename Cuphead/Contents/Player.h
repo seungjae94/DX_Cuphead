@@ -27,7 +27,7 @@ private:
 	// 컴포넌트
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
-
+	UCollision* Collision = nullptr;
 private:
 	// State
 	std::string CurStateName = GStateName::Idle;
@@ -60,6 +60,12 @@ private:
 	const FVector DashDustPos = { 0.0f, 50.0f, 0.0f };
 	EEngineDir Direction = EEngineDir::Right;
 	bool IsDashed = false;
+
+	// Collision
+	const FVector CollisionDefaultPosition = { 0.0f, 62.0f };
+	const FVector CollisionDefaultScale = { 100.0f, 125.0f };
+	const FVector CollisionSitPosition = { 0.0f, 32.0f };
+	const FVector CollisionSitScale = {100.0f, 50.0f};
 
 private:
 	void BeginPlay() override;
@@ -99,6 +105,10 @@ private:
 	void SitStart();
 	void Sit(float _DeltaTime);
 	void SitEnd();
+
+	void HitStart();
+	void Hit(float _DeltaTime);
+	void HitEnd();
 
 private:
 	// 공격

@@ -8,6 +8,7 @@ void APlayer::StateInit()
 	StateManager.CreateState(GStateName::Idle);
 	StateManager.CreateState(GStateName::Run);
 	StateManager.CreateState(GStateName::Sit);
+	StateManager.CreateState(GStateName::Hit);
 	StateManager.CreateState(GStateName::Dash);
 	StateManager.CreateState(GStateName::Jump);
 
@@ -30,6 +31,10 @@ void APlayer::StateInit()
 	StateManager.SetStartFunction(GStateName::Sit, std::bind(&APlayer::SitStart, this));
 	StateManager.SetUpdateFunction(GStateName::Sit, std::bind(&APlayer::Sit, this, std::placeholders::_1));
 	StateManager.SetEndFunction(GStateName::Sit, std::bind(&APlayer::SitEnd, this));
+
+	StateManager.SetStartFunction(GStateName::Hit, std::bind(&APlayer::HitStart, this));
+	StateManager.SetUpdateFunction(GStateName::Hit, std::bind(&APlayer::Hit, this, std::placeholders::_1));
+	StateManager.SetEndFunction(GStateName::Hit, std::bind(&APlayer::HitEnd, this));
 }
 
 void APlayer::ChangeState(std::string _StateName)
@@ -205,6 +210,9 @@ void APlayer::SitStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerSit);
 	Velocity = FVector::Zero;
+
+	Collision->SetScale(CollisionSitScale);
+	Collision->SetPosition(CollisionSitPosition);
 }
 
 void APlayer::Sit(float _DeltaTime)
@@ -226,6 +234,26 @@ void APlayer::Sit(float _DeltaTime)
 
 void APlayer::SitEnd()
 {
+	Collision->SetScale(CollisionDefaultScale);
+	Collision->SetPosition(CollisionDefaultPosition);
+}
+
+void APlayer::HitStart()
+{
+	Renderer->ChangeAnimation(GAnimName::PlayerHit);
+	DelayCallBack(0.5f, [this]() {
+		StateManager.ChangeState(PrevStateName);
+	});
+	//Collision->SetActive(false);
+}
+
+void APlayer::Hit(float _DeltaTime)
+{
+}
+
+void APlayer::HitEnd()
+{
+	//Collision->SetActive(true);
 }
 
 void APlayer::RefreshIdleAnimation()
