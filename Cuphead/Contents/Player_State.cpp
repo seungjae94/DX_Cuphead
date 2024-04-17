@@ -91,7 +91,7 @@ void APlayer::IdleEnd()
 
 bool APlayer::IsParrying()
 {
-	return false;
+	return IsParryingValue;
 }
 
 void APlayer::RunStart()
@@ -169,6 +169,12 @@ void APlayer::Jump(float _DeltaTime)
 	else
 	{
 		Velocity.X = 0.0f;
+	}
+
+	if (true == IsDown('Z'))
+	{
+		ChangeState(GStateName::Parry);
+		return;
 	}
 
 	if (true == IsDown(VK_SHIFT) && false == IsDashed)

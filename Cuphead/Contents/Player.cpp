@@ -127,6 +127,11 @@ void APlayer::DebugUpdate(float _DeltaTime)
 	}
 
 	{
+		std::string Msg = std::format("Player IsParrying : {}\n", IsParryingValue == true ? "true" : "false");
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
 		std::string Msg = std::format("Player Collision Active : {}\n", Collision->IsActive() == true ? "true" : "false");
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}

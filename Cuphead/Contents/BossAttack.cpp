@@ -63,6 +63,11 @@ void ABossAttack::SetDestroyTime(float _Time)
 		});
 }
 
+void ABossAttack::SetParryable(bool _Parryable)
+{
+	Parryable = _Parryable;
+}
+
 void ABossAttack::SetCollisionType(ECollisionType _Type)
 {
 	Collision->SetCollisionType(_Type);

@@ -286,6 +286,7 @@ void AOnion::Attack(float _DeltaTime)
 	if (0 == RandomValue)
 	{
 		Attack->SetAnimation("onion_attack_pink", "onion_attack_pink.png", 1 / 12.0f, true);
+		Attack->SetParryable(true);
 	}
 	else
 	{

@@ -236,6 +236,7 @@ void APotato::Attack(float _DeltaTime)
 	{
 		Attack->SetAnimation("potato_attack_snake", "potato_attack_snake.png", 1 / 12.0f, true);
 		Attack->SetCollisionPosition({ -5.0f, -10.0f });
+		Attack->SetParryable(true);
 	}
 	else
 	{

@@ -26,6 +26,7 @@ public:
 	void SetVelocity(const FVector& _Velocity, bool _RotateImage = false, const FVector& _RotationDeg = FVector::Zero);
 	void SetChaseType(EChaseType _Type, AActor* _Target);
 	void SetDestroyTime(float _Time);
+	void SetParryable(bool _Parryable);
 
 	void SetCollisionType(ECollisionType _Type);
 	void SetCollisionPosition(const FVector& _Pos);

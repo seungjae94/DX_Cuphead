@@ -100,6 +100,7 @@ void UCupheadCore::LoadResources()
 
 		UEngineSprite::CreateCutting(GImageName::PlayerIdle, 5, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerJump, 8, 1);
+		UEngineSprite::CreateCutting(GImageName::PlayerParry, 8, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerDash, 8, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerSit, 5, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerHit, 6, 1);
