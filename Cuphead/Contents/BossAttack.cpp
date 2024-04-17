@@ -11,7 +11,7 @@ ABossAttack::ABossAttack()
 	Renderer->SetupAttachment(Root);
 
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
-	Collision->SetupAttachment(Root);
+	Collision->SetupAttachment(Renderer);
 	Collision->SetCollisionGroup(ECollisionGroup::Bullet);
 	Collision->SetCollisionType(ECollisionType::Box);
 }
