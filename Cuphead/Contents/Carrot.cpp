@@ -66,7 +66,7 @@ void ACarrot::DebugUpdate(float _DeltaTime)
 void ACarrot::RendererInit()
 {
 	CarrotRenderer->CreateAnimation("carrot_intro", "carrot_intro", 1 / 12.0f, false);
-	CarrotRenderer->CreateAnimation("carrot_idle", "carrot_idle.png", 1 / 12.0f, true);
+	CarrotRenderer->CreateAnimation("carrot_idle", "carrot_idle.png", 1 / 18.0f, true);
 	CarrotRenderer->CreateAnimation("carrot_idle_to_beam", "carrot_idle_to_beam.png", 1 / 12.0f, false);
 	CarrotRenderer->CreateAnimation("carrot_beam_body", "carrot_beam_body.png", 1 / 12.0f, true);
 	CarrotRenderer->CreateAnimation("carrot_beam_eye", "carrot_beam_eye.png", 1 / 12.0f, true);
