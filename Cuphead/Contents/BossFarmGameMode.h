@@ -23,12 +23,13 @@ public:
 
 protected:
 private:
+	UStateManager StateManager;
 	ABossFarmMap* Map = nullptr;
 	APlayer* Player = nullptr;
 	APotato* Potato = nullptr;
 	AOnion* Onion = nullptr;
 	ACarrot* Carrot = nullptr;
-	UStateManager StateManager;
+	std::shared_ptr<UImage> HpWidget = nullptr;
 private:
 	// 초기화 함수
 	void StateInit();

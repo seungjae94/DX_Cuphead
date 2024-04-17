@@ -16,6 +16,8 @@
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include <EngineCore/EngineEditorWindow.h>
 #include <EngineCore/EngineEditorGUI.h>
+#include <EngineCore/Widget.h>
+#include <EngineCore/Image.h>
 
 #include <ContentsUtil/PreCompile.h>
 #include <ContentsUtil/Constant.h>
