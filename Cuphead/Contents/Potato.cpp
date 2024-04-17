@@ -226,6 +226,8 @@ void APotato::Attack(float _DeltaTime)
 	Attack->SetActorLocation(GetActorLocation() + FVector(-30.0f, 30.0f, 0.0f));
 	Attack->SetVelocity(FVector::Left * 650.0f);
 	Attack->SetDestroyTime(3.0f);
+	Attack->SetCollisionPosition({0.0f, 0.0f});
+	Attack->SetCollisionScale({75.0f, 75.0f});
 
 	++AttackCount;
 
@@ -233,6 +235,7 @@ void APotato::Attack(float _DeltaTime)
 	if (MaxAttackCount == AttackCount)
 	{
 		Attack->SetAnimation("potato_attack_snake", "potato_attack_snake.png", 1 / 12.0f, true);
+		Attack->SetCollisionPosition({ -5.0f, -10.0f });
 	}
 	else
 	{

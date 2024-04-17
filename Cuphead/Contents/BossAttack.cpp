@@ -12,7 +12,7 @@ ABossAttack::ABossAttack()
 	Renderer->SetupAttachment(Root);
 
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
-	Collision->SetupAttachment(Renderer);
+	Collision->SetupAttachment(Root);
 	Collision->SetCollisionGroup(ECollisionGroup::Bullet);
 	Collision->SetCollisionType(ECollisionType::RotRect);
 }
@@ -61,6 +61,21 @@ void ABossAttack::SetDestroyTime(float _Time)
 	DelayCallBack(_Time, [this]() {
 		Destroy();
 		});
+}
+
+void ABossAttack::SetCollisionType(ECollisionType _Type)
+{
+	Collision->SetCollisionType(_Type);
+}
+
+void ABossAttack::SetCollisionPosition(const FVector& _Pos)
+{
+	Collision->SetPosition(_Pos);
+}
+
+void ABossAttack::SetCollisionScale(const FVector& _Scale)
+{
+	Collision->SetScale(_Scale);
 }
 
 void ABossAttack::BeginPlay()

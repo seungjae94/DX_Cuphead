@@ -117,6 +117,9 @@
     <ClInclude Include="Carrot.h">
       <Filter>Level\03. Boss Level\Farm</Filter>
     </ClInclude>
+    <ClInclude Include="CarrotBeam.h">
+      <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -207,6 +210,9 @@
       <Filter>Debug</Filter>
     </ClCompile>
     <ClCompile Include="Carrot.cpp">
+      <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="CarrotBeam.cpp">
       <Filter>Level\03. Boss Level\Farm</Filter>
     </ClCompile>
   </ItemGroup>

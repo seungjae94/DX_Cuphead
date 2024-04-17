@@ -26,13 +26,17 @@ public:
 	void SetVelocity(const FVector& _Velocity, bool _RotateImage = false, const FVector& _RotationDeg = FVector::Zero);
 	void SetChaseType(EChaseType _Type, AActor* _Target);
 	void SetDestroyTime(float _Time);
-protected:
 
-private:
+	void SetCollisionType(ECollisionType _Type);
+	void SetCollisionPosition(const FVector& _Pos);
+	void SetCollisionScale(const FVector& _Scale);
+protected:
 	// 컴포넌트
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	UCollision* Collision = nullptr;
+
+	void Tick(float _DeltaTime) override;
 private:
 	// 로직
 	bool Destroyable = false;
@@ -44,6 +48,5 @@ private:
 	AActor* Target = nullptr;
 private:
 	void BeginPlay() override;
-	void Tick(float _DeltaTime) override;
 };
 

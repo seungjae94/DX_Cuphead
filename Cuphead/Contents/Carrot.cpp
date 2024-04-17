@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Carrot.h"
 #include "BossAttack.h"
+#include "CarrotBeam.h"
 #include "Player.h"
 
 ACarrot::ACarrot()
@@ -40,7 +41,7 @@ void ACarrot::BeginPlay()
 	EyeRenderer->SetPosition({ -2.0f, 310.0f });
 	GroundRenderer->SetPosition({ 0.0f, -20.0f });
 	Collision->SetPosition(CarrotRenderer->GetLocalPosition() + FVector(0.0f, 270.0f, 0.0f));
-	Collision->SetScale({ 300.0f, 450.0f });
+	Collision->SetScale({ 250.0f, 450.0f });
 }
 
 void ACarrot::Tick(float _DeltaTime)
@@ -76,8 +77,8 @@ void ACarrot::RendererInit()
 	EyeRenderer->CreateAnimation("carrot_beam_eye", "carrot_beam_eye.png", 1 / 12.0f, true);
 
 	GroundRenderer->CreateAnimation("ground_intro", "carrot_ground_intro.png",
-			std::vector<float>(28, 1 / 18.0f),
-			{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
+		std::vector<float>(28, 1 / 18.0f),
+		{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
 	GroundRenderer->CreateAnimation("ground_idle", "carrot_ground_idle.png", 1 / 12.0f, false);
 
 	GroundRenderer->SetFrameCallback("ground_intro", 20, [this]() {
@@ -186,10 +187,12 @@ void ACarrot::Attack(float _DeltaTime)
 	float RandomX = Random.RandomFloat(-640.0f, 640.0f);
 
 	Proj->SetActorLocation({ RandomX, 400.0f, 0.0f });
-	Proj->SetVelocity(FVector::Down * 300.0f);
+	Proj->SetVelocity(FVector::Down * 200.0f);
 	Proj->SetAnimation("carrot_proj", "carrot_proj.png", 1 / 12.0f, true);
 	Proj->SetChaseType(EChaseType::Permanent, Player);
-	Proj->SetDestroyTime(3.0f);
+	Proj->SetDestroyTime(5.0f);
+	Proj->SetCollisionPosition({ -2.0f, -10.0f });
+	Proj->SetCollisionScale({ 30.0f, 70.0f });
 
 	--AttackCount;
 	AttackTimer = AttackInterval;
@@ -235,18 +238,19 @@ void ACarrot::Beam(float _DeltaTime)
 	for (int i = 0; i < 5; ++i)
 	{
 		DelayCallBack(0.1f * i, [this, BeamSpawnPosition, Theta, Direction]() {
-			ABossAttack* Beam = GetWorld()->SpawnActor<ABossAttack>("Beam").get();
+			ACarrotBeam* Beam = GetWorld()->SpawnActor<ACarrotBeam>("Beam").get();
 			Beam->SetRenderingOrder(ERenderingOrder::Bullet);
 			Beam->SetActorLocation(BeamSpawnPosition);
 
-			Beam->SetActorRotation({0.0f, 0.0f, Theta + 90.0f});
+			Beam->SetActorRotation({ 0.0f, 0.0f, Theta + 90.0f });
 			Beam->SetVelocity(Direction * 650.0f);
 			Beam->SetDestroyTime(2.0f);
-
+			Beam->SetCollisionPosition({ 0.0f, 0.0f });
+			Beam->SetCollisionScale({ 50.0f, 50.0f });
 			Beam->SetAnimation("carrot_beam_proj", "carrot_beam_proj.png", 1 / 12.0f, false);
 			});
 	}
-	
+
 	--BeamCount;
 	BeamTimer = BeamInterval;
 
@@ -254,7 +258,7 @@ void ACarrot::Beam(float _DeltaTime)
 	{
 		DelayCallBack(1.0f, [this]() {
 			StateManager.ChangeState("Attack");
-		});
+			});
 	}
 }
 

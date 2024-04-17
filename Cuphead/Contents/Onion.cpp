@@ -69,7 +69,7 @@ void AOnion::Damage(int _Damage)
 	OnionRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.5f });
 	DelayCallBack(0.2f, [this]() {
 		OnionRenderer->SetPlusColor(FVector::Zero);
-	});
+		});
 
 	if (Hp <= 0.0f)
 	{
@@ -91,11 +91,11 @@ void AOnion::BeginPlay()
 	RendererInit();
 	StateInit();
 
-	SetActorLocation({0.0f, -335.0f});
+	SetActorLocation({ 0.0f, -335.0f });
 
 	GroundRenderer->SetPosition({ 0.0f, -35.0f });
-	LeftTearRenderer->SetPosition({-350.0f, 555.0f});
-	RightTearRenderer->SetPosition({330.0f, 555.0f});
+	LeftTearRenderer->SetPosition({ -350.0f, 555.0f });
+	RightTearRenderer->SetPosition({ 330.0f, 555.0f });
 
 	Collision->SetPosition(OnionRenderer->GetLocalPosition() + FVector(0.0f, 250.0f, 0.0f));
 	Collision->SetScale({ 480.0f, 480.0f });
@@ -149,27 +149,27 @@ void AOnion::RendererInit()
 	GroundRenderer->SetFrameCallback("ground_intro", 20, [this]() {
 		OnionRenderer->ChangeAnimation("onion_intro");
 		Collision->SetActive(true);
-	});
+		});
 
 	GroundRenderer->SetFrameCallback("ground_intro", 27, [this]() {
 		GroundRenderer->ChangeAnimation("ground_idle");
-	});
+		});
 
 	OnionRenderer->SetFrameCallback("onion_intro", 23, [this]() {
 		OnionRenderer->ChangeAnimation("onion_cry_intro");
-	});
+		});
 
 	OnionRenderer->SetFrameCallback("onion_cry_start", 10, [this]() {
 		OnionRenderer->ChangeAnimation("onion_cry_loop");
-	});
+		});
 
 	LeftTearRenderer->SetFrameCallback("onion_tear_start", 4, [this]() {
 		LeftTearRenderer->ChangeAnimation("onion_tear_loop");
-	});
+		});
 
 	RightTearRenderer->SetFrameCallback("onion_tear_start", 4, [this]() {
 		RightTearRenderer->ChangeAnimation("onion_tear_loop");
-	});
+		});
 
 	OnionRenderer->SetOrder(ERenderingOrder::Back5);
 	GroundRenderer->SetOrder(ERenderingOrder::Back6);
@@ -269,7 +269,7 @@ void AOnion::Attack(float _DeltaTime)
 	ABossAttack* Attack = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
 	Attack->SetRenderingOrder(ERenderingOrder::Bullet);
 
-	float RandomX = 0.0f; 
+	float RandomX = 0.0f;
 	while (RandomX > -300.0f && RandomX < 300.0f)
 	{
 		RandomX = Random.RandomFloat(-640.0f, 640.0f);
@@ -277,8 +277,10 @@ void AOnion::Attack(float _DeltaTime)
 
 	int RandomValue = Random.RandomInt(0, 9);
 
-	Attack->SetActorLocation({RandomX, 300.0f, 0.0f});
+	Attack->SetActorLocation({ RandomX, 300.0f, 0.0f });
 	Attack->SetVelocity(FVector::Down * 650.0f);
+	Attack->SetCollisionPosition({ 0.0f, 0.0f });
+	Attack->SetCollisionScale({30.0f, 50.0f});
 	Attack->SetDestroyTime(3.0f);
 
 	if (0 == RandomValue)
