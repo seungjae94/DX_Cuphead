@@ -12,7 +12,7 @@ APlayer::APlayer()
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
 	Collision->SetCollisionGroup(ECollisionGroup::Player);
-	Collision->SetCollisionType(ECollisionType::Rect);
+	Collision->SetCollisionType(ECollisionType::RotRect);
 }
 
 APlayer::~APlayer()
@@ -123,6 +123,11 @@ void APlayer::DebugUpdate(float _DeltaTime)
 
 	{
 		std::string Msg = std::format("Player OnGround : {}\n", OnGroundValue == true ? "true" : "false");
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player Collision Active : {}\n", Collision->IsActive() == true ? "true" : "false");
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 

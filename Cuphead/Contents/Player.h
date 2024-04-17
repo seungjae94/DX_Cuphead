@@ -70,7 +70,7 @@ private:
 	const FVector CollisionDefaultScale = { 100.0f, 125.0f };
 	const FVector CollisionSitPosition = { 0.0f, 32.0f };
 	const FVector CollisionSitScale = {100.0f, 50.0f};
-	const float NoHitTime = 1.0f;
+	const float NoHitTime = 2.0f;
 
 private:
 	int Hp = 3;
