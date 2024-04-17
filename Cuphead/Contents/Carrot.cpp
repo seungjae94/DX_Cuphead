@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Carrot.h"
 #include "BossAttack.h"
+#include "Player.h"
 
 ACarrot::ACarrot()
 {
@@ -185,8 +186,9 @@ void ACarrot::Attack(float _DeltaTime)
 	float RandomX = Random.RandomFloat(-640.0f, 640.0f);
 
 	Proj->SetActorLocation({ RandomX, 400.0f, 0.0f });
-	Proj->SetVelocity(FVector::Down * 650.0f);
+	Proj->SetVelocity(FVector::Down * 300.0f);
 	Proj->SetAnimation("carrot_proj", "carrot_proj.png", 1 / 12.0f, true);
+	Proj->SetChaseType(EChaseType::Permanent, Player);
 
 	--AttackCount;
 	AttackTimer = AttackInterval;
@@ -328,4 +330,9 @@ void ACarrot::Damage(int _Damage)
 	{
 		StateManager.ChangeState("Faint");
 	}
+}
+
+void ACarrot::SetPlayer(APlayer* _Player)
+{
+	Player = _Player;
 }

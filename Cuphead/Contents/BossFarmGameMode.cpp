@@ -17,7 +17,7 @@ void ABossFarmGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorld()->SpawnActor<APlayer>("Player");
+	Player = GetWorld()->SpawnActor<APlayer>("Player").get();
 	Map = GetWorld()->SpawnActor<ABossFarmMap>("Map").get();
 
 	StateInit();

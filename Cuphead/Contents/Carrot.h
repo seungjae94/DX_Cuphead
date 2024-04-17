@@ -1,6 +1,8 @@
 #pragma once
 #include "Enemy.h"
 
+class APlayer;
+
 class ACarrot : public AEnemy
 {
 	GENERATED_BODY(AEnemy)
@@ -24,6 +26,8 @@ public:
 
 	void Damage(int _Damage) override;
 
+	void SetPlayer(APlayer* _Player);
+
 protected:
 
 private:
@@ -45,10 +49,12 @@ private:
 	UStateManager StateManager;
 	UEngineRandom Random;
 
+	APlayer* Player = nullptr;
 	const int MaxAttackCount = 4;
 	const float AttackInterval = 2.0f;
 	int AttackCount = 4;
 	float AttackTimer = 0.0f;
+
 
 	const int MaxBeamCount = 3;
 	int BeamCount = 3;

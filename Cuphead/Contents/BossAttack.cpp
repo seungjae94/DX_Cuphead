@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "BossAttack.h"
+#include "cmath"
 
 ABossAttack::ABossAttack()
 {
@@ -48,6 +49,12 @@ void ABossAttack::SetVelocity(const FVector& _Velocity, bool _RotateImage, const
 	}
 }
 
+void ABossAttack::SetChaseType(EChaseType _Type, AActor* _Target)
+{
+	ChaseType = _Type;
+	Target = _Target;
+}
+
 void ABossAttack::BeginPlay()
 {
 	Super::BeginPlay();
@@ -59,6 +66,18 @@ void ABossAttack::Tick(float _DeltaTime)
 
 	if (EChaseType::None == ChaseType)
 	{
-		AddActorLocation(Velocity * _DeltaTime);
 	}
+	else if (EChaseType::Permanent == ChaseType)
+	{
+		float Speed = Velocity.Size2D();
+		FVector Direction = (Target->GetActorLocation() - GetActorLocation()).Normalize2DReturn();
+
+		Velocity = Direction * Speed;
+
+		float Theta = UCupheadMath::DirectionToDeg(Direction);
+
+		SetActorRotation({0.0f, 0.0f, Theta + 90.0f});
+	}
+
+	AddActorLocation(Velocity * _DeltaTime);
 }

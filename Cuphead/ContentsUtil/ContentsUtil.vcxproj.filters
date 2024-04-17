@@ -13,6 +13,9 @@
     <ClInclude Include="Physics.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="CupheadMath.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -26,6 +29,9 @@
     </ClCompile>
     <ClCompile Include="Physics.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CupheadMath.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

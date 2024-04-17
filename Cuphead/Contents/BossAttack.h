@@ -5,7 +5,6 @@ enum class EChaseType
 	None,
 	Temporal,
 	Permanent,
-	InitialPosition,
 	Special
 };
 
@@ -24,9 +23,8 @@ public:
 	void SetRenderingOrder(ERenderingOrder _Order);
 	void SetSprite(std::string_view _ImageName);
 	void SetAnimation(std::string_view _AnimName, std::string_view _ImageName, float _Inter, bool _Loop = true);
-
 	void SetVelocity(const FVector& _Velocity, bool _RotateImage = false, const FVector& _RotationDeg = FVector::Zero);
-
+	void SetChaseType(EChaseType _Type, AActor* _Target);
 protected:
 
 private:
@@ -41,6 +39,8 @@ private:
 	EChaseType ChaseType = EChaseType::None;
 
 	FVector Velocity = FVector::Zero;
+
+	AActor* Target = nullptr;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
