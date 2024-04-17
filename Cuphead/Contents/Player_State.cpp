@@ -11,6 +11,7 @@ void APlayer::StateInit()
 	StateManager.CreateState(GStateName::Hit);
 	StateManager.CreateState(GStateName::Dash);
 	StateManager.CreateState(GStateName::Jump);
+	StateManager.CreateState(GStateName::Parry);
 
 	StateManager.SetStartFunction(GStateName::Idle, std::bind(&APlayer::IdleStart, this));
 	StateManager.SetUpdateFunction(GStateName::Idle, std::bind(&APlayer::Idle, this, std::placeholders::_1));
@@ -23,6 +24,10 @@ void APlayer::StateInit()
 	StateManager.SetStartFunction(GStateName::Jump, std::bind(&APlayer::JumpStart, this));
 	StateManager.SetUpdateFunction(GStateName::Jump, std::bind(&APlayer::Jump, this, std::placeholders::_1));
 	StateManager.SetEndFunction(GStateName::Jump, std::bind(&APlayer::JumpEnd, this));
+
+	StateManager.SetStartFunction(GStateName::Parry, std::bind(&APlayer::ParryStart, this));
+	StateManager.SetUpdateFunction(GStateName::Parry, std::bind(&APlayer::Parry, this, std::placeholders::_1));
+	StateManager.SetEndFunction(GStateName::Parry, std::bind(&APlayer::ParryEnd, this));
 
 	StateManager.SetStartFunction(GStateName::Dash, std::bind(&APlayer::DashStart, this));
 	StateManager.SetUpdateFunction(GStateName::Dash, std::bind(&APlayer::Dash, this, std::placeholders::_1));
@@ -176,6 +181,55 @@ void APlayer::Jump(float _DeltaTime)
 
 void APlayer::JumpEnd()
 {
+	if (GStateName::Idle == CurStateName)
+	{
+		AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("AnimationEffect").get();
+		Effect->SetActorLocation(GetActorLocation());
+		Effect->Init(ERenderingOrder::Character, { GAnimName::PlayerLandingDust, GImageName::PlayerLandingDust, 0.1f }, true);
+	}
+}
+
+void APlayer::ParryStart()
+{
+	Renderer->ChangeAnimation(GAnimName::PlayerParry);
+	IsParryingValue = true;
+}
+
+void APlayer::Parry(float _DeltaTime)
+{
+	Fire();
+
+	if (true == OnGroundValue)
+	{
+		ChangeState(GStateName::Idle);
+		IsDashed = false;
+		return;
+	}
+
+	EEngineDir PrevDirection = Direction;
+	RefreshDirection();
+
+	if (true == IsPressArrowKey())
+	{
+		Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * RunSpeed;
+	}
+	else
+	{
+		Velocity.X = 0.0f;
+	}
+
+	if (true == IsDown(VK_SHIFT) && false == IsDashed)
+	{
+		IsDashed = true;
+		ChangeState(GStateName::Dash);
+		return;
+	}
+}
+
+void APlayer::ParryEnd()
+{
+	IsParryingValue = false;
+
 	if (GStateName::Idle == CurStateName)
 	{
 		AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("AnimationEffect").get();

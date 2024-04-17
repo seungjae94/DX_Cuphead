@@ -72,6 +72,9 @@ private:
 	const FVector CollisionSitScale = {100.0f, 50.0f};
 	const float NoHitTime = 2.0f;
 
+	// Parry
+	bool IsParryingValue = false;
+
 private:
 	int Hp = 3;
 	float SuperMeter = 0.0f;
@@ -105,6 +108,10 @@ private:
 	void JumpStart();
 	void Jump(float _DeltaTime);
 	void JumpEnd();
+
+	void ParryStart();
+	void Parry(float _DeltaTime);
+	void ParryEnd();
 
 	void DashStart();
 	void Dash(float _DeltaTime);

@@ -13,6 +13,7 @@ void APlayer::AnimationInit()
 	Renderer->CreateAnimation(GAnimName::PlayerRunShootHalfUp, GImageName::PlayerRunShootHalfUp, 1 / 24.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerRunShootForward, GImageName::PlayerRunShootForward, 1 / 24.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerJump, GImageName::PlayerJump, 1 / 24.0f);
+	Renderer->CreateAnimation(GAnimName::PlayerParry, GImageName::PlayerParry, 1 / 24.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerDash, GImageName::PlayerDash, 1 / 24.0f, false);
 	Renderer->CreateAnimation(GAnimName::PlayerSit, GImageName::PlayerSit, 1 / 12.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerHit, GImageName::PlayerHit, 1 / 12.0f, false);

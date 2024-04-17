@@ -51,6 +51,7 @@ namespace GImageName
 	const std::string PlayerRunShootHalfUp = "player_run_shoot_halfup";
 	const std::string PlayerRunShootForward = "player_run_shoot_forward";
 	const std::string PlayerJump = "player_jump.png";
+	const std::string PlayerParry = "player_parry.png";
 	const std::string PlayerDash = "player_dash.png";
 	const std::string PlayerSit = "player_sit.png";
 	const std::string PlayerHit = "player_hit.png";
@@ -99,6 +100,7 @@ namespace GAnimName
 	const std::string PlayerRunShootHalfUp = "player_run_shoot_halfup";
 	const std::string PlayerRunShootForward = "player_run_shoot_forward";
 	const std::string PlayerJump = "player_jump";
+	const std::string PlayerParry = "player_parry";
 	const std::string PlayerDash = "player_dash";
 	const std::string PlayerSit = "player_sit";
 	const std::string PlayerHit = "player_hit";
@@ -126,6 +128,7 @@ namespace GStateName
 	const std::string Hit = "Hit";
 	const std::string Dash = "Dash";
 	const std::string Jump = "Jump";
+	const std::string Parry = "Parry";
 
 	const std::string Spawn = "Spawn";
 	const std::string Move = "Move";
