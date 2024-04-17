@@ -227,13 +227,21 @@ void ACarrot::Beam(float _DeltaTime)
 		return;
 	}
 
+	FVector BeamSpawnPosition = GetActorLocation() + FVector(-3.0f, 425.0f, 0.0f);
+	FVector Direction = (Player->GetActorLocation() - BeamSpawnPosition).Normalize2DReturn();
+	float Theta = UCupheadMath::DirectionToDeg(Direction);
+
 	for (int i = 0; i < 5; ++i)
 	{
-		DelayCallBack(0.1f * i, [this]() {
+		DelayCallBack(0.1f * i, [this, BeamSpawnPosition, Theta, Direction]() {
 			ABossAttack* Beam = GetWorld()->SpawnActor<ABossAttack>("Beam").get();
 			Beam->SetRenderingOrder(ERenderingOrder::Bullet);
-			Beam->SetActorLocation(GetActorLocation() + FVector(0.0f, 400.0f, 0.0f));
-			Beam->SetVelocity(FVector::Down * 650.0f);
+			Beam->SetActorLocation(BeamSpawnPosition);
+
+			Beam->SetActorRotation({0.0f, 0.0f, Theta + 90.0f});
+			Beam->SetVelocity(Direction * 650.0f);
+
+
 			Beam->SetAnimation("carrot_beam_proj", "carrot_beam_proj.png", 1 / 12.0f, false);
 			});
 	}
