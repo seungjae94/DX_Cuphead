@@ -16,7 +16,7 @@ enum class ECollisionType
 class CollisionData
 {
 public:
-	union 
+	union
 	{
 		// [][][]
 		// []
@@ -62,7 +62,7 @@ struct FTransform
 	float4x4 View;
 	float4x4 Projection;
 	float4x4 WVP;
-//};
+	//};
 
 	friend CollisionFunctionInit;
 
@@ -107,12 +107,13 @@ public:
 
 		Result.OBB.Center = WorldPosition.DirectFloat3;
 		// 절반크기로 넣어줘야 합니다.
-		Result.OBB.Extents = (WorldScale * 0.5f).DirectFloat3;
+
+		Result.OBB.Extents = (WorldScale * 0.5f).ABS3DReturn().DirectFloat3;
 
 		// 가장 친숙한 각도 체계는
 		// x 30 y 20 z 60 
 		// -nan -nan -nan => 짐벌락.
-		
+
 		// 수학자들이 짐벌락현상과 등등을 경험하고
 		// 그 회전을 대체할수 있는 안전한 회전 방식을 고안해 냈다.
 		// 그게 사원수.
@@ -130,7 +131,7 @@ public:
 
 		Result.OBB.Center = WorldPosition.DirectFloat3;
 		Result.OBB.Center.z = 0.0f;
-		Result.OBB.Extents = (WorldScale* 0.5f).DirectFloat3;
+		Result.OBB.Extents = (WorldScale * 0.5f).ABS3DReturn().DirectFloat3;
 		Result.OBB.Orientation = WorldRotation.DegToQuaternion().DirectFloat4;
 		return Result;
 	}
@@ -270,7 +271,7 @@ public:
 		return std::lround(Bottom());
 	}
 
-	void SetRadius(float _Radius) 
+	void SetRadius(float _Radius)
 	{
 		LocalScale = float4::Zero;
 		LocalScale.X = _Radius * 2.0f;
