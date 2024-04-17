@@ -56,6 +56,13 @@ void ABossAttack::SetChaseType(EChaseType _Type, AActor* _Target)
 	Target = _Target;
 }
 
+void ABossAttack::SetDestroyTime(float _Time)
+{
+	DelayCallBack(_Time, [this]() {
+		Destroy();
+		});
+}
+
 void ABossAttack::BeginPlay()
 {
 	Super::BeginPlay();
@@ -91,6 +98,12 @@ void ABossAttack::Tick(float _DeltaTime)
 
 			if (nullptr == Player)
 			{
+				return;
+			}
+
+			if (true == Parryable && true == Player->IsParrying())
+			{
+				Player->AddSuperMeter(1.0f);
 				return;
 			}
 

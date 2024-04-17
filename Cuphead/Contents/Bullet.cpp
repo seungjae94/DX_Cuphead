@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Player.h"
 
 ABullet::ABullet()
 {
@@ -25,6 +26,11 @@ void ABullet::SetDirection(EDirection _Direction)
 {
 	Direction = _Direction;
 	StateManager.ChangeState(GStateName::Move);
+}
+
+void ABullet::SetPlayer(APlayer* _Player)
+{
+	Player = _Player;
 }
 
 void ABullet::BeginPlay()
@@ -123,5 +129,6 @@ void ABullet::Move(float _DeltaTime)
 		}
 
 		Enemy->Damage(Damage);
+		Player->AddSuperMeter(1 / 40.0f);
 	});
 }

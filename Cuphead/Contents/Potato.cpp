@@ -225,6 +225,7 @@ void APotato::Attack(float _DeltaTime)
 	Attack->SetRenderingOrder(ERenderingOrder::Bullet);
 	Attack->SetActorLocation(GetActorLocation() + FVector(-30.0f, 30.0f, 0.0f));
 	Attack->SetVelocity(FVector::Left * 650.0f);
+	Attack->SetDestroyTime(3.0f);
 
 	++AttackCount;
 

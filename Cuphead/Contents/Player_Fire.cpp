@@ -20,6 +20,7 @@ void APlayer::Fire()
 	std::shared_ptr<ABullet> Bullet = GetWorld()->SpawnActor<ABullet>("Bullet");
 	Bullet->SetActorLocation(GetActorLocation() + GetBulletSpawnLocation());
 	Bullet->SetDirection(GetBulletSpawnDirection());
+	Bullet->SetPlayer(this);
 
 	FireTime = FireDelay;
 }

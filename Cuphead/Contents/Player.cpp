@@ -25,6 +25,16 @@ void APlayer::Damage()
 	StateManager.ChangeState(GStateName::Hit);
 }
 
+void APlayer::AddSuperMeter(float _Value)
+{
+	SuperMeter += _Value;
+
+	/*if (std::lround(SuperMeter) == 5)
+	{
+		Super
+	}*/
+}
+
 void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
@@ -103,6 +113,11 @@ void APlayer::DebugUpdate(float _DeltaTime)
 {
 	{
 		std::string Msg = std::format("Player Hp : {}\n", std::to_string(Hp));
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Player SuperMeter : {}\n", std::to_string(SuperMeter));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 

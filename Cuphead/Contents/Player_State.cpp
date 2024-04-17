@@ -84,6 +84,11 @@ void APlayer::IdleEnd()
 {
 }
 
+bool APlayer::IsParrying()
+{
+	return false;
+}
+
 void APlayer::RunStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerRun);
@@ -254,7 +259,7 @@ void APlayer::Hit(float _DeltaTime)
 
 void APlayer::HitEnd()
 {
-	DelayCallBack(5.0f, [this]() {
+	DelayCallBack(NoHitTime, [this]() {
 		Collision->SetActive(true);
 	});
 }

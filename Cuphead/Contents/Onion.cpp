@@ -279,6 +279,7 @@ void AOnion::Attack(float _DeltaTime)
 
 	Attack->SetActorLocation({RandomX, 300.0f, 0.0f});
 	Attack->SetVelocity(FVector::Down * 650.0f);
+	Attack->SetDestroyTime(3.0f);
 
 	if (0 == RandomValue)
 	{

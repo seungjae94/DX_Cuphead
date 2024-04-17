@@ -1,5 +1,7 @@
 #pragma once
 
+class APlayer;
+
 class ABullet : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -13,6 +15,7 @@ public:
 	ABullet& operator=(ABullet&& _Other) noexcept = delete;
 
 	void SetDirection(EDirection _Direction);
+	void SetPlayer(APlayer* _Player);
 
 protected:
 
@@ -24,6 +27,7 @@ private:
 private:
 	UStateManager StateManager;
 	EDirection Direction = EDirection::Right;
+	APlayer* Player = nullptr;
 
 	const int Damage = 40;
 	const float Speed = 2000.0f;

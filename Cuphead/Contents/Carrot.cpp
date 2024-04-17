@@ -189,6 +189,7 @@ void ACarrot::Attack(float _DeltaTime)
 	Proj->SetVelocity(FVector::Down * 300.0f);
 	Proj->SetAnimation("carrot_proj", "carrot_proj.png", 1 / 12.0f, true);
 	Proj->SetChaseType(EChaseType::Permanent, Player);
+	Proj->SetDestroyTime(3.0f);
 
 	--AttackCount;
 	AttackTimer = AttackInterval;
@@ -240,7 +241,7 @@ void ACarrot::Beam(float _DeltaTime)
 
 			Beam->SetActorRotation({0.0f, 0.0f, Theta + 90.0f});
 			Beam->SetVelocity(Direction * 650.0f);
-
+			Beam->SetDestroyTime(2.0f);
 
 			Beam->SetAnimation("carrot_beam_proj", "carrot_beam_proj.png", 1 / 12.0f, false);
 			});
