@@ -255,10 +255,25 @@ void ACarrot::BeamEnd()
 
 void ACarrot::FaintStart()
 {
+	CarrotRenderer->ChangeAnimation("carrot_faint");
+	Collision->SetActive(false);
+
+	ShrinkTimer = ShrinkWaitTime;
 }
 
 void ACarrot::Faint(float _DeltaTime)
 {
+	ShrinkTimer -= _DeltaTime;
+
+	if (ShrinkTimer < 0.0f)
+	{
+		CarrotRenderer->AddPosition(FVector::Down * 200.0f * _DeltaTime);
+	}
+
+	if (ShrinkTimer < -3.0f)
+	{
+		StateManager.ChangeState(GStateName::Finish);
+	}
 }
 
 void ACarrot::FaintEnd()
@@ -267,6 +282,8 @@ void ACarrot::FaintEnd()
 
 void ACarrot::FinishStart()
 {
+	CarrotRenderer->SetActive(false);
+	GroundRenderer->SetActive(false);
 }
 
 void ACarrot::Finish(float _DeltaTime)
