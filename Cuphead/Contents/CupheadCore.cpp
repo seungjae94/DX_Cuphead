@@ -157,6 +157,7 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting("carrot_beam_eye.png", 4, 1);
 		UEngineSprite::CreateCutting("carrot_faint.png", 21, 1);
 		UEngineSprite::CreateCutting("carrot_proj.png", 6, 1);
+		UEngineSprite::CreateCutting("carrot_beam_proj.png", 12, 1);
 	}
 
 	{
