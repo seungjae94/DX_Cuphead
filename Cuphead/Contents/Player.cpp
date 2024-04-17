@@ -29,10 +29,10 @@ void APlayer::AddSuperMeter(float _Value)
 {
 	SuperMeter += _Value;
 
-	/*if (std::lround(SuperMeter) == 5)
+	if (SuperMeter >= 5.0f)
 	{
-		Super
-	}*/
+		SuperMeter = 5.0f;
+	}
 }
 
 void APlayer::BeginPlay()
