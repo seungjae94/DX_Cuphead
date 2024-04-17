@@ -138,7 +138,7 @@ enum class ECollisionGroup
 {
 	Bullet,
 	Monster,
-	Character,
+	Player,
 };
 
 enum class ERenderingOrder

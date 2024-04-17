@@ -21,6 +21,8 @@ public:
 	APlayer& operator=(const APlayer& _Other) = delete;
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 
+	void Damage();
+
 protected:
 
 private:
@@ -68,11 +70,14 @@ private:
 	const FVector CollisionSitScale = {100.0f, 50.0f};
 
 private:
+	int Hp = 3;
+
+private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void SpriteDirUpdate(float _DeltaTime);
 	void PhysicsUpdate(float _DeltaTime);
-	void DebugMsgUpdate(float _DeltaTime);
+	void DebugUpdate(float _DeltaTime);
 private:
 	// 애니메이션
 	void AnimationInit();

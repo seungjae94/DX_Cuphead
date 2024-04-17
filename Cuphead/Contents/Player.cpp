@@ -11,10 +11,17 @@ APlayer::APlayer()
 
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
+	Collision->SetCollisionGroup(ECollisionGroup::Player);
+	Collision->SetCollisionType(ECollisionType::Rect);
 }
 
 APlayer::~APlayer()
 {
+}
+
+void APlayer::Damage()
+{
+	--Hp;
 }
 
 void APlayer::BeginPlay()
@@ -46,7 +53,7 @@ void APlayer::Tick(float _DeltaTime)
 	StateManager.Update(_DeltaTime);
 	SpriteDirUpdate(_DeltaTime);
 	PhysicsUpdate(_DeltaTime);
-	DebugMsgUpdate(_DeltaTime);
+	DebugUpdate(_DeltaTime);
 }
 
 void APlayer::SpriteDirUpdate(float _DeltaTime)
@@ -91,22 +98,27 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 	}
 }
 
-void APlayer::DebugMsgUpdate(float _DeltaTime)
+void APlayer::DebugUpdate(float _DeltaTime)
 {
 	{
-		std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
+		std::string Msg = std::format("Player Hp : {}\n", std::to_string(Hp));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
-	{
-		std::string Msg = std::format("Player Renderer Scale : {}\n", Renderer->GetWorldScale().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
+	//{
+	//	std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
+	//	UEngineDebugMsgWindow::PushMsg(Msg);
+	//}
 
-	{
-		std::string Msg = std::format("Player Velocity : {}\n", Velocity.ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
+	//{
+	//	std::string Msg = std::format("Player Renderer Scale : {}\n", Renderer->GetWorldScale().ToString());
+	//	UEngineDebugMsgWindow::PushMsg(Msg);
+	//}
+
+	//{
+	//	std::string Msg = std::format("Player Velocity : {}\n", Velocity.ToString());
+	//	UEngineDebugMsgWindow::PushMsg(Msg);
+	//}
 
 	{
 		std::string Msg = std::format("Player OnGround : {}\n", OnGroundValue == true ? "true" : "false");

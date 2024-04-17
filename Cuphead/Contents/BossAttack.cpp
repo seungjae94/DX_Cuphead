@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "BossAttack.h"
 #include "cmath"
+#include "Player.h"
 
 ABossAttack::ABossAttack()
 {
@@ -13,7 +14,7 @@ ABossAttack::ABossAttack()
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Renderer);
 	Collision->SetCollisionGroup(ECollisionGroup::Bullet);
-	Collision->SetCollisionType(ECollisionType::Box);
+	Collision->SetCollisionType(ECollisionType::RotRect);
 }
 
 ABossAttack::~ABossAttack()
@@ -64,6 +65,7 @@ void ABossAttack::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	// 이동
 	if (EChaseType::None == ChaseType)
 	{
 	}
@@ -80,4 +82,18 @@ void ABossAttack::Tick(float _DeltaTime)
 	}
 
 	AddActorLocation(Velocity * _DeltaTime);
+
+	// 충돌 처리
+	Collision->CollisionEnter(ECollisionGroup::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			// 상태, 애니메이션 변경
+			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
+
+			if (nullptr == Player)
+			{
+				return;
+			}
+
+			Player->Damage();
+		});
 }
