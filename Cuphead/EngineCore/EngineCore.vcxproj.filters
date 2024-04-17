@@ -163,6 +163,12 @@
     <ClInclude Include="RenderUnit.h">
       <Filter>Object\Component\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Widget.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Object\UI\Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -318,6 +324,12 @@
     <ClCompile Include="RenderUnit.cpp">
       <Filter>Object\Component\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Object\UI\Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -403,6 +415,12 @@
     </Filter>
     <Filter Include="Debug">
       <UniqueIdentifier>{0e06222e-17dd-4300-84a8-6e58f30a0854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI">
+      <UniqueIdentifier>{288150dd-9556-4ae9-b73e-01d4ab072b77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI\Contents">
+      <UniqueIdentifier>{038f9280-78b6-4e5e-b2ab-294fff286e09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
