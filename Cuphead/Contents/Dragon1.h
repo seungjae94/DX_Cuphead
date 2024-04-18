@@ -30,6 +30,9 @@ private:
 private:
 	// 로직 처리
 	UStateManager StateManager;
+	UEngineRandom Random;
+	const float AttackDecisionTime = 3.0f;
+	float AttackDecisionTimer = 0.0f;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

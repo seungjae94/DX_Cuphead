@@ -107,10 +107,27 @@ void ADragon1::StateInit()
 void ADragon1::IdleStart()
 {
 	BodyRenderer->ChangeAnimation("dragon1_idle");
+
+	AttackDecisionTimer = AttackDecisionTime;
 }
 
 void ADragon1::Idle(float _DeltaTime)
 {
+	if (AttackDecisionTime > 0.0f)
+	{
+		return;
+	}
+
+	int AttackType = Random.RandomInt(0, 1);
+
+	if (0 == AttackType)
+	{
+		StateManager.ChangeState("Attack");
+	}
+	else
+	{
+		StateManager.ChangeState("Beam");
+	}
 }
 
 void ADragon1::IdleEnd()
@@ -119,6 +136,7 @@ void ADragon1::IdleEnd()
 
 void ADragon1::AttackStart()
 {
+
 }
 
 void ADragon1::Attack(float _DeltaTime)
