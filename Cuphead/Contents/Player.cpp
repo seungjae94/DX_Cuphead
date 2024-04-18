@@ -64,7 +64,7 @@ void APlayer::BeginPlay()
 
 	FVector LeftBotPivotedPos = -GEngine->EngineWindow.GetWindowScale().Half2D() + HpWidget->GetWorldScale().Half2D();
 	HpWidget->SetPosition(LeftBotPivotedPos + FVector{ 25.0f, 20.0f });
-	HpWidget->AddToViewPort();
+	HpWidget->AddToViewPort(0);
 	HpWidget->SetSprite("ui_hp3.png");
 
 	for (int i = 0; i < 5; ++i)
@@ -73,7 +73,7 @@ void APlayer::BeginPlay()
 
 		FVector LeftBotPivotedPos = -GEngine->EngineWindow.GetWindowScale().Half2D() + HpWidget->GetWorldScale().Half2D();
 		CardWidget->SetPosition(LeftBotPivotedPos + FVector{ 80.0f + i * 20.0f, 18.0f });
-		CardWidget->AddToViewPort();
+		CardWidget->AddToViewPort(0);
 		CardWidget->SetSprite("ui_card.png");
 		CardWidgets.push_back(CardWidget);
 	}
