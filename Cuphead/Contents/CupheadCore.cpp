@@ -8,6 +8,8 @@
 #include "CupheadDebugWindow.h"
 #include <EngineCore/EngineTexture.h>
 
+std::shared_ptr<UCupheadDebugWindow> DebugWindow;
+
 UCupheadCore::UCupheadCore()
 {
 }
@@ -22,7 +24,7 @@ void UCupheadCore::Initialize()
 	CreateMaterials();
 	LoadResources();
 	CreateLevels();
-	GEngine->ChangeLevel(GLevelName::BossDragonLevel);
+	GEngine->ChangeLevel(GLevelName::BossFarmLevel);
 }
 
 void UCupheadCore::CreateDebugWindows()

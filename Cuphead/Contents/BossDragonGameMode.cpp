@@ -19,6 +19,10 @@ void ABossDragonGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player").get();
+	
+	// 디버그용 픽셀 충돌
+	Player->SetColMapName("boss_farm_map_col.png");
+
 	Map = GetWorld()->SpawnActor<ABossDragonMap>("Map").get();
 
 	StateInit();

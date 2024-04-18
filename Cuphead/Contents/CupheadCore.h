@@ -3,6 +3,8 @@
 
 class UCupheadDebugWindow;
 
+extern std::shared_ptr<UCupheadDebugWindow> DebugWindow;
+
 class UCupheadCore : public UserCore
 {
 public:
@@ -23,7 +25,5 @@ private:
 	void CreateMaterials();
 	void LoadResources();
 	void CreateLevels();
-
-	std::shared_ptr<UCupheadDebugWindow> DebugWindow = nullptr;
 };
 

@@ -28,5 +28,7 @@ private:
 private:
 	FVector MapScale;
 	const float BackgroundSpeed = 200.0f;
+private:
+	bool ShowColMap = false;
 };
 

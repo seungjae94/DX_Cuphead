@@ -20,6 +20,11 @@ APlayer::~APlayer()
 {
 }
 
+void APlayer::SetColMapName(std::string_view _ColMapName)
+{
+	ColMapName = _ColMapName;
+}
+
 void APlayer::Damage()
 {
 	--Hp;
@@ -194,27 +199,7 @@ void APlayer::UIUpdate(float _DeltaTime)
 void APlayer::DebugUpdate(float _DeltaTime)
 {
 	{
-		std::string Msg = std::format("Player Hp : {}\n", std::to_string(Hp));
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Player SuperMeter : {}\n", std::to_string(SuperMeter));
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
 		std::string Msg = std::format("Player OnGround : {}\n", OnGroundValue == true ? "true" : "false");
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Player IsParrying : {}\n", IsParryingValue == true ? "true" : "false");
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Player Collision Active : {}\n", Collision->IsActive() == true ? "true" : "false");
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
@@ -279,7 +264,13 @@ void APlayer::RefreshDirection()
 
 bool APlayer::CheckCollision(const FVector& _ColPoint)
 {
-	std::shared_ptr<UEngineTexture> MapTex = UEngineTexture::FindRes("boss_farm_map_col.png");
+	std::shared_ptr<UEngineTexture> MapTex = UEngineTexture::FindRes(ColMapName);
+
+	if (nullptr == MapTex)
+	{
+		return false;
+	}
+
 	FVector MapTexScale = MapTex->GetScale();
 
 	FVector MapTexLeftTop = -MapTexScale.Half2D();

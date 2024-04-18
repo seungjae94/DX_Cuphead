@@ -1,5 +1,7 @@
 #include "PreCompile.h"
 #include "BossFarmMap.h"
+#include "CupheadCore.h"
+#include "CupheadDebugWindow.h"
 
 ABossFarmMap::ABossFarmMap()
 {
@@ -64,6 +66,10 @@ void ABossFarmMap::BeginPlay()
 	Col->SetActive(false);
 
 	Back0->SetPosition({ 0.0f, 1.0f, 0.0f });
+
+	DebugWindow->RegisterCallback(
+		std::bind(&ABossFarmMap::ShowPixelColMapCheckBox, this)
+	);
 }
 
 void ABossFarmMap::Tick(float _DeltaTime)
@@ -73,7 +79,9 @@ void ABossFarmMap::Tick(float _DeltaTime)
 
 void ABossFarmMap::ShowPixelColMapCheckBox()
 {
-	ImGui::Checkbox("Show Pixel Collision Map", &ShowColMap);
-	ImGui::SameLine();
-	ImGui::Text(std::to_string(ShowColMap).c_str());
+	bool Clicked = ImGui::Checkbox("Show Pixel Collision Map", &ShowColMap);
+	if (true == Clicked)
+	{
+		ToggleColMap();
+	}
 }

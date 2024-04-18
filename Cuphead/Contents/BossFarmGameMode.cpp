@@ -19,6 +19,8 @@ void ABossFarmGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player").get();
+	Player->SetColMapName("boss_farm_map_col.png");
+
 	Map = GetWorld()->SpawnActor<ABossFarmMap>("Map").get();
 
 	StateInit();

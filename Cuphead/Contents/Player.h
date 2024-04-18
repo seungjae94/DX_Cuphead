@@ -23,6 +23,8 @@ public:
 	APlayer& operator=(const APlayer& _Other) = delete;
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 
+	void SetColMapName(std::string_view _ColMapName);
+
 	void Damage();
 	void AddSuperMeter(float _Value);
 	bool IsParrying();
@@ -70,6 +72,7 @@ private:
 	bool IsDashed = false;
 
 	// Collision
+	std::string ColMapName = "";
 	const FVector CollisionDefaultPosition = { 0.0f, 62.0f };
 	const FVector CollisionDefaultScale = { 100.0f, 125.0f };
 	const FVector CollisionSitPosition = { 0.0f, 32.0f };
