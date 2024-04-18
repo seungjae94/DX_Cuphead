@@ -71,11 +71,11 @@ void ADragon1::RendererInit()
 	BodyRenderer->SetFrameCallback("dragon1_attack_start", 15, [this]() {
 		BodyRenderer->ChangeAnimation("dragon1_attack");
 		SpawnAttackProj();
-	});
+		});
 
 	BodyRenderer->SetFrameCallback("dragon1_attack", 6, [this]() {
 		BodyRenderer->ChangeAnimation("dragon1_attack_end");
-	});
+		});
 
 	BodyRenderer->SetFrameCallback("dragon1_attack_end", 7, [this]() {
 		BodyRenderer->ChangeAnimation("dragon1_idle");
@@ -84,7 +84,7 @@ void ADragon1::RendererInit()
 		{
 			StateManager.ChangeState("Idle");
 		}
-	});
+		});
 
 	BodyRenderer->SetOrder(ERenderingOrder::Back6);
 	BodyRenderer->SetPivot(EPivot::BOT);
@@ -231,12 +231,31 @@ void ADragon1::SpawnAttackProj()
 {
 	ABossAttack* Attack = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
 	Attack->SetRenderingOrder(ERenderingOrder::Bullet);
-	Attack->SetActorLocation(GetActorLocation() + FVector(-150.0f, 700.0f, 0.0f));
-	Attack->SetVelocity(FVector::Left * 650.0f);
+	Attack->SetActorLocation(GetActorLocation() + FVector(-150.0f, 675.0f, 0.0f));
+	Attack->SetVelocityGenerator([this, Attack]() {
+		float Height = 300.0f;
+		float WidthCoeff = 3.0f * UEngineMath::PI / 1280.0f;
+		float AttackX = Attack->GetActorLocation().X;
+		float Derivative = Height * WidthCoeff * std::cos(WidthCoeff * (AttackX - 315.0f));
+		float Angle = std::atan(Derivative);
+		Angle *= UEngineMath::RToD;
+		Angle += 180.0f;
+
+		Attack->SetActorRotation({ 0.0f, 0.0f, Angle + 180.0f });
+
+		FVector Velocity = FVector::VectorRotationZToDeg(FVector::Right, Angle);
+
+		float AbsAttackY = std::abs(Attack->GetActorLocation().Y);
+		float MinSpeed = 200.0f;
+		float MaxSpeed = 600.0f;
+		float Speed = (360.0f - AbsAttackY) / 360.0f * (MaxSpeed - MinSpeed) + MinSpeed;
+		Velocity *= Speed;
+		return Velocity;
+		});
 	Attack->SetDestroyTime(5.0f);
 	Attack->SetCollisionPosition({ -25.0f, -25.0f });
 	Attack->SetCollisionScale({ 100.0f, 100.0f });
-	Attack->SetAnimation("dragon1_attack_proj", "dragon1_attack_proj.png", 1 / 12.0f, true);
+	Attack->SetAnimation("dragon1_attack_proj", "dragon1_attack_proj.png", 1 / 24.0f, true);
 }
 
 void ADragon1::PlayIntroAnimation()

@@ -83,6 +83,11 @@ void ABossAttack::SetCollisionScale(const FVector& _Scale)
 	Collision->SetScale(_Scale);
 }
 
+void ABossAttack::SetVelocityGenerator(std::function<FVector()> _VelocityGenerator)
+{
+	VelocityGenerator = _VelocityGenerator;
+}
+
 void ABossAttack::BeginPlay()
 {
 	Super::BeginPlay();
@@ -95,6 +100,10 @@ void ABossAttack::Tick(float _DeltaTime)
 	// ¿Ãµø
 	if (EChaseType::None == ChaseType)
 	{
+		if (nullptr != VelocityGenerator)
+		{
+			Velocity = VelocityGenerator();
+		}
 	}
 	else if (EChaseType::Permanent == ChaseType)
 	{

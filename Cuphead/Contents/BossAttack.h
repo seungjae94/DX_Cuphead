@@ -31,6 +31,7 @@ public:
 	void SetCollisionType(ECollisionType _Type);
 	void SetCollisionPosition(const FVector& _Pos);
 	void SetCollisionScale(const FVector& _Scale);
+	void SetVelocityGenerator(std::function<FVector()> _VelocityGenerator);
 protected:
 	// ÄÄÆ÷³ÍÆ®
 	UDefaultSceneComponent* Root = nullptr;
@@ -47,6 +48,8 @@ private:
 	FVector Velocity = FVector::Zero;
 
 	AActor* Target = nullptr;
+
+	std::function<FVector()> VelocityGenerator;
 private:
 	void BeginPlay() override;
 };
