@@ -79,6 +79,14 @@ private:
 	// Parry
 	bool IsParryingValue = false;
 
+	// UI
+	std::shared_ptr<UImage> HpWidget = nullptr;
+	const float HpWidgetFrameInterval = 1 / 12.0f;
+	float HpWidgetFrameTime = 0.0f;
+	bool HpWidgetWarn0 = true;
+
+	//std::shared_ptr<UImage> SuperMeterWidget = nullptr;
+
 private:
 	int Hp = 3;
 	float SuperMeter = 0.0f;
@@ -87,6 +95,7 @@ private:
 	void Tick(float _DeltaTime) override;
 	void SpriteDirUpdate(float _DeltaTime);
 	void PhysicsUpdate(float _DeltaTime);
+	void UIUpdate(float _DeltaTime);
 	void DebugUpdate(float _DeltaTime);
 private:
 	// 애니메이션

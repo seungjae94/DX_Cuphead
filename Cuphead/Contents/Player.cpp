@@ -54,6 +54,14 @@ void APlayer::BeginPlay()
 	StateInit();
 	StateManager.ChangeState(GStateName::Idle);
 
+	HpWidget = CreateWidget<UImage>(GetWorld(), "Hp");
+	HpWidget->SetScale({ 79.0f, 33.0f });
+
+	FVector LeftBotPivotedPos = -GEngine->EngineWindow.GetWindowScale().Half2D() + HpWidget->GetWorldScale().Half2D();
+	HpWidget->SetPosition(LeftBotPivotedPos + FVector{ 25.0f, 20.0f });
+	HpWidget->AddToViewPort();
+	HpWidget->SetSprite("ui_hp3.png");
+
 	InputOn();
 }
 
@@ -65,6 +73,7 @@ void APlayer::Tick(float _DeltaTime)
 	StateManager.Update(_DeltaTime);
 	SpriteDirUpdate(_DeltaTime);
 	PhysicsUpdate(_DeltaTime);
+	UIUpdate(_DeltaTime);
 	DebugUpdate(_DeltaTime);
 }
 
@@ -115,6 +124,45 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 	{
 		OnGroundValue = false;
 	}
+}
+
+void APlayer::UIUpdate(float _DeltaTime)
+{
+	// HP UI 업데이트
+	if (3 == Hp)
+	{
+		HpWidget->SetSprite("ui_hp3.png");
+	}
+	else if (2 == Hp)
+	{
+		HpWidget->SetSprite("ui_hp2.png");
+	}
+	else if (0 == Hp)
+	{
+		HpWidget->SetSprite("ui_dead.png");
+	}
+	else if (1 == Hp)
+	{
+		HpWidgetFrameTime -= _DeltaTime;
+
+		if (HpWidgetFrameTime < 0.0f)
+		{
+			HpWidgetWarn0 = !HpWidgetWarn0;
+
+			if (true == HpWidgetWarn0)
+			{
+				HpWidget->SetSprite("ui_hp1_0.png");
+			}
+			else 
+			{
+				HpWidget->SetSprite("ui_hp1_1.png");
+			}
+
+			HpWidgetFrameTime = HpWidgetFrameInterval;
+		}
+	}
+
+	// 슈퍼미터 UI 업데이트
 }
 
 void APlayer::DebugUpdate(float _DeltaTime)

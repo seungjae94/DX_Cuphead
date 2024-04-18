@@ -29,7 +29,6 @@ private:
 	APotato* Potato = nullptr;
 	AOnion* Onion = nullptr;
 	ACarrot* Carrot = nullptr;
-	std::shared_ptr<UImage> HpWidget = nullptr;
 private:
 	// 초기화 함수
 	void StateInit();
