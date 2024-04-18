@@ -62,6 +62,17 @@ void APlayer::BeginPlay()
 	HpWidget->AddToViewPort();
 	HpWidget->SetSprite("ui_hp3.png");
 
+	for (int i = 0; i < 5; ++i)
+	{
+		UImage* CardWidget = CreateWidget<UImage>(GetWorld(), "CardWidget");
+
+		FVector LeftBotPivotedPos = -GEngine->EngineWindow.GetWindowScale().Half2D() + HpWidget->GetWorldScale().Half2D();
+		CardWidget->SetPosition(LeftBotPivotedPos + FVector{ 80.0f + i * 20.0f, 18.0f });
+		CardWidget->AddToViewPort();
+		CardWidget->SetSprite("ui_card.png");
+		CardWidgets.push_back(CardWidget);
+	}
+
 	InputOn();
 }
 
@@ -163,6 +174,21 @@ void APlayer::UIUpdate(float _DeltaTime)
 	}
 
 	// 슈퍼미터 UI 업데이트
+	int SuperMeterInt = std::lround(SuperMeter);
+
+	if (SuperMeterInt > 5)
+	{
+		SuperMeterInt = 5;
+	}
+
+	for (int i = 0; i < SuperMeterInt; ++i)
+	{
+		CardWidgets[i]->SetScale({20.0f, 30.0f});
+	}
+	for (int i = SuperMeterInt; i < 5; ++i)
+	{
+		CardWidgets[i]->SetScale(FVector::Zero);
+	}
 }
 
 void APlayer::DebugUpdate(float _DeltaTime)

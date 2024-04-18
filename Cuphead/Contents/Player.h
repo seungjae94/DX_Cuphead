@@ -80,16 +80,16 @@ private:
 	bool IsParryingValue = false;
 
 	// UI
-	std::shared_ptr<UImage> HpWidget = nullptr;
+	UImage* HpWidget = nullptr;
 	const float HpWidgetFrameInterval = 1 / 12.0f;
 	float HpWidgetFrameTime = 0.0f;
 	bool HpWidgetWarn0 = true;
 
-	//std::shared_ptr<UImage> SuperMeterWidget = nullptr;
+	std::vector<UImage*> CardWidgets;
 
 private:
 	int Hp = 3;
-	float SuperMeter = 0.0f;
+	float SuperMeter = 2.0f;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
