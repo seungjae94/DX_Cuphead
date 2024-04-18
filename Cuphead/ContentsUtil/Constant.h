@@ -153,6 +153,7 @@ enum class ERenderingOrder
 	Back4,
 	Back5,
 	Back6,
+	BulletSpawn,
 	Character,
 	Bullet,
 	Front,

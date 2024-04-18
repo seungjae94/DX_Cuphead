@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Player.h"
+#include "AnimationEffect.h"
 
 APlayer::APlayer()
 {
@@ -96,6 +97,13 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 		FVector TargetPos = NextPos;
 		TargetPos.X = PrevPos.X;
 		SetActorLocation(TargetPos);
+		NextPos = TargetPos;
+	}
+
+	// ÃÑ¾Ë ½ºÆù ÀÌÆåÆ® ÀÌµ¿
+	if (nullptr != HandBulletSpawnEffect && false == HandBulletSpawnEffect->IsDestroy())
+	{
+		HandBulletSpawnEffect->AddActorLocation(NextPos - PrevPos);
 	}
 
 	// ¹Ù´Ú Ãæµ¹ Ã¼Å©

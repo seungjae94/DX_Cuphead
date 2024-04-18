@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "AnimationEffect.h"
 
 void APlayer::Fire()
 {
@@ -18,56 +19,73 @@ void APlayer::Fire()
 	}
 
 	std::shared_ptr<ABullet> Bullet = GetWorld()->SpawnActor<ABullet>("Bullet");
-	Bullet->SetActorLocation(GetActorLocation() + GetBulletSpawnLocation());
+	Bullet->SetActorLocation(GetBulletSpawnLocation());
 	Bullet->SetDirection(GetBulletSpawnDirection());
 	Bullet->SetPlayer(this);
+
+	// 총알 스폰 이펙트
+	float RandomAngle = Random.RandomFloat(0.0f, 360.0f);
+	AAnimationEffect* SpawnEffect = GetWorld()->SpawnActor<AAnimationEffect>("SpawnEffect").get();
+	SpawnEffect->SetActorLocation(GetBulletSpawnLocation());
+	SpawnEffect->SetActorRotation({ 0.0f, 0.0f, RandomAngle });
+	SpawnEffect->Init(ERenderingOrder::BulletSpawn, FCreateAnimationParameter{ "bullet_spawn", "bullet_spawn.png", 1 / 12.0f }, true);
+
+	// 점프 또는 패리 상태일 경우에만 현재 위치에 고정
+	if ("Jump" != CurStateName && "Parry" != CurStateName)
+	{
+		if (nullptr != HandBulletSpawnEffect)
+		{
+			HandBulletSpawnEffect->Destroy();
+		}
+
+		HandBulletSpawnEffect = SpawnEffect;
+	}
 
 	FireTime = FireDelay;
 }
 
 FVector APlayer::GetBulletSpawnLocation()
 {
+	FVector BulletSpawnLocalLocation = FVector::Zero;
+
 	if (GStateName::Jump == CurStateName)
 	{
-		return GetBulletSpawnLocation_Jump();
+		BulletSpawnLocalLocation = GetBulletSpawnLocalLocation_Jump();
 	}
-
-	if (GStateName::Idle == CurStateName)
+	else if (GStateName::Idle == CurStateName)
 	{
-		return GetBulletSpawnLocation_Idle();
+		BulletSpawnLocalLocation = GetBulletSpawnLocalLocation_Idle();
 	}
-
-	if (GStateName::Run == CurStateName)
+	else if (GStateName::Run == CurStateName)
 	{
-		return GetBulletSpawnLocation_Run();
+		BulletSpawnLocalLocation = GetBulletSpawnLocalLocation_Run();
 	}
-
-	if (GStateName::Sit == CurStateName)
+	else if (GStateName::Sit == CurStateName)
 	{
-		return GetBulletSpawnLocation_Sit();
+		BulletSpawnLocalLocation = GetBulletSpawnLocalLocation_Sit();
 	}
 
-	return FVector::Zero;
+	return GetActorLocation() + BulletSpawnLocalLocation;
 }
 
-FVector APlayer::GetBulletSpawnLocation_Jump()
+FVector APlayer::GetBulletSpawnLocalLocation_Jump()
 {
 	EDirection BulletDirection = GetBulletSpawnDirection();
 
 	switch (BulletDirection)
 	{
 	case EDirection::Left:
-		return { -30.0f, 25.0f };
+		return { -50.0f, 25.0f };
 	case EDirection::Right:
-		return { 30.0f, 25.0f };
+		return { 50.0f, 25.0f };
 	case EDirection::LeftUp:
-		return { -25.0f, 45.0f };
+		return { -35.0f, 45.0f };
 	case EDirection::RightUp:
-		return { 25.0f, 45.0f };
+		return { 35.0f, 45.0f };
 	case EDirection::LeftDown:
-		return { -25.0f, -5.0f };
+		return { -35.0f, -5.0f };
 	case EDirection::RightDown:
-		return { 20.0f, -5.0f };
+		return { 35.0f, -5.0f };
 	case EDirection::Up:
 		if (EEngineDir::Left == Direction)
 		{
@@ -87,22 +105,22 @@ FVector APlayer::GetBulletSpawnLocation_Jump()
 	return FVector::Zero;
 }
 
-FVector APlayer::GetBulletSpawnLocation_Idle()
+FVector APlayer::GetBulletSpawnLocalLocation_Idle()
 {
 	EDirection BulletDirection = GetBulletSpawnDirection();
 
 	switch (BulletDirection)
 	{
 	case EDirection::Left:
-		return { -35.0f, 75.0f };
+		return { -70.0f, 80.0f };
 	case EDirection::Right:
-		return { 35.0f, 75.0f };
+		return { 70.0f, 80.0f };
 	case EDirection::Up:
 		if (EEngineDir::Left == Direction)
 		{
-			return { -20.0f, 120.0f };
+			return { -20.0f, 165.0f };
 		}
-		return { 20.0f, 120.0f };
+		return { 20.0f, 165.0f };
 	case EDirection::Down:
 		if (EEngineDir::Left == Direction)
 		{
@@ -116,20 +134,20 @@ FVector APlayer::GetBulletSpawnLocation_Idle()
 	return FVector::Zero;
 }
 
-FVector APlayer::GetBulletSpawnLocation_Run()
+FVector APlayer::GetBulletSpawnLocalLocation_Run()
 {
 	EDirection BulletDirection = GetBulletSpawnDirection();
 
 	switch (BulletDirection)
 	{
 	case EDirection::Left:
-		return { -30.0f, 65.0f };
+		return { -60.0f, 65.0f };
 	case EDirection::Right:
-		return { 30.0f, 65.0f };
+		return { 60.0f, 65.0f };
 	case EDirection::LeftUp:
-		return { -25.0f, 80.0f };
+		return { -60.0f, 120.0f };
 	case EDirection::RightUp:
-		return { 25.0f, 80.0f };
+		return { 60.0f, 120.0f };
 	default:
 		break;
 	}
@@ -137,7 +155,7 @@ FVector APlayer::GetBulletSpawnLocation_Run()
 	return FVector::Zero;
 }
 
-FVector APlayer::GetBulletSpawnLocation_Sit()
+FVector APlayer::GetBulletSpawnLocalLocation_Sit()
 {
 	EDirection BulletDirection = GetBulletSpawnDirection();
 

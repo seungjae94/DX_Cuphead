@@ -3,6 +3,11 @@
 struct FCreateAnimationParameter
 {
 public:
+	FCreateAnimationParameter(std::string_view _AnimName, std::string_view _ImageName, float _Interval)
+		: AnimName(_AnimName), ImageName(_ImageName), Interval(_Interval)
+	{
+	}
+
 	std::string AnimName;
 	std::string ImageName;
 	float Interval;
@@ -22,7 +27,6 @@ public:
 	AAnimationEffect& operator=(const AAnimationEffect& _Other) = delete;
 	AAnimationEffect& operator=(AAnimationEffect&& _Other) noexcept = delete;
 
-	
 	void Init(ERenderingOrder _Order, FCreateAnimationParameter _Parameter, bool _AutoDestroy = false);
 
 protected:

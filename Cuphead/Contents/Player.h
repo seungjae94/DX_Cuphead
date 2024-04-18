@@ -7,6 +7,8 @@ enum class RunState
 	RunShootForward,
 };
 
+class AAnimationEffect;
+
 class APlayer : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -56,6 +58,8 @@ private:
 	const float Atk = 10.0f; /*원작 총알의 데미지는 4*/
 	bool IsFire = false;
 	FTransform BulletSpawnTrans;
+	AAnimationEffect* HandBulletSpawnEffect = nullptr;
+	UEngineRandom Random;
 
 	// Move
 	const float RunSpeed = 400.0f;
@@ -129,10 +133,10 @@ private:
 	// 공격
 	void Fire();
 	FVector GetBulletSpawnLocation();
-	FVector GetBulletSpawnLocation_Jump();
-	FVector GetBulletSpawnLocation_Idle();
-	FVector GetBulletSpawnLocation_Run();
-	FVector GetBulletSpawnLocation_Sit();
+	FVector GetBulletSpawnLocalLocation_Jump();
+	FVector GetBulletSpawnLocalLocation_Idle();
+	FVector GetBulletSpawnLocalLocation_Run();
+	FVector GetBulletSpawnLocalLocation_Sit();
 	EDirection GetBulletSpawnDirection();
 
 private:

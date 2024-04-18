@@ -21,7 +21,6 @@ void AAnimationEffect::Init(ERenderingOrder _Order, FCreateAnimationParameter _P
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->CreateAnimation(_Parameter.AnimName, _Parameter.ImageName, _Parameter.Interval, false, -1, -1);
 	AutoDestroy = _AutoDestroy;
-
 	Renderer->ChangeAnimation(_Parameter.AnimName);
 }
 
