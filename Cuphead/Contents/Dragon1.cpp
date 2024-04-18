@@ -13,7 +13,7 @@ ADragon1::ADragon1()
 	Collision->SetupAttachment(Root);
 
 	Collision->SetCollisionGroup(ECollisionGroup::Monster);
-	Collision->SetCollisionType(ECollisionType::Rect);
+	Collision->SetCollisionType(ECollisionType::RotRect);
 }
 
 ADragon1::~ADragon1()
@@ -31,7 +31,7 @@ void ADragon1::BeginPlay()
 
 	SetActorLocation({ 525.0f, -525.0f });
 	BodyRenderer->SetPosition({ 0.0f, 0.0f });
-	Collision->SetPosition(BodyRenderer->GetLocalPosition() + FVector(0.0f, 0.0f, 0.0f));
+	Collision->SetPosition(BodyRenderer->GetLocalPosition() + FVector(0.0f, 500.0f, 0.0f));
 	Collision->SetScale({ 300.0f, 500.0f });
 }
 
@@ -45,6 +45,15 @@ void ADragon1::Tick(float _DeltaTime)
 
 void ADragon1::DebugUpdate(float _DeltaTime)
 {
+	{
+		std::string Msg = std::format("Dragon1 Hp : {}\n", Hp);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("Dragon1 State : {}\n", StateManager.GetCurStateName());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
 
 void ADragon1::RendererInit()
@@ -69,6 +78,7 @@ void ADragon1::StateInit()
 	StateManager.CreateState("Attack");
 	StateManager.CreateState("Beam");
 	StateManager.CreateState("RunAway");
+	StateManager.CreateState("Faint");
 	StateManager.CreateState("Finish");
 
 	StateManager.SetFunction("Idle",
@@ -194,4 +204,23 @@ bool ADragon1::IsFinished()
 
 void ADragon1::Damage(int _Damage)
 {
+	if ("RunAway" == StateManager.GetCurStateName())
+	{
+		return;
+	}
+
+	Hp -= _Damage;
+
+	BodyRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.0f });
+	BodyRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
+
+	DelayCallBack(0.1f, [this]() {
+		BodyRenderer->SetMulColor(FVector::One);
+		BodyRenderer->SetPlusColor(FVector::Zero);
+		});
+
+	if (Hp <= 0.0f)
+	{
+		StateManager.ChangeState("RunAway");
+	}
 }

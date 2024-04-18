@@ -24,7 +24,7 @@ void UCupheadCore::Initialize()
 	CreateMaterials();
 	LoadResources();
 	CreateLevels();
-	GEngine->ChangeLevel(GLevelName::BossFarmLevel);
+	GEngine->ChangeLevel(GLevelName::BossDragonLevel);
 }
 
 void UCupheadCore::CreateDebugWindows()
