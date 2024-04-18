@@ -14,8 +14,6 @@ public:
 	ABossFarmMap& operator=(const ABossFarmMap& _Other) = delete;
 	ABossFarmMap& operator=(ABossFarmMap&& _Other) noexcept = delete;
 
-	void ToggleColMap();
-
 protected:
 
 private:
@@ -29,5 +27,9 @@ private:
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+	void ShowPixelColMapCheckBox();
+private:
+	bool ShowColMap = false;
+	void ToggleColMap();
 };
 

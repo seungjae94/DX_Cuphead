@@ -351,8 +351,11 @@ void ACarrot::Damage(int _Damage)
 
 	Hp -= _Damage;
 
-	CarrotRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.5f });
-	DelayCallBack(0.2f, [this]() {
+	CarrotRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.0f });
+	CarrotRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
+
+	DelayCallBack(0.1f, [this]() {
+		CarrotRenderer->SetMulColor(FVector::One);
 		CarrotRenderer->SetPlusColor(FVector::Zero);
 		});
 

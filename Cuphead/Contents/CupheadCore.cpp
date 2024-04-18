@@ -27,7 +27,7 @@ void UCupheadCore::Initialize()
 
 void UCupheadCore::CreateDebugWindows()
 {
-	UEngineEditorGUI::CreateEditorWindow<UCupheadDebugWindow>("CupheadDebugWindow");
+	DebugWindow = UEngineEditorGUI::CreateEditorWindow<UCupheadDebugWindow>("CupheadDebugWindow");
 }
 
 void UCupheadCore::CreateMaterials()

@@ -2,6 +2,7 @@
 #include <EngineBase/TransformObject.h>
 #include "RenderUnit.h"
 #include "TickObject.h"
+#include "EngineStruct.h"
 
 // 여기서 어떻게 할거냐가 중요하다.
 
@@ -38,11 +39,39 @@ public:
 
 	void AddToViewPort();
 
+	void SetHover(std::function<void()> _Hover)
+	{
+		Hover = _Hover;
+	}
+
+	void SetDown(std::function<void()> _Down)
+	{
+		Down = _Down;
+	}
+
+	void SetUnHover(std::function<void()> _UnHover)
+	{
+		UnHover = _UnHover;
+	}
+
+
+
 protected:
 	void MaterialSettingEnd() override;
+	void Tick(float _DeltaTime) override;
+
+	void Reset()
+	{
+		IsHover = false;
+	}
 
 private:
 	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
 
+	bool IsHover = false;
+
+	std::function<void()> UnHover;
+	std::function<void()> Hover;
+	std::function<void()> Down;
 };
 

@@ -12,12 +12,13 @@ public:
 	UCupheadDebugWindow& operator=(const UCupheadDebugWindow& _Other) = delete;
 	UCupheadDebugWindow& operator=(UCupheadDebugWindow&& _Other) noexcept = delete;
 
+	void RegisterCallback(std::function<void()> _Callback);
+
 protected:
 	void Init() override;
 	void Tick(ULevel* _Level, float _Delta);
 	void OnGui(ULevel* _Level, float _Delta);
 private:
-
-
+	std::list<std::function<void()>> Callbacks;
 };
 

@@ -26,6 +26,7 @@ void ABossFarmGameMode::BeginPlay()
 	FVector LeftBotPivotedPos = -GEngine->EngineWindow.GetWindowScale().Half2D() + HpWidget->GetWorldScale().Half2D();
 	HpWidget->SetPosition(LeftBotPivotedPos + FVector{25.0f, 20.0f});
 	HpWidget->AddToViewPort();
+	HpWidget->SetSprite("ui_hp3.png");
 
 	StateInit();
 

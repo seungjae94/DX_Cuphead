@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore/EngineCore.h>
 
+class UCupheadDebugWindow;
+
 class UCupheadCore : public UserCore
 {
 public:
@@ -21,5 +23,7 @@ private:
 	void CreateMaterials();
 	void LoadResources();
 	void CreateLevels();
+
+	std::shared_ptr<UCupheadDebugWindow> DebugWindow = nullptr;
 };
 

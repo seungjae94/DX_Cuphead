@@ -69,6 +69,11 @@ void ABossFarmMap::BeginPlay()
 void ABossFarmMap::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+}
 
-
+void ABossFarmMap::ShowPixelColMapCheckBox()
+{
+	ImGui::Checkbox("Show Pixel Collision Map", &ShowColMap);
+	ImGui::SameLine();
+	ImGui::Text(std::to_string(ShowColMap).c_str());
 }

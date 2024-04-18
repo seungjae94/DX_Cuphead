@@ -66,8 +66,11 @@ void AOnion::Damage(int _Damage)
 
 	Hp -= _Damage;
 
-	OnionRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.5f });
-	DelayCallBack(0.2f, [this]() {
+	OnionRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.0f });
+	OnionRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
+
+	DelayCallBack(0.1f, [this]() {
+		OnionRenderer->SetMulColor(FVector::One);
 		OnionRenderer->SetPlusColor(FVector::Zero);
 		});
 
