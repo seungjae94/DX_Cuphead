@@ -29,7 +29,7 @@ void ADragon1::BeginPlay()
 	RendererInit();
 	StateInit();
 
-	SetActorLocation({ 450.0f, -250.0f });
+	SetActorLocation({ 525.0f, -525.0f });
 	BodyRenderer->SetPosition({ 0.0f, 0.0f });
 	Collision->SetPosition(BodyRenderer->GetLocalPosition() + FVector(0.0f, 0.0f, 0.0f));
 	Collision->SetScale({ 300.0f, 500.0f });
@@ -49,14 +49,14 @@ void ADragon1::DebugUpdate(float _DeltaTime)
 
 void ADragon1::RendererInit()
 {
-	BodyRenderer->CreateAnimation("dragon1_idle", "dragon1_idle.png", 1 / 12.0f, true);
-	BodyRenderer->CreateAnimation("dragon1_tail", "dragon1_tail.png", 1 / 12.0f, true);
-	BodyRenderer->CreateAnimation("dragon1_attack", "dragon1_attack.png", 1 / 12.0f, false);
-	BodyRenderer->CreateAnimation("dragon1_attack_start", "dragon1_attack_start.png", 1 / 12.0f, false);
-	BodyRenderer->CreateAnimation("dragon1_attack_end", "dragon1_attack_end.png", 1 / 12.0f, false);
-	BodyRenderer->CreateAnimation("dragon1_beam", "dragon1_beam.png", 1 / 12.0f, true);
-	BodyRenderer->CreateAnimation("dragon1_beam_start", "dragon1_beam_start.png", 1 / 12.0f, false);
-	BodyRenderer->CreateAnimation("dragon1_beam_end", "dragon1_beam_end.png", 1 / 12.0f, false);
+	BodyRenderer->CreateAnimation("dragon1_idle", "dragon1_idle.png", 1 / 24.0f, true);
+	BodyRenderer->CreateAnimation("dragon1_tail", "dragon1_tail.png", 1 / 24.0f, true);
+	BodyRenderer->CreateAnimation("dragon1_attack", "dragon1_attack.png", 1 / 24.0f, false);
+	BodyRenderer->CreateAnimation("dragon1_attack_start", "dragon1_attack_start.png", 1 / 24.0f, false);
+	BodyRenderer->CreateAnimation("dragon1_attack_end", "dragon1_attack_end.png", 1 / 24.0f, false);
+	BodyRenderer->CreateAnimation("dragon1_beam", "dragon1_beam.png", 1 / 24.0f, true);
+	BodyRenderer->CreateAnimation("dragon1_beam_start", "dragon1_beam_start.png", 1 / 24.0f, false);
+	BodyRenderer->CreateAnimation("dragon1_beam_end", "dragon1_beam_end.png", 1 / 24.0f, false);
 
 	BodyRenderer->SetOrder(ERenderingOrder::Back6);
 	BodyRenderer->SetPivot(EPivot::BOT);

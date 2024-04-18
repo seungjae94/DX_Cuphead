@@ -31,11 +31,6 @@ ABossFarmMap::~ABossFarmMap()
 {
 }
 
-void ABossFarmMap::ToggleColMap()
-{
-	Col->SetActive(!Col->IsActive());
-}
-
 void ABossFarmMap::BeginPlay()
 {
 	Super::BeginPlay();
@@ -47,27 +42,28 @@ void ABossFarmMap::BeginPlay()
 	Back3->SetSprite("boss_farm_map_back3.png");
 	Back4->SetSprite("boss_farm_map_back4.png");
 	Front->SetSprite("boss_farm_map_front.png");
-	Col->SetSprite("boss_farm_map_col.png");
 
 	Back0->SetOrder(ERenderingOrder::Back0);
 	Back1->SetOrder(ERenderingOrder::Back1);
 	Back3->SetOrder(ERenderingOrder::Back3);
 	Back4->SetOrder(ERenderingOrder::Back4);
 	Front->SetOrder(ERenderingOrder::Front);
-	Col->SetOrder(ERenderingOrder::Collider);
 
 	Back0->SetAutoSize(1.0f, true);
 	Back1->SetAutoSize(1.0f, true);
 	Back3->SetAutoSize(1.0f, true);
 	Back4->SetAutoSize(1.0f, true);
 	Front->SetAutoSize(1.0f, true);
-	Col->SetAutoSize(1.0f, true);
 
+	Col->SetSprite("boss_farm_map_col.png");
+	Col->SetOrder(ERenderingOrder::Collider);
+	Col->SetAutoSize(1.0f, true);
 	Col->SetActive(false);
 
 	Back0->SetPosition({ 0.0f, 1.0f, 0.0f });
 
 	DebugWindow->RegisterCallback(
+		"BossFarmMapPixelColToggle",
 		std::bind(&ABossFarmMap::ShowPixelColMapCheckBox, this)
 	);
 }
@@ -79,9 +75,14 @@ void ABossFarmMap::Tick(float _DeltaTime)
 
 void ABossFarmMap::ShowPixelColMapCheckBox()
 {
-	bool Clicked = ImGui::Checkbox("Show Pixel Collision Map", &ShowColMap);
+	bool Clicked = ImGui::Checkbox("Farm Map Pixel Collision", &ShowColMap);
 	if (true == Clicked)
 	{
 		ToggleColMap();
 	}
+}
+
+void ABossFarmMap::ToggleColMap()
+{
+	Col->SetActive(!Col->IsActive());
 }

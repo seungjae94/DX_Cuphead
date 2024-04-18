@@ -179,6 +179,19 @@ void UCupheadCore::LoadResources()
 		{
 			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
 		}
+
+		UEngineSprite::CreateCutting("dragon1_idle.png", 8, 2);
+		UEngineSprite::CreateCutting("dragon1_tail.png", 12, 1);
+		UEngineSprite::CreateCutting("dragon1_attack.png", 7, 1);
+		UEngineSprite::CreateCutting("dragon1_attack_start.png", 8, 2);
+		UEngineSprite::CreateCutting("dragon1_attack_end.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_attack_proj.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_beam_eye.png", 11, 1);
+		UEngineSprite::CreateCutting("dragon1_beam.png", 8, 2);
+		UEngineSprite::CreateCutting("dragon1_beam_start.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_beam_end.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_beam_proj.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_beam_proj_pink.png", 8, 1);
 	}
 
 	{

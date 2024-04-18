@@ -9,9 +9,9 @@ UCupheadDebugWindow::~UCupheadDebugWindow()
 {
 }
 
-void UCupheadDebugWindow::RegisterCallback(std::function<void()> _Callback)
+void UCupheadDebugWindow::RegisterCallback(std::string_view _Key, std::function<void()> _Callback)
 {
-	Callbacks.push_back(_Callback);
+	Callbacks[std::string(_Key)] = _Callback;
 }
 
 void UCupheadDebugWindow::Init()
@@ -48,8 +48,8 @@ void UCupheadDebugWindow::OnGui(ULevel* _Level, float _Delta)
 		GEngine->ChangeLevel(GLevelName::BossDragonLevel);
 	}
 
-	for (auto Callback : Callbacks)
+	for (auto Pair : Callbacks)
 	{
-		Callback();
+		Pair.second();
 	}
 }

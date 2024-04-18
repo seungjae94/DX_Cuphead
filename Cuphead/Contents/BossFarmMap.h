@@ -27,9 +27,9 @@ private:
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-	void ShowPixelColMapCheckBox();
 private:
 	bool ShowColMap = false;
+	void ShowPixelColMapCheckBox();
 	void ToggleColMap();
 };
 
