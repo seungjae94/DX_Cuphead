@@ -28,7 +28,7 @@ void APlayer::Fire()
 	AAnimationEffect* SpawnEffect = GetWorld()->SpawnActor<AAnimationEffect>("SpawnEffect").get();
 	SpawnEffect->SetActorLocation(GetBulletSpawnLocation());
 	SpawnEffect->SetActorRotation({ 0.0f, 0.0f, RandomAngle });
-	SpawnEffect->Init(ERenderingOrder::BulletSpawn, FCreateAnimationParameter{ "bullet_spawn", "bullet_spawn.png", 1 / 12.0f }, true);
+	SpawnEffect->Init(ERenderingOrder::BulletSpawn, FCreateAnimationParameter{ "bullet_spawn", "bullet_spawn.png", 1 / 24.0f }, true);
 
 	// 점프 또는 패리 상태일 경우에만 현재 위치에 고정
 	if ("Jump" != CurStateName && "Parry" != CurStateName)
@@ -39,6 +39,9 @@ void APlayer::Fire()
 		}
 
 		HandBulletSpawnEffect = SpawnEffect;
+		HandBulletSpawnEffect->SetAutoDestroyCallback([this]() {
+			HandBulletSpawnEffect = nullptr;
+		});
 	}
 
 	FireTime = FireDelay;

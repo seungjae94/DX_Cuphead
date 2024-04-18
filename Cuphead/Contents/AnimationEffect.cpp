@@ -24,6 +24,11 @@ void AAnimationEffect::Init(ERenderingOrder _Order, FCreateAnimationParameter _P
 	Renderer->ChangeAnimation(_Parameter.AnimName);
 }
 
+void AAnimationEffect::SetAutoDestroyCallback(std::function<void()> _Callback)
+{
+	AutoDestroyCallback = _Callback;
+}
+
 void AAnimationEffect::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -31,5 +36,10 @@ void AAnimationEffect::Tick(float _DeltaTime)
 	if (true == AutoDestroy && true == Renderer->IsCurAnimationEnd())
 	{
 		Destroy();
+
+		if (nullptr != AutoDestroyCallback)
+		{
+			AutoDestroyCallback();
+		}
 	}
 }
