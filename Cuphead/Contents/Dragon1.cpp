@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Dragon1.h"
+#include "BossAttack.h"
 
 ADragon1::ADragon1()
 {
@@ -67,6 +68,24 @@ void ADragon1::RendererInit()
 	BodyRenderer->CreateAnimation("dragon1_beam_start", "dragon1_beam_start.png", 1 / 24.0f, false);
 	BodyRenderer->CreateAnimation("dragon1_beam_end", "dragon1_beam_end.png", 1 / 24.0f, false);
 
+	BodyRenderer->SetFrameCallback("dragon1_attack_start", 15, [this]() {
+		BodyRenderer->ChangeAnimation("dragon1_attack");
+		SpawnAttackProj();
+	});
+
+	BodyRenderer->SetFrameCallback("dragon1_attack", 6, [this]() {
+		BodyRenderer->ChangeAnimation("dragon1_attack_end");
+	});
+
+	BodyRenderer->SetFrameCallback("dragon1_attack_end", 7, [this]() {
+		BodyRenderer->ChangeAnimation("dragon1_idle");
+
+		if (0 == AttackCount)
+		{
+			StateManager.ChangeState("Idle");
+		}
+	});
+
 	BodyRenderer->SetOrder(ERenderingOrder::Back6);
 	BodyRenderer->SetPivot(EPivot::BOT);
 	BodyRenderer->SetAutoSize(1.0f, true);
@@ -123,12 +142,15 @@ void ADragon1::IdleStart()
 
 void ADragon1::Idle(float _DeltaTime)
 {
-	if (AttackDecisionTime > 0.0f)
+	AttackDecisionTimer -= _DeltaTime;
+
+	if (AttackDecisionTimer > 0.0f)
 	{
 		return;
 	}
 
-	int AttackType = Random.RandomInt(0, 1);
+	//int AttackType = Random.RandomInt(0, 1);
+	int AttackType = Random.RandomInt(0, 0); // 임시로 빔을 쏘지 않도록 처리
 
 	if (0 == AttackType)
 	{
@@ -146,11 +168,23 @@ void ADragon1::IdleEnd()
 
 void ADragon1::AttackStart()
 {
-
+	AttackCount = MaxAttackCount;
+	AttackTimer = 0.0f;
 }
 
 void ADragon1::Attack(float _DeltaTime)
 {
+	AttackTimer -= _DeltaTime;
+
+	if (AttackTimer > 0.0f)
+	{
+		return;
+	}
+
+	BodyRenderer->ChangeAnimation("dragon1_attack_start");
+
+	--AttackCount;
+	AttackTimer = AttackInterval;
 }
 
 void ADragon1::AttackEnd()
@@ -191,6 +225,18 @@ void ADragon1::Finish(float _DeltaTime)
 
 void ADragon1::FinishEnd()
 {
+}
+
+void ADragon1::SpawnAttackProj()
+{
+	ABossAttack* Attack = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
+	Attack->SetRenderingOrder(ERenderingOrder::Bullet);
+	Attack->SetActorLocation(GetActorLocation() + FVector(-150.0f, 700.0f, 0.0f));
+	Attack->SetVelocity(FVector::Left * 650.0f);
+	Attack->SetDestroyTime(5.0f);
+	Attack->SetCollisionPosition({ -25.0f, -25.0f });
+	Attack->SetCollisionScale({ 100.0f, 100.0f });
+	Attack->SetAnimation("dragon1_attack_proj", "dragon1_attack_proj.png", 1 / 12.0f, true);
 }
 
 void ADragon1::PlayIntroAnimation()

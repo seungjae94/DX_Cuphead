@@ -32,7 +32,12 @@ private:
 	UStateManager StateManager;
 	UEngineRandom Random;
 	const float AttackDecisionTime = 3.0f;
-	float AttackDecisionTimer = 0.0f;
+	float AttackDecisionTimer = 3.0f;
+
+	const int MaxAttackCount = 2;
+	int AttackCount = 2;
+	const float AttackInterval = 3.0f;
+	float AttackTimer = AttackInterval;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -61,5 +66,7 @@ private:
 	void FinishStart();
 	void Finish(float _DeltaTime);
 	void FinishEnd();
+private:
+	void SpawnAttackProj();
 };
 
