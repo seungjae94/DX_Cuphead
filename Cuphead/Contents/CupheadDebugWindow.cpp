@@ -43,6 +43,11 @@ void UCupheadDebugWindow::OnGui(ULevel* _Level, float _Delta)
 		GEngine->ChangeLevel(GLevelName::BossFarmLevel);
 	}
 
+	if (true == ImGui::Button("Boss Dragon Level"))
+	{
+		GEngine->ChangeLevel(GLevelName::BossDragonLevel);
+	}
+
 	for (auto Callback : Callbacks)
 	{
 		Callback();

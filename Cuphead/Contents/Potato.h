@@ -48,6 +48,7 @@ private:
 
 	const float ShrinkWaitTime = 2.0f;
 	float ShrinkTimer = 0.0f;
+
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

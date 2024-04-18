@@ -120,6 +120,15 @@
     <ClInclude Include="CarrotBeam.h">
       <Filter>Level\03. Boss Level\Farm</Filter>
     </ClInclude>
+    <ClInclude Include="Dragon1.h">
+      <Filter>Level\03. Boss Level\Dragon</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragon2.h">
+      <Filter>Level\03. Boss Level\Dragon</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragon3.h">
+      <Filter>Level\03. Boss Level\Dragon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -194,9 +203,6 @@
     <ClCompile Include="AnimationEffect.cpp">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
-    <ClCompile Include="BossFarmGameMode_State.cpp">
-      <Filter>Level\03. Boss Level\Farm</Filter>
-    </ClCompile>
     <ClCompile Include="BossAttack.cpp">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
@@ -214,6 +220,15 @@
     </ClCompile>
     <ClCompile Include="CarrotBeam.cpp">
       <Filter>Level\03. Boss Level\Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragon1.cpp">
+      <Filter>Level\03. Boss Level\Dragon</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragon2.cpp">
+      <Filter>Level\03. Boss Level\Dragon</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragon3.cpp">
+      <Filter>Level\03. Boss Level\Dragon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

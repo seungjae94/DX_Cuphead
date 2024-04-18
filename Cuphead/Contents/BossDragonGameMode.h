@@ -1,6 +1,12 @@
 #pragma once
 #include "CupheadGameMode.h"
 
+class ABossDragonMap;
+class ADragon1;
+class ADragon2;
+class ADragon3;
+class APlayer;
+
 class ABossDragonGameMode : public ACupheadGameMode
 {
 	GENERATED_BODY(ACupheadGameMode)
@@ -14,9 +20,44 @@ public:
 	ABossDragonGameMode& operator=(ABossDragonGameMode&& _Other) noexcept = delete;
 
 protected:
-
-
+private:
+	UStateManager StateManager;
+	ABossDragonMap* Map = nullptr;
+	APlayer* Player = nullptr;
+	ADragon1* Dragon1 = nullptr;
+	ADragon2* Dragon2 = nullptr;
+	ADragon3* Dragon3 = nullptr;
+private:
+	// 초기화 함수
+	void StateInit();
 private:
 	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+	void DebugUpdate(float _DeltaTime);
+private:
+	// 상태 함수
+	void IntroStart();
+	void Intro(float _DeltaTime);
+	void IntroEnd();
+
+	void Phase1Start();
+	void Phase1(float _DeltaTime);
+	void Phase1End();
+
+	void Phase2IntroStart();
+	void Phase2Intro(float _DeltaTime);
+	void Phase2IntroEnd();
+
+	void Phase2Start();
+	void Phase2(float _DeltaTime);
+	void Phase2End();
+
+	void Phase3IntroStart();
+	void Phase3Intro(float _DeltaTime);
+	void Phase3IntroEnd();
+
+	void Phase3Start();
+	void Phase3(float _DeltaTime);
+	void Phase3End();
 };
 
