@@ -186,6 +186,7 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting("dragon1_attack_start.png", 8, 2);
 		UEngineSprite::CreateCutting("dragon1_attack_end.png", 8, 1);
 		UEngineSprite::CreateCutting("dragon1_attack_proj.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_attack_smoke.png", 7, 5);
 		UEngineSprite::CreateCutting("dragon1_beam_eye.png", 11, 1);
 		UEngineSprite::CreateCutting("dragon1_beam.png", 8, 2);
 		UEngineSprite::CreateCutting("dragon1_beam_start.png", 8, 1);

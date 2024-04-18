@@ -232,7 +232,8 @@ void ADragon1::SpawnAttackProj()
 	ABossAttack* Attack = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
 	Attack->SetRenderingOrder(ERenderingOrder::Bullet);
 	Attack->SetActorLocation(GetActorLocation() + FVector(-150.0f, 675.0f, 0.0f));
-	Attack->SetVelocityGenerator([this, Attack]() {
+
+	std::function<FVector()> VelocityGenerator = [this, Attack]() {
 		float Height = 300.0f;
 		float WidthCoeff = 3.0f * UEngineMath::PI / 1280.0f;
 		float AttackX = Attack->GetActorLocation().X;
@@ -251,7 +252,9 @@ void ADragon1::SpawnAttackProj()
 		float Speed = (360.0f - AbsAttackY) / 360.0f * (MaxSpeed - MinSpeed) + MinSpeed;
 		Velocity *= Speed;
 		return Velocity;
-		});
+	};
+
+	Attack->SetVelocityGenerator(VelocityGenerator);
 	Attack->SetDestroyTime(5.0f);
 	Attack->SetCollisionPosition({ -25.0f, -25.0f });
 	Attack->SetCollisionScale({ 100.0f, 100.0f });
