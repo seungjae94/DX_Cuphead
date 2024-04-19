@@ -66,7 +66,7 @@ void APlayer::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsDown('Z'))
+	if (true == IsDown('Z') || false == IsGroundCollisionOccur())
 	{
 		ChangeState(GStateName::Jump);
 		return;
@@ -89,11 +89,6 @@ void APlayer::IdleEnd()
 {
 }
 
-bool APlayer::IsParrying()
-{
-	return IsParryingValue;
-}
-
 void APlayer::RunStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerRun);
@@ -110,8 +105,6 @@ void APlayer::Run(float _DeltaTime)
 		ChangeState(GStateName::Idle);
 		return;
 	}
-
-	Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * RunSpeed;
 
 	if (true == IsDown('Z'))
 	{
@@ -130,6 +123,29 @@ void APlayer::Run(float _DeltaTime)
 		ChangeState(GStateName::Sit);
 		return;
 	}
+
+	// 이동 및 충돌 처리
+	float PrevPosX = GetActorLocation().X;
+	float NextPosX = GetActorLocation().X + UConverter::ConvEngineDirToFVector(Direction).X * RunSpeed * _DeltaTime;
+	float PosY = GetActorLocation().Y;
+	SetActorLocation({ NextPosX, PosY, 0.0f });
+
+	if (true == IsGroundCollisionOccur())
+	{
+		// 바닥을 밟는 경우
+
+		// TODO: 좌우 충돌 체크
+		if (true == IsHorizontalCollisionOccur())
+		{
+			SetActorLocation({ PrevPosX, PosY, 0.0f });
+		}
+	}
+	else
+	{
+		// 바닥을 밟지 않게 되는 경우
+		ChangeState(GStateName::Jump);
+	}
+
 }
 
 void APlayer::RunEnd()
@@ -152,15 +168,15 @@ void APlayer::Jump(float _DeltaTime)
 {
 	Fire();
 
-	if (true == OnGroundValue)
+	// 대시 처리
+	if (true == IsDown(VK_SHIFT) && false == IsDashed)
 	{
-		ChangeState(GStateName::Idle);
-		IsDashed = false;
+		IsDashed = true;
+		ChangeState(GStateName::Dash);
 		return;
 	}
 
-	EEngineDir PrevDirection = Direction;
-	RefreshDirection();
+	float PrevPosX = GetActorLocation().X;
 
 	if (true == IsPressArrowKey())
 	{
@@ -171,16 +187,28 @@ void APlayer::Jump(float _DeltaTime)
 		Velocity.X = 0.0f;
 	}
 
-	if (true == IsDown('Z'))
+	// 중력 적용
+	Velocity += Gravity * _DeltaTime;
+	AddActorLocation(Velocity * _DeltaTime);
+
+	if (true == IsHorizontalCollisionOccur())
 	{
-		ChangeState(GStateName::Parry);
+		float PosY = GetActorLocation().Y;
+		SetActorLocation({ PrevPosX, PosY, 0.0f });
+	}
+
+	if (true == IsGroundCollisionOccur())
+	{
+		// TODO: Ground Up
+		ChangeState(GStateName::Idle);
+		IsDashed = false;
 		return;
 	}
 
-	if (true == IsDown(VK_SHIFT) && false == IsDashed)
+	// 패리 상태로 변경
+	if (true == IsDown('Z'))
 	{
-		IsDashed = true;
-		ChangeState(GStateName::Dash);
+		ChangeState(GStateName::Parry);
 		return;
 	}
 }
@@ -205,15 +233,13 @@ void APlayer::Parry(float _DeltaTime)
 {
 	Fire();
 
-	if (true == OnGroundValue)
+	// 대시 처리
+	if (true == IsDown(VK_SHIFT) && false == IsDashed)
 	{
-		ChangeState(GStateName::Idle);
-		IsDashed = false;
+		IsDashed = true;
+		ChangeState(GStateName::Dash);
 		return;
 	}
-
-	EEngineDir PrevDirection = Direction;
-	RefreshDirection();
 
 	if (true == IsPressArrowKey())
 	{
@@ -224,10 +250,14 @@ void APlayer::Parry(float _DeltaTime)
 		Velocity.X = 0.0f;
 	}
 
-	if (true == IsDown(VK_SHIFT) && false == IsDashed)
+	// 중력 적용
+	Velocity += Gravity * _DeltaTime;
+	AddActorLocation(Velocity * _DeltaTime);
+	if (true == IsGroundCollisionOccur())
 	{
-		IsDashed = true;
-		ChangeState(GStateName::Dash);
+		// TODO: Ground Up
+		ChangeState(GStateName::Idle);
+		IsDashed = false;
 		return;
 	}
 }
@@ -244,18 +274,17 @@ void APlayer::ParryEnd()
 	}
 }
 
+bool APlayer::IsParrying()
+{
+	return IsParryingValue;
+}
+
 void APlayer::DashStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerDash);
 	Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * DashSpeed;
 	Velocity.Y = 0.0f;
-	ApplyGravity = false;
-	DelayCallBack(DashTime, [this]() {
-		ApplyGravity = true;
-		Velocity -= JumpImpulse;
-		UEngineDebug::OutPutDebugText(PrevStateName);
-		ChangeState(PrevStateName);
-		});
+	DashTimer = DashTime;
 
 	// 대시 먼지
 	AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("AnimationEffect").get();
@@ -265,6 +294,21 @@ void APlayer::DashStart()
 
 void APlayer::Dash(float _DeltaTime)
 {
+	DashTimer -= _DeltaTime;
+
+	if (DashTimer > 0.0f)
+	{
+		if (true == IsHorizontalCollisionOccur())
+		{
+			return;
+		}
+
+		AddActorLocation(Velocity * _DeltaTime);
+		return;
+	}
+
+	Velocity -= JumpImpulse;
+	ChangeState(PrevStateName);
 }
 
 void APlayer::DashEnd()
@@ -274,8 +318,6 @@ void APlayer::DashEnd()
 void APlayer::SitStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerSit);
-	Velocity = FVector::Zero;
-
 	Collision->SetScale(CollisionSitScale);
 	Collision->SetPosition(CollisionSitPosition);
 }
@@ -306,34 +348,39 @@ void APlayer::SitEnd()
 void APlayer::HitStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerHit);
-	Velocity = FVector::Zero;
-	DelayCallBack(0.5f, [this]() {
-		if (GStateName::Dash == PrevStateName)
-		{
-			if (true == OnGroundValue)
-			{
-				StateManager.ChangeState(GStateName::Idle);
-				return;
-			}
-
-			StateManager.ChangeState(GStateName::Jump);
-			return;
-		}
-
-		StateManager.ChangeState(PrevStateName);
-	});
+	HitTimer = HitTime;
 	Collision->SetActive(false);
 }
 
 void APlayer::Hit(float _DeltaTime)
 {
+	HitTimer -= _DeltaTime;
+
+	if (HitTimer > 0.0f)
+	{
+		return;
+	}
+
+	if (GStateName::Dash == PrevStateName)
+	{
+		if (true == OnGroundValue)
+		{
+			StateManager.ChangeState(GStateName::Idle);
+			return;
+		}
+
+		StateManager.ChangeState(GStateName::Jump);
+		return;
+	}
+
+	StateManager.ChangeState(PrevStateName);
 }
 
 void APlayer::HitEnd()
 {
 	DelayCallBack(NoHitTime, [this]() {
 		Collision->SetActive(true);
-	});
+		});
 }
 
 void APlayer::RefreshIdleAnimation()

@@ -50,9 +50,9 @@ private:
 	bool OnGroundValue = true;
 	bool ApplyGravity = true;
 
-	FVector ColBotPoint = FVector::Zero;
-	FVector ColLeftPoint = { -30.0f, 50.0f, 0.0f };
-	FVector ColRightPoint = { 30.0f, 50.0f, 0.0f };
+	FVector BotColliderLocalPosition = FVector::Zero;
+	FVector LeftColliderLocalPosition = { -30.0f, 50.0f, 0.0f };
+	FVector RightColliderLocalPosition = { 30.0f, 50.0f, 0.0f };
 
 	// Fire
 	const float FireDelay = 1 / 7.5f;
@@ -67,9 +67,14 @@ private:
 	const float RunSpeed = 400.0f;
 	const float DashSpeed = 800.0f;
 	const float DashTime = 0.3f;
+	float DashTimer = 0.0f;
 	const FVector DashDustPos = { 0.0f, 50.0f, 0.0f };
 	EEngineDir Direction = EEngineDir::Right;
 	bool IsDashed = false;
+
+	// Hit
+	const float HitTime = 0.5f;
+	float HitTimer = 0.0f;
 
 	// Collision
 	std::string ColMapName = "";
@@ -155,6 +160,11 @@ private:
 	void RefreshIdleAnimation();
 	void RefreshRunAnimation();
 
-	bool CheckCollision(const FVector& _ColPoint);
+	bool IsHorizontalCollisionOccur();
+	bool IsGroundCollisionOccur();
+	void MoveUpToGround();
+
+
+	bool CheckPixelCollision(const FVector& _Point);
 };
 

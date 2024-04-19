@@ -98,9 +98,16 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	FireTime -= _DeltaTime;
-	StateManager.Update(_DeltaTime);
 	SpriteDirUpdate(_DeltaTime);
-	PhysicsUpdate(_DeltaTime);
+	StateManager.Update(_DeltaTime);
+	//PhysicsUpdate(_DeltaTime);
+
+	//// 총알 스폰 이펙트 이동
+	//if (nullptr != HandBulletSpawnEffect && false == HandBulletSpawnEffect->IsDestroy())
+	//{
+	//	HandBulletSpawnEffect->AddActorLocation(NextPos - PrevPos);
+	//}
+
 	DebugUpdate(_DeltaTime);
 }
 
@@ -128,7 +135,7 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 	AddActorLocation(Velocity * _DeltaTime);
 	FVector NextPos = GetActorLocation();
 
-	if (true == CheckCollision(ColLeftPoint) || true == CheckCollision(ColRightPoint))
+	if (true == CheckPixelCollision(LeftColliderLocalPosition) || true == CheckPixelCollision(RightColliderLocalPosition))
 	{
 		FVector TargetPos = NextPos;
 		TargetPos.X = PrevPos.X;
@@ -136,14 +143,8 @@ void APlayer::PhysicsUpdate(float _DeltaTime)
 		NextPos = TargetPos;
 	}
 
-	// 총알 스폰 이펙트 이동
-	if (nullptr != HandBulletSpawnEffect && false == HandBulletSpawnEffect->IsDestroy())
-	{
-		HandBulletSpawnEffect->AddActorLocation(NextPos - PrevPos);
-	}
-
 	// 바닥 충돌 체크
-	if (true == CheckCollision(ColBotPoint))
+	if (true == CheckPixelCollision(BotColliderLocalPosition))
 	{
 		OnGroundValue = true;
 	}
@@ -233,7 +234,38 @@ void APlayer::RefreshDirection()
 	}
 }
 
-bool APlayer::CheckCollision(const FVector& _ColPoint)
+bool APlayer::IsHorizontalCollisionOccur()
+{
+	if (true == CheckPixelCollision(GetActorLocation() + LeftColliderLocalPosition))
+	{
+		return true;
+	}
+
+	if (true == CheckPixelCollision(GetActorLocation() + RightColliderLocalPosition))
+	{
+		return true;
+	}
+
+	// 충돌체 체크
+
+	return false;
+}
+
+bool APlayer::IsGroundCollisionOccur()
+{
+	if (true == CheckPixelCollision(GetActorLocation() + BotColliderLocalPosition))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void APlayer::MoveUpToGround()
+{
+}
+
+bool APlayer::CheckPixelCollision(const FVector& _Point)
 {
 	std::shared_ptr<UEngineTexture> MapTex = UEngineTexture::FindRes(ColMapName);
 
@@ -246,8 +278,7 @@ bool APlayer::CheckCollision(const FVector& _ColPoint)
 
 	FVector MapTexLeftTop = -MapTexScale.Half2D();
 	MapTexLeftTop.Y = -MapTexLeftTop.Y;
-	FVector ColTestPoint = GetActorLocation() + _ColPoint;
-	FVector TestPixel = ColTestPoint - MapTexLeftTop;
+	FVector TestPixel = _Point - MapTexLeftTop;
 	TestPixel.Y = -TestPixel.Y;
 	Color8Bit ColMapColor = MapTex->GetColor(TestPixel, Color8Bit::Black);
 	return ColMapColor == Color8Bit::Black;
