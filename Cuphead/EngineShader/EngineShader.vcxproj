@@ -127,8 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <FxCompile Include="BlurEffectShader.fx" />
     <FxCompile Include="ColorShader.fx" />
+    <FxCompile Include="DebugShader.fx" />
     <FxCompile Include="ImageShader.fx" />
+    <FxCompile Include="TargetCopyShader.fx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineShaderBase.hlsli" />
