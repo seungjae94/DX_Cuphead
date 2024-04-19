@@ -84,10 +84,6 @@ private:
 
 	// UI
 	UImage* HpWidget = nullptr;
-	const float HpWidgetFrameInterval = 1 / 12.0f;
-	float HpWidgetFrameTime = 0.0f;
-	bool HpWidgetWarn0 = true;
-
 	std::vector<UImage*> CardWidgets;
 
 private:
@@ -98,7 +94,7 @@ private:
 	void Tick(float _DeltaTime) override;
 	void SpriteDirUpdate(float _DeltaTime);
 	void PhysicsUpdate(float _DeltaTime);
-	void UIUpdate(float _DeltaTime);
+	void SuperMeterUIUpdate();
 	void DebugUpdate(float _DeltaTime);
 private:
 	// 애니메이션
