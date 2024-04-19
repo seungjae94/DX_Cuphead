@@ -18,4 +18,6 @@ void ACupheadGameMode::BeginPlay()
 	Camera->SetActorLocation({ 0.0f, 0.0f, -100.0f });
 
 	Noise = GetWorld()->SpawnActor<ANoise>("Noise", INT_MAX).get();
+
+	GetWorld()->GetLastTarget()->AddEffect<UBlurEffect>();
 }
