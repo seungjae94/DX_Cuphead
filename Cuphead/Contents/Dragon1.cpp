@@ -92,6 +92,10 @@ void ADragon1::RendererInit()
 		SpawnBeamProj();
 		});
 
+	BodyRenderer->SetFrameCallback("dragon1_beam_end", 7, [this]() {
+		StateManager.ChangeState("Idle");
+		});
+
 	BodyRenderer->SetOrder(ERenderingOrder::Back6);
 	BodyRenderer->SetPivot(EPivot::BOT);
 	BodyRenderer->SetAutoSize(1.0f, true);
@@ -274,7 +278,7 @@ void ADragon1::SpawnBeamProj()
 
 	for (int i = 0; i < 3; ++i)
 	{
-		DelayCallBack(0.2f * i, [this, PlayerPos]() {
+		DelayCallBack(0.2f * i, [this, PlayerPos, i]() {
 			ABossAttack* Beam = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
 			Beam->SetRenderingOrder(ERenderingOrder::Bullet);
 			Beam->SetActorLocation(GetActorLocation() + FVector(-150.0f, 675.0f, 0.0f));
@@ -288,7 +292,16 @@ void ADragon1::SpawnBeamProj()
 			Beam->SetDestroyTime(5.0f);
 			Beam->SetCollisionPosition({ -25.0f, -25.0f });
 			Beam->SetCollisionScale({ 100.0f, 100.0f });
-			Beam->SetAnimation("dragon1_beam_proj", "dragon1_beam_proj.png", 1 / 24.0f, true);
+
+			if (i == 2)
+			{
+				Beam->SetAnimation("dragon1_beam_proj_pink", "dragon1_beam_proj_pink.png", 1 / 24.0f, true);
+				BodyRenderer->ChangeAnimation("dragon1_beam_end");
+			}
+			else
+			{
+				Beam->SetAnimation("dragon1_beam_proj", "dragon1_beam_proj.png", 1 / 24.0f, true);
+			}
 			});
 	}
 }
