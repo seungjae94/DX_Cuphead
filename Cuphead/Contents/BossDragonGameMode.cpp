@@ -20,7 +20,7 @@ void ABossDragonGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player").get();
-	
+
 	// 디버그용 픽셀 충돌
 	Player->SetColMapName("boss_farm_map_col.png");
 
@@ -100,9 +100,18 @@ void ABossDragonGameMode::IntroStart()
 	Dragon1->PlayIntroAnimation();
 	Dragon1->SetFrameCallback("dragon1_intro", 39, [this]() {
 		Dragon1->SetActorLocation({ 525.0f, -525.0f });
-		StateManager.ChangeState("Phase1");
 		Dragon1->SetState("Idle");
-	});
+		StateManager.ChangeState("Phase1");
+		});
+
+	SpawnCloud(true, {-450.0f, -225.0f, 0.0f});
+	SpawnCloud(true, {-450.0f, 275.0f, 0.0f});
+	SpawnCloud(true, {-250.0f, 50.0f, 0.0f});
+	SpawnCloud(true, {-150.0f, -275.0f, 0.0f});
+	SpawnCloud(true, {0.0f, 225.0f, 0.0f});
+	SpawnCloud(true, {100.0f, -250.0f, 0.0f});
+	SpawnCloud(true, {200.0f, 25.0f, 0.0f});
+	SpawnCloud(true, {300.0f, 225.0f, 0.0f});
 }
 
 void ABossDragonGameMode::Intro(float _DeltaTime)
@@ -116,6 +125,11 @@ void ABossDragonGameMode::IntroEnd()
 void ABossDragonGameMode::Phase1Start()
 {
 	CloudSpawnTimer = 0.0f;
+
+	for (UPlatform* Cloud : Clouds)
+	{
+		Cloud->MoveStart();
+	}
 }
 
 void ABossDragonGameMode::Phase1(float _DeltaTime)
@@ -128,31 +142,13 @@ void ABossDragonGameMode::Phase1(float _DeltaTime)
 	}
 
 	// 구름 발판 생성
-	UPlatform* Cloud = GetWorld()->SpawnActor<UPlatform>("Cloud").get();
-	Cloud->SetCollisionPosition(FVector::Zero);
-	Cloud->SetCollisionScale({50.0f, 50.0f, 1.0f});
+	UPlatform* FirstCloud = SpawnCloud(false);
 
-	Cloud->CreateAnimation("dragon1_cloud_idle", "dragon1_cloud_idle.png", 1 / 12.0f, true);
-	Cloud->CreateAnimation("dragon1_cloud_down_idle", "dragon1_cloud_down_idle.png", 1 / 12.0f, true);
-	Cloud->CreateAnimation("dragon1_cloud_down", "dragon1_cloud_down.png", 1 / 12.0f, false);
-	Cloud->CreateAnimation("dragon1_cloud_up", "dragon1_cloud_up.png", 1 / 12.0f, false);
-	Cloud->ChangeAnimation("dragon1_cloud_idle");
-
-	Cloud->SetFrameCallback("dragon1_cloud_up", 4, [this, Cloud]() {
-		Cloud->ChangeAnimation("dragon1_cloud_idle");
+	DelayCallBack(1.0f, [this, FirstCloud]() {
+		UPlatform* SecondCloud = SpawnCloud(false);
+		float FirstCloudY = FirstCloud->GetActorLocation().Y;
+		SecondCloud->SetActorLocation({ 600.0f, FirstCloudY + 150.0f, 0.0f });
 		});
-
-	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
-		Cloud->ChangeAnimation("dragon1_cloud_down");
-	});
-
-	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
-		Cloud->ChangeAnimation("dragon1_cloud_idle");
-	});
-
-	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
-		Cloud->ChangeAnimation("dragon1_cloud_up");
-	});
 
 	CloudSpawnTimer = CloudSpawnInterval;
 }
@@ -207,4 +203,50 @@ void ABossDragonGameMode::Phase3(float _DeltaTime)
 
 void ABossDragonGameMode::Phase3End()
 {
+}
+
+UPlatform* ABossDragonGameMode::SpawnCloud(bool _SetLocation, const FVector& _Location)
+{
+	UPlatform* Cloud = GetWorld()->SpawnActor<UPlatform>("Cloud").get();
+
+	if (false == _SetLocation)
+	{
+		float RandomY = Random.RandomFloat(-250.0f, 100.0f);
+		Cloud->SetActorLocation({ 600.0f, RandomY, 0.0f });
+		Cloud->MoveStart();
+	}
+	else
+	{
+		Cloud->SetActorLocation(_Location);
+		Clouds.push_back(Cloud);
+	}
+
+	Cloud->SetVelocity(FVector::Left * 100.0f);
+	Cloud->SetRenderingOrder(ERenderingOrder::Back6);
+	Cloud->SetCollisionPosition(FVector::Zero);
+	Cloud->SetCollisionScale({ 50.0f, 50.0f, 1.0f });
+
+	Cloud->CreateAnimation("dragon1_cloud_idle", "dragon1_cloud_idle.png", 1 / 12.0f, true);
+	Cloud->CreateAnimation("dragon1_cloud_down_idle", "dragon1_cloud_down_idle.png", 1 / 12.0f, true);
+	Cloud->CreateAnimation("dragon1_cloud_down", "dragon1_cloud_down.png", 1 / 12.0f, false);
+	Cloud->CreateAnimation("dragon1_cloud_up", "dragon1_cloud_up.png", 1 / 12.0f, false);
+	Cloud->ChangeAnimation("dragon1_cloud_idle");
+
+	Cloud->SetFrameCallback("dragon1_cloud_up", 4, [this, Cloud]() {
+		Cloud->ChangeAnimation("dragon1_cloud_idle");
+		});
+
+	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
+		Cloud->ChangeAnimation("dragon1_cloud_down");
+		});
+
+	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
+		Cloud->ChangeAnimation("dragon1_cloud_idle");
+		});
+
+	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
+		Cloud->ChangeAnimation("dragon1_cloud_up");
+		});
+
+	return Cloud;
 }

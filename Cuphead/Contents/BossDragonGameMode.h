@@ -6,6 +6,7 @@ class ADragon1;
 class ADragon2;
 class ADragon3;
 class APlayer;
+class UPlatform;
 
 class ABossDragonGameMode : public ACupheadGameMode
 {
@@ -22,13 +23,14 @@ public:
 protected:
 private:
 	UStateManager StateManager;
+	UEngineRandom Random;
 	ABossDragonMap* Map = nullptr;
 	APlayer* Player = nullptr;
 	ADragon1* Dragon1 = nullptr;
 	ADragon2* Dragon2 = nullptr;
 	ADragon3* Dragon3 = nullptr;
 private:
-	const float CloudSpawnInterval = 1.0f;
+	const float CloudSpawnInterval = 4.0f;
 	float CloudSpawnTimer = 0.0f;
 private:
 	// 초기화 함수
@@ -62,5 +64,8 @@ private:
 	void Phase3Start();
 	void Phase3(float _DeltaTime);
 	void Phase3End();
+private:
+	std::list<UPlatform*> Clouds;
+	UPlatform* SpawnCloud(bool _SetLocation, const FVector& _Location = FVector::Zero);
 };
 

@@ -22,6 +22,8 @@ UPlatform::~UPlatform()
 void UPlatform::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Renderer->SetAutoSize(1.0f, true);
 }
 
 void UPlatform::Tick(float _DeltaTime)
@@ -40,6 +42,19 @@ void UPlatform::Tick(float _DeltaTime)
 	if (nullptr != OnStepExit)
 	{
 		Collision->CollisionExit(ECollisionGroup::Player, OnStepExit);
+	}
+
+	// 이동 처리
+	if (true == MoveStarted)
+	{
+		AddActorLocation(Velocity * _DeltaTime);
+
+		float PosX = GetActorLocation().X;
+
+		if (PosX < -700.0f || PosX > 700.0f)
+		{
+			Destroy();
+		}
 	}
 }
 
@@ -63,6 +78,11 @@ void UPlatform::SetCollisionScale(const FVector& _Scale)
 	Collision->SetScale(_Scale);
 }
 
+void UPlatform::SetRenderingOrder(ERenderingOrder _Order)
+{
+	Renderer->SetOrder(_Order);
+}
+
 void UPlatform::SetOnStepEnter(std::function<void(std::shared_ptr<UCollision>)> _OnStepEnter)
 {
 	OnStepEnter = _OnStepEnter;
@@ -81,4 +101,14 @@ void UPlatform::SetOnStepExit(std::function<void(std::shared_ptr<UCollision>)> _
 void UPlatform::SetFrameCallback(std::string_view _AnimName, int _Index, std::function<void()> _Callback)
 {
 	Renderer->SetFrameCallback(_AnimName, _Index, _Callback);
+}
+
+void UPlatform::SetVelocity(const FVector& _Velocity)
+{
+	Velocity = _Velocity;
+}
+
+void UPlatform::MoveStart()
+{
+	MoveStarted = true;
 }
