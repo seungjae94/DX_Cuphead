@@ -1,6 +1,8 @@
 #pragma once
 #include "Enemy.h"
 
+class APlayer;
+
 class ADragon1 : public AEnemy
 {
 	GENERATED_BODY(AEnemy)
@@ -18,6 +20,8 @@ public:
 
 	void Damage(int _Damage) override;
 
+	void SetPlayer(APlayer* _Player);
+
 protected:
 
 
@@ -34,10 +38,14 @@ private:
 	const float AttackDecisionTime = 3.0f;
 	float AttackDecisionTimer = 3.0f;
 
+	// ╦чев©ю
 	const int MaxAttackCount = 2;
 	int AttackCount = 2;
 	const float AttackInterval = 3.0f;
 	float AttackTimer = AttackInterval;
+
+	// ╨Ж
+	APlayer* Player = nullptr;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -68,5 +76,6 @@ private:
 	void FinishEnd();
 private:
 	void SpawnAttackProj();
+	void SpawnBeamProj();
 };
 

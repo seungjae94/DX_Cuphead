@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Dragon1.h"
 #include "BossAttack.h"
+#include "Player.h"
 
 ADragon1::ADragon1()
 {
@@ -86,6 +87,11 @@ void ADragon1::RendererInit()
 		}
 		});
 
+	BodyRenderer->SetFrameCallback("dragon1_beam_start", 7, [this]() {
+		BodyRenderer->ChangeAnimation("dragon1_beam");
+		SpawnBeamProj();
+		});
+
 	BodyRenderer->SetOrder(ERenderingOrder::Back6);
 	BodyRenderer->SetPivot(EPivot::BOT);
 	BodyRenderer->SetAutoSize(1.0f, true);
@@ -149,8 +155,7 @@ void ADragon1::Idle(float _DeltaTime)
 		return;
 	}
 
-	//int AttackType = Random.RandomInt(0, 1);
-	int AttackType = Random.RandomInt(0, 0); // 임시로 빔을 쏘지 않도록 처리
+	int AttackType = Random.RandomInt(0, 1);
 
 	if (0 == AttackType)
 	{
@@ -193,10 +198,12 @@ void ADragon1::AttackEnd()
 
 void ADragon1::BeamStart()
 {
+	BodyRenderer->ChangeAnimation("dragon1_beam_start");
 }
 
 void ADragon1::Beam(float _DeltaTime)
 {
+	
 }
 
 void ADragon1::BeamEnd()
@@ -261,6 +268,31 @@ void ADragon1::SpawnAttackProj()
 	Attack->SetAnimation("dragon1_attack_proj", "dragon1_attack_proj.png", 1 / 24.0f, true);
 }
 
+void ADragon1::SpawnBeamProj()
+{
+	FVector PlayerPos = Player->GetActorLocation();
+
+	for (int i = 0; i < 3; ++i)
+	{
+		DelayCallBack(0.2f * i, [this, PlayerPos]() {
+			ABossAttack* Beam = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
+			Beam->SetRenderingOrder(ERenderingOrder::Bullet);
+			Beam->SetActorLocation(GetActorLocation() + FVector(-150.0f, 675.0f, 0.0f));
+
+			FVector Direction = (PlayerPos - Beam->GetActorLocation()).Normalize3DReturn();
+			Beam->SetVelocity(Direction * 600.0f);
+
+			float Deg = UCupheadMath::DirectionToDeg(Direction);
+			Beam->SetActorRotation({0.0f, 0.0f, Deg + 180.0f});
+
+			Beam->SetDestroyTime(5.0f);
+			Beam->SetCollisionPosition({ -25.0f, -25.0f });
+			Beam->SetCollisionScale({ 100.0f, 100.0f });
+			Beam->SetAnimation("dragon1_beam_proj", "dragon1_beam_proj.png", 1 / 24.0f, true);
+			});
+	}
+}
+
 void ADragon1::PlayIntroAnimation()
 {
 }
@@ -291,4 +323,9 @@ void ADragon1::Damage(int _Damage)
 	{
 		StateManager.ChangeState("RunAway");
 	}
+}
+
+void ADragon1::SetPlayer(APlayer* _Player)
+{
+	Player = _Player;
 }

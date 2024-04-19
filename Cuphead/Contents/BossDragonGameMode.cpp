@@ -95,10 +95,7 @@ void ABossDragonGameMode::StateInit()
 void ABossDragonGameMode::IntroStart()
 {
 	Dragon1 = GetWorld()->SpawnActor<ADragon1>("Dragon1").get();
-	/*Dragon1->SetFrameCallback("potato_intro", 9, [this]() {
-		StateManager.ChangeState("PotatoBattle");
-	});*/
-
+	Dragon1->SetPlayer(Player);
 }
 
 void ABossDragonGameMode::Intro(float _DeltaTime)
