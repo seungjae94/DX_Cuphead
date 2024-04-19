@@ -5,6 +5,7 @@
 #include "Dragon2.h"
 #include "Dragon3.h"
 #include "Player.h"
+#include "Platform.h"
 
 ABossDragonGameMode::ABossDragonGameMode()
 {
@@ -96,6 +97,12 @@ void ABossDragonGameMode::IntroStart()
 {
 	Dragon1 = GetWorld()->SpawnActor<ADragon1>("Dragon1").get();
 	Dragon1->SetPlayer(Player);
+	Dragon1->PlayIntroAnimation();
+	Dragon1->SetFrameCallback("dragon1_intro", 39, [this]() {
+		Dragon1->SetActorLocation({ 525.0f, -525.0f });
+		StateManager.ChangeState("Phase1");
+		Dragon1->SetState("Idle");
+	});
 }
 
 void ABossDragonGameMode::Intro(float _DeltaTime)
@@ -108,10 +115,46 @@ void ABossDragonGameMode::IntroEnd()
 
 void ABossDragonGameMode::Phase1Start()
 {
+	CloudSpawnTimer = 0.0f;
 }
 
 void ABossDragonGameMode::Phase1(float _DeltaTime)
 {
+	CloudSpawnTimer -= _DeltaTime;
+
+	if (CloudSpawnTimer >= 0.0f)
+	{
+		return;
+	}
+
+	// 구름 발판 생성
+	UPlatform* Cloud = GetWorld()->SpawnActor<UPlatform>("Cloud").get();
+	Cloud->SetCollisionPosition(FVector::Zero);
+	Cloud->SetCollisionScale({50.0f, 50.0f, 1.0f});
+
+	Cloud->CreateAnimation("dragon1_cloud_idle", "dragon1_cloud_idle.png", 1 / 12.0f, true);
+	Cloud->CreateAnimation("dragon1_cloud_down_idle", "dragon1_cloud_down_idle.png", 1 / 12.0f, true);
+	Cloud->CreateAnimation("dragon1_cloud_down", "dragon1_cloud_down.png", 1 / 12.0f, false);
+	Cloud->CreateAnimation("dragon1_cloud_up", "dragon1_cloud_up.png", 1 / 12.0f, false);
+	Cloud->ChangeAnimation("dragon1_cloud_idle");
+
+	Cloud->SetFrameCallback("dragon1_cloud_up", 4, [this, Cloud]() {
+		Cloud->ChangeAnimation("dragon1_cloud_idle");
+		});
+
+	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
+		Cloud->ChangeAnimation("dragon1_cloud_down");
+	});
+
+	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
+		Cloud->ChangeAnimation("dragon1_cloud_idle");
+	});
+
+	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
+		Cloud->ChangeAnimation("dragon1_cloud_up");
+	});
+
+	CloudSpawnTimer = CloudSpawnInterval;
 }
 
 void ABossDragonGameMode::Phase1End()

@@ -31,7 +31,7 @@ void ADragon1::BeginPlay()
 	RendererInit();
 	StateInit();
 
-	SetActorLocation({ 525.0f, -525.0f });
+	SetActorLocation({ 500.0f, -475.0f });
 	BodyRenderer->SetPosition({ 0.0f, 0.0f });
 	Collision->SetPosition(BodyRenderer->GetLocalPosition() + FVector(0.0f, 500.0f, 0.0f));
 	Collision->SetScale({ 300.0f, 500.0f });
@@ -60,6 +60,7 @@ void ADragon1::DebugUpdate(float _DeltaTime)
 
 void ADragon1::RendererInit()
 {
+	BodyRenderer->CreateAnimation("dragon1_intro", "dragon1_intro", 1 / 24.0f, false);
 	BodyRenderer->CreateAnimation("dragon1_idle", "dragon1_idle.png", 1 / 24.0f, true);
 	BodyRenderer->CreateAnimation("dragon1_tail", "dragon1_tail.png", 1 / 24.0f, true);
 	BodyRenderer->CreateAnimation("dragon1_attack", "dragon1_attack.png", 1 / 24.0f, false);
@@ -68,6 +69,10 @@ void ADragon1::RendererInit()
 	BodyRenderer->CreateAnimation("dragon1_beam", "dragon1_beam.png", 1 / 24.0f, true);
 	BodyRenderer->CreateAnimation("dragon1_beam_start", "dragon1_beam_start.png", 1 / 24.0f, false);
 	BodyRenderer->CreateAnimation("dragon1_beam_end", "dragon1_beam_end.png", 1 / 24.0f, false);
+
+	BodyRenderer->SetFrameCallback("dragon1_intro", 39, [this]() {
+
+		});
 
 	BodyRenderer->SetFrameCallback("dragon1_attack_start", 15, [this]() {
 		BodyRenderer->ChangeAnimation("dragon1_attack");
@@ -103,12 +108,19 @@ void ADragon1::RendererInit()
 
 void ADragon1::StateInit()
 {
+	StateManager.CreateState("Intro");
 	StateManager.CreateState("Idle");
 	StateManager.CreateState("Attack");
 	StateManager.CreateState("Beam");
 	StateManager.CreateState("RunAway");
 	StateManager.CreateState("Faint");
 	StateManager.CreateState("Finish");
+
+	StateManager.SetFunction("Intro",
+		std::bind(&ADragon1::IntroStart, this),
+		std::bind(&ADragon1::Intro, this, std::placeholders::_1),
+		std::bind(&ADragon1::IntroEnd, this)
+	);
 
 	StateManager.SetFunction("Idle",
 		std::bind(&ADragon1::IdleStart, this),
@@ -140,14 +152,25 @@ void ADragon1::StateInit()
 		std::bind(&ADragon1::FinishEnd, this)
 	);
 
-	StateManager.ChangeState("Idle");
+	StateManager.ChangeState("Intro");
+}
+
+void ADragon1::IntroStart()
+{
+}
+
+void ADragon1::Intro(float _DeltaTime)
+{
+}
+
+void ADragon1::IntroEnd()
+{
 }
 
 void ADragon1::IdleStart()
 {
-	BodyRenderer->ChangeAnimation("dragon1_idle");
-
 	AttackDecisionTimer = AttackDecisionTime;
+	BodyRenderer->ChangeAnimation("dragon1_idle");
 }
 
 void ADragon1::Idle(float _DeltaTime)
@@ -207,7 +230,7 @@ void ADragon1::BeamStart()
 
 void ADragon1::Beam(float _DeltaTime)
 {
-	
+
 }
 
 void ADragon1::BeamEnd()
@@ -263,7 +286,7 @@ void ADragon1::SpawnAttackProj()
 		float Speed = (360.0f - AbsAttackY) / 360.0f * (MaxSpeed - MinSpeed) + MinSpeed;
 		Velocity *= Speed;
 		return Velocity;
-	};
+		};
 
 	Attack->SetVelocityGenerator(VelocityGenerator);
 	Attack->SetDestroyTime(5.0f);
@@ -287,7 +310,7 @@ void ADragon1::SpawnBeamProj()
 			Beam->SetVelocity(Direction * 600.0f);
 
 			float Deg = UCupheadMath::DirectionToDeg(Direction);
-			Beam->SetActorRotation({0.0f, 0.0f, Deg + 180.0f});
+			Beam->SetActorRotation({ 0.0f, 0.0f, Deg + 180.0f });
 
 			Beam->SetDestroyTime(5.0f);
 			Beam->SetCollisionPosition({ -25.0f, -25.0f });
@@ -309,11 +332,27 @@ void ADragon1::SpawnBeamProj()
 
 void ADragon1::PlayIntroAnimation()
 {
+	BodyRenderer->ChangeAnimation("dragon1_intro");
 }
 
 bool ADragon1::IsFinished()
 {
 	return "Finish" == StateManager.GetCurStateName();
+}
+
+void ADragon1::ChangeAnimation(std::string_view _AnimName)
+{
+	BodyRenderer->ChangeAnimation(_AnimName);
+}
+
+void ADragon1::SetState(std::string_view _StateName)
+{
+	StateManager.ChangeState(_StateName);
+}
+
+void ADragon1::SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
+{
+	BodyRenderer->SetFrameCallback(_AnimName, _Frame, _Callback);
 }
 
 void ADragon1::Damage(int _Damage)

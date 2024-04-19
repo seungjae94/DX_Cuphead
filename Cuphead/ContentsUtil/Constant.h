@@ -139,6 +139,7 @@ namespace GStateName
 
 enum class ECollisionGroup
 {
+	Platform,
 	Bullet,
 	Monster,
 	Player,

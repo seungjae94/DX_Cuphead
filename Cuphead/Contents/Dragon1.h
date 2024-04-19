@@ -17,6 +17,9 @@ public:
 
 	void PlayIntroAnimation();
 	bool IsFinished();
+	void ChangeAnimation(std::string_view _AnimName);
+	void SetState(std::string_view StateName);
+	void SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 
 	void Damage(int _Damage) override;
 
@@ -55,6 +58,10 @@ private:
 	void StateInit();
 private:
 	// 상태 함수
+	void IntroStart();
+	void Intro(float _DeltaTime);
+	void IntroEnd();
+
 	void IdleStart();
 	void Idle(float _DeltaTime);
 	void IdleEnd();
