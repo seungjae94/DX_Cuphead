@@ -296,6 +296,7 @@ void ADragon1::SpawnBeamProj()
 			if (i == 2)
 			{
 				Beam->SetAnimation("dragon1_beam_proj_pink", "dragon1_beam_proj_pink.png", 1 / 24.0f, true);
+				Beam->SetParryable(true);
 				BodyRenderer->ChangeAnimation("dragon1_beam_end");
 			}
 			else
