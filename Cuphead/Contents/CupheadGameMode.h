@@ -15,7 +15,7 @@ public:
 	ACupheadGameMode& operator=(ACupheadGameMode&& _Other) noexcept = delete;
 
 protected:
-	ANoise* Noise = nullptr;
+	UImage* Noise = nullptr;
 	void BeginPlay() override;
 
 private:

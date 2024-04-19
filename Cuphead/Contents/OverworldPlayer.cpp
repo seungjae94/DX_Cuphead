@@ -1,6 +1,5 @@
 #include "PreCompile.h"
 #include "OverworldPlayer.h"
-#include "Noise.h"
 
 AOverworldPlayer::AOverworldPlayer()
 {
@@ -13,11 +12,6 @@ AOverworldPlayer::AOverworldPlayer()
 
 AOverworldPlayer::~AOverworldPlayer()
 {
-}
-
-void AOverworldPlayer::SetNoise(ANoise* _Noise)
-{
-	Noise = _Noise;
 }
 
 void AOverworldPlayer::BeginPlay()
@@ -45,9 +39,6 @@ void AOverworldPlayer::Tick(float _DeltaTime)
 
 	// 카메라 이동 처리
 	BringCamera();
-
-	// 노이즈 이동 처리
-	BringNoise();
 
 	DebugMsgUpdate(_DeltaTime);
 }
@@ -88,9 +79,4 @@ void AOverworldPlayer::BringCamera()
 
 
 	GetWorld()->GetMainCamera()->SetActorLocation(CameraLocation);
-}
-
-void AOverworldPlayer::BringNoise()
-{
-	Noise->SetActorLocation(GetActorLocation());
 }

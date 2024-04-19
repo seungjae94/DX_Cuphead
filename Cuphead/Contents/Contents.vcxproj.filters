@@ -63,9 +63,6 @@
     <ClInclude Include="OverworldGameMode.h">
       <Filter>Level\02. Overworld Level</Filter>
     </ClInclude>
-    <ClInclude Include="Noise.h">
-      <Filter>Level\00. Common\Object</Filter>
-    </ClInclude>
     <ClInclude Include="CupheadGameMode.h">
       <Filter>Level\00. Common</Filter>
     </ClInclude>
@@ -148,9 +145,6 @@
     </ClCompile>
     <ClCompile Include="OverworldGameMode.cpp">
       <Filter>Level\02. Overworld Level</Filter>
-    </ClCompile>
-    <ClCompile Include="Noise.cpp">
-      <Filter>Level\00. Common\Object</Filter>
     </ClCompile>
     <ClCompile Include="CupheadGameMode.cpp">
       <Filter>Level\00. Common</Filter>

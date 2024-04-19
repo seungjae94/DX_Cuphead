@@ -36,8 +36,6 @@ private:
 	const float DustTime = 1 / 3.0f;
 	float DustTimer = 0.0f;
 
-	ANoise* Noise = nullptr;
-
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void DebugMsgUpdate(float _DeltaTime);
@@ -45,7 +43,6 @@ private:
 	void AnimationInit();
 	void StateInit();
 	void BringCamera();
-	void BringNoise();
 
 private:
 	// 상태 함수

@@ -16,7 +16,6 @@ void AOverworldGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	std::shared_ptr<AOverworldPlayer> Player = GetWorld()->SpawnActor<AOverworldPlayer>("Player");
-	Player->SetNoise(Noise);
 	Map = GetWorld()->SpawnActor<AOverworldMap>("Map");
 
 	InputOn();
