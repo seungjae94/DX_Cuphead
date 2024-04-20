@@ -160,7 +160,8 @@ private:
 	void RefreshIdleAnimation();
 	void RefreshRunAnimation();
 
-	bool IsHorizontalCollisionOccur();
+	bool IsLeftCollisionOccur();
+	bool IsRightCollisionOccur();
 	bool IsGroundCollisionOccur();
 	void MoveUpToGround();
 

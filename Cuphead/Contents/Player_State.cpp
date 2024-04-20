@@ -127,15 +127,17 @@ void APlayer::Run(float _DeltaTime)
 	}
 
 	// 이동 및 충돌 처리
+	Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * RunSpeed;
 	float PrevPosX = GetActorLocation().X;
-	float NextPosX = GetActorLocation().X + UConverter::ConvEngineDirToFVector(Direction).X * RunSpeed * _DeltaTime;
+	float NextPosX = GetActorLocation().X + Velocity.X * _DeltaTime;
 	float PosY = GetActorLocation().Y;
 	SetActorLocation({ NextPosX, PosY, 0.0f });
 
 	if (true == IsGroundCollisionOccur())
 	{
 		// 바닥을 밟는 경우
-		if (true == IsHorizontalCollisionOccur())
+		if ((true == IsLeftCollisionOccur() && Velocity.X < 0.0f)
+			|| (true == IsRightCollisionOccur() && Velocity.X > 0.0f))
 		{
 			SetActorLocation({ PrevPosX, PosY, 0.0f });
 		}
@@ -189,7 +191,8 @@ void APlayer::Jump(float _DeltaTime)
 	Velocity += Gravity * _DeltaTime;
 	AddActorLocation(Velocity * _DeltaTime);
 
-	if (true == IsHorizontalCollisionOccur())
+	if ((true == IsLeftCollisionOccur() && Velocity.X < 0.0f) 
+		|| (true == IsRightCollisionOccur() && Velocity.X > 0.0f))
 	{
 		float PosY = GetActorLocation().Y;
 		SetActorLocation({ PrevPosX, PosY, 0.0f });
@@ -197,7 +200,7 @@ void APlayer::Jump(float _DeltaTime)
 
 	if (true == IsGroundCollisionOccur())
 	{
-		// TODO: Ground Up
+		MoveUpToGround();
 		ChangeState(GStateName::Idle);
 		IsDashed = false;
 		return;
@@ -245,6 +248,8 @@ void APlayer::Parry(float _DeltaTime)
 		return;
 	}
 
+	float PrevPosX = GetActorLocation().X;
+
 	if (true == IsPressArrowKey())
 	{
 		Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * RunSpeed;
@@ -257,9 +262,17 @@ void APlayer::Parry(float _DeltaTime)
 	// 중력 적용
 	Velocity += Gravity * _DeltaTime;
 	AddActorLocation(Velocity * _DeltaTime);
+
+	if ((true == IsLeftCollisionOccur() && Velocity.X < 0.0f)
+		|| (true == IsRightCollisionOccur() && Velocity.X > 0.0f))
+	{
+		float PosY = GetActorLocation().Y;
+		SetActorLocation({ PrevPosX, PosY, 0.0f });
+	}
+
 	if (true == IsGroundCollisionOccur())
 	{
-		// TODO: Ground Up
+		MoveUpToGround();
 		ChangeState(GStateName::Idle);
 		IsDashed = false;
 		return;
@@ -302,7 +315,8 @@ void APlayer::Dash(float _DeltaTime)
 
 	if (DashTimer > 0.0f)
 	{
-		if (true == IsHorizontalCollisionOccur())
+		if ((true == IsLeftCollisionOccur() && Velocity.X < 0.0f)
+			|| (true == IsRightCollisionOccur() && Velocity.X > 0.0f))
 		{
 			return;
 		}

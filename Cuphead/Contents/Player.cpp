@@ -118,41 +118,41 @@ void APlayer::SpriteDirUpdate(float _DeltaTime)
 	Renderer->SetDir(Direction);
 }
 
-void APlayer::PhysicsUpdate(float _DeltaTime)
-{
-	// 이동 시뮬레이션
-	if (true == ApplyGravity)
-	{
-		Velocity += Gravity * _DeltaTime;
-	}
-
-	if (true == OnGroundValue && Velocity.Y < 0.0f)
-	{
-		Velocity.Y = 0.0f;
-	}
-
-	FVector PrevPos = GetActorLocation();
-	AddActorLocation(Velocity * _DeltaTime);
-	FVector NextPos = GetActorLocation();
-
-	if (true == CheckPixelCollision(LeftColliderLocalPosition) || true == CheckPixelCollision(RightColliderLocalPosition))
-	{
-		FVector TargetPos = NextPos;
-		TargetPos.X = PrevPos.X;
-		SetActorLocation(TargetPos);
-		NextPos = TargetPos;
-	}
-
-	// 바닥 충돌 체크
-	if (true == CheckPixelCollision(BotColliderLocalPosition))
-	{
-		OnGroundValue = true;
-	}
-	else
-	{
-		OnGroundValue = false;
-	}
-}
+//void APlayer::PhysicsUpdate(float _DeltaTime)
+//{
+//	// 이동 시뮬레이션
+//	if (true == ApplyGravity)
+//	{
+//		Velocity += Gravity * _DeltaTime;
+//	}
+//
+//	if (true == OnGroundValue && Velocity.Y < 0.0f)
+//	{
+//		Velocity.Y = 0.0f;
+//	}
+//
+//	FVector PrevPos = GetActorLocation();
+//	AddActorLocation(Velocity * _DeltaTime);
+//	FVector NextPos = GetActorLocation();
+//
+//	if (true == CheckPixelCollision(LeftColliderLocalPosition) || true == CheckPixelCollision(RightColliderLocalPosition))
+//	{
+//		FVector TargetPos = NextPos;
+//		TargetPos.X = PrevPos.X;
+//		SetActorLocation(TargetPos);
+//		NextPos = TargetPos;
+//	}
+//
+//	// 바닥 충돌 체크
+//	if (true == CheckPixelCollision(BotColliderLocalPosition))
+//	{
+//		OnGroundValue = true;
+//	}
+//	else
+//	{
+//		OnGroundValue = false;
+//	}
+//}
 
 void APlayer::SuperMeterUIUpdate()
 {
@@ -229,19 +229,26 @@ void APlayer::RefreshDirection()
 	}
 }
 
-bool APlayer::IsHorizontalCollisionOccur()
+bool APlayer::IsLeftCollisionOccur()
 {
 	if (true == CheckPixelCollision(GetActorLocation() + LeftColliderLocalPosition))
 	{
 		return true;
 	}
 
+	// TODO: 충돌체 체크
+
+	return false;
+}
+
+bool APlayer::IsRightCollisionOccur()
+{
 	if (true == CheckPixelCollision(GetActorLocation() + RightColliderLocalPosition))
 	{
 		return true;
 	}
 
-	// 충돌체 체크
+	// TODO: 충돌체 체크
 
 	return false;
 }
@@ -253,13 +260,18 @@ bool APlayer::IsGroundCollisionOccur()
 		return true;
 	}
 
-	// 충돌체 체크
+	// TODO: 충돌체 체크
 
 	return false;
 }
 
 void APlayer::MoveUpToGround()
 {
+	while (true == IsGroundCollisionOccur())
+	{
+		AddActorLocation(FVector::Up);
+	}
+	AddActorLocation(FVector::Down);
 }
 
 bool APlayer::CheckPixelCollision(const FVector& _Point)
