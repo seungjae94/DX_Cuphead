@@ -175,25 +175,20 @@ void APlayer::DebugUpdate(float _DeltaTime)
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
-	//{
-	//	std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
-	//	UEngineDebugMsgWindow::PushMsg(Msg);
-	//}
+	{
+		std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 
-	//{
-	//	std::string Msg = std::format("Player Renderer Scale : {}\n", Renderer->GetWorldScale().ToString());
-	//	UEngineDebugMsgWindow::PushMsg(Msg);
-	//}
+	{
+		std::string Msg = std::format("Player Velocity : {}\n", Velocity.ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 
-	//{
-	//	std::string Msg = std::format("Player Velocity : {}\n", Velocity.ToString());
-	//	UEngineDebugMsgWindow::PushMsg(Msg);
-	//}
-
-	//{
-	//	std::string Msg = std::format("Player CurState : {}\n", CurStateName);
-	//	UEngineDebugMsgWindow::PushMsg(Msg);
-	//}
+	{
+		std::string Msg = std::format("Player CurState : {}\n", CurStateName);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 
 	//{
 	//	std::string Msg = std::format("Player PrevState : {}\n", PrevStateName);
@@ -257,6 +252,8 @@ bool APlayer::IsGroundCollisionOccur()
 	{
 		return true;
 	}
+
+	// 충돌체 체크
 
 	return false;
 }

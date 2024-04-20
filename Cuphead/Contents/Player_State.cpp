@@ -68,6 +68,7 @@ void APlayer::Idle(float _DeltaTime)
 
 	if (true == IsDown('Z') || false == IsGroundCollisionOccur())
 	{
+		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
 		return;
 	}
@@ -108,6 +109,7 @@ void APlayer::Run(float _DeltaTime)
 
 	if (true == IsDown('Z'))
 	{
+		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
 		return;
 	}
@@ -133,8 +135,6 @@ void APlayer::Run(float _DeltaTime)
 	if (true == IsGroundCollisionOccur())
 	{
 		// ¹Ù´ÚÀ» ¹â´Â °æ¿ì
-
-		// TODO: ÁÂ¿ì Ãæµ¹ Ã¼Å©
 		if (true == IsHorizontalCollisionOccur())
 		{
 			SetActorLocation({ PrevPosX, PosY, 0.0f });
@@ -160,8 +160,6 @@ void APlayer::JumpStart()
 		Velocity.Y = 0.0f;
 		return;
 	}
-
-	Velocity += JumpImpulse;
 }
 
 void APlayer::Jump(float _DeltaTime)
@@ -227,6 +225,12 @@ void APlayer::ParryStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerParry);
 	IsParryingValue = true;
+
+	if (true == IsDashed)
+	{
+		Velocity.Y = 0.0f;
+		return;
+	}
 }
 
 void APlayer::Parry(float _DeltaTime)
