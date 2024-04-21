@@ -361,6 +361,7 @@ void APlayer::Sit(float _DeltaTime)
 
 	if (true == IsPress('Z'))
 	{
+		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
 		return;
 	}
