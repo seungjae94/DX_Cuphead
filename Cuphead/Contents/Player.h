@@ -99,12 +99,15 @@ private:
 	void Tick(float _DeltaTime) override;
 	void SpriteDirUpdate(float _DeltaTime);
 	void ChildRenderersUpdate(float _DeltaTime);
-	void SuperMeterUIUpdate();
 	void DebugUpdate(float _DeltaTime);
 private:
 	// 애니메이션
 	void AnimationInit();
 	void ChangeAnimationIfChanged(std::string _AnimName);
+
+	// UI
+	void UIInit();
+	void RefreshSuperMeterUI();
 
 	// 상태
 	void StateInit();
@@ -165,7 +168,6 @@ private:
 	bool IsRightCollisionOccur();
 	bool IsGroundCollisionOccur();
 	void MoveUpToGround();
-
 
 	bool CheckPixelCollision(const FVector& _Point);
 };

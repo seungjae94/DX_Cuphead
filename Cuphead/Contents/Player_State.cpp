@@ -40,6 +40,8 @@ void APlayer::StateInit()
 	StateManager.SetStartFunction(GStateName::Hit, std::bind(&APlayer::HitStart, this));
 	StateManager.SetUpdateFunction(GStateName::Hit, std::bind(&APlayer::Hit, this, std::placeholders::_1));
 	StateManager.SetEndFunction(GStateName::Hit, std::bind(&APlayer::HitEnd, this));
+
+	StateManager.ChangeState(GStateName::Idle);
 }
 
 void APlayer::ChangeState(std::string _StateName)

@@ -42,7 +42,7 @@ void APlayer::AddSuperMeter(float _Value)
 		SuperMeter = 5.0f;
 	}
 	
-	SuperMeterUIUpdate();
+	RefreshSuperMeterUI();
 }
 
 void APlayer::BeginPlay()
@@ -61,34 +61,7 @@ void APlayer::BeginPlay()
 
 	AnimationInit();
 	StateInit();
-	StateManager.ChangeState(GStateName::Idle);
-
-	HpWidget = CreateWidget<UImage>(GetWorld(), "Hp");
-
-	HpWidget->AddToViewPort(0);
-	HpWidget->SetSprite("ui_hp3.png");
-	HpWidget->SetAutoSize(1.0f, true);
-	HpWidget->CreateAnimation("ui_hp3", "ui_hp3.png", 0.0f, false);
-	HpWidget->CreateAnimation("ui_hp2", "ui_hp2.png", 0.0f, false);
-	HpWidget->CreateAnimation("ui_hp1", "ui_hp1", 1 / 24.0f, true);
-	HpWidget->CreateAnimation("ui_hp0", "ui_hp0.png", 0.0f, false);
-
-	FVector LeftBotPivotedPos = -GEngine->EngineWindow.GetWindowScale().Half2D() + HpWidget->GetWorldScale().Half2D();
-	HpWidget->SetPosition(LeftBotPivotedPos + FVector{ 25.0f, 20.0f });
-
-	for (int i = 0; i < 5; ++i)
-	{
-		UImage* CardWidget = CreateWidget<UImage>(GetWorld(), "CardWidget");
-
-		FVector LeftBotPivotedPos = -GEngine->EngineWindow.GetWindowScale().Half2D() + HpWidget->GetWorldScale().Half2D();
-		CardWidget->SetPosition(LeftBotPivotedPos + FVector{ 80.0f + i * 20.0f, 18.0f });
-		CardWidget->AddToViewPort(0);
-		CardWidget->SetSprite("ui_card.png");
-		CardWidget->SetAutoSize(0.0f, true);
-		CardWidgets.push_back(CardWidget);
-	}
-
-	SuperMeterUIUpdate();
+	UIInit();
 
 	InputOn();
 }
@@ -120,7 +93,37 @@ void APlayer::ChildRenderersUpdate(float _DeltaTime)
 	}
 }
 
-void APlayer::SuperMeterUIUpdate()
+void APlayer::UIInit()
+{
+	HpWidget = CreateWidget<UImage>(GetWorld(), "Hp");
+
+	HpWidget->AddToViewPort(0);
+	HpWidget->SetSprite("ui_hp3.png");
+	HpWidget->SetAutoSize(1.0f, true);
+	HpWidget->CreateAnimation("ui_hp3", "ui_hp3.png", 0.0f, false);
+	HpWidget->CreateAnimation("ui_hp2", "ui_hp2.png", 0.0f, false);
+	HpWidget->CreateAnimation("ui_hp1", "ui_hp1", 1 / 24.0f, true);
+	HpWidget->CreateAnimation("ui_hp0", "ui_hp0.png", 0.0f, false);
+
+	FVector LeftBotPivotedPos = -GEngine->EngineWindow.GetWindowScale().Half2D() + HpWidget->GetWorldScale().Half2D();
+	HpWidget->SetPosition(LeftBotPivotedPos + FVector{ 25.0f, 20.0f });
+
+	for (int i = 0; i < 5; ++i)
+	{
+		UImage* CardWidget = CreateWidget<UImage>(GetWorld(), "CardWidget");
+
+		FVector LeftBotPivotedPos = -GEngine->EngineWindow.GetWindowScale().Half2D() + HpWidget->GetWorldScale().Half2D();
+		CardWidget->SetPosition(LeftBotPivotedPos + FVector{ 80.0f + i * 20.0f, 18.0f });
+		CardWidget->AddToViewPort(0);
+		CardWidget->SetSprite("ui_card.png");
+		CardWidget->SetAutoSize(0.0f, true);
+		CardWidgets.push_back(CardWidget);
+	}
+
+	RefreshSuperMeterUI();
+}
+
+void APlayer::RefreshSuperMeterUI()
 {
 	int SuperMeterInt = std::lround(SuperMeter);
 
