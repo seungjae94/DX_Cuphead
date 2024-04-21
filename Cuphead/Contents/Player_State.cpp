@@ -397,7 +397,7 @@ void APlayer::Hit(float _DeltaTime)
 
 	if (GStateName::Dash == PrevStateName)
 	{
-		if (true == OnGroundValue)
+		if (true == IsGroundCollisionOccur())
 		{
 			StateManager.ChangeState(GStateName::Idle);
 			return;
