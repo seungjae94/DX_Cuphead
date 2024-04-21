@@ -144,7 +144,8 @@ enum class ECollisionGroup
 	Platform,
 	Bullet,
 	Monster,
-	Player,
+	PlayerPhysics,
+	PlayerHitBox,
 };
 
 enum class ERenderingOrder

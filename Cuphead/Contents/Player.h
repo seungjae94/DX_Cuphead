@@ -35,7 +35,10 @@ private:
 	// ÄÄÆ÷³ÍÆ®
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
-	UCollision* Collision = nullptr;
+	UCollision* HitBox = nullptr;
+	UCollision* BotCollision = nullptr;
+	UCollision* LeftCollision = nullptr;
+	UCollision* RightCollision = nullptr;
 private:
 	// State
 	std::string CurStateName = GStateName::Idle;
@@ -78,10 +81,10 @@ private:
 
 	// Collision
 	std::string ColMapName = "";
-	const FVector CollisionDefaultPosition = { 0.0f, 62.0f };
-	const FVector CollisionDefaultScale = { 100.0f, 125.0f };
-	const FVector CollisionSitPosition = { 0.0f, 32.0f };
-	const FVector CollisionSitScale = {100.0f, 50.0f};
+	const FVector BodyCollisionDefaultPosition = { 0.0f, 62.0f };
+	const FVector BodyCollisionDefaultScale = { 60.0f, 80.0f };
+	const FVector BodyCollisionSitPosition = { 0.0f, 32.0f };
+	const FVector BodyCollisionSitScale = {60.0f, 30.0f};
 	const float NoHitTime = 2.0f;
 
 	// Parry

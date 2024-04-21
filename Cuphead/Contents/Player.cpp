@@ -10,10 +10,25 @@ APlayer::APlayer()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
-	Collision->SetupAttachment(Root);
-	Collision->SetCollisionGroup(ECollisionGroup::Player);
-	Collision->SetCollisionType(ECollisionType::RotRect);
+	HitBox = CreateDefaultSubObject<UCollision>("BodyCollision");
+	HitBox->SetupAttachment(Root);
+	HitBox->SetCollisionGroup(ECollisionGroup::PlayerHitBox);
+	HitBox->SetCollisionType(ECollisionType::RotRect);
+
+	BotCollision = CreateDefaultSubObject<UCollision>("BotCollision");
+	BotCollision->SetupAttachment(Root);
+	BotCollision->SetCollisionGroup(ECollisionGroup::PlayerPhysics);
+	BotCollision->SetCollisionType(ECollisionType::RotRect);
+
+	LeftCollision = CreateDefaultSubObject<UCollision>("LeftCollision");
+	LeftCollision->SetupAttachment(Root);
+	LeftCollision->SetCollisionGroup(ECollisionGroup::PlayerPhysics);
+	LeftCollision->SetCollisionType(ECollisionType::RotRect);
+
+	RightCollision = CreateDefaultSubObject<UCollision>("RightCollision");
+	RightCollision->SetupAttachment(Root);
+	RightCollision->SetCollisionGroup(ECollisionGroup::PlayerPhysics);
+	RightCollision->SetCollisionType(ECollisionType::RotRect);
 }
 
 APlayer::~APlayer()
@@ -41,7 +56,7 @@ void APlayer::AddSuperMeter(float _Value)
 	{
 		SuperMeter = 5.0f;
 	}
-	
+
 	RefreshSuperMeterUI();
 }
 
@@ -56,8 +71,17 @@ void APlayer::BeginPlay()
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetPivot(EPivot::BOT);
 
-	Collision->SetScale(CollisionDefaultScale);
-	Collision->SetPosition(CollisionDefaultPosition);
+	HitBox->SetScale(BodyCollisionDefaultScale);
+	HitBox->SetPosition(BodyCollisionDefaultPosition);
+
+	BotCollision->SetScale({ 3.0f, 3.0f, 1.0f });
+	BotCollision->SetPosition({ 0.0f, 0.0f, 0.0f });
+
+	LeftCollision->SetScale({ 3.0f, 3.0f, 1.0f });
+	LeftCollision->SetPosition({ -30.0f, 50.0f, 0.0f });
+
+	RightCollision->SetScale({ 3.0f, 3.0f, 1.0f });
+	RightCollision->SetPosition({ 30.0f, 50.0f, 0.0f });
 
 	AnimationInit();
 	StateInit();

@@ -120,7 +120,7 @@ void ABossAttack::Tick(float _DeltaTime)
 	AddActorLocation(Velocity * _DeltaTime);
 
 	// 충돌 처리
-	Collision->CollisionEnter(ECollisionGroup::Player, [=](std::shared_ptr<UCollision> _Collision)
+	Collision->CollisionEnter(ECollisionGroup::PlayerHitBox, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			// 상태, 애니메이션 변경
 			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());

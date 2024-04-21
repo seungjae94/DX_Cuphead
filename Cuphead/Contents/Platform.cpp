@@ -33,15 +33,15 @@ void UPlatform::Tick(float _DeltaTime)
 	// 面倒 贸府
 	if (nullptr != OnStepEnter)
 	{
-		Collision->CollisionEnter(ECollisionGroup::Player, OnStepEnter);
+		Collision->CollisionEnter(ECollisionGroup::PlayerPhysics, OnStepEnter);
 	}
 	if (nullptr != OnStepStay)
 	{
-		Collision->CollisionStay(ECollisionGroup::Player, OnStepStay);
+		Collision->CollisionStay(ECollisionGroup::PlayerPhysics, OnStepStay);
 	}
 	if (nullptr != OnStepExit)
 	{
-		Collision->CollisionExit(ECollisionGroup::Player, OnStepExit);
+		Collision->CollisionExit(ECollisionGroup::PlayerPhysics, OnStepExit);
 	}
 
 	// 捞悼 贸府

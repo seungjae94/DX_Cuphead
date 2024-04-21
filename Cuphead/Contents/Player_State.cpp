@@ -350,8 +350,8 @@ void APlayer::DashEnd()
 void APlayer::SitStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerSit);
-	Collision->SetScale(CollisionSitScale);
-	Collision->SetPosition(CollisionSitPosition);
+	HitBox->SetScale(BodyCollisionSitScale);
+	HitBox->SetPosition(BodyCollisionSitPosition);
 
 	Velocity = FVector::Zero;
 }
@@ -377,15 +377,15 @@ void APlayer::Sit(float _DeltaTime)
 
 void APlayer::SitEnd()
 {
-	Collision->SetScale(CollisionDefaultScale);
-	Collision->SetPosition(CollisionDefaultPosition);
+	HitBox->SetScale(BodyCollisionDefaultScale);
+	HitBox->SetPosition(BodyCollisionDefaultPosition);
 }
 
 void APlayer::HitStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerHit);
 	HitTimer = HitTime;
-	Collision->SetActive(false);
+	HitBox->SetActive(false);
 }
 
 void APlayer::Hit(float _DeltaTime)
@@ -415,7 +415,7 @@ void APlayer::Hit(float _DeltaTime)
 void APlayer::HitEnd()
 {
 	DelayCallBack(NoHitTime, [this]() {
-		Collision->SetActive(true);
+		HitBox->SetActive(true);
 		});
 }
 
