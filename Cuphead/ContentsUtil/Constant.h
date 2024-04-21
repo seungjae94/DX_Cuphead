@@ -144,7 +144,8 @@ enum class ECollisionGroup
 	Platform,
 	Bullet,
 	Monster,
-	PlayerPhysics,
+	PlayerPhysicsBot,
+	PlayerPhysicsHor,
 	PlayerHitBox,
 };
 

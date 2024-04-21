@@ -33,21 +33,25 @@ void UPlatform::Tick(float _DeltaTime)
 	// 面倒 贸府
 	if (nullptr != OnStepEnter)
 	{
-		Collision->CollisionEnter(ECollisionGroup::PlayerPhysics, OnStepEnter);
+		Collision->CollisionEnter(ECollisionGroup::PlayerPhysicsBot, OnStepEnter);
 	}
 	if (nullptr != OnStepStay)
 	{
-		Collision->CollisionStay(ECollisionGroup::PlayerPhysics, OnStepStay);
+		Collision->CollisionStay(ECollisionGroup::PlayerPhysicsBot, OnStepStay);
 	}
 	if (nullptr != OnStepExit)
 	{
-		Collision->CollisionExit(ECollisionGroup::PlayerPhysics, OnStepExit);
+		Collision->CollisionExit(ECollisionGroup::PlayerPhysicsBot, OnStepExit);
 	}
 
 	// 捞悼 贸府
 	if (true == MoveStarted)
 	{
 		AddActorLocation(Velocity * _DeltaTime);
+
+		Collision->CollisionStay(ECollisionGroup::PlayerPhysicsBot, [this, _DeltaTime](std::shared_ptr<UCollision> _Collision) {
+			_Collision->GetActor()->AddActorLocation(Velocity * _DeltaTime);
+			});
 
 		float PosX = GetActorLocation().X;
 

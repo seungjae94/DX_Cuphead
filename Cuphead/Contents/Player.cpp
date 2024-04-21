@@ -17,17 +17,17 @@ APlayer::APlayer()
 
 	BotCollision = CreateDefaultSubObject<UCollision>("BotCollision");
 	BotCollision->SetupAttachment(Root);
-	BotCollision->SetCollisionGroup(ECollisionGroup::PlayerPhysics);
+	BotCollision->SetCollisionGroup(ECollisionGroup::PlayerPhysicsBot);
 	BotCollision->SetCollisionType(ECollisionType::RotRect);
 
 	LeftCollision = CreateDefaultSubObject<UCollision>("LeftCollision");
 	LeftCollision->SetupAttachment(Root);
-	LeftCollision->SetCollisionGroup(ECollisionGroup::PlayerPhysics);
+	LeftCollision->SetCollisionGroup(ECollisionGroup::PlayerPhysicsHor);
 	LeftCollision->SetCollisionType(ECollisionType::RotRect);
 
 	RightCollision = CreateDefaultSubObject<UCollision>("RightCollision");
 	RightCollision->SetupAttachment(Root);
-	RightCollision->SetCollisionGroup(ECollisionGroup::PlayerPhysics);
+	RightCollision->SetCollisionGroup(ECollisionGroup::PlayerPhysicsHor);
 	RightCollision->SetCollisionType(ECollisionType::RotRect);
 }
 

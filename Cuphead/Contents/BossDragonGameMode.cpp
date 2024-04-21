@@ -104,14 +104,14 @@ void ABossDragonGameMode::IntroStart()
 		StateManager.ChangeState("Phase1");
 		});
 
-	SpawnCloud(true, {-450.0f, -225.0f, 0.0f});
-	SpawnCloud(true, {-450.0f, 275.0f, 0.0f});
-	SpawnCloud(true, {-250.0f, 50.0f, 0.0f});
-	SpawnCloud(true, {-150.0f, -275.0f, 0.0f});
-	SpawnCloud(true, {0.0f, 225.0f, 0.0f});
-	SpawnCloud(true, {100.0f, -250.0f, 0.0f});
-	SpawnCloud(true, {200.0f, 25.0f, 0.0f});
-	SpawnCloud(true, {300.0f, 225.0f, 0.0f});
+	SpawnCloud(true, { -450.0f, -225.0f, 0.0f });
+	SpawnCloud(true, { -450.0f, 275.0f, 0.0f });
+	SpawnCloud(true, { -250.0f, 50.0f, 0.0f });
+	SpawnCloud(true, { -150.0f, -275.0f, 0.0f });
+	SpawnCloud(true, { 0.0f, 225.0f, 0.0f });
+	SpawnCloud(true, { 100.0f, -250.0f, 0.0f });
+	SpawnCloud(true, { 200.0f, 25.0f, 0.0f });
+	SpawnCloud(true, { 300.0f, 225.0f, 0.0f });
 }
 
 void ABossDragonGameMode::Intro(float _DeltaTime)
@@ -236,15 +236,15 @@ UPlatform* ABossDragonGameMode::SpawnCloud(bool _SetLocation, const FVector& _Lo
 		Cloud->ChangeAnimation("dragon1_cloud_idle");
 		});
 
+	Cloud->SetFrameCallback("dragon1_cloud_down", 2, [this, Cloud]() {
+		Cloud->ChangeAnimation("dragon1_cloud_down_idle");
+		});
+
 	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
 		Cloud->ChangeAnimation("dragon1_cloud_down");
 		});
 
-	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
-		Cloud->ChangeAnimation("dragon1_cloud_idle");
-		});
-
-	Cloud->SetOnStepEnter([this, Cloud](std::shared_ptr<UCollision> _Collision) {
+	Cloud->SetOnStepExit([this, Cloud](std::shared_ptr<UCollision> _Collision) {
 		Cloud->ChangeAnimation("dragon1_cloud_up");
 		});
 
