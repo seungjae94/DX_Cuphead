@@ -224,7 +224,7 @@ UPlatform* ABossDragonGameMode::SpawnCloud(bool _SetLocation, const FVector& _Lo
 	Cloud->SetVelocity(FVector::Left * 100.0f);
 	Cloud->SetRenderingOrder(ERenderingOrder::Back6);
 	Cloud->SetCollisionPosition(FVector::Zero);
-	Cloud->SetCollisionScale({ 50.0f, 50.0f, 1.0f });
+	Cloud->SetCollisionScale({ 150.0f, 1.0f, 1.0f });
 
 	Cloud->CreateAnimation("dragon1_cloud_idle", "dragon1_cloud_idle.png", 1 / 12.0f, true);
 	Cloud->CreateAnimation("dragon1_cloud_down_idle", "dragon1_cloud_down_idle.png", 1 / 12.0f, true);

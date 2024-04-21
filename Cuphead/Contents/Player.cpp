@@ -265,11 +265,31 @@ bool APlayer::IsGroundCollisionOccur()
 
 void APlayer::MoveUpToGround()
 {
-	while (true == IsGroundCollisionOccur())
+	int UpCount = 0;
+	bool MoveUp = true;
+
+	while (true == IsGroundCollisionOccur() && true == MoveUp)
 	{
 		AddActorLocation(FVector::Up);
+		++UpCount;
+
+		if (UpCount > 1000)
+		{
+			MoveUp = false;
+		}
 	}
-	AddActorLocation(FVector::Down);
+
+	if (true == MoveUp)
+	{
+		AddActorLocation(FVector::Down);
+		return;
+	}
+
+	// 천장에서 아래로 내려가는 처리
+	while (true == IsGroundCollisionOccur())
+	{
+		AddActorLocation(FVector::Down);
+	}
 }
 
 bool APlayer::CheckPixelCollision(const FVector& _Point)
