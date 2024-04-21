@@ -165,9 +165,9 @@ FVector APlayer::GetBulletSpawnLocalLocation_Sit()
 	switch (BulletDirection)
 	{
 	case EDirection::Left:
-		return { -30.0f, 30.0f };
+		return { -85.0f, 50.0f };
 	case EDirection::Right:
-		return { 30.0f, 30.0f };
+		return { 85.0f, 50.0f };
 	default:
 		break;
 	}

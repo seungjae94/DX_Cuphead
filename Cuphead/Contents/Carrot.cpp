@@ -269,6 +269,7 @@ void ACarrot::BeamEnd()
 void ACarrot::FaintStart()
 {
 	CarrotRenderer->ChangeAnimation("carrot_faint");
+	EyeRenderer->SetActive(false);
 	Collision->SetActive(false);
 
 	ShrinkTimer = ShrinkWaitTime;

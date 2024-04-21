@@ -350,11 +350,14 @@ void APlayer::SitStart()
 	Renderer->ChangeAnimation(GAnimName::PlayerSit);
 	Collision->SetScale(CollisionSitScale);
 	Collision->SetPosition(CollisionSitPosition);
+
+	Velocity = FVector::Zero;
 }
 
 void APlayer::Sit(float _DeltaTime)
 {
 	Fire();
+	RefreshSitAnimation();
 
 	if (true == IsPress('Z'))
 	{
@@ -475,5 +478,22 @@ void APlayer::RefreshRunAnimation()
 		AnimName = GAnimName::PlayerRunShootForward;
 	}
 
+	ChangeAnimationIfChanged(AnimName);
+}
+
+void APlayer::RefreshSitAnimation()
+{
+	std::string AnimName;
+
+	// Sit
+	if (false == IsPress('X'))
+	{
+		AnimName = GAnimName::PlayerSit;
+		ChangeAnimationIfChanged(AnimName);
+		return;
+	}
+
+	// SitShoot
+	AnimName = GAnimName::PlayerSitShootForward;
 	ChangeAnimationIfChanged(AnimName);
 }

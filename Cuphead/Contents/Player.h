@@ -159,6 +159,7 @@ private:
 	void RefreshDirection();
 	void RefreshIdleAnimation();
 	void RefreshRunAnimation();
+	void RefreshSitAnimation();
 
 	bool IsLeftCollisionOccur();
 	bool IsRightCollisionOccur();

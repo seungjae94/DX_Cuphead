@@ -54,6 +54,7 @@ namespace GImageName
 	const std::string PlayerParry = "player_parry.png";
 	const std::string PlayerDash = "player_dash.png";
 	const std::string PlayerSit = "player_sit.png";
+	const std::string PlayerSitShootForward = "player_sit_shoot_forward";
 	const std::string PlayerHit = "player_hit.png";
 
 	// 플레이어 먼지
@@ -103,6 +104,7 @@ namespace GAnimName
 	const std::string PlayerParry = "player_parry";
 	const std::string PlayerDash = "player_dash";
 	const std::string PlayerSit = "player_sit";
+	const std::string PlayerSitShootForward = "player_sit_shoot_forward";
 	const std::string PlayerHit = "player_hit";
 
 	// 플레이어 먼지
