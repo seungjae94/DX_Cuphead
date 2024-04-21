@@ -66,9 +66,15 @@ void APlayer::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsDown('Z') || false == IsGroundCollisionOccur())
+	if (true == IsDown('Z'))
 	{
 		Velocity += JumpImpulse;
+		ChangeState(GStateName::Jump);
+		return;
+	}
+
+	if (false == IsGroundCollisionOccur())
+	{
 		ChangeState(GStateName::Jump);
 		return;
 	}
@@ -315,17 +321,23 @@ void APlayer::Dash(float _DeltaTime)
 
 	if (DashTimer > 0.0f)
 	{
+		AddActorLocation(Velocity * _DeltaTime);
+
 		if ((true == IsLeftCollisionOccur() && Velocity.X < 0.0f)
 			|| (true == IsRightCollisionOccur() && Velocity.X > 0.0f))
 		{
+			AddActorLocation(-Velocity * _DeltaTime);
 			return;
 		}
 
-		AddActorLocation(Velocity * _DeltaTime);
 		return;
 	}
 
-	Velocity -= JumpImpulse;
+	if ("Dash" == PrevStateName)
+	{
+		PrevStateName = "Idle";
+	}
+
 	ChangeState(PrevStateName);
 }
 

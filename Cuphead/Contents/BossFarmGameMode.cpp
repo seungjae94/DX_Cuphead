@@ -87,8 +87,8 @@ void ABossFarmGameMode::StateInit()
 		std::bind(&ABossFarmGameMode::CarrotBattleEnd, this)
 	);
 
-	StateManager.ChangeState("Intro");
-	//StateManager.ChangeState("CarrotIntro");
+	//StateManager.ChangeState("Intro");
+	StateManager.ChangeState("CarrotIntro");
 }
 
 
