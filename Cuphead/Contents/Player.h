@@ -53,10 +53,6 @@ private:
 	bool OnGroundValue = true;
 	bool ApplyGravity = true;
 
-	FVector BotColliderLocalPosition = FVector::Zero;
-	FVector LeftColliderLocalPosition = { -30.0f, 50.0f, 0.0f };
-	FVector RightColliderLocalPosition = { 30.0f, 50.0f, 0.0f };
-
 	// Fire
 	const float FireDelay = 1 / 7.5f;
 	float FireTime = 0.0f;

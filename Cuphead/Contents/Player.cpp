@@ -224,7 +224,7 @@ void APlayer::RefreshDirection()
 
 bool APlayer::IsLeftCollisionOccur()
 {
-	if (true == CheckPixelCollision(GetActorLocation() + LeftColliderLocalPosition))
+	if (true == CheckPixelCollision(LeftCollision->GetWorldPosition()))
 	{
 		return true;
 	}
@@ -236,7 +236,7 @@ bool APlayer::IsLeftCollisionOccur()
 
 bool APlayer::IsRightCollisionOccur()
 {
-	if (true == CheckPixelCollision(GetActorLocation() + RightColliderLocalPosition))
+	if (true == CheckPixelCollision(RightCollision->GetWorldPosition()))
 	{
 		return true;
 	}
@@ -248,13 +248,18 @@ bool APlayer::IsRightCollisionOccur()
 
 bool APlayer::IsGroundCollisionOccur()
 {
-	if (true == CheckPixelCollision(GetActorLocation() + BotColliderLocalPosition))
+	if (true == CheckPixelCollision(BotCollision->GetWorldPosition()))
 	{
 		return true;
 	}
 
-	// TODO: 충돌체 체크
-
+	// 충돌체 체크
+	if (true == BotCollision->CollisionEnter(ECollisionGroup::Platform, nullptr)
+		|| true == BotCollision->CollisionStay(ECollisionGroup::Platform, nullptr))
+	{
+		return true;
+	}
+	
 	return false;
 }
 
