@@ -98,7 +98,7 @@ private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void SpriteDirUpdate(float _DeltaTime);
-	void PhysicsUpdate(float _DeltaTime);
+	void ChildRenderersUpdate(float _DeltaTime);
 	void SuperMeterUIUpdate();
 	void DebugUpdate(float _DeltaTime);
 private:

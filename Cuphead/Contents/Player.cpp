@@ -100,14 +100,7 @@ void APlayer::Tick(float _DeltaTime)
 	FireTime -= _DeltaTime;
 	SpriteDirUpdate(_DeltaTime);
 	StateManager.Update(_DeltaTime);
-	//PhysicsUpdate(_DeltaTime);
-
-	//// 총알 스폰 이펙트 이동
-	//if (nullptr != HandBulletSpawnEffect && false == HandBulletSpawnEffect->IsDestroy())
-	//{
-	//	HandBulletSpawnEffect->AddActorLocation(NextPos - PrevPos);
-	//}
-
+	ChildRenderersUpdate(_DeltaTime);
 	DebugUpdate(_DeltaTime);
 }
 
@@ -118,41 +111,14 @@ void APlayer::SpriteDirUpdate(float _DeltaTime)
 	Renderer->SetDir(Direction);
 }
 
-//void APlayer::PhysicsUpdate(float _DeltaTime)
-//{
-//	// 이동 시뮬레이션
-//	if (true == ApplyGravity)
-//	{
-//		Velocity += Gravity * _DeltaTime;
-//	}
-//
-//	if (true == OnGroundValue && Velocity.Y < 0.0f)
-//	{
-//		Velocity.Y = 0.0f;
-//	}
-//
-//	FVector PrevPos = GetActorLocation();
-//	AddActorLocation(Velocity * _DeltaTime);
-//	FVector NextPos = GetActorLocation();
-//
-//	if (true == CheckPixelCollision(LeftColliderLocalPosition) || true == CheckPixelCollision(RightColliderLocalPosition))
-//	{
-//		FVector TargetPos = NextPos;
-//		TargetPos.X = PrevPos.X;
-//		SetActorLocation(TargetPos);
-//		NextPos = TargetPos;
-//	}
-//
-//	// 바닥 충돌 체크
-//	if (true == CheckPixelCollision(BotColliderLocalPosition))
-//	{
-//		OnGroundValue = true;
-//	}
-//	else
-//	{
-//		OnGroundValue = false;
-//	}
-//}
+void APlayer::ChildRenderersUpdate(float _DeltaTime)
+{
+	// 총알 스폰 이펙트 이동
+	if (nullptr != HandBulletSpawnEffect && false == HandBulletSpawnEffect->IsDestroy())
+	{
+		HandBulletSpawnEffect->AddActorLocation(Velocity * _DeltaTime);
+	}
+}
 
 void APlayer::SuperMeterUIUpdate()
 {
