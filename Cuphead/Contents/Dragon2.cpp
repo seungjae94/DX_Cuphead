@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Dragon2.h"
+#include "FireMob.h"
 
 ADragon2::ADragon2()
 {
@@ -40,8 +41,8 @@ void ADragon2::BeginPlay()
 	BodyRenderer->SetPosition(FVector::Zero);
 	TongueRenderer->SetPosition({ 184.0f, 16.0f });
 
-	Collision->SetPosition(BodyRenderer->GetLocalPosition() + FVector(0.0f, 300.0f, 0.0f));
-	Collision->SetScale({ 300.0f, 400.0f });
+	Collision->SetPosition(BodyRenderer->GetLocalPosition() + FVector(0.0f, 275.0f, 0.0f));
+	Collision->SetScale({ 200.0f, 450.0f });
 }
 
 void ADragon2::Tick(float _DeltaTime)
@@ -202,6 +203,9 @@ void ADragon2::IdleStart()
 	BodyRenderer->ChangeAnimation("dragon2_idle");
 
 	FireTimer = FireTime;
+	SpawnTimer = SpawnTime;
+
+	JumperCounter = 0;
 
 	FireRenderer->SetActive(false);
 }
@@ -219,7 +223,7 @@ void ADragon2::Idle(float _DeltaTime)
 	if (FireTimer < 0.0f)
 	{
 		FireRenderer->SetActive(true);
-		
+
 		int RandomInt = Random.RandomInt(0, 1);
 
 		if (0 == RandomInt)
@@ -236,10 +240,24 @@ void ADragon2::Idle(float _DeltaTime)
 		FireTimer = FireTime;
 	}
 
-	
 	// ºÒ¸÷ ¼ÒÈ¯
+	SpawnTimer -= _DeltaTime;
+	if (SpawnTimer < 0.0f)
+	{
+		AFireMob* FireMob = GetWorld()->SpawnActor<AFireMob>("FireMob").get();
+		FireMob->SetActorLocation(GetActorLocation() + FVector{280.0f, 125.0f, 0.0f});
+		FireMob->SetPlayer(this);
 
+		--JumperCounter;
+		if (0 == JumperCounter % JumperPeriod)
+		{
+			DelayCallBack(1.0f, [FireMob]() {
+				FireMob->StateChange("Jump");
+			});
+		}
 
+		SpawnTimer = SpawnTime;
+	}
 }
 
 void ADragon2::IdleEnd()

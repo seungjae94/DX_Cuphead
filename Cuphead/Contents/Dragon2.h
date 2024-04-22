@@ -39,6 +39,11 @@ private:
 	float FireTimer = 0.0f;
 	bool FireAnimation = false;
 
+	const float SpawnTime = 1.0f;
+	float SpawnTimer = 0.0f;
+	const int JumperPeriod = 5;
+	int JumperCounter = 0;
+
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

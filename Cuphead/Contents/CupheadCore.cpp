@@ -201,6 +201,12 @@ void UCupheadCore::LoadResources()
 
 		UEngineSprite::CreateCutting("dragon2_idle.png", 14, 1);
 		UEngineSprite::CreateCutting("dragon2_smoke.png", 21, 1);
+
+		UEngineSprite::CreateCutting("firemob_jump.png", 4, 1);
+		UEngineSprite::CreateCutting("firemob_jump_ready.png", 5, 1);
+		UEngineSprite::CreateCutting("firemob_jump_ready_start.png", 5, 1);
+		UEngineSprite::CreateCutting("firemob_run.png", 8, 2);
+		UEngineSprite::CreateCutting("firemob_air.png", 8, 1);
 	}
 
 	{
