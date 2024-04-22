@@ -60,6 +60,7 @@ namespace GImageName
 	// 플레이어 먼지
 	const std::string PlayerLandingDust = "player_landing_dust";
 	const std::string PlayerDashDust = "player_dash_dust";
+	const std::string PlayerRunDust = "player_run_dust";
 
 	// 총알
 	const std::string BulletSpawn = "bullet_spawn.png";
@@ -110,6 +111,7 @@ namespace GAnimName
 	// 플레이어 먼지
 	const std::string PlayerLandingDust = "player_landing_dust";
 	const std::string PlayerDashDust = "player_dash_dust";
+	const std::string PlayerRunDust = "player_run_dust";
 
 	// 총알
 	const std::string BulletSpawn = "bullet_spawn";

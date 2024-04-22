@@ -41,7 +41,7 @@ void APlayer::Fire()
 		HandBulletSpawnEffect = SpawnEffect;
 		HandBulletSpawnEffect->SetAutoDestroyCallback([this]() {
 			HandBulletSpawnEffect = nullptr;
-		});
+			});
 	}
 
 	FireTime = FireDelay;
@@ -234,4 +234,19 @@ EDirection APlayer::GetBulletSpawnDirection()
 	}
 
 	return EDirection::Right;
+}
+
+void APlayer::SpawnRunDustEffect(float _DeltaTime)
+{
+	RunDustTimer -= _DeltaTime;
+	if (RunDustTimer >= 0.0f)
+	{
+		return;
+	}
+
+	AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("RunDust").get();
+	Effect->SetActorLocation(GetActorLocation() + FVector::Up * 45.0f);
+	Effect->Init(ERenderingOrder::Character, { GAnimName::PlayerRunDust, GImageName::PlayerRunDust, 1 / 24.0f }, true);
+
+	RunDustTimer = RunDustInterval;
 }

@@ -156,6 +156,12 @@ private:
 	EDirection GetBulletSpawnDirection();
 
 private:
+	// 달리기 먼지 발생
+	const float RunDustInterval = 0.25f;
+	float RunDustTimer = 0.0f;
+	void SpawnRunDustEffect(float _DeltaTime);
+
+private:
 	// 유틸 함수
 	bool IsPressArrowKey();
 	bool IsDirectionLeft() const;

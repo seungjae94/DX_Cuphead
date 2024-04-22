@@ -103,12 +103,14 @@ void APlayer::RunStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerRun);
 	IsFire = false;
+	RunDustTimer = RunDustInterval;
 }
 
 void APlayer::Run(float _DeltaTime)
 {
 	Fire();
 	RefreshRunAnimation();
+	SpawnRunDustEffect(_DeltaTime);
 
 	if (false == IsPressArrowKey())
 	{
