@@ -107,7 +107,6 @@ private:
 private:
 	// 애니메이션
 	void AnimationInit();
-	void ChangeAnimationIfChanged(std::string _AnimName);
 
 	// UI
 	void UIInit();

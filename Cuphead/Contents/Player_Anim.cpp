@@ -30,14 +30,3 @@ void APlayer::AnimationInit()
 		ChangeState(GStateName::Idle);
 	});
 }
-
-void APlayer::ChangeAnimationIfChanged(std::string _AnimName)
-{
-	if (_AnimName == CurAnimName)
-	{
-		return;
-	}
-
-	CurAnimName = _AnimName;
-	Renderer->ChangeAnimation(_AnimName);
-}

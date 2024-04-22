@@ -361,7 +361,7 @@ void APlayer::DashEnd()
 
 void APlayer::SitStart()
 {
-	ChangeAnimationIfChanged(GAnimName::PlayerSitting);
+	Renderer->ChangeAnimation(GAnimName::PlayerSitting);
 	HitBox->SetScale(BodyCollisionSitScale);
 	HitBox->SetPosition(BodyCollisionSitPosition);
 
@@ -398,7 +398,7 @@ void APlayer::Sit(float _DeltaTime)
 	if (false == IsPress(VK_DOWN))
 	{
 		IsStanding = true;
-		ChangeAnimationIfChanged(GAnimName::PlayerStanding);
+		Renderer->ChangeAnimation(GAnimName::PlayerStanding);
 		return;
 	}
 }
@@ -455,7 +455,7 @@ void APlayer::RefreshIdleAnimation()
 	if (false == IsPress('X'))
 	{
 		AnimName = GAnimName::PlayerIdle;
-		ChangeAnimationIfChanged(AnimName);
+		Renderer->ChangeAnimation(AnimName);
 		return;
 	}
 
@@ -484,7 +484,7 @@ void APlayer::RefreshIdleAnimation()
 		break;
 	}
 
-	ChangeAnimationIfChanged(AnimName);
+	Renderer->ChangeAnimation(AnimName);
 }
 
 void APlayer::RefreshRunAnimation()
@@ -495,7 +495,7 @@ void APlayer::RefreshRunAnimation()
 	if (false == IsPress('X'))
 	{
 		AnimName = GAnimName::PlayerRun;
-		ChangeAnimationIfChanged(AnimName);
+		Renderer->ChangeAnimation(AnimName);
 		return;
 	}
 
@@ -509,7 +509,7 @@ void APlayer::RefreshRunAnimation()
 		AnimName = GAnimName::PlayerRunShootForward;
 	}
 
-	ChangeAnimationIfChanged(AnimName);
+	Renderer->ChangeAnimation(AnimName);
 }
 
 void APlayer::RefreshSitAnimation()
@@ -520,11 +520,11 @@ void APlayer::RefreshSitAnimation()
 	if (false == IsPress('X'))
 	{
 		AnimName = GAnimName::PlayerSit;
-		ChangeAnimationIfChanged(AnimName);
+		Renderer->ChangeAnimation(AnimName);
 		return;
 	}
 
 	// SitShoot
 	AnimName = GAnimName::PlayerSitShootForward;
-	ChangeAnimationIfChanged(AnimName);
+	Renderer->ChangeAnimation(AnimName);
 }
