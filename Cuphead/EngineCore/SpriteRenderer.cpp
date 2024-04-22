@@ -154,6 +154,15 @@ void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
 		CuttingDataValue.PivotMat.Position(Scale);
 		break;
 	}
+	case EPivot::LEFTBOTTOM:
+	{
+		float4 Scale = Transform.WorldScale;
+		Scale.X = abs(Scale.X) * 0.5f;
+		Scale.Y = abs(Scale.Y) * 0.5f;
+		Scale.Z = 0.0f;
+		CuttingDataValue.PivotMat.Position(Scale);
+		break;
+	}
 	case EPivot::RIGHTBOTTOM:
 	{
 		float4 Scale = Transform.WorldScale;

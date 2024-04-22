@@ -33,9 +33,10 @@ void ADragon2::BeginPlay()
 	RendererInit();
 	StateInit();
 
-	SetActorLocation({ 500.0f, -475.0f });
-	DashRenderer->SetPosition({ 1000.0f, 550.0f });
-	BodyRenderer->SetPosition({ 0.0f, 0.0f });
+	SetActorLocation({ -1075.0f, -350.0f });
+	DashRenderer->SetPosition({ 1000.0f, 450.0f });
+	BodyRenderer->SetPosition(FVector::Zero);
+	TongueRenderer->SetPosition({ 184.0f, 16.0f });
 
 	Collision->SetPosition(BodyRenderer->GetLocalPosition() + FVector(0.0f, 300.0f, 0.0f));
 	Collision->SetScale({ 300.0f, 400.0f });
@@ -60,6 +61,11 @@ void ADragon2::DebugUpdate(float _DeltaTime)
 		std::string Msg = std::format("Dragon2 State : {}\n", StateManager.GetCurStateName());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+
+	{
+		std::string Msg = std::format("Dragon2 Body Pos : {}\n", BodyRenderer->GetWorldPosition().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
 
 void ADragon2::RendererInit()
@@ -67,11 +73,19 @@ void ADragon2::RendererInit()
 	DashRenderer->CreateAnimation("dragon2_dash", "dragon2_dash", 1 / 24.0f, true);
 
 	BodyRenderer->CreateAnimation("dragon2_intro", "dragon2_intro", 1 / 24.0f, false);
-	BodyRenderer->CreateAnimation("dragon2_idle", "dragon2_idle", 1 / 24.0f, true);
+	BodyRenderer->CreateAnimation("dragon2_idle", "dragon2_idle.png", 1 / 24.0f, true);
 	BodyRenderer->CreateAnimation("dragon2_faint", "dragon2_faint", 1 / 24.0f, true);
 
 	TongueRenderer->CreateAnimation("dragon2_tongue_intro", "dragon2_tongue_intro", 1 / 24.0f, false);
-	//TongueRenderer->CreateAnimation("dragon2_tongue_idle", "dragon2_tongue_idle", 1 / 24.0f, false);
+	TongueRenderer->CreateAnimation("dragon2_tongue_idle", "dragon2_tongue_idle", 1 / 12.0f, true);
+
+	BodyRenderer->SetFrameCallback("dragon2_intro", 20, [this]() {
+		StateManager.ChangeState("Idle");
+		});
+
+	TongueRenderer->SetFrameCallback("dragon2_tongue_intro", 3, [this]() {
+		TongueRenderer->ChangeAnimation("dragon2_tongue_idle");
+		});
 
 	DashRenderer->SetOrder(ERenderingOrder::Back2);
 	DashRenderer->SetAutoSize(1.0f, true);
@@ -81,7 +95,7 @@ void ADragon2::RendererInit()
 	BodyRenderer->SetAutoSize(1.0f, true);
 
 	TongueRenderer->SetOrder(ERenderingOrder::Back6);
-	TongueRenderer->SetPivot(EPivot::BOT);
+	TongueRenderer->SetPivot(EPivot::LEFTBOTTOM);
 	TongueRenderer->SetAutoSize(1.0f, true);
 }
 
@@ -152,10 +166,20 @@ void ADragon2::DashEnd()
 
 void ADragon2::IntroStart()
 {
+	BodyRenderer->SetActive(true);
+	BodyRenderer->ChangeAnimation("dragon2_intro");
+
+	IntroMoveTimer = IntroMoveTime;
 }
 
 void ADragon2::Intro(float _DeltaTime)
 {
+	IntroMoveTimer -= _DeltaTime;
+
+	if (IntroMoveTimer > 0.0f)
+	{
+		AddActorLocation(FVector::Right * 1000.0f * _DeltaTime);
+	}
 }
 
 void ADragon2::IntroEnd()
@@ -164,10 +188,14 @@ void ADragon2::IntroEnd()
 
 void ADragon2::IdleStart()
 {
+	TongueRenderer->SetActive(true);
+	TongueRenderer->ChangeAnimation("dragon2_tongue_intro");
+	BodyRenderer->ChangeAnimation("dragon2_idle");
 }
 
 void ADragon2::Idle(float _DeltaTime)
 {
+	// ºÒ¸÷ ¼ÒÈ¯
 }
 
 void ADragon2::IdleEnd()

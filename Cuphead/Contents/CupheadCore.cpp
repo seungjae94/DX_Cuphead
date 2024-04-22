@@ -198,6 +198,8 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting("dragon1_cloud_down_idle.png", 3, 1);
 		UEngineSprite::CreateCutting("dragon1_cloud_down.png", 3, 1);
 		UEngineSprite::CreateCutting("dragon1_cloud_up.png", 5, 1);
+
+		UEngineSprite::CreateCutting("dragon2_idle.png", 14, 1);
 	}
 
 	{

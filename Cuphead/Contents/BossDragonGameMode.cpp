@@ -90,7 +90,7 @@ void ABossDragonGameMode::StateInit()
 		std::bind(&ABossDragonGameMode::Phase3End, this)
 	);
 
-	StateManager.ChangeState("Intro");
+	StateManager.ChangeState("Phase2Intro");
 }
 
 void ABossDragonGameMode::IntroStart()
@@ -150,7 +150,10 @@ void ABossDragonGameMode::Phase1End()
 
 void ABossDragonGameMode::Phase2IntroStart()
 {
-	Dragon1->Destroy();
+	if (nullptr != Dragon1)
+	{
+		Dragon1->Destroy();
+	}
 	Dragon2 = GetWorld()->SpawnActor<ADragon2>("Dragon2").get();
 }
 
