@@ -70,6 +70,14 @@ void APlayer::Idle(float _DeltaTime)
 
 	if (true == IsDown('Z'))
 	{
+		// 아래 점프 테스트
+		if (true == IsPress(VK_DOWN) && true == TestDownJump())
+		{
+			AddActorLocation(FVector::Down * 5.0f);
+			ChangeState(GStateName::Jump);
+			return;
+		}
+
 		AddActorLocation(FVector::Up * 3.0f);
 		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
@@ -375,7 +383,7 @@ void APlayer::Sit(float _DeltaTime)
 	if (true == IsDown('Z'))
 	{
 		// 아래 점프 테스트
-		if (true == TestDownJump())
+		if (true == IsPress(VK_DOWN) && true == TestDownJump())
 		{
 			AddActorLocation(FVector::Down * 5.0f);
 			ChangeState(GStateName::Jump);
