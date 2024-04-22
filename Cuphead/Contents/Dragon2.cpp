@@ -9,10 +9,12 @@ ADragon2::ADragon2()
 	DashRenderer = CreateDefaultSubObject<USpriteRenderer>("Dash");
 	BodyRenderer = CreateDefaultSubObject<USpriteRenderer>("Body");
 	TongueRenderer = CreateDefaultSubObject<USpriteRenderer>("Tongue");
+	FireRenderer = CreateDefaultSubObject<USpriteRenderer>("Fire");
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 
 	DashRenderer->SetupAttachment(Root);
 	BodyRenderer->SetupAttachment(Root);
+	FireRenderer->SetupAttachment(Root);
 	TongueRenderer->SetupAttachment(Root);
 	Collision->SetupAttachment(Root);
 
@@ -34,7 +36,7 @@ void ADragon2::BeginPlay()
 	StateInit();
 
 	SetActorLocation({ -1075.0f, -350.0f });
-	DashRenderer->SetPosition({ 1000.0f, 450.0f });
+	DashRenderer->SetPosition({ 1500.0f, 450.0f });
 	BodyRenderer->SetPosition(FVector::Zero);
 	TongueRenderer->SetPosition({ 184.0f, 16.0f });
 
@@ -73,11 +75,14 @@ void ADragon2::RendererInit()
 	DashRenderer->CreateAnimation("dragon2_dash", "dragon2_dash", 1 / 24.0f, true);
 
 	BodyRenderer->CreateAnimation("dragon2_intro", "dragon2_intro", 1 / 24.0f, false);
-	BodyRenderer->CreateAnimation("dragon2_idle", "dragon2_idle.png", 1 / 24.0f, true);
+	BodyRenderer->CreateAnimation("dragon2_idle", "dragon2_idle.png", 1 / 18.0f, true);
 	BodyRenderer->CreateAnimation("dragon2_faint", "dragon2_faint", 1 / 24.0f, true);
 
 	TongueRenderer->CreateAnimation("dragon2_tongue_intro", "dragon2_tongue_intro", 1 / 24.0f, false);
 	TongueRenderer->CreateAnimation("dragon2_tongue_idle", "dragon2_tongue_idle", 1 / 12.0f, true);
+
+	FireRenderer->CreateAnimation("dragon2_fire", "dragon2_fire", 1 / 24.0f, false);
+	FireRenderer->CreateAnimation("dragon2_smoke", "dragon2_smoke.png", 1 / 24.0f, false);
 
 	BodyRenderer->SetFrameCallback("dragon2_intro", 20, [this]() {
 		StateManager.ChangeState("Idle");
@@ -97,6 +102,10 @@ void ADragon2::RendererInit()
 	TongueRenderer->SetOrder(ERenderingOrder::Back6);
 	TongueRenderer->SetPivot(EPivot::LEFTBOTTOM);
 	TongueRenderer->SetAutoSize(1.0f, true);
+
+	FireRenderer->SetOrder(ERenderingOrder::Back6);
+	FireRenderer->SetPivot(EPivot::BOT);
+	FireRenderer->SetAutoSize(1.0f, true);
 }
 
 void ADragon2::StateInit()
@@ -191,11 +200,46 @@ void ADragon2::IdleStart()
 	TongueRenderer->SetActive(true);
 	TongueRenderer->ChangeAnimation("dragon2_tongue_intro");
 	BodyRenderer->ChangeAnimation("dragon2_idle");
+
+	FireTimer = FireTime;
+
+	FireRenderer->SetActive(false);
 }
 
 void ADragon2::Idle(float _DeltaTime)
 {
+	// ºÒ»Õ±â
+	FireTimer -= _DeltaTime;
+	if (true == FireRenderer->IsActive() && true == FireRenderer->IsCurAnimationEnd())
+	{
+		FireAnimation = false;
+		FireRenderer->SetActive(false);
+		FireRenderer->AnimationReset();
+	}
+	if (FireTimer < 0.0f)
+	{
+		FireRenderer->SetActive(true);
+		
+		int RandomInt = Random.RandomInt(0, 1);
+
+		if (0 == RandomInt)
+		{
+			FireRenderer->SetPosition({ 192.0f, 253.0f });
+			FireRenderer->ChangeAnimation("dragon2_fire");
+		}
+		else
+		{
+			FireRenderer->SetPosition({ 212.0f, 257.0f });
+			FireRenderer->ChangeAnimation("dragon2_smoke");
+		}
+
+		FireTimer = FireTime;
+	}
+
+	
 	// ºÒ¸÷ ¼ÒÈ¯
+
+
 }
 
 void ADragon2::IdleEnd()

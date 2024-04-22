@@ -245,7 +245,7 @@ APlatform* ABossDragonGameMode::SpawnCloud(bool _SetLocation, const FVector& _Lo
 	}
 
 	Cloud->SetVelocity(FVector::Left * 100.0f);
-	Cloud->SetRenderingOrder(ERenderingOrder::Back6);
+	Cloud->SetRenderingOrder(ERenderingOrder::Back3);
 	Cloud->SetCollisionPosition(FVector::Zero);
 	Cloud->SetCollisionScale({ 150.0f, 1.0f, 1.0f });
 

@@ -25,6 +25,7 @@ private:
 	USpriteRenderer* DashRenderer = nullptr;
 	USpriteRenderer* BodyRenderer = nullptr;
 	USpriteRenderer* TongueRenderer = nullptr;
+	USpriteRenderer* FireRenderer = nullptr;
 	UCollision* Collision = nullptr;
 private:
 	// 로직 처리
@@ -33,6 +34,10 @@ private:
 	
 	const float IntroMoveTime = 0.5f;
 	float IntroMoveTimer = 0.0f;
+
+	const float FireTime = 3.0f;
+	float FireTimer = 0.0f;
+	bool FireAnimation = false;
 
 private:
 	void BeginPlay() override;
