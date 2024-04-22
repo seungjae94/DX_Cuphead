@@ -243,6 +243,14 @@ void ADragon1::RunAwayStart()
 
 void ADragon1::RunAway(float _DeltaTime)
 {
+	AddActorLocation(FVector::Right * 300.0f * _DeltaTime);
+
+	float PosX = GetActorLocation().X;
+
+	if (PosX > 1000.0f)
+	{
+		StateManager.ChangeState("Finish");
+	}
 }
 
 void ADragon1::RunAwayEnd()

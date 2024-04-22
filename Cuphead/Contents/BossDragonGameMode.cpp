@@ -137,6 +137,11 @@ void ABossDragonGameMode::Phase1Start()
 void ABossDragonGameMode::Phase1(float _DeltaTime)
 {
 	SpawnClouds(_DeltaTime);
+
+	if (true == Dragon1->IsFinished())
+	{
+		StateManager.ChangeState("Phase2Intro");
+	}
 }
 
 void ABossDragonGameMode::Phase1End()
@@ -145,11 +150,14 @@ void ABossDragonGameMode::Phase1End()
 
 void ABossDragonGameMode::Phase2IntroStart()
 {
+
 }
 
 void ABossDragonGameMode::Phase2Intro(float _DeltaTime)
 {
 	SpawnClouds(_DeltaTime);
+
+	
 }
 
 void ABossDragonGameMode::Phase2IntroEnd()

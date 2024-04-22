@@ -122,7 +122,7 @@ void APlayer::PlatformMovementUpdate(float _DeltaTime)
 		FVector Velocity = Platform->GetVelocity();
 		AddActorLocation(Velocity * _DeltaTime);
 
-		if (true == IsLeftCollisionOccur() || true == IsRightCollisionOccur())
+		if (true == IsLeftCollisionOccur() || true == IsRightCollisionOccur())		
 		{
 			AddActorLocation(-Velocity * _DeltaTime);
 		}
@@ -252,6 +252,12 @@ bool APlayer::IsLeftCollisionOccur()
 
 	// TODO: 충돌체 체크
 
+	float PosX = GetActorLocation().X;
+	if (PosX < -550.0f)
+	{
+		return true;
+	}
+
 	return false;
 }
 
@@ -263,6 +269,12 @@ bool APlayer::IsRightCollisionOccur()
 	}
 
 	// TODO: 충돌체 체크
+
+	float PosX = GetActorLocation().X;
+	if (PosX > 550.0f)
+	{
+		return true;
+	}
 
 	return false;
 }
