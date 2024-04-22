@@ -353,17 +353,24 @@ void APlayer::DashEnd()
 
 void APlayer::SitStart()
 {
-	Renderer->ChangeAnimation(GAnimName::PlayerSit);
+	ChangeAnimationIfChanged(GAnimName::PlayerSitting);
 	HitBox->SetScale(BodyCollisionSitScale);
 	HitBox->SetPosition(BodyCollisionSitPosition);
 
 	Velocity = FVector::Zero;
+
+	IsSitting = true;
+	IsStanding = false;
 }
 
 void APlayer::Sit(float _DeltaTime)
 {
 	Fire();
-	RefreshSitAnimation();
+
+	if (false == IsStanding && false == IsSitting)
+	{
+		RefreshSitAnimation();
+	}
 
 	if (true == IsDown('Z'))
 	{
@@ -382,7 +389,8 @@ void APlayer::Sit(float _DeltaTime)
 
 	if (false == IsPress(VK_DOWN))
 	{
-		ChangeState(GStateName::Idle);
+		IsStanding = true;
+		ChangeAnimationIfChanged(GAnimName::PlayerStanding);
 		return;
 	}
 }

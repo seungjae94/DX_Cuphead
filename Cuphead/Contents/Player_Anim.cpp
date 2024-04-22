@@ -16,8 +16,19 @@ void APlayer::AnimationInit()
 	Renderer->CreateAnimation(GAnimName::PlayerParry, GImageName::PlayerParry, 1 / 24.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerDash, GImageName::PlayerDash, 1 / 24.0f, false);
 	Renderer->CreateAnimation(GAnimName::PlayerSit, GImageName::PlayerSit, 1 / 12.0f);
+	Renderer->CreateAnimation(GAnimName::PlayerSitting, GImageName::PlayerSitting, 1 / 24.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerStanding, GImageName::PlayerSitting, 1 / 24.0f, false, 6, 0);
 	Renderer->CreateAnimation(GAnimName::PlayerSitShootForward, GImageName::PlayerSitShootForward, 1 / 12.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerHit, GImageName::PlayerHit, 1 / 12.0f, false);
+
+	Renderer->SetFrameCallback(GAnimName::PlayerSitting, 6, [this]() {
+		IsSitting = false;
+	});
+
+	Renderer->SetFrameCallback(GAnimName::PlayerStanding, 6, [this]() {
+		IsStanding = false;
+		ChangeState(GStateName::Idle);
+	});
 }
 
 void APlayer::ChangeAnimationIfChanged(std::string _AnimName)

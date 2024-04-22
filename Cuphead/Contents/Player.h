@@ -86,6 +86,10 @@ private:
 	// Parry
 	bool IsParryingValue = false;
 
+	// Sit
+	bool IsSitting = false;
+	bool IsStanding = false;
+
 	// UI
 	UImage* HpWidget = nullptr;
 	std::vector<UImage*> CardWidgets;
@@ -116,10 +120,6 @@ private:
 	void IdleStart();
 	void Idle(float _DeltaTime);
 	void IdleEnd();
-
-	void AimStart();
-	void Aim(float _DeltaTime);
-	void AimEnd();
 
 	void RunStart();
 	void Run(float _DeltaTime);

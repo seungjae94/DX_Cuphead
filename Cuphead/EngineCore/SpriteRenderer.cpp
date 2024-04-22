@@ -286,7 +286,14 @@ void USpriteRenderer::CreateAnimation(
 
 	if (End < Start)
 	{
-		MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
+		//MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
+		for (int i = Start; End <= i; i--)
+		{
+			Inter.push_back(_Inter);
+			Frame.push_back(i);
+		}
+
+		CreateAnimation(_AnimationName, _SpriteName, Inter, Frame, _Loop);
 		return;
 	}
 
