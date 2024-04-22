@@ -70,6 +70,7 @@ void APlayer::Idle(float _DeltaTime)
 
 	if (true == IsDown('Z'))
 	{
+		AddActorLocation(FVector::Up * 3.0f);
 		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
 		return;
@@ -117,6 +118,7 @@ void APlayer::Run(float _DeltaTime)
 
 	if (true == IsDown('Z'))
 	{
+		AddActorLocation(FVector::Up * 3.0f);
 		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
 		return;
