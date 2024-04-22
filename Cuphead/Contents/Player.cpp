@@ -93,6 +93,11 @@ void APlayer::BeginPlay()
 
 void APlayer::Tick(float _DeltaTime)
 {
+	if (_DeltaTime > 0.1f)
+	{
+		_DeltaTime = 0.1f;
+	}
+
 	Super::Tick(_DeltaTime);
 
 	FireTime -= _DeltaTime;

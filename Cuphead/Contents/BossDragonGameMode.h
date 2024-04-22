@@ -66,6 +66,7 @@ private:
 	void Phase3End();
 private:
 	std::list<APlatform*> Clouds;
+	void SpawnClouds(float _DeltaTime);
 	APlatform* SpawnCloud(bool _SetLocation, const FVector& _Location = FVector::Zero);
 };
 

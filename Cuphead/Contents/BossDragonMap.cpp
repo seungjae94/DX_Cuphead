@@ -36,8 +36,8 @@ void ABossDragonMap::BeginPlay()
 	Background1->SetOrder(ERenderingOrder::Back0);
 	Background1->Transform.SetScale(MapScale);
 
-	Background0->Transform.SetPosition({ -MapScale.X + 1.0f, 0.0f, 0.0f });
-	Background1->Transform.SetPosition({ 0.0f, 0.0f, 0.0f });
+	Background0->SetPosition({ -MapScale.X + 1.0f, 0.0f, 0.0f });
+	Background1->SetPosition({ 0.0f, 0.0f, 0.0f });
 
 	Col->SetSprite("boss_farm_map_col.png");
 	Col->SetOrder(ERenderingOrder::Collider);

@@ -136,6 +136,67 @@ void ABossDragonGameMode::Phase1Start()
 
 void ABossDragonGameMode::Phase1(float _DeltaTime)
 {
+	SpawnClouds(_DeltaTime);
+}
+
+void ABossDragonGameMode::Phase1End()
+{
+}
+
+void ABossDragonGameMode::Phase2IntroStart()
+{
+}
+
+void ABossDragonGameMode::Phase2Intro(float _DeltaTime)
+{
+	SpawnClouds(_DeltaTime);
+}
+
+void ABossDragonGameMode::Phase2IntroEnd()
+{
+}
+
+void ABossDragonGameMode::Phase2Start()
+{
+}
+
+void ABossDragonGameMode::Phase2(float _DeltaTime)
+{
+	SpawnClouds(_DeltaTime);
+}
+
+void ABossDragonGameMode::Phase2End()
+{
+}
+
+void ABossDragonGameMode::Phase3IntroStart()
+{
+}
+
+void ABossDragonGameMode::Phase3Intro(float _DeltaTime)
+{
+	SpawnClouds(_DeltaTime);
+}
+
+void ABossDragonGameMode::Phase3IntroEnd()
+{
+}
+
+void ABossDragonGameMode::Phase3Start()
+{
+}
+
+void ABossDragonGameMode::Phase3(float _DeltaTime)
+{
+	SpawnClouds(_DeltaTime);
+}
+
+void ABossDragonGameMode::Phase3End()
+{
+}
+
+void ABossDragonGameMode::SpawnClouds(float _DeltaTime)
+{
 	CloudSpawnTimer -= _DeltaTime;
 
 	if (CloudSpawnTimer >= 0.0f)
@@ -153,58 +214,6 @@ void ABossDragonGameMode::Phase1(float _DeltaTime)
 		});
 
 	CloudSpawnTimer = CloudSpawnInterval;
-}
-
-void ABossDragonGameMode::Phase1End()
-{
-}
-
-void ABossDragonGameMode::Phase2IntroStart()
-{
-}
-
-void ABossDragonGameMode::Phase2Intro(float _DeltaTime)
-{
-}
-
-void ABossDragonGameMode::Phase2IntroEnd()
-{
-}
-
-void ABossDragonGameMode::Phase2Start()
-{
-}
-
-void ABossDragonGameMode::Phase2(float _DeltaTime)
-{
-}
-
-void ABossDragonGameMode::Phase2End()
-{
-}
-
-void ABossDragonGameMode::Phase3IntroStart()
-{
-}
-
-void ABossDragonGameMode::Phase3Intro(float _DeltaTime)
-{
-}
-
-void ABossDragonGameMode::Phase3IntroEnd()
-{
-}
-
-void ABossDragonGameMode::Phase3Start()
-{
-}
-
-void ABossDragonGameMode::Phase3(float _DeltaTime)
-{
-}
-
-void ABossDragonGameMode::Phase3End()
-{
 }
 
 APlatform* ABossDragonGameMode::SpawnCloud(bool _SetLocation, const FVector& _Location)
