@@ -36,6 +36,7 @@ private:
 	USpriteRenderer* Renderer = nullptr;
 	UCollision* Collision = nullptr;
 	FVector Velocity = FVector::Zero;
+	FVector VelocityMemory = FVector::Zero;
 
 	bool MoveStarted = false;
 

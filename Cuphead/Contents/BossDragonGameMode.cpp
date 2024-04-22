@@ -22,7 +22,7 @@ void ABossDragonGameMode::BeginPlay()
 	Player = GetWorld()->SpawnActor<APlayer>("Player").get();
 
 	// 디버그용 픽셀 충돌
-	Player->SetColMapName("boss_farm_map_col.png");
+	//Player->SetColMapName("boss_farm_map_col.png");
 
 	Map = GetWorld()->SpawnActor<ABossDragonMap>("Map").get();
 
@@ -112,6 +112,8 @@ void ABossDragonGameMode::IntroStart()
 	SpawnCloud(true, { 100.0f, -250.0f, 0.0f });
 	SpawnCloud(true, { 200.0f, 25.0f, 0.0f });
 	SpawnCloud(true, { 300.0f, 225.0f, 0.0f });
+
+	Player->SetActorLocation({ -450.0f, -50.0f, 0.0f });
 }
 
 void ABossDragonGameMode::Intro(float _DeltaTime)

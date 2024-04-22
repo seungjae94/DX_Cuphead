@@ -47,6 +47,8 @@ void APlatform::Tick(float _DeltaTime)
 	// 이동 처리
 	if (true == MoveStarted)
 	{
+		Velocity = VelocityMemory;
+
 		AddActorLocation(Velocity * _DeltaTime);
 
 		float PosX = GetActorLocation().X;
@@ -105,7 +107,7 @@ void APlatform::SetFrameCallback(std::string_view _AnimName, int _Index, std::fu
 
 void APlatform::SetVelocity(const FVector& _Velocity)
 {
-	Velocity = _Velocity;
+	VelocityMemory = _Velocity;
 }
 
 FVector APlatform::GetVelocity() const
