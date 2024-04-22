@@ -89,7 +89,8 @@ void ABossDragonGameMode::StateInit()
 		std::bind(&ABossDragonGameMode::Phase3End, this)
 	);
 
-	StateManager.ChangeState("Phase2Intro");
+	StateManager.ChangeState("Intro");
+	//StateManager.ChangeState("Phase2Intro");
 }
 
 void ABossDragonGameMode::IntroStart()

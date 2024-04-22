@@ -245,7 +245,7 @@ void ADragon2::Idle(float _DeltaTime)
 	if (SpawnTimer < 0.0f)
 	{
 		AFireMob* FireMob = GetWorld()->SpawnActor<AFireMob>("FireMob").get();
-		FireMob->SetActorLocation(GetActorLocation() + FVector{280.0f, 125.0f, 0.0f});
+		FireMob->SetActorLocation(GetActorLocation() + FVector{ 280.0f, 125.0f, 0.0f });
 		FireMob->SetPlayer(this);
 
 		--JumperCounter;
@@ -253,7 +253,7 @@ void ADragon2::Idle(float _DeltaTime)
 		{
 			DelayCallBack(1.0f, [FireMob]() {
 				FireMob->StateChange("Jump");
-			});
+				});
 		}
 
 		SpawnTimer = SpawnTime;
@@ -266,6 +266,8 @@ void ADragon2::IdleEnd()
 
 void ADragon2::FaintStart()
 {
+	BodyRenderer->AddPosition({ -35.0f, -100.0f });
+	BodyRenderer->ChangeAnimation("dragon2_faint");
 }
 
 void ADragon2::Faint(float _DeltaTime)
@@ -290,6 +292,29 @@ void ADragon2::FinishEnd()
 
 void ADragon2::Damage(int _Damage)
 {
+	if ("Faint" == StateManager.GetCurStateName())
+	{
+		return;
+	}
+
+	Hp -= _Damage;
+
+	BodyRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.0f });
+	BodyRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
+	TongueRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.0f });
+	TongueRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
+
+	DelayCallBack(0.1f, [this]() {
+		BodyRenderer->SetMulColor(FVector::One);
+		BodyRenderer->SetPlusColor(FVector::Zero);
+		TongueRenderer->SetMulColor(FVector::One);
+		TongueRenderer->SetPlusColor(FVector::Zero);
+		});
+
+	if (Hp <= 0.0f)
+	{
+		StateManager.ChangeState("Faint");
+	}
 }
 
 bool ADragon2::IsFinished()
