@@ -361,8 +361,16 @@ void APlayer::Sit(float _DeltaTime)
 	Fire();
 	RefreshSitAnimation();
 
-	if (true == IsPress('Z'))
+	if (true == IsDown('Z'))
 	{
+		// 아래 점프 테스트
+		if (true == TestDownJump())
+		{
+			AddActorLocation(FVector::Down * 5.0f);
+			ChangeState(GStateName::Jump);
+			return;
+		}
+
 		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
 		return;

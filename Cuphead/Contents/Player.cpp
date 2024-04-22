@@ -292,6 +292,21 @@ void APlayer::MoveUpToGround()
 	}
 }
 
+bool APlayer::TestDownJump()
+{
+	bool TestResult = false;
+	AddActorLocation(FVector::Down * 5.0f);
+
+	if (false == IsGroundCollisionOccur())
+	{
+		TestResult = true;
+	}
+
+	AddActorLocation(FVector::Up * 5.0f);
+
+	return TestResult;
+}
+
 bool APlayer::CheckPixelCollision(const FVector& _Point)
 {
 	std::shared_ptr<UEngineTexture> MapTex = UEngineTexture::FindRes(ColMapName);

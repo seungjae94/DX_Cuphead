@@ -167,6 +167,7 @@ private:
 	bool IsRightCollisionOccur();
 	bool IsGroundCollisionOccur();
 	void MoveUpToGround();
+	bool TestDownJump();
 
 	bool CheckPixelCollision(const FVector& _Point);
 };
