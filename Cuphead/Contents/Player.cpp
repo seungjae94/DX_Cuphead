@@ -93,9 +93,9 @@ void APlayer::BeginPlay()
 
 void APlayer::Tick(float _DeltaTime)
 {
-	if (_DeltaTime > 0.1f)
+	if (_DeltaTime > 0.01f)
 	{
-		_DeltaTime = 0.1f;
+		_DeltaTime = 0.01f;
 	}
 
 	Super::Tick(_DeltaTime);
@@ -251,7 +251,6 @@ bool APlayer::IsLeftCollisionOccur()
 	}
 
 	// TODO: 충돌체 체크
-
 	float PosX = GetActorLocation().X;
 	if (PosX < -550.0f)
 	{

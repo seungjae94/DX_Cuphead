@@ -150,7 +150,8 @@ void ABossDragonGameMode::Phase1End()
 
 void ABossDragonGameMode::Phase2IntroStart()
 {
-
+	Dragon1->Destroy();
+	Dragon2 = GetWorld()->SpawnActor<ADragon2>("Dragon2").get();
 }
 
 void ABossDragonGameMode::Phase2Intro(float _DeltaTime)
