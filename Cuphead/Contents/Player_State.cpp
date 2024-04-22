@@ -208,7 +208,7 @@ void APlayer::Jump(float _DeltaTime)
 		SetActorLocation({ PrevPosX, PosY, 0.0f });
 	}
 
-	if (true == IsGroundCollisionOccur())
+	if (true == IsGroundCollisionOccur() && Velocity.Y <= 0.0f)
 	{
 		MoveUpToGround();
 		ChangeState(GStateName::Idle);
