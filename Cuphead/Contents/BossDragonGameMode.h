@@ -6,7 +6,7 @@ class ADragon1;
 class ADragon2;
 class ADragon3;
 class APlayer;
-class UPlatform;
+class APlatform;
 
 class ABossDragonGameMode : public ACupheadGameMode
 {
@@ -65,7 +65,7 @@ private:
 	void Phase3(float _DeltaTime);
 	void Phase3End();
 private:
-	std::list<UPlatform*> Clouds;
-	UPlatform* SpawnCloud(bool _SetLocation, const FVector& _Location = FVector::Zero);
+	std::list<APlatform*> Clouds;
+	APlatform* SpawnCloud(bool _SetLocation, const FVector& _Location = FVector::Zero);
 };
 

@@ -97,6 +97,7 @@ private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void SpriteDirUpdate(float _DeltaTime);
+	void PlatformMovementUpdate(float _DeltaTime);
 	void ChildRenderersUpdate(float _DeltaTime);
 	void DebugUpdate(float _DeltaTime);
 private:

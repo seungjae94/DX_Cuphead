@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "Platform.h"
 
-UPlatform::UPlatform()
+APlatform::APlatform()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
 	SetRoot(Root);
@@ -15,18 +15,18 @@ UPlatform::UPlatform()
 	Collision->SetCollisionType(ECollisionType::RotRect);
 }
 
-UPlatform::~UPlatform()
+APlatform::~APlatform()
 {
 }
 
-void UPlatform::BeginPlay()
+void APlatform::BeginPlay()
 {
 	Super::BeginPlay();
 
 	Renderer->SetAutoSize(1.0f, true);
 }
 
-void UPlatform::Tick(float _DeltaTime)
+void APlatform::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
@@ -49,10 +49,6 @@ void UPlatform::Tick(float _DeltaTime)
 	{
 		AddActorLocation(Velocity * _DeltaTime);
 
-		Collision->CollisionStay(ECollisionGroup::PlayerPhysicsBot, [this, _DeltaTime](std::shared_ptr<UCollision> _Collision) {
-			_Collision->GetActor()->AddActorLocation(Velocity * _DeltaTime);
-			});
-
 		float PosX = GetActorLocation().X;
 
 		if (PosX < -700.0f || PosX > 700.0f)
@@ -62,57 +58,62 @@ void UPlatform::Tick(float _DeltaTime)
 	}
 }
 
-void UPlatform::CreateAnimation(std::string_view _AnimName, std::string_view _SpriteName, float _Interval, bool _Loop)
+void APlatform::CreateAnimation(std::string_view _AnimName, std::string_view _SpriteName, float _Interval, bool _Loop)
 {
 	Renderer->CreateAnimation(_AnimName, _SpriteName, _Interval, _Loop);
 }
 
-void UPlatform::ChangeAnimation(std::string_view _AnimName)
+void APlatform::ChangeAnimation(std::string_view _AnimName)
 {
 	Renderer->ChangeAnimation(_AnimName);
 }
 
-void UPlatform::SetCollisionPosition(const FVector& _Position)
+void APlatform::SetCollisionPosition(const FVector& _Position)
 {
 	Collision->SetPosition(_Position);
 }
 
-void UPlatform::SetCollisionScale(const FVector& _Scale)
+void APlatform::SetCollisionScale(const FVector& _Scale)
 {
 	Collision->SetScale(_Scale);
 }
 
-void UPlatform::SetRenderingOrder(ERenderingOrder _Order)
+void APlatform::SetRenderingOrder(ERenderingOrder _Order)
 {
 	Renderer->SetOrder(_Order);
 }
 
-void UPlatform::SetOnStepEnter(std::function<void(std::shared_ptr<UCollision>)> _OnStepEnter)
+void APlatform::SetOnStepEnter(std::function<void(std::shared_ptr<UCollision>)> _OnStepEnter)
 {
 	OnStepEnter = _OnStepEnter;
 }
 
-void UPlatform::SetOnStepStay(std::function<void(std::shared_ptr<UCollision>)> _OnStepStay)
+void APlatform::SetOnStepStay(std::function<void(std::shared_ptr<UCollision>)> _OnStepStay)
 {
 	OnStepStay = _OnStepStay;
 }
 
-void UPlatform::SetOnStepExit(std::function<void(std::shared_ptr<UCollision>)> _OnStepExit)
+void APlatform::SetOnStepExit(std::function<void(std::shared_ptr<UCollision>)> _OnStepExit)
 {
 	OnStepExit = _OnStepExit;
 }
 
-void UPlatform::SetFrameCallback(std::string_view _AnimName, int _Index, std::function<void()> _Callback)
+void APlatform::SetFrameCallback(std::string_view _AnimName, int _Index, std::function<void()> _Callback)
 {
 	Renderer->SetFrameCallback(_AnimName, _Index, _Callback);
 }
 
-void UPlatform::SetVelocity(const FVector& _Velocity)
+void APlatform::SetVelocity(const FVector& _Velocity)
 {
 	Velocity = _Velocity;
 }
 
-void UPlatform::MoveStart()
+FVector APlatform::GetVelocity() const
+{
+	return Velocity;
+}
+
+void APlatform::MoveStart()
 {
 	MoveStarted = true;
 }

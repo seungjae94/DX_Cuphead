@@ -126,7 +126,7 @@ void ABossDragonGameMode::Phase1Start()
 {
 	CloudSpawnTimer = 0.0f;
 
-	for (UPlatform* Cloud : Clouds)
+	for (APlatform* Cloud : Clouds)
 	{
 		Cloud->MoveStart();
 	}
@@ -142,10 +142,10 @@ void ABossDragonGameMode::Phase1(float _DeltaTime)
 	}
 
 	// 구름 발판 생성
-	UPlatform* FirstCloud = SpawnCloud(false);
+	APlatform* FirstCloud = SpawnCloud(false);
 
 	DelayCallBack(1.0f, [this, FirstCloud]() {
-		UPlatform* SecondCloud = SpawnCloud(false);
+		APlatform* SecondCloud = SpawnCloud(false);
 		float FirstCloudY = FirstCloud->GetActorLocation().Y;
 		SecondCloud->SetActorLocation({ 600.0f, FirstCloudY + 150.0f, 0.0f });
 		});
@@ -205,9 +205,9 @@ void ABossDragonGameMode::Phase3End()
 {
 }
 
-UPlatform* ABossDragonGameMode::SpawnCloud(bool _SetLocation, const FVector& _Location)
+APlatform* ABossDragonGameMode::SpawnCloud(bool _SetLocation, const FVector& _Location)
 {
-	UPlatform* Cloud = GetWorld()->SpawnActor<UPlatform>("Cloud").get();
+	APlatform* Cloud = GetWorld()->SpawnActor<APlatform>("Cloud").get();
 
 	if (false == _SetLocation)
 	{

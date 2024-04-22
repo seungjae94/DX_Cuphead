@@ -1,16 +1,16 @@
 #pragma once
 
-class UPlatform : public AActor
+class APlatform : public AActor
 {
 	GENERATED_BODY(AActor)
 public:
-	UPlatform();
-	~UPlatform();
+	APlatform();
+	~APlatform();
 
-	UPlatform(const UPlatform& _Other) = delete;
-	UPlatform(UPlatform&& _Other) noexcept = delete;
-	UPlatform& operator=(const UPlatform& _Other) = delete;
-	UPlatform& operator=(UPlatform&& _Other) noexcept = delete;
+	APlatform(const APlatform& _Other) = delete;
+	APlatform(APlatform&& _Other) noexcept = delete;
+	APlatform& operator=(const APlatform& _Other) = delete;
+	APlatform& operator=(APlatform&& _Other) noexcept = delete;
 
 	void CreateAnimation(std::string_view _AnimName, std::string_view _SpriteName, float _Interval, bool _Loop);
 	void ChangeAnimation(std::string_view _AnimName);
@@ -24,6 +24,7 @@ public:
 	void SetFrameCallback(std::string_view _AnimName, int _Index, std::function<void()> _Callback);
 
 	void SetVelocity(const FVector& _Velocity);
+	FVector GetVelocity() const;
 
 	void MoveStart();
 

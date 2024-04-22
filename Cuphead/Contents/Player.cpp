@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
 #include "AnimationEffect.h"
+#include "Platform.h"
 
 APlayer::APlayer()
 {
@@ -97,6 +98,7 @@ void APlayer::Tick(float _DeltaTime)
 	FireTime -= _DeltaTime;
 	SpriteDirUpdate(_DeltaTime);
 	StateManager.Update(_DeltaTime);
+	PlatformMovementUpdate(_DeltaTime);
 	ChildRenderersUpdate(_DeltaTime);
 	DebugUpdate(_DeltaTime);
 }
@@ -106,6 +108,20 @@ void APlayer::SpriteDirUpdate(float _DeltaTime)
 	EEngineDir PrevDirection = Direction;
 	RefreshDirection();
 	Renderer->SetDir(Direction);
+}
+
+void APlayer::PlatformMovementUpdate(float _DeltaTime)
+{
+	BotCollision->CollisionStay(ECollisionGroup::Platform, [this, _DeltaTime](std::shared_ptr<UCollision> _PlatformCollision) {
+		APlatform* Platform = dynamic_cast<APlatform*>(_PlatformCollision->GetActor());
+		FVector Velocity = Platform->GetVelocity();
+		AddActorLocation(Velocity * _DeltaTime);
+
+		if (true == IsLeftCollisionOccur() || true == IsRightCollisionOccur())
+		{
+			AddActorLocation(-Velocity * _DeltaTime);
+		}
+	});
 }
 
 void APlayer::ChildRenderersUpdate(float _DeltaTime)
