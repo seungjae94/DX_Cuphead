@@ -234,6 +234,7 @@ void APotato::Attack(float _DeltaTime)
 
 	++AttackCount;
 
+	PotatoRenderer->AnimationReset();
 	PotatoRenderer->ChangeAnimation("potato_attack");
 	if (MaxAttackCount == AttackCount)
 	{
