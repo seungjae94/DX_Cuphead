@@ -327,14 +327,14 @@ void APlayer::MoveUpToGround()
 bool APlayer::TestDownJump()
 {
 	bool TestResult = false;
-	AddActorLocation(FVector::Down * 5.0f);
+	AddActorLocation(FVector::Down * DownJumpCheckScale);
 
 	if (false == IsGroundCollisionOccur())
 	{
 		TestResult = true;
 	}
 
-	AddActorLocation(FVector::Up * 5.0f);
+	AddActorLocation(FVector::Up * DownJumpCheckScale);
 
 	return TestResult;
 }

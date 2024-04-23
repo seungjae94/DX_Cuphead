@@ -3,6 +3,7 @@
 
 void APlayer::AnimationInit()
 {
+	Renderer->CreateAnimation(GAnimName::PlayerIntro, GImageName::PlayerIntro, 1 / 12.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerIdle, GImageName::PlayerIdle, 1 / 12.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerShootUp, GImageName::PlayerShootUp, 1 / 12.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerShootHalfUp, GImageName::PlayerShootHalfUp, 1 / 12.0f);

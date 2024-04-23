@@ -75,6 +75,9 @@ private:
 	const float HitTime = 0.5f;
 	float HitTimer = 0.0f;
 
+	// Jump
+	const float DownJumpCheckScale = 10.0f;
+
 	// Collision
 	std::string ColMapName = "";
 	const FVector BodyCollisionDefaultPosition = { 0.0f, 62.0f };
@@ -115,6 +118,10 @@ private:
 	// ป๓ลย
 	void StateInit();
 	void ChangeState(std::string _StateName);
+
+	void IntroStart();
+	void Intro(float _DeltaTime);
+	void IntroEnd();
 
 	void IdleStart();
 	void Idle(float _DeltaTime);

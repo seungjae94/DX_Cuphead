@@ -103,6 +103,7 @@ void UCupheadCore::LoadResources()
 			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
 		}
 
+		UEngineSprite::CreateCutting(GImageName::PlayerIntro, 28, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerIdle, 5, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerJump, 8, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerParry, 8, 1);

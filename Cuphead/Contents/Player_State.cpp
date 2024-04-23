@@ -5,6 +5,7 @@
 
 void APlayer::StateInit()
 {
+	StateManager.CreateState(GStateName::Intro);
 	StateManager.CreateState(GStateName::Idle);
 	StateManager.CreateState(GStateName::Run);
 	StateManager.CreateState(GStateName::Sit);
@@ -12,6 +13,12 @@ void APlayer::StateInit()
 	StateManager.CreateState(GStateName::Dash);
 	StateManager.CreateState(GStateName::Jump);
 	StateManager.CreateState(GStateName::Parry);
+
+	StateManager.SetFunction(GStateName::Intro,
+		std::bind(&APlayer::IntroStart, this),
+		std::bind(&APlayer::Intro, this, std::placeholders::_1),
+		std::bind(&APlayer::IntroEnd, this)
+	);
 
 	StateManager.SetStartFunction(GStateName::Idle, std::bind(&APlayer::IdleStart, this));
 	StateManager.SetUpdateFunction(GStateName::Idle, std::bind(&APlayer::Idle, this, std::placeholders::_1));
@@ -41,7 +48,7 @@ void APlayer::StateInit()
 	StateManager.SetUpdateFunction(GStateName::Hit, std::bind(&APlayer::Hit, this, std::placeholders::_1));
 	StateManager.SetEndFunction(GStateName::Hit, std::bind(&APlayer::HitEnd, this));
 
-	StateManager.ChangeState(GStateName::Idle);
+	StateManager.ChangeState(GStateName::Intro);
 }
 
 void APlayer::ChangeState(std::string _StateName)
@@ -49,6 +56,23 @@ void APlayer::ChangeState(std::string _StateName)
 	PrevStateName = CurStateName;
 	CurStateName = _StateName;
 	StateManager.ChangeState(_StateName);
+}
+
+void APlayer::IntroStart()
+{
+	Renderer->ChangeAnimation(GAnimName::PlayerIntro);
+}
+
+void APlayer::Intro(float _DeltaTime)
+{
+	if (true == Renderer->IsCurAnimationEnd())
+	{
+		StateManager.ChangeState("Idle");
+	}
+}
+
+void APlayer::IntroEnd()
+{
 }
 
 void APlayer::IdleStart()
@@ -73,12 +97,12 @@ void APlayer::Idle(float _DeltaTime)
 		// 아래 점프 테스트
 		if (true == IsPress(VK_DOWN) && true == TestDownJump())
 		{
-			AddActorLocation(FVector::Down * 5.0f);
+			AddActorLocation(FVector::Down * DownJumpCheckScale);
 			ChangeState(GStateName::Jump);
 			return;
 		}
 
-		AddActorLocation(FVector::Up * 3.0f);
+		AddActorLocation(FVector::Up * DownJumpCheckScale);
 		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
 		return;
@@ -385,11 +409,12 @@ void APlayer::Sit(float _DeltaTime)
 		// 아래 점프 테스트
 		if (true == IsPress(VK_DOWN) && true == TestDownJump())
 		{
-			AddActorLocation(FVector::Down * 5.0f);
+			AddActorLocation(FVector::Down * DownJumpCheckScale);
 			ChangeState(GStateName::Jump);
 			return;
 		}
 
+		AddActorLocation(FVector::Up * DownJumpCheckScale);
 		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
 		return;

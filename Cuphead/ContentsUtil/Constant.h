@@ -41,6 +41,7 @@ namespace GImageName
 	const std::string OverworldCharDust = "overworld_char_dust";
 
 	// 플레이어
+	const std::string PlayerIntro = "player_intro.png";
 	const std::string PlayerIdle = "player_idle.png";
 	const std::string PlayerShootUp = "player_shoot_up";
 	const std::string PlayerShootHalfUp = "player_shoot_halfup";
@@ -93,6 +94,7 @@ namespace GAnimName
 	const std::string OverworldCharDust = "overworld_char_dust";
 
 	// 플레이어
+	const std::string PlayerIntro = "player_intro";
 	const std::string PlayerIdle = "player_idle";
 	const std::string PlayerShootUp = "player_shoot_up";
 	const std::string PlayerShootHalfUp = "player_shoot_halfup";
@@ -127,6 +129,7 @@ namespace GAnimName
 
 namespace GStateName
 {
+	const std::string Intro = "Intro";
 	const std::string Idle = "Idle";
 	const std::string Aim = "Aim";
 	const std::string Walk = "Walk";

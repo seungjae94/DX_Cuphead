@@ -95,6 +95,8 @@ void ABossDragonGameMode::StateInit()
 
 void ABossDragonGameMode::IntroStart()
 {
+	Player->SetActorLocation({ -450.0f, -223.0f, 0.0f });
+
 	Dragon1 = GetWorld()->SpawnActor<ADragon1>("Dragon1").get();
 	Dragon1->SetPlayer(Player);
 	Dragon1->PlayIntroAnimation();
@@ -112,8 +114,6 @@ void ABossDragonGameMode::IntroStart()
 	SpawnCloud(true, { 100.0f, -250.0f, 0.0f });
 	SpawnCloud(true, { 200.0f, 25.0f, 0.0f });
 	SpawnCloud(true, { 300.0f, 225.0f, 0.0f });
-
-	Player->SetActorLocation({ -450.0f, -50.0f, 0.0f });
 }
 
 void ABossDragonGameMode::Intro(float _DeltaTime)
@@ -247,7 +247,7 @@ APlatform* ABossDragonGameMode::SpawnCloud(bool _SetLocation, const FVector& _Lo
 	Cloud->SetVelocity(FVector::Left * 100.0f);
 	Cloud->SetRenderingOrder(ERenderingOrder::Back3);
 	Cloud->SetCollisionPosition(FVector::Zero);
-	Cloud->SetCollisionScale({ 150.0f, 1.0f, 1.0f });
+	Cloud->SetCollisionScale({ 150.0f, 5.0f, 1.0f });
 
 	Cloud->CreateAnimation("dragon1_cloud_idle", "dragon1_cloud_idle.png", 1 / 12.0f, true);
 	Cloud->CreateAnimation("dragon1_cloud_down_idle", "dragon1_cloud_down_idle.png", 1 / 12.0f, true);
