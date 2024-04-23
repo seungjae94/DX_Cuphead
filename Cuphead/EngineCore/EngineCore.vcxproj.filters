@@ -172,6 +172,9 @@
     <ClInclude Include="BlurEffect.h">
       <Filter>Object\Rendering\Contents</Filter>
     </ClInclude>
+    <ClInclude Include="EngineStructuredBuffer.h">
+      <Filter>Resources\ShaderResources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -335,6 +338,9 @@
     </ClCompile>
     <ClCompile Include="BlurEffect.cpp">
       <Filter>Object\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineStructuredBuffer.cpp">
+      <Filter>Resources\ShaderResources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -114,6 +114,8 @@ private:
 
 	std::map<int, std::list<std::shared_ptr<URenderer>>> Renderers;
 
+	// std::map<int, > Renderers;
+
 	std::map<int, std::list<std::shared_ptr<UCollision>>> Collisions;
 
 	// Widget이라고 불리고

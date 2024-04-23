@@ -164,6 +164,15 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			NewSetter.Slot = ResDesc.BindPoint;
 			break;
 		}
+		case D3D_SIT_STRUCTURED:
+		{
+			//ResDesc.Name;
+			//UEngineSamplerSetter& NewSetter = Samplers[_Type][UpperName];
+			//NewSetter.SetName(ResDesc.Name);
+			//NewSetter.Type = _Type;
+			//NewSetter.Slot = ResDesc.BindPoint;
+			break;
+		}
 		default:
 			MsgBoxAssert("처리할수 없는 타입입니다.");
 			break;

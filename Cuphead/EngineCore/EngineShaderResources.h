@@ -23,6 +23,19 @@ public:
 	void Reset();
 };
 
+class UEngineStructuredBufferSetter : public USetterBase
+{
+public:
+	std::shared_ptr<class UEngineStructuredBuffer> Res;
+	const void* CPUData = nullptr;
+	UINT BufferSize = 0;
+
+	//void Setting();
+	//void Reset();
+};
+
+
+
 class UEngineTextureSetter : public USetterBase
 {
 public:
