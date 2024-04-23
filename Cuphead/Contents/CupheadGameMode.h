@@ -24,10 +24,13 @@ protected:
 	void Tick(float _DeltaTime) override;
 	void LevelStart(ULevel* _PrevLevel) override;
 	void LevelEnd(ULevel* _NextLevel) override;
+
+	bool IsFadeIn() const;
+	bool IsFadeOut() const;
 private:
 	// 페이드 효과
-	bool IsFadeIn = false;
-	bool IsFadeOut = false;
+	bool IsFadeInChecker = false;
+	bool IsFadeOutChecker = false;
 	void FadeInStart();
 	void FadeOutStart();
 	std::string NextLevelName;

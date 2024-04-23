@@ -50,16 +50,16 @@ void ACupheadGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	if (true == IsFadeIn)
+	if (true == IsFadeInChecker)
 	{
 		if (true == FadeIn->IsCurAnimationEnd())
 		{
-			IsFadeIn = false;
+			IsFadeInChecker = false;
 			FadeIn->SetActive(false);
 		}
 	}
 
-	if (true == IsFadeOut)
+	if (true == IsFadeOutChecker)
 	{
 		if (true == FadeOut->IsCurAnimationEnd())
 		{
@@ -81,25 +81,35 @@ void ACupheadGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 
-	if (true == IsFadeOut)
+	if (true == IsFadeOutChecker)
 	{
-		IsFadeOut = false;
+		IsFadeOutChecker = false;
 		
 		ACupheadGameMode* NextGameMode = dynamic_pointer_cast<ACupheadGameMode>(_NextLevel->GetGameMode()).get();
 		NextGameMode->FadeInStart();
 	}
 }
 
+bool ACupheadGameMode::IsFadeIn() const
+{
+	return IsFadeInChecker;
+}
+
+bool ACupheadGameMode::IsFadeOut() const
+{
+	return IsFadeOutChecker;
+}
+
 void ACupheadGameMode::FadeInStart()
 {
-	IsFadeIn = true;
+	IsFadeInChecker = true;
 	FadeIn->SetActive(true);
 	FadeIn->ChangeAnimation("fade_in");
 }
 
 void ACupheadGameMode::FadeOutStart()
 {
-	IsFadeOut = true;
+	IsFadeOutChecker = true;
 	FadeOut->SetActive(true);
 	FadeOut->ChangeAnimation("fade_out");
 }

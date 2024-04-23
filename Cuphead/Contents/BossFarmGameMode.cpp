@@ -45,18 +45,11 @@ void ABossFarmGameMode::DebugUpdate(float _DeltaTime)
 
 void ABossFarmGameMode::StateInit()
 {
-	StateManager.CreateState("Intro");
 	StateManager.CreateState("PotatoBattle");
 	StateManager.CreateState("OnionIntro");
 	StateManager.CreateState("OnionBattle");
 	StateManager.CreateState("CarrotIntro");
 	StateManager.CreateState("CarrotBattle");
-
-	StateManager.SetFunction("Intro",
-		std::bind(&ABossFarmGameMode::IntroStart, this),
-		std::bind(&ABossFarmGameMode::Intro, this, std::placeholders::_1),
-		std::bind(&ABossFarmGameMode::IntroEnd, this)
-	);
 
 	StateManager.SetFunction("PotatoBattle",
 		std::bind(&ABossFarmGameMode::PotatoBattleStart, this),
@@ -95,8 +88,7 @@ void ABossFarmGameMode::StateInit()
 
 void ABossFarmGameMode::IntroStart()
 {
-	// Ready Wallop
-	ShowReadyWallopMessage();
+	Super::IntroStart();
 
 	// 감자 등장 애니메이션
 	Potato = GetWorld()->SpawnActor<APotato>("Potato").get();

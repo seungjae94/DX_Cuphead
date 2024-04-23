@@ -22,8 +22,6 @@ public:
 
 protected:
 private:
-	UStateManager StateManager;
-	UEngineRandom Random;
 	ABossDragonMap* Map = nullptr;
 	APlayer* Player = nullptr;
 	ADragon1* Dragon1 = nullptr;
@@ -41,9 +39,9 @@ private:
 	void DebugUpdate(float _DeltaTime);
 private:
 	// 상태 함수
-	void IntroStart();
-	void Intro(float _DeltaTime);
-	void IntroEnd();
+	void IntroStart() override;
+	void Intro(float _DeltaTime) override;
+	void IntroEnd() override;
 
 	void Phase1Start();
 	void Phase1(float _DeltaTime);

@@ -19,6 +19,7 @@ void ABossDragonGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player").get();
+	Player->SetActorLocation({ -450.0f, -223.0f, 0.0f });
 
 	// 디버그용 픽셀 충돌
 	//Player->SetColMapName("boss_farm_map_col.png");
@@ -46,18 +47,11 @@ void ABossDragonGameMode::DebugUpdate(float _DeltaTime)
 
 void ABossDragonGameMode::StateInit()
 {
-	StateManager.CreateState("Intro");
 	StateManager.CreateState("Phase1");
 	StateManager.CreateState("Phase2Intro");
 	StateManager.CreateState("Phase2");
 	StateManager.CreateState("Phase3Intro");
 	StateManager.CreateState("Phase3");
-
-	StateManager.SetFunction("Intro",
-		std::bind(&ABossDragonGameMode::IntroStart, this),
-		std::bind(&ABossDragonGameMode::Intro, this, std::placeholders::_1),
-		std::bind(&ABossDragonGameMode::IntroEnd, this)
-	);
 
 	StateManager.SetFunction("Phase1",
 		std::bind(&ABossDragonGameMode::Phase1Start, this),
@@ -95,9 +89,7 @@ void ABossDragonGameMode::StateInit()
 
 void ABossDragonGameMode::IntroStart()
 {
-	ShowReadyWallopMessage();
-
-	Player->SetActorLocation({ -450.0f, -223.0f, 0.0f });
+	Super::IntroStart();
 
 	Dragon1 = GetWorld()->SpawnActor<ADragon1>("Dragon1").get();
 	Dragon1->SetPlayer(Player);

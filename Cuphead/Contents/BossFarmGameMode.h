@@ -23,7 +23,6 @@ public:
 
 protected:
 private:
-	UStateManager StateManager;
 	ABossFarmMap* Map = nullptr;
 	APlayer* Player = nullptr;
 	APotato* Potato = nullptr;
@@ -38,9 +37,9 @@ private:
 	void DebugUpdate(float _DeltaTime);
 private:
 	// 상태 함수
-	void IntroStart();
-	void Intro(float _DeltaTime);
-	void IntroEnd();
+	void IntroStart() override;
+	void Intro(float _DeltaTime) override;
+	void IntroEnd() override;
 
 	void PotatoBattleStart();
 	void PotatoBattle(float _DeltaTime);

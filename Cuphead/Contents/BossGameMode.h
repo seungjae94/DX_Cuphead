@@ -14,12 +14,19 @@ public:
 	ABossGameMode& operator=(ABossGameMode&& _Other) noexcept = delete;
 
 protected:
-	void BeginPlay() override;
+	UStateManager StateManager;
+	UEngineRandom Random;
 
-	void ShowReadyWallopMessage();
-	void ShowKnockOutMessage();
+	void BeginPlay() override;
+	virtual void IntroStart();
+	virtual void Intro(float _DeltaTime);
+	virtual void IntroEnd();
 
 private:
 	UImage* BattleMessage = nullptr;
+
+	void FadeWaitStart();
+	void FadeWait(float _DeltaTime);
+	void FadeWaitEnd();
 };
 
