@@ -1,5 +1,5 @@
 #pragma once
-#include "CupheadGameMode.h"
+#include "BossGameMode.h"
 
 class ABossDragonMap;
 class ADragon1;
@@ -8,9 +8,9 @@ class ADragon3;
 class APlayer;
 class APlatform;
 
-class ABossDragonGameMode : public ACupheadGameMode
+class ABossDragonGameMode : public ABossGameMode
 {
-	GENERATED_BODY(ACupheadGameMode)
+	GENERATED_BODY(ABossGameMode)
 public:
 	ABossDragonGameMode();
 	~ABossDragonGameMode();

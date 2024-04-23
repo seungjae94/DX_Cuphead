@@ -95,6 +95,8 @@ void ABossDragonGameMode::StateInit()
 
 void ABossDragonGameMode::IntroStart()
 {
+	ShowReadyWallopMessage();
+
 	Player->SetActorLocation({ -450.0f, -223.0f, 0.0f });
 
 	Dragon1 = GetWorld()->SpawnActor<ADragon1>("Dragon1").get();

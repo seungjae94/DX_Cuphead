@@ -20,6 +20,7 @@ void ABossFarmGameMode::BeginPlay()
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player").get();
 	Player->SetColMapName("boss_farm_map_col.png");
+	Player->SetActorLocation({-300.0f, -285.0f, 0.0f});
 
 	Map = GetWorld()->SpawnActor<ABossFarmMap>("Map").get();
 
@@ -94,9 +95,8 @@ void ABossFarmGameMode::StateInit()
 
 void ABossFarmGameMode::IntroStart()
 {
-	// 페이드 애니메이션
-
-	// Ready Wallop 애니메이션
+	// Ready Wallop
+	ShowReadyWallopMessage();
 
 	// 감자 등장 애니메이션
 	Potato = GetWorld()->SpawnActor<APotato>("Potato").get();
@@ -104,8 +104,6 @@ void ABossFarmGameMode::IntroStart()
 	Potato->SetPotatoFrameCallback("potato_intro", 9, [this]() {
 		StateManager.ChangeState("PotatoBattle");
 		});
-
-	// 플레이어 인트로 애니메이션
 }
 
 void ABossFarmGameMode::Intro(float _DeltaTime)

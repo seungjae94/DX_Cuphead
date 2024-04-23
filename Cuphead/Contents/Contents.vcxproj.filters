@@ -63,9 +63,6 @@
     <ClInclude Include="OverworldGameMode.h">
       <Filter>Level\02. Overworld Level</Filter>
     </ClInclude>
-    <ClInclude Include="CupheadGameMode.h">
-      <Filter>Level\00. Common</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
@@ -132,6 +129,12 @@
     <ClInclude Include="BossLevelEntrance.h">
       <Filter>Level\02. Overworld Level</Filter>
     </ClInclude>
+    <ClInclude Include="CupheadGameMode.h">
+      <Filter>Level\00. Common\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BossGameMode.h">
+      <Filter>Level\03. Boss Level\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -151,9 +154,6 @@
     </ClCompile>
     <ClCompile Include="OverworldGameMode.cpp">
       <Filter>Level\02. Overworld Level</Filter>
-    </ClCompile>
-    <ClCompile Include="CupheadGameMode.cpp">
-      <Filter>Level\00. Common</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Level\03. Boss Level\Common</Filter>
@@ -235,6 +235,12 @@
     </ClCompile>
     <ClCompile Include="BossLevelEntrance.cpp">
       <Filter>Level\02. Overworld Level</Filter>
+    </ClCompile>
+    <ClCompile Include="CupheadGameMode.cpp">
+      <Filter>Level\00. Common\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BossGameMode.cpp">
+      <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

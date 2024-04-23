@@ -1,5 +1,5 @@
 #pragma once
-#include "CupheadGameMode.h"
+#include "BossGameMode.h"
 
 class ABossFarmMap;
 class APotato;
@@ -7,9 +7,9 @@ class AOnion;
 class ACarrot;
 class APlayer;
 
-class ABossFarmGameMode : public ACupheadGameMode
+class ABossFarmGameMode : public ABossGameMode
 {
-	GENERATED_BODY(ACupheadGameMode)
+	GENERATED_BODY(ABossGameMode)
 public:
 	// constructor destructor
 	ABossFarmGameMode();
