@@ -60,5 +60,9 @@ private:
 	void CarrotBattleStart();
 	void CarrotBattle(float _DeltaTime);
 	void CarrotBattleEnd();
+
+	void FinishStart();
+	void Finish(float _DeltaTime);
+	void FinishEnd();
 };
 

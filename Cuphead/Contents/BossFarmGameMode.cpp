@@ -50,6 +50,7 @@ void ABossFarmGameMode::StateInit()
 	StateManager.CreateState("OnionBattle");
 	StateManager.CreateState("CarrotIntro");
 	StateManager.CreateState("CarrotBattle");
+	StateManager.CreateState("Finish");
 
 	StateManager.SetFunction("PotatoBattle",
 		std::bind(&ABossFarmGameMode::PotatoBattleStart, this),
@@ -79,6 +80,12 @@ void ABossFarmGameMode::StateInit()
 		std::bind(&ABossFarmGameMode::CarrotBattleStart, this),
 		std::bind(&ABossFarmGameMode::CarrotBattle, this, std::placeholders::_1),
 		std::bind(&ABossFarmGameMode::CarrotBattleEnd, this)
+	);
+
+	StateManager.SetFunction("Finish",
+		std::bind(&ABossFarmGameMode::FinishStart, this),
+		std::bind(&ABossFarmGameMode::Finish, this, std::placeholders::_1),
+		std::bind(&ABossFarmGameMode::FinishEnd, this)
 	);
 
 	StateManager.ChangeState("Intro");
@@ -188,12 +195,33 @@ void ABossFarmGameMode::CarrotBattleStart()
 
 void ABossFarmGameMode::CarrotBattle(float _DeltaTime)
 {
-	if (true == Carrot->IsFinished())
+	if (true == Carrot->IsFainted())
 	{
-		// TODO: 전투 종료 처리
+		StateManager.ChangeState("Finish");
+		ShowKnockOutMessage([this]() {
+			Carrot->ResumeFaint();
+			});
+		return;
 	}
 }
 
 void ABossFarmGameMode::CarrotBattleEnd()
+{
+}
+
+void ABossFarmGameMode::FinishStart()
+{
+
+}
+
+void ABossFarmGameMode::Finish(float _DeltaTime)
+{
+	if (true == Carrot->IsFinished())
+	{
+		ChangeLevelWithFadeEffect(GLevelName::OverworldLevel);
+	}
+}
+
+void ABossFarmGameMode::FinishEnd()
 {
 }
