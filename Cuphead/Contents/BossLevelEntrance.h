@@ -15,6 +15,9 @@ public:
 	void SetLevelName(std::string_view _LevelName);
 	void SetAnimation(std::string_view _AnimName, std::string_view _SpriteName, float _Inter);
 
+	UCollision* GetBlockCollision();
+	UCollision* GetChangeLevelCollision();
+
 protected:
 
 private:
@@ -24,7 +27,8 @@ private:
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
-	UCollision* Collision = nullptr;
+	UCollision* BlockCollision = nullptr;
+	UCollision* ChangeLevelCollision = nullptr;
 	std::string LevelName;
 };
 

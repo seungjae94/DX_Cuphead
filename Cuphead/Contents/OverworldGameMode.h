@@ -1,6 +1,7 @@
 #pragma once
 #include "CupheadGameMode.h"
 
+class AOverworldPlayer;
 class AOverworldMap;
 
 class AOverworldGameMode : public ACupheadGameMode
@@ -18,6 +19,7 @@ public:
 protected:
 
 private:
+	AOverworldPlayer* Player = nullptr;
 	AOverworldMap* Map = nullptr;
 
 	void BeginPlay() override;

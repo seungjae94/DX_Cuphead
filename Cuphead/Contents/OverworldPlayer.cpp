@@ -8,6 +8,11 @@ AOverworldPlayer::AOverworldPlayer()
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
+
+	Collision = CreateDefaultSubObject<UCollision>("Collision");
+	Collision->SetupAttachment(Root);
+	Collision->SetCollisionGroup(ECollisionGroup::PlayerHitBox);
+	Collision->SetCollisionType(ECollisionType::RotRect);
 }
 
 AOverworldPlayer::~AOverworldPlayer()
@@ -25,6 +30,9 @@ void AOverworldPlayer::BeginPlay()
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetOrder(ERenderingOrder::Character);
 
+	Collision->SetScale({ 50.0f, 80.0f, 1.0f });
+	Collision->SetPosition({ 0.0f, 0.0f, 0.0f });
+
 	AnimationInit();
 	StateInit();
 
@@ -35,7 +43,18 @@ void AOverworldPlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	FVector PrevPos = GetActorLocation();
+
 	StateManager.Update(_DeltaTime);
+
+	if (true == Collision->CollisionEnter(ECollisionGroup::BossLevelEntranceBlock, nullptr))
+	{
+		SetActorLocation(PrevPos);
+	}
+
+	Collision->CollisionEnter(ECollisionGroup::BossLevelEntranceBlock, [this, PrevPos](std::shared_ptr<UCollision> _Other) {
+		SetActorLocation(PrevPos);
+	});
 
 	// 카메라 이동 처리
 	BringCamera();

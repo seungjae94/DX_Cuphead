@@ -14,14 +14,13 @@ public:
 	AOverworldPlayer& operator=(const AOverworldPlayer& _Other) = delete;
 	AOverworldPlayer& operator=(AOverworldPlayer&& _Other) noexcept = delete;
 
-	void SetNoise(ANoise* _Noise);
-
 protected:
 
 private:
 	// ÄÄÆ÷³ÍÆ®
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+	UCollision* Collision = nullptr;
 
 private:
 	UStateManager StateManager;

@@ -146,7 +146,8 @@ namespace GStateName
 
 enum class ECollisionGroup
 {
-	BossLevelEntrance,
+	BossLevelEntranceBlock,
+	BossLevelEntranceChangeLevel,
 	Platform,
 	Bullet,
 	Monster,
@@ -167,6 +168,7 @@ enum class ERenderingOrder
 	Back7,
 	BulletSpawn,
 	Character,
+	Entrance,
 	Bullet,
 	Front,
 	Collider,

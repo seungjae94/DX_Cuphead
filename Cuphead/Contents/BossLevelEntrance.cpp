@@ -9,12 +9,17 @@ ABossLevelEntrance::ABossLevelEntrance()
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
-	Renderer->SetOrder(ERenderingOrder::Back3);
+	Renderer->SetOrder(ERenderingOrder::Entrance);
 
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
-	Collision->SetupAttachment(Root);
-	Collision->SetCollisionGroup(ECollisionGroup::BossLevelEntrance);
-	Collision->SetCollisionType(ECollisionType::Rect);
+	BlockCollision = CreateDefaultSubObject<UCollision>("BlockCollision");
+	BlockCollision->SetupAttachment(Root);
+	BlockCollision->SetCollisionGroup(ECollisionGroup::BossLevelEntranceBlock);
+	BlockCollision->SetCollisionType(ECollisionType::RotRect);
+
+	ChangeLevelCollision = CreateDefaultSubObject<UCollision>("ChangeLevelCollision");
+	ChangeLevelCollision->SetupAttachment(Root);
+	ChangeLevelCollision->SetCollisionGroup(ECollisionGroup::BossLevelEntranceChangeLevel);
+	ChangeLevelCollision->SetCollisionType(ECollisionType::RotRect);
 }
 
 ABossLevelEntrance::~ABossLevelEntrance()
@@ -31,7 +36,16 @@ void ABossLevelEntrance::SetAnimation(std::string_view _AnimName, std::string_vi
 	Renderer->CreateAnimation(_AnimName, _SpriteName, _Inter, true);
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->ChangeAnimation(_AnimName);
-	Collision->SetScale(Renderer->GetWorldScale());
+}
+
+UCollision* ABossLevelEntrance::GetBlockCollision()
+{
+	return BlockCollision;
+}
+
+UCollision* ABossLevelEntrance::GetChangeLevelCollision()
+{
+	return ChangeLevelCollision;
 }
 
 void ABossLevelEntrance::BeginPlay()
@@ -43,10 +57,10 @@ void ABossLevelEntrance::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	Collision->CollisionStay(ECollisionGroup::PlayerHitBox, [this](std::shared_ptr<UCollision> _Other) {
+	BlockCollision->CollisionEnter(ECollisionGroup::PlayerHitBox, [this](std::shared_ptr<UCollision> _Other) {
 		// TODO: UI만 표시하도록 수정
-		ACupheadGameMode* CurGameMode = dynamic_pointer_cast<ACupheadGameMode>(GetWorld()->GetGameMode()).get();
-		CurGameMode->ChangeLevelWithFadeEffect(LevelName);
+		//ACupheadGameMode* CurGameMode = dynamic_pointer_cast<ACupheadGameMode>(GetWorld()->GetGameMode()).get();
+		//CurGameMode->ChangeLevelWithFadeEffect(LevelName);
 	});
 
 	DebugUpdate(_DeltaTime);
@@ -65,7 +79,7 @@ void ABossLevelEntrance::DebugUpdate(float _DeltaTime)
 	}
 
 	{
-		std::string Msg = std::format("{} Collision Scale: {}", GetName(), Collision->GetWorldScale().ToString());
+		std::string Msg = std::format("{} Collision Scale: {}", GetName(), BlockCollision->GetWorldScale().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }
