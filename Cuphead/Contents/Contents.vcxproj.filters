@@ -43,6 +43,12 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{5ea4a7a1-725c-426e-8ee9-506fb4c58d30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03. Boss Level\Player">
+      <UniqueIdentifier>{e07d7d4a-dcd5-4e48-a2ea-16dc7ff70a4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. Boss Level\Boss">
+      <UniqueIdentifier>{9541c786-5160-420f-a009-a64839a690a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CupheadCore.h">
@@ -62,9 +68,6 @@
     </ClInclude>
     <ClInclude Include="OverworldGameMode.h">
       <Filter>Level\02. Overworld Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Level\03. Boss Level\Common</Filter>
@@ -97,9 +100,6 @@
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
     <ClInclude Include="BossAttack.h">
-      <Filter>Level\03. Boss Level\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
     <ClInclude Include="Onion.h">
@@ -135,6 +135,18 @@
     <ClInclude Include="BossGameMode.h">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Level\03. Boss Level\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Level\03. Boss Level\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="FaintableBoss.h">
+      <Filter>Level\03. Boss Level\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalBoss.h">
+      <Filter>Level\03. Boss Level\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -155,19 +167,7 @@
     <ClCompile Include="OverworldGameMode.cpp">
       <Filter>Level\02. Overworld Level</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Level\03. Boss Level\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Player_State.cpp">
-      <Filter>Level\03. Boss Level\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Player_Anim.cpp">
-      <Filter>Level\03. Boss Level\Common</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Level\03. Boss Level\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Player_Fire.cpp">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
     <ClCompile Include="BossFarmMap.cpp">
@@ -206,9 +206,6 @@
     <ClCompile Include="BossAttack.cpp">
       <Filter>Level\03. Boss Level\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Level\03. Boss Level\Common</Filter>
-    </ClCompile>
     <ClCompile Include="Onion.cpp">
       <Filter>Level\03. Boss Level\Farm</Filter>
     </ClCompile>
@@ -241,6 +238,27 @@
     </ClCompile>
     <ClCompile Include="BossGameMode.cpp">
       <Filter>Level\03. Boss Level\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Level\03. Boss Level\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_Anim.cpp">
+      <Filter>Level\03. Boss Level\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_Fire.cpp">
+      <Filter>Level\03. Boss Level\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_State.cpp">
+      <Filter>Level\03. Boss Level\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Level\03. Boss Level\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="FaintableBoss.cpp">
+      <Filter>Level\03. Boss Level\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalBoss.cpp">
+      <Filter>Level\03. Boss Level\Boss</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

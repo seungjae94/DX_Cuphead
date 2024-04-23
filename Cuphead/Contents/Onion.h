@@ -1,9 +1,9 @@
 #pragma once
-#include "Enemy.h"
+#include "FaintableBoss.h"
 
-class AOnion : public AEnemy
+class AOnion : public AFaintableBoss
 {
-	GENERATED_BODY(AEnemy)
+	GENERATED_BODY(AFaintableBoss)
 public:
 	AOnion();
 	~AOnion();
@@ -20,33 +20,25 @@ public:
 	void SetOnionFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 
 	void StateChangeToAttack();
-	bool IsFinished() const;
 
 	void Damage(int _Damage) override;
 protected:
 private:
 	void BeginPlay() override;
-	void Tick(float _DeltaTime) override;
-	void DebugUpdate(float _DeltaTime);
 private:
 	void RendererInit();
 	void StateInit();
 private:
-	// 컴포넌트
-	UDefaultSceneComponent* Root = nullptr;
+	// 렌더러
 	USpriteRenderer* GroundRenderer = nullptr;
 	USpriteRenderer* OnionRenderer = nullptr;
 	USpriteRenderer* LeftTearRenderer = nullptr;
 	USpriteRenderer* RightTearRenderer = nullptr;
-	UCollision* Collision = nullptr;
 private:
 	// 로직 처리
-	UStateManager StateManager;
-	
 	const float AttackWaitTime = 2.0f;
 	float AttackWaitTimer = 0.0f;
 
-	UEngineRandom Random;
 	const float AttackTotalTime = 10.0f;
 	const float AttackInterval = 1.0f;
 	float AttackTotalTimer = 0.0f;
@@ -68,12 +60,8 @@ private:
 	void AttackWait(float _DeltaTime);
 	void AttackWaitEnd();
 
-	void FaintStart();
-	void Faint(float _DeltaTime);
-	void FaintEnd();
-
-	void FinishStart();
-	void Finish(float _DeltaTime);
-	void FinishEnd();
+	void FaintStart() override;
+	void Faint(float _DeltaTime) override;
+	void FaintEnd() override;
 };
 

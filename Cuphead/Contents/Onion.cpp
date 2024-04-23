@@ -4,32 +4,19 @@
 
 AOnion::AOnion()
 {
-	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	SetRoot(Root);
-
 	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
 	OnionRenderer = CreateDefaultSubObject<USpriteRenderer>("Onion");
 	LeftTearRenderer = CreateDefaultSubObject<USpriteRenderer>("LeftTear");
 	RightTearRenderer = CreateDefaultSubObject<USpriteRenderer>("RightTear");
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
 
 	GroundRenderer->SetupAttachment(Root);
 	OnionRenderer->SetupAttachment(Root);
 	LeftTearRenderer->SetupAttachment(Root);
 	RightTearRenderer->SetupAttachment(Root);
-	Collision->SetupAttachment(Root);
-
-	Collision->SetCollisionGroup(ECollisionGroup::Monster);
-	Collision->SetCollisionType(ECollisionType::Rect);
 }
 
 AOnion::~AOnion()
 {
-}
-
-bool AOnion::IsFinished() const
-{
-	return "Finish" == StateManager.GetCurStateName();
 }
 
 void AOnion::PlayGroundIntroAnimation()
@@ -105,27 +92,6 @@ void AOnion::BeginPlay()
 	Collision->SetActive(false);
 }
 
-void AOnion::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-
-	StateManager.Update(_DeltaTime);
-	DebugUpdate(_DeltaTime);
-}
-
-void AOnion::DebugUpdate(float _DeltaTime)
-{
-	{
-		std::string Msg = std::format("Onion Hp : {}\n", Hp);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Onion State : {}\n", StateManager.GetCurStateName());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-}
-
 void AOnion::RendererInit()
 {
 	OnionRenderer->CreateAnimation("onion_intro", "onion_intro.png", 1 / 12.0f, false);
@@ -195,8 +161,6 @@ void AOnion::StateInit()
 	StateManager.CreateState("Idle");
 	StateManager.CreateState("Attack");
 	StateManager.CreateState("AttackWait");
-	StateManager.CreateState("Faint");
-	StateManager.CreateState("Finish");
 
 	StateManager.SetFunction("Idle",
 		std::bind(&AOnion::IdleStart, this),
@@ -214,18 +178,6 @@ void AOnion::StateInit()
 		std::bind(&AOnion::AttackWaitStart, this),
 		std::bind(&AOnion::AttackWait, this, std::placeholders::_1),
 		std::bind(&AOnion::AttackWaitEnd, this)
-	);
-
-	StateManager.SetFunction("Faint",
-		std::bind(&AOnion::FaintStart, this),
-		std::bind(&AOnion::Faint, this, std::placeholders::_1),
-		std::bind(&AOnion::FaintEnd, this)
-	);
-
-	StateManager.SetFunction("Finish",
-		std::bind(&AOnion::FinishStart, this),
-		std::bind(&AOnion::Finish, this, std::placeholders::_1),
-		std::bind(&AOnion::FinishEnd, this)
 	);
 
 	StateManager.ChangeState("Idle");
@@ -327,6 +279,9 @@ void AOnion::AttackWaitEnd()
 
 void AOnion::FaintStart()
 {
+	Super::FaintStart();
+	SetFaintRange({ -100.0f, 100.0f, 0.0f, 400.0f });
+
 	OnionRenderer->ChangeAnimation("onion_faint");
 	LeftTearRenderer->SetActive(false);
 	RightTearRenderer->SetActive(false);
@@ -338,6 +293,8 @@ void AOnion::FaintStart()
 
 void AOnion::Faint(float _DeltaTime)
 {
+	Super::Faint(_DeltaTime);
+
 	ShrinkTimer -= _DeltaTime;
 
 	if (ShrinkTimer < 0.0f)
@@ -353,18 +310,8 @@ void AOnion::Faint(float _DeltaTime)
 
 void AOnion::FaintEnd()
 {
-}
+	Super::FaintEnd();
 
-void AOnion::FinishStart()
-{
 	OnionRenderer->SetActive(false);
 	GroundRenderer->SetActive(false);
-}
-
-void AOnion::Finish(float _DeltaTime)
-{
-}
-
-void AOnion::FinishEnd()
-{
 }

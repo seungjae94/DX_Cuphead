@@ -1,9 +1,9 @@
 #pragma once
-#include "Enemy.h"
+#include "FinalBoss.h"
 
-class ADragon2 : public AEnemy
+class ADragon2 : public AFinalBoss
 {
-	GENERATED_BODY(AEnemy)
+	GENERATED_BODY(AFinalBoss)
 public:
 	ADragon2();
 	~ADragon2();
@@ -13,11 +13,7 @@ public:
 	ADragon2& operator=(const ADragon2& _Other) = delete;
 	ADragon2& operator=(ADragon2&& _Other) noexcept = delete;
 
-	bool IsFaint();
-	bool IsFinished();
 	void Damage(int _Damage) override;
-	void ResumeFaint();
-
 	void ChangeState(std::string_view _StateName);
 	void SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 
@@ -26,17 +22,12 @@ protected:
 
 private:
 	// 컴포넌트
-	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* DashRenderer = nullptr;
 	USpriteRenderer* BodyRenderer = nullptr;
 	USpriteRenderer* TongueRenderer = nullptr;
 	USpriteRenderer* FireRenderer = nullptr;
-	UCollision* Collision = nullptr;
 private:
 	// 로직 처리
-	UStateManager StateManager;
-	UEngineRandom Random;
-	
 	const float IntroMoveTime = 0.5f;
 	float IntroMoveTimer = 0.0f;
 
@@ -48,18 +39,8 @@ private:
 	float SpawnTimer = 0.0f;
 	const int JumperPeriod = 5;
 	int JumperCounter = 0;
-
-	bool FaintActive = false;
-
-	const float FaintTime = 5.0f;
-	float FaintTimer = 0.0f;
-	const float BossExplosionInterval = 0.5f;
-	float BossExplosionTimer = 0.5f;
-
 private:
 	void BeginPlay() override;
-	void Tick(float _DeltaTime) override;
-	void DebugUpdate(float _DeltaTime);
 private:
 	void RendererInit();
 	void StateInit();
@@ -77,12 +58,6 @@ private:
 	void Idle(float _DeltaTime);
 	void IdleEnd();
 
-	void FaintStart();
-	void Faint(float _DeltaTime);
-	void FaintEnd();
-
-	void FinishStart();
-	void Finish(float _DeltaTime);
-	void FinishEnd();
+	void FaintStart() override;
 };
 

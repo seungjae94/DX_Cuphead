@@ -5,23 +5,15 @@
 
 ADragon2::ADragon2()
 {
-	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	SetRoot(Root);
-
 	DashRenderer = CreateDefaultSubObject<USpriteRenderer>("Dash");
 	BodyRenderer = CreateDefaultSubObject<USpriteRenderer>("Body");
 	TongueRenderer = CreateDefaultSubObject<USpriteRenderer>("Tongue");
 	FireRenderer = CreateDefaultSubObject<USpriteRenderer>("Fire");
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
 
 	DashRenderer->SetupAttachment(Root);
 	BodyRenderer->SetupAttachment(Root);
 	FireRenderer->SetupAttachment(Root);
 	TongueRenderer->SetupAttachment(Root);
-	Collision->SetupAttachment(Root);
-
-	Collision->SetCollisionGroup(ECollisionGroup::Monster);
-	Collision->SetCollisionType(ECollisionType::RotRect);
 }
 
 ADragon2::~ADragon2()
@@ -44,32 +36,6 @@ void ADragon2::BeginPlay()
 
 	Collision->SetPosition(BodyRenderer->GetLocalPosition() + FVector(0.0f, 275.0f, 0.0f));
 	Collision->SetScale({ 200.0f, 450.0f });
-}
-
-void ADragon2::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-
-	StateManager.Update(_DeltaTime);
-	DebugUpdate(_DeltaTime);
-}
-
-void ADragon2::DebugUpdate(float _DeltaTime)
-{
-	{
-		std::string Msg = std::format("Dragon2 Hp : {}\n", Hp);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Dragon2 State : {}\n", StateManager.GetCurStateName());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Dragon2 Body Pos : {}\n", BodyRenderer->GetWorldPosition().ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
 }
 
 void ADragon2::RendererInit()
@@ -111,8 +77,6 @@ void ADragon2::StateInit()
 	StateManager.CreateState("Dash");
 	StateManager.CreateState("Intro");
 	StateManager.CreateState("Idle");
-	StateManager.CreateState("Faint");
-	StateManager.CreateState("Finish");
 
 	StateManager.SetFunction("Dash",
 		std::bind(&ADragon2::DashStart, this),
@@ -130,18 +94,6 @@ void ADragon2::StateInit()
 		std::bind(&ADragon2::IdleStart, this),
 		std::bind(&ADragon2::Idle, this, std::placeholders::_1),
 		std::bind(&ADragon2::IdleEnd, this)
-	);
-
-	StateManager.SetFunction("Faint",
-		std::bind(&ADragon2::FaintStart, this),
-		std::bind(&ADragon2::Faint, this, std::placeholders::_1),
-		std::bind(&ADragon2::FaintEnd, this)
-	);
-
-	StateManager.SetFunction("Finish",
-		std::bind(&ADragon2::FinishStart, this),
-		std::bind(&ADragon2::Finish, this, std::placeholders::_1),
-		std::bind(&ADragon2::FinishEnd, this)
 	);
 
 	StateManager.ChangeState("Dash");
@@ -263,57 +215,11 @@ void ADragon2::IdleEnd()
 
 void ADragon2::FaintStart()
 {
+	Super::FaintStart();
+	SetFaintRange({-100.0f, 100.0f, 0.0f, 400.0f});
+
 	BodyRenderer->AddPosition({ -35.0f, -100.0f });
 	BodyRenderer->ChangeAnimation("dragon2_faint");
-
-	BossExplosionTimer = 0.0f;
-	FaintTimer = FaintTime;
-
-	FaintActive = false;
-}
-
-void ADragon2::Faint(float _DeltaTime)
-{
-	if (false == FaintActive)
-	{
-		return;
-	}
-
-	FaintTimer -= _DeltaTime;
-	BossExplosionTimer -= _DeltaTime;
-
-	if (FaintTimer < 0.0f)
-	{
-		StateManager.ChangeState("Finish");
-	}
-
-	if (BossExplosionTimer < 0.0f)
-	{
-		AAnimationEffect* Explosion = GetWorld()->SpawnActor<AAnimationEffect>("Explosion").get();
-		Explosion->Init(ERenderingOrder::Collider, FCreateAnimationParameter{ "boss_explosion", "boss_explosion", 1 / 24.0f }, true);
-
-		float PosX = Random.RandomFloat(-100.0f, 100.0f);
-		float PosY = Random.RandomFloat(0.0f, 400.0f);
-		Explosion->SetActorLocation(GetActorLocation() + FVector{PosX, PosY});
-
-		BossExplosionTimer = BossExplosionInterval;
-	}
-}
-
-void ADragon2::FaintEnd()
-{
-}
-
-void ADragon2::FinishStart()
-{
-}
-
-void ADragon2::Finish(float _DeltaTime)
-{
-}
-
-void ADragon2::FinishEnd()
-{
 }
 
 void ADragon2::Damage(int _Damage)
@@ -343,11 +249,6 @@ void ADragon2::Damage(int _Damage)
 	}
 }
 
-void ADragon2::ResumeFaint()
-{
-	FaintActive = true;
-}
-
 void ADragon2::ChangeState(std::string_view _StateName)
 {
 	StateManager.ChangeState(_StateName);
@@ -356,14 +257,4 @@ void ADragon2::ChangeState(std::string_view _StateName)
 void ADragon2::SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
 {
 	BodyRenderer->SetFrameCallback(_AnimName, _Frame, _Callback);
-}
-
-bool ADragon2::IsFaint()
-{
-	return "Faint" == StateManager.GetCurStateName();
-}
-
-bool ADragon2::IsFinished()
-{
-	return "Finish" == StateManager.GetCurStateName();
 }

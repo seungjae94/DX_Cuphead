@@ -4,19 +4,11 @@
 
 APotato::APotato()
 {
-	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	SetRoot(Root);
-
 	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
 	PotatoRenderer = CreateDefaultSubObject<USpriteRenderer>("Potato");
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
 
 	GroundRenderer->SetupAttachment(Root);
 	PotatoRenderer->SetupAttachment(Root);
-	Collision->SetupAttachment(Root);
-
-	Collision->SetCollisionGroup(ECollisionGroup::Monster);
-	Collision->SetCollisionType(ECollisionType::Rect);
 }
 
 APotato::~APotato()
@@ -51,11 +43,6 @@ void APotato::SetPotatoFrameCallback(std::string_view _AnimName, int _Frame, std
 void APotato::StateChangeToAttack()
 {
 	StateManager.ChangeState("Attack");
-}
-
-bool APotato::IsFinished()
-{
-	return "Finish" == StateManager.GetCurStateName();
 }
 
 void APotato::Damage(int _Damage)
@@ -97,27 +84,6 @@ void APotato::BeginPlay()
 	Collision->SetScale({ 300.0f, 400.0f });
 }
 
-void APotato::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-
-	StateManager.Update(_DeltaTime);
-	DebugUpdate(_DeltaTime);
-}
-
-void APotato::DebugUpdate(float _DeltaTime)
-{
-	{
-		std::string Msg = std::format("Potato Hp : {}\n", Hp);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Potato State : {}\n", StateManager.GetCurStateName());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-}
-
 void APotato::RendererInit()
 {
 	PotatoRenderer->CreateAnimation("potato_intro", "potato_intro.png", 1 / 12.0f, false);
@@ -154,8 +120,6 @@ void APotato::StateInit()
 	StateManager.CreateState("Idle");
 	StateManager.CreateState("Attack");
 	StateManager.CreateState("AttackWait");
-	StateManager.CreateState("Faint");
-	StateManager.CreateState("Finish");
 
 	StateManager.SetFunction("Idle",
 		std::bind(&APotato::IdleStart, this),
@@ -173,18 +137,6 @@ void APotato::StateInit()
 		std::bind(&APotato::AttackWaitStart, this),
 		std::bind(&APotato::AttackWait, this, std::placeholders::_1),
 		std::bind(&APotato::AttackWaitEnd, this)
-	);
-
-	StateManager.SetFunction("Faint",
-		std::bind(&APotato::FaintStart, this),
-		std::bind(&APotato::Faint, this, std::placeholders::_1),
-		std::bind(&APotato::FaintEnd, this)
-	);
-
-	StateManager.SetFunction("Finish",
-		std::bind(&APotato::FinishStart, this),
-		std::bind(&APotato::Finish, this, std::placeholders::_1),
-		std::bind(&APotato::FinishEnd, this)
 	);
 
 	StateManager.ChangeState("Idle");
@@ -278,6 +230,9 @@ void APotato::AttackWaitEnd()
 
 void APotato::FaintStart()
 {
+	Super::FaintStart();
+	SetFaintRange({ -100.0f, 100.0f, 0.0f, 400.0f });
+
 	PotatoRenderer->ChangeAnimation("potato_faint");
 	Collision->SetActive(false);
 
@@ -286,6 +241,8 @@ void APotato::FaintStart()
 
 void APotato::Faint(float _DeltaTime)
 {
+	Super::Faint(_DeltaTime);
+
 	ShrinkTimer -= _DeltaTime;
 
 	if (ShrinkTimer < 0.0f)
@@ -301,18 +258,8 @@ void APotato::Faint(float _DeltaTime)
 
 void APotato::FaintEnd()
 {
-}
+	Super::FaintEnd();
 
-void APotato::FinishStart()
-{
 	PotatoRenderer->SetActive(false);
 	GroundRenderer->SetActive(false);
-}
-
-void APotato::Finish(float _DeltaTime)
-{
-}
-
-void APotato::FinishEnd()
-{
 }

@@ -179,7 +179,7 @@ void ABossDragonGameMode::Phase2Start()
 
 void ABossDragonGameMode::Phase2(float _DeltaTime)
 {
-	if (true == Dragon2->IsFaint())
+	if (true == Dragon2->IsFainted())
 	{
 		StateManager.ChangeState("Finish");
 		ShowKnockOutMessage([this]() {

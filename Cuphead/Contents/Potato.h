@@ -1,9 +1,9 @@
 #pragma once
-#include "Enemy.h"
+#include "FaintableBoss.h"
 
-class APotato : public AEnemy
+class APotato : public AFaintableBoss
 {
-	GENERATED_BODY(AEnemy)
+	GENERATED_BODY(AFaintableBoss)
 public:
 	APotato();
 	~APotato();
@@ -20,7 +20,6 @@ public:
 	void SetPotatoFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 
 	void StateChangeToAttack();
-	bool IsFinished();
 
 	void Damage(int _Damage) override;
 
@@ -28,14 +27,10 @@ protected:
 
 private:
 	// 컴포넌트
-	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* GroundRenderer = nullptr;
 	USpriteRenderer* PotatoRenderer = nullptr;
-	UCollision* Collision = nullptr;
 private:
 	// 로직 처리
-	UStateManager StateManager;
-
 	int AttackPhase = -1;
 	const float AttackWaitTime = 3.0f;
 	float AttackWaitTimer = 0.0f;
@@ -51,8 +46,6 @@ private:
 
 private:
 	void BeginPlay() override;
-	void Tick(float _DeltaTime) override;
-	void DebugUpdate(float _DeltaTime);
 private:
 	void RendererInit();
 	void StateInit();
@@ -70,12 +63,8 @@ private:
 	void AttackWait(float _DeltaTime);
 	void AttackWaitEnd();
 
-	void FaintStart();
-	void Faint(float _DeltaTime);
-	void FaintEnd();
-
-	void FinishStart();
-	void Finish(float _DeltaTime);
-	void FinishEnd();
+	void FaintStart() override;
+	void Faint(float _DeltaTime) override;
+	void FaintEnd() override;
 };
 

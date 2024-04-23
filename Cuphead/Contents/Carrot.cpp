@@ -6,21 +6,13 @@
 
 ACarrot::ACarrot()
 {
-	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	SetRoot(Root);
-
 	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
 	CarrotRenderer = CreateDefaultSubObject<USpriteRenderer>("Carrot");
 	EyeRenderer = CreateDefaultSubObject<USpriteRenderer>("Eye");
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
 
 	GroundRenderer->SetupAttachment(Root);
 	CarrotRenderer->SetupAttachment(Root);
 	EyeRenderer->SetupAttachment(Root);
-	Collision->SetupAttachment(Root);
-
-	Collision->SetCollisionGroup(ECollisionGroup::Monster);
-	Collision->SetCollisionType(ECollisionType::Rect);
 }
 
 ACarrot::~ACarrot()
@@ -42,27 +34,6 @@ void ACarrot::BeginPlay()
 	GroundRenderer->SetPosition({ 0.0f, -20.0f });
 	Collision->SetPosition(CarrotRenderer->GetLocalPosition() + FVector(0.0f, 270.0f, 0.0f));
 	Collision->SetScale({ 250.0f, 450.0f });
-}
-
-void ACarrot::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-
-	StateManager.Update(_DeltaTime);
-	DebugUpdate(_DeltaTime);
-}
-
-void ACarrot::DebugUpdate(float _DeltaTime)
-{
-	{
-		std::string Msg = std::format("Carrot Hp : {}\n", Hp);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Carrot State : {}\n", StateManager.GetCurStateName());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
 }
 
 void ACarrot::RendererInit()
@@ -115,8 +86,6 @@ void ACarrot::StateInit()
 	StateManager.CreateState("Idle");
 	StateManager.CreateState("Attack");
 	StateManager.CreateState("Beam");
-	StateManager.CreateState("Faint");
-	StateManager.CreateState("Finish");
 
 	StateManager.SetFunction("Idle",
 		std::bind(&ACarrot::IdleStart, this),
@@ -134,18 +103,6 @@ void ACarrot::StateInit()
 		std::bind(&ACarrot::BeamStart, this),
 		std::bind(&ACarrot::Beam, this, std::placeholders::_1),
 		std::bind(&ACarrot::BeamEnd, this)
-	);
-
-	StateManager.SetFunction("Faint",
-		std::bind(&ACarrot::FaintStart, this),
-		std::bind(&ACarrot::Faint, this, std::placeholders::_1),
-		std::bind(&ACarrot::FaintEnd, this)
-	);
-
-	StateManager.SetFunction("Finish",
-		std::bind(&ACarrot::FinishStart, this),
-		std::bind(&ACarrot::Finish, this, std::placeholders::_1),
-		std::bind(&ACarrot::FinishEnd, this)
 	);
 
 	StateManager.ChangeState("Idle");
@@ -268,6 +225,9 @@ void ACarrot::BeamEnd()
 
 void ACarrot::FaintStart()
 {
+	Super::FaintStart();
+	SetFaintRange({ -100.0f, 100.0f, 0.0f, 400.0f });
+
 	CarrotRenderer->ChangeAnimation("carrot_faint");
 	EyeRenderer->SetActive(false);
 	Collision->SetActive(false);
@@ -277,6 +237,8 @@ void ACarrot::FaintStart()
 
 void ACarrot::Faint(float _DeltaTime)
 {
+	Super::Faint(_DeltaTime);
+
 	ShrinkTimer -= _DeltaTime;
 
 	if (ShrinkTimer < 0.0f)
@@ -292,20 +254,10 @@ void ACarrot::Faint(float _DeltaTime)
 
 void ACarrot::FaintEnd()
 {
-}
+	Super::FaintEnd();
 
-void ACarrot::FinishStart()
-{
 	CarrotRenderer->SetActive(false);
 	GroundRenderer->SetActive(false);
-}
-
-void ACarrot::Finish(float _DeltaTime)
-{
-}
-
-void ACarrot::FinishEnd()
-{
 }
 
 void ACarrot::PlayGroundIntroAnimation()
@@ -336,11 +288,6 @@ void ACarrot::SetCarrotFrameCallback(std::string_view _AnimName, int _Frame, std
 void ACarrot::StateChangeToAttack()
 {
 	StateManager.ChangeState("Attack");
-}
-
-bool ACarrot::IsFinished()
-{
-	return "Finish" == StateManager.GetCurStateName();
 }
 
 void ACarrot::Damage(int _Damage)

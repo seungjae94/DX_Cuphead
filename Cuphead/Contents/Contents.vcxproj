@@ -235,7 +235,15 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="Boss.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FaintableBoss.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FinalBoss.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -354,7 +362,15 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="Boss.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FaintableBoss.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FinalBoss.cpp">
       <SubType>
       </SubType>
     </ClCompile>

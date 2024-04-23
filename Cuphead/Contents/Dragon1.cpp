@@ -5,17 +5,8 @@
 
 ADragon1::ADragon1()
 {
-	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
-	SetRoot(Root);
-
 	BodyRenderer = CreateDefaultSubObject<USpriteRenderer>("Body");
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
-
 	BodyRenderer->SetupAttachment(Root);
-	Collision->SetupAttachment(Root);
-
-	Collision->SetCollisionGroup(ECollisionGroup::Monster);
-	Collision->SetCollisionType(ECollisionType::RotRect);
 }
 
 ADragon1::~ADragon1()
@@ -35,27 +26,6 @@ void ADragon1::BeginPlay()
 	BodyRenderer->SetPosition({ 0.0f, 0.0f });
 	Collision->SetPosition(BodyRenderer->GetLocalPosition() + FVector(0.0f, 500.0f, 0.0f));
 	Collision->SetScale({ 300.0f, 500.0f });
-}
-
-void ADragon1::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-
-	StateManager.Update(_DeltaTime);
-	DebugUpdate(_DeltaTime);
-}
-
-void ADragon1::DebugUpdate(float _DeltaTime)
-{
-	{
-		std::string Msg = std::format("Dragon1 Hp : {}\n", Hp);
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		std::string Msg = std::format("Dragon1 State : {}\n", StateManager.GetCurStateName());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
 }
 
 void ADragon1::RendererInit()
@@ -113,8 +83,6 @@ void ADragon1::StateInit()
 	StateManager.CreateState("Attack");
 	StateManager.CreateState("Beam");
 	StateManager.CreateState("RunAway");
-	StateManager.CreateState("Faint");
-	StateManager.CreateState("Finish");
 
 	StateManager.SetFunction("Intro",
 		std::bind(&ADragon1::IntroStart, this),
@@ -144,12 +112,6 @@ void ADragon1::StateInit()
 		std::bind(&ADragon1::RunAwayStart, this),
 		std::bind(&ADragon1::RunAway, this, std::placeholders::_1),
 		std::bind(&ADragon1::RunAwayEnd, this)
-	);
-
-	StateManager.SetFunction("Finish",
-		std::bind(&ADragon1::FinishStart, this),
-		std::bind(&ADragon1::Finish, this, std::placeholders::_1),
-		std::bind(&ADragon1::FinishEnd, this)
 	);
 
 	StateManager.ChangeState("Intro");
@@ -257,18 +219,6 @@ void ADragon1::RunAwayEnd()
 {
 }
 
-void ADragon1::FinishStart()
-{
-}
-
-void ADragon1::Finish(float _DeltaTime)
-{
-}
-
-void ADragon1::FinishEnd()
-{
-}
-
 void ADragon1::SpawnAttackProj()
 {
 	ABossAttack* Attack = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
@@ -341,11 +291,6 @@ void ADragon1::SpawnBeamProj()
 void ADragon1::PlayIntroAnimation()
 {
 	BodyRenderer->ChangeAnimation("dragon1_intro");
-}
-
-bool ADragon1::IsFinished()
-{
-	return "Finish" == StateManager.GetCurStateName();
 }
 
 void ADragon1::ChangeAnimation(std::string_view _AnimName)

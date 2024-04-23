@@ -1,11 +1,11 @@
 #pragma once
-#include "Enemy.h"
+#include "Boss.h"
 
 class APlayer;
 
-class ADragon1 : public AEnemy
+class ADragon1 : public ABoss
 {
-	GENERATED_BODY(AEnemy)
+	GENERATED_BODY(ABoss)
 public:
 	ADragon1();
 	~ADragon1();
@@ -16,7 +16,7 @@ public:
 	ADragon1& operator=(ADragon1&& _Other) noexcept = delete;
 
 	void PlayIntroAnimation();
-	bool IsFinished();
+
 	void ChangeAnimation(std::string_view _AnimName);
 	void SetState(std::string_view StateName);
 	void SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
@@ -30,14 +30,10 @@ protected:
 
 private:
 	// 컴포넌트
-	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* BodyRenderer = nullptr;
 	//USpriteRenderer* TailRenderer = nullptr;
-	UCollision* Collision = nullptr;
 private:
 	// 로직 처리
-	UStateManager StateManager;
-	UEngineRandom Random;
 	const float AttackDecisionTime = 3.0f;
 	float AttackDecisionTimer = 3.0f;
 
@@ -51,8 +47,6 @@ private:
 	APlayer* Player = nullptr;
 private:
 	void BeginPlay() override;
-	void Tick(float _DeltaTime) override;
-	void DebugUpdate(float _DeltaTime);
 private:
 	void RendererInit();
 	void StateInit();
@@ -77,10 +71,6 @@ private:
 	void RunAwayStart();
 	void RunAway(float _DeltaTime);
 	void RunAwayEnd();
-
-	void FinishStart();
-	void Finish(float _DeltaTime);
-	void FinishEnd();
 private:
 	void SpawnAttackProj();
 	void SpawnBeamProj();

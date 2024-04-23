@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "Bullet.h"
-#include "Enemy.h"
+#include "Boss.h"
 #include "Player.h"
 
 ABullet::ABullet()
@@ -121,7 +121,7 @@ void ABullet::Move(float _DeltaTime)
 	Collision->CollisionEnter(ECollisionGroup::Monster, [=](std::shared_ptr<UCollision> _Collision)
 	{
 		// 상태, 애니메이션 변경
-		AEnemy* Enemy = dynamic_cast<AEnemy*>(_Collision->GetActor());
+		ABoss* Enemy = dynamic_cast<ABoss*>(_Collision->GetActor());
 
 		if (nullptr == Enemy)
 		{
