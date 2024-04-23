@@ -84,6 +84,7 @@ void UCupheadCore::LoadResources()
 		}
 
 		UEngineSprite::CreateCutting("overworld_farm.png", 3, 1);
+		UEngineSprite::CreateCutting("overworld_spire.png", 3, 1);
 	}
 
 	{

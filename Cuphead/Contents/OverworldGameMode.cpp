@@ -24,6 +24,11 @@ void AOverworldGameMode::BeginPlay()
 	Farm->SetLevelName(GLevelName::BossFarmLevel);
 	Farm->SetActorLocation({-80.0f, -380.0f, 0.0f});
 
+	ABossLevelEntrance* Spire = GetWorld()->SpawnActor<ABossLevelEntrance>("Spire").get();
+	Spire->SetAnimation("overworld_spire", "overworld_spire.png", 1 / 12.0f);
+	Spire->SetLevelName(GLevelName::BossDragonLevel);
+	Spire->SetActorLocation({ 350.0f, 550.0f, 0.0f });
+
 	InputOn();
 }
 
