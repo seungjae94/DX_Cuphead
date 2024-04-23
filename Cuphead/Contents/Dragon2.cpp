@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Dragon2.h"
 #include "FireMob.h"
+#include "AnimationEffect.h"
 
 ADragon2::ADragon2()
 {
@@ -84,10 +85,6 @@ void ADragon2::RendererInit()
 
 	FireRenderer->CreateAnimation("dragon2_fire", "dragon2_fire", 1 / 24.0f, false);
 	FireRenderer->CreateAnimation("dragon2_smoke", "dragon2_smoke.png", 1 / 24.0f, false);
-
-	BodyRenderer->SetFrameCallback("dragon2_intro", 20, [this]() {
-		StateManager.ChangeState("Idle");
-		});
 
 	TongueRenderer->SetFrameCallback("dragon2_tongue_intro", 3, [this]() {
 		TongueRenderer->ChangeAnimation("dragon2_tongue_idle");
@@ -268,10 +265,39 @@ void ADragon2::FaintStart()
 {
 	BodyRenderer->AddPosition({ -35.0f, -100.0f });
 	BodyRenderer->ChangeAnimation("dragon2_faint");
+
+	BossExplosionTimer = 0.0f;
+	FaintTimer = FaintTime;
+
+	FaintActive = false;
 }
 
 void ADragon2::Faint(float _DeltaTime)
 {
+	if (false == FaintActive)
+	{
+		return;
+	}
+
+	FaintTimer -= _DeltaTime;
+	BossExplosionTimer -= _DeltaTime;
+
+	if (FaintTimer < 0.0f)
+	{
+		StateManager.ChangeState("Finish");
+	}
+
+	if (BossExplosionTimer < 0.0f)
+	{
+		AAnimationEffect* Explosion = GetWorld()->SpawnActor<AAnimationEffect>("Explosion").get();
+		Explosion->Init(ERenderingOrder::Collider, FCreateAnimationParameter{ "boss_explosion", "boss_explosion", 1 / 24.0f }, true);
+
+		float PosX = Random.RandomFloat(-100.0f, 100.0f);
+		float PosY = Random.RandomFloat(0.0f, 400.0f);
+		Explosion->SetActorLocation(GetActorLocation() + FVector{PosX, PosY});
+
+		BossExplosionTimer = BossExplosionInterval;
+	}
 }
 
 void ADragon2::FaintEnd()
@@ -315,6 +341,26 @@ void ADragon2::Damage(int _Damage)
 	{
 		StateManager.ChangeState("Faint");
 	}
+}
+
+void ADragon2::ResumeFaint()
+{
+	FaintActive = true;
+}
+
+void ADragon2::ChangeState(std::string_view _StateName)
+{
+	StateManager.ChangeState(_StateName);
+}
+
+void ADragon2::SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
+{
+	BodyRenderer->SetFrameCallback(_AnimName, _Frame, _Callback);
+}
+
+bool ADragon2::IsFaint()
+{
+	return "Faint" == StateManager.GetCurStateName();
 }
 
 bool ADragon2::IsFinished()

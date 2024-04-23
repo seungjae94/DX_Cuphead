@@ -13,8 +13,13 @@ public:
 	ADragon2& operator=(const ADragon2& _Other) = delete;
 	ADragon2& operator=(ADragon2&& _Other) noexcept = delete;
 
+	bool IsFaint();
 	bool IsFinished();
 	void Damage(int _Damage) override;
+	void ResumeFaint();
+
+	void ChangeState(std::string_view _StateName);
+	void SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 
 protected:
 
@@ -43,6 +48,13 @@ private:
 	float SpawnTimer = 0.0f;
 	const int JumperPeriod = 5;
 	int JumperCounter = 0;
+
+	bool FaintActive = false;
+
+	const float FaintTime = 5.0f;
+	float FaintTimer = 0.0f;
+	const float BossExplosionInterval = 0.5f;
+	float BossExplosionTimer = 0.5f;
 
 private:
 	void BeginPlay() override;

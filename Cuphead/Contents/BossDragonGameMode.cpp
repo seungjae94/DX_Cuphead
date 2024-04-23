@@ -50,6 +50,7 @@ void ABossDragonGameMode::StateInit()
 	StateManager.CreateState("Phase1");
 	StateManager.CreateState("Phase2Intro");
 	StateManager.CreateState("Phase2");
+	StateManager.CreateState("Finish");
 	StateManager.CreateState("Phase3Intro");
 	StateManager.CreateState("Phase3");
 
@@ -69,6 +70,12 @@ void ABossDragonGameMode::StateInit()
 		std::bind(&ABossDragonGameMode::Phase2Start, this),
 		std::bind(&ABossDragonGameMode::Phase2, this, std::placeholders::_1),
 		std::bind(&ABossDragonGameMode::Phase2End, this)
+	);
+
+	StateManager.SetFunction("Finish",
+		std::bind(&ABossDragonGameMode::FinishStart, this),
+		std::bind(&ABossDragonGameMode::Finish, this, std::placeholders::_1),
+		std::bind(&ABossDragonGameMode::FinishEnd, this)
 	);
 
 	StateManager.SetFunction("Phase3Intro",
@@ -149,6 +156,10 @@ void ABossDragonGameMode::Phase2IntroStart()
 		Dragon1->Destroy();
 	}
 	Dragon2 = GetWorld()->SpawnActor<ADragon2>("Dragon2").get();
+	Dragon2->SetFrameCallback("dragon2_intro", 20, [this]() {
+		StateManager.ChangeState("Phase2");
+		Dragon2->ChangeState("Idle");
+		});
 }
 
 void ABossDragonGameMode::Phase2Intro(float _DeltaTime)
@@ -168,10 +179,36 @@ void ABossDragonGameMode::Phase2Start()
 
 void ABossDragonGameMode::Phase2(float _DeltaTime)
 {
+	if (true == Dragon2->IsFaint())
+	{
+		StateManager.ChangeState("Finish");
+		ShowKnockOutMessage([this]() {
+			Dragon2->ResumeFaint();
+		});
+		return;
+	}
+
 	SpawnClouds(_DeltaTime);
 }
 
 void ABossDragonGameMode::Phase2End()
+{
+}
+
+void ABossDragonGameMode::FinishStart()
+{
+
+}
+
+void ABossDragonGameMode::Finish(float _DeltaTime)
+{
+	if (true == Dragon2->IsFinished())
+	{
+		ChangeLevelWithFadeEffect(GLevelName::OverworldLevel);
+	}
+}
+
+void ABossDragonGameMode::FinishEnd()
 {
 }
 

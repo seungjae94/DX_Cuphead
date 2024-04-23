@@ -11,8 +11,14 @@ ACupheadGameMode::~ACupheadGameMode()
 
 void ACupheadGameMode::ChangeLevelWithFadeEffect(std::string_view _NextLevelName)
 {
+	if (true == IsChanging)
+	{
+		return;
+	}
+
 	NextLevelName = _NextLevelName;
 	FadeOutStart();
+	IsChanging = true;
 }
 
 void ACupheadGameMode::BeginPlay()
@@ -66,6 +72,7 @@ void ACupheadGameMode::Tick(float _DeltaTime)
 			FadeOut->SetActive(false);
 			GEngine->ChangeLevel(NextLevelName);
 			NextLevelName = "";
+			IsChanging = false;
 		}
 	}
 }

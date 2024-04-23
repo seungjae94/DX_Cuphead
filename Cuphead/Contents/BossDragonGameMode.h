@@ -55,6 +55,10 @@ private:
 	void Phase2(float _DeltaTime);
 	void Phase2End();
 
+	void FinishStart();
+	void Finish(float _DeltaTime);
+	void FinishEnd();
+
 	void Phase3IntroStart();
 	void Phase3Intro(float _DeltaTime);
 	void Phase3IntroEnd();

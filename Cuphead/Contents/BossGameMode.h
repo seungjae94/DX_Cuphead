@@ -22,6 +22,7 @@ protected:
 	virtual void Intro(float _DeltaTime);
 	virtual void IntroEnd();
 
+	void ShowKnockOutMessage(std::function<void()> _Callback);
 private:
 	UImage* BattleMessage = nullptr;
 

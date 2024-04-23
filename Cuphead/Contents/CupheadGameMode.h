@@ -34,5 +34,8 @@ private:
 	void FadeInStart();
 	void FadeOutStart();
 	std::string NextLevelName;
+private:
+	// 레벨 변경
+	bool IsChanging = false;
 };
 

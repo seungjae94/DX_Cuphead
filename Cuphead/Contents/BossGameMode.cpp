@@ -38,11 +38,12 @@ void ABossGameMode::BeginPlay()
 }
 
 
-//void ABossGameMode::ShowKnockOutMessage()
-//{
-//	BattleMessage->ChangeAnimation("knockout");
-//	BattleMessage->SetActive(true);
-//}
+void ABossGameMode::ShowKnockOutMessage(std::function<void()> _Callback)
+{
+	BattleMessage->SetFrameCallback("knockout", 27, _Callback);
+	BattleMessage->ChangeAnimation("knockout");
+	BattleMessage->SetActive(true);
+}
 
 void ABossGameMode::IntroStart()
 {
