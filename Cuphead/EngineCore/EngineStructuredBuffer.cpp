@@ -2,6 +2,8 @@
 #include "EngineStructuredBuffer.h"
 #include "EngineCore.h"
 
+std::map<EShaderType, std::map<std::string, std::map<int, std::shared_ptr<UEngineStructuredBuffer>>>> UEngineStructuredBuffer::StructuredBuffers;
+
 UEngineStructuredBuffer::UEngineStructuredBuffer() 
 {
 }
@@ -44,4 +46,9 @@ void UEngineStructuredBuffer::Reset(EShaderType _Type, UINT _Slot)
 		MsgBoxAssert("타입이 불분명한 텍스처 세팅입니다.");
 		break;
 	}
+}
+
+void UEngineStructuredBuffer::ChangeData(const void* _Data, UINT _Size)
+{
+
 }
