@@ -146,6 +146,7 @@ namespace GStateName
 
 enum class ECollisionGroup
 {
+	BossLevelEntrance,
 	Platform,
 	Bullet,
 	Monster,

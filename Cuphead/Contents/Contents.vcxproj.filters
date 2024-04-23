@@ -129,6 +129,9 @@
     <ClInclude Include="FireMob.h">
       <Filter>Level\03. Boss Level\Dragon</Filter>
     </ClInclude>
+    <ClInclude Include="BossLevelEntrance.h">
+      <Filter>Level\02. Overworld Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -229,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="FireMob.cpp">
       <Filter>Level\03. Boss Level\Dragon</Filter>
+    </ClCompile>
+    <ClCompile Include="BossLevelEntrance.cpp">
+      <Filter>Level\02. Overworld Level</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -18,7 +18,7 @@ public:
 protected:
 
 private:
-	std::shared_ptr<AOverworldMap> Map = nullptr;
+	AOverworldMap* Map = nullptr;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

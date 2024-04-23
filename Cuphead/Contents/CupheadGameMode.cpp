@@ -9,7 +9,7 @@ ACupheadGameMode::~ACupheadGameMode()
 {
 }
 
-void ACupheadGameMode::LevelChangeWithFadeEffect(std::string_view _NextLevelName)
+void ACupheadGameMode::ChangeLevelWithFadeEffect(std::string_view _NextLevelName)
 {
 	NextLevelName = _NextLevelName;
 	FadeOutStart();

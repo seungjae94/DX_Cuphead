@@ -14,7 +14,7 @@ public:
 	ACupheadGameMode& operator=(const ACupheadGameMode& _Other) = delete;
 	ACupheadGameMode& operator=(ACupheadGameMode&& _Other) noexcept = delete;
 
-	void LevelChangeWithFadeEffect(std::string_view _NextLevelName);
+	void ChangeLevelWithFadeEffect(std::string_view _NextLevelName);
 
 protected:
 	UImage* Noise = nullptr;

@@ -24,7 +24,7 @@ void UCupheadCore::Initialize()
 	CreateMaterials();
 	LoadResources();
 	CreateLevels();
-	GEngine->ChangeLevel(GLevelName::TitleLevel);
+	GEngine->ChangeLevel(GLevelName::OverworldLevel);
 }
 
 void UCupheadCore::CreateDebugWindows()
@@ -82,6 +82,8 @@ void UCupheadCore::LoadResources()
 		{
 			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
 		}
+
+		UEngineSprite::CreateCutting("overworld_farm.png", 3, 1);
 	}
 
 	{
@@ -224,6 +226,8 @@ void UCupheadCore::LoadResources()
 		{
 			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
 		}
+
+		
 	}
 }
 
