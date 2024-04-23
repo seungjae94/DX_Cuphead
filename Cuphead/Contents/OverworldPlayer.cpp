@@ -40,10 +40,10 @@ void AOverworldPlayer::Tick(float _DeltaTime)
 	// 카메라 이동 처리
 	BringCamera();
 
-	DebugMsgUpdate(_DeltaTime);
+	DebugUpdate(_DeltaTime);
 }
 
-void AOverworldPlayer::DebugMsgUpdate(float _DeltaTime)
+void AOverworldPlayer::DebugUpdate(float _DeltaTime)
 {
 	{
 		std::string Msg = std::format("Player Position : {}\n", GetActorLocation().ToString());
@@ -53,12 +53,6 @@ void AOverworldPlayer::DebugMsgUpdate(float _DeltaTime)
 	{
 		FVector CameraPos = GetWorld()->GetMainCamera()->GetActorLocation();
 		std::string Msg = std::format("Camera Position : {}\n", CameraPos.ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg);
-	}
-
-	{
-		float FPS = 1 / _DeltaTime;
-		std::string Msg = std::format("FPS : {}\n", std::to_string(FPS));
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }

@@ -26,7 +26,7 @@ void UCupheadDebugWindow::Tick(ULevel* _Level, float _Delta)
 
 void UCupheadDebugWindow::OnGui(ULevel* _Level, float _Delta)
 {
-	ImGui::Text(std::format("FPS: {}", std::to_string(_Delta)).c_str());
+	ImGui::Text(std::format("FPS: {}", std::to_string(1.0f / _Delta)).c_str());
 
 	if (true == ImGui::Button("Title Level"))
 	{

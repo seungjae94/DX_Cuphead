@@ -38,7 +38,7 @@ private:
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-	void DebugMsgUpdate(float _DeltaTime);
+	void DebugUpdate(float _DeltaTime);
 private:
 	void AnimationInit();
 	void StateInit();
