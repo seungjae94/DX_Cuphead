@@ -170,6 +170,7 @@ enum class ERenderingOrder
 	Front,
 	Collider,
 	UI,
+	Fade,
 	Noise,
 };
 
