@@ -9,6 +9,14 @@ AOverworldPlayer::AOverworldPlayer()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 
+	ZButtonRenderer = CreateDefaultSubObject<USpriteRenderer>("ZButtonRenderer");
+	ZButtonRenderer->SetupAttachment(Root);
+	ZButtonRenderer->SetOrder(ERenderingOrder::UI);
+	ZButtonRenderer->SetActive(false);
+	ZButtonRenderer->SetSprite("overworld_zbutton.png");
+	ZButtonRenderer->SetAutoSize(1.0f, true);
+	ZButtonRenderer->SetPosition({0.0f, 70.0f, 0.0f});
+
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
 	Collision->SetCollisionGroup(ECollisionGroup::PlayerHitBox);
@@ -17,6 +25,11 @@ AOverworldPlayer::AOverworldPlayer()
 
 AOverworldPlayer::~AOverworldPlayer()
 {
+}
+
+void AOverworldPlayer::SetZButtonActive(bool _Value)
+{
+	ZButtonRenderer->SetActive(_Value);
 }
 
 void AOverworldPlayer::BeginPlay()

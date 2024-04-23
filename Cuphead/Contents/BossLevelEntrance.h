@@ -1,5 +1,7 @@
 #pragma once
 
+class AOverworldPlayer;
+
 class ABossLevelEntrance : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -17,6 +19,7 @@ public:
 
 	UCollision* GetBlockCollision();
 	UCollision* GetChangeLevelCollision();
+	void SetPlayer(AOverworldPlayer* _Player);
 
 protected:
 
@@ -25,6 +28,7 @@ private:
 	void Tick(float _DeltaTime) override;
 	void DebugUpdate(float _DeltaTime);
 
+	AOverworldPlayer* Player = nullptr;
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	UCollision* BlockCollision = nullptr;

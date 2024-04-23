@@ -14,6 +14,8 @@ public:
 	AOverworldPlayer& operator=(const AOverworldPlayer& _Other) = delete;
 	AOverworldPlayer& operator=(AOverworldPlayer&& _Other) noexcept = delete;
 
+	void SetZButtonActive(bool _Value);
+
 protected:
 
 private:
@@ -21,6 +23,8 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	UCollision* Collision = nullptr;
+
+	USpriteRenderer* ZButtonRenderer = nullptr;
 
 private:
 	UStateManager StateManager;

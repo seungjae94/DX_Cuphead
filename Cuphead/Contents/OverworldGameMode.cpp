@@ -26,6 +26,7 @@ void AOverworldGameMode::BeginPlay()
 	Farm->SetAnimation("overworld_farm", "overworld_farm.png", 1 / 12.0f);
 	Farm->SetLevelName(GLevelName::BossFarmLevel);
 	Farm->SetActorLocation({ -80.0f, -380.0f, 0.0f });
+	Farm->SetPlayer(Player);
 	BlockCollision = Farm->GetBlockCollision();
 	ChangeLevelCollision = Farm->GetChangeLevelCollision();
 	BlockCollision->SetScale({ 250.0f, 160.0f, 1.0f });
@@ -37,6 +38,7 @@ void AOverworldGameMode::BeginPlay()
 	Spire->SetAnimation("overworld_spire", "overworld_spire.png", 1 / 12.0f);
 	Spire->SetLevelName(GLevelName::BossDragonLevel);
 	Spire->SetActorLocation({ 350.0f, 550.0f, 0.0f });
+	Spire->SetPlayer(Player);
 	BlockCollision = Spire->GetBlockCollision();
 	ChangeLevelCollision = Spire->GetChangeLevelCollision();
 	BlockCollision->SetScale({ 120.0f, 200.0f, 1.0f });

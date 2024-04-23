@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "BossLevelEntrance.h"
 #include "CupheadGameMode.h"
+#include "OverworldPlayer.h"
 
 ABossLevelEntrance::ABossLevelEntrance()
 {
@@ -48,6 +49,11 @@ UCollision* ABossLevelEntrance::GetChangeLevelCollision()
 	return ChangeLevelCollision;
 }
 
+void ABossLevelEntrance::SetPlayer(AOverworldPlayer* _Player)
+{
+	Player = _Player;
+}
+
 void ABossLevelEntrance::BeginPlay()
 {
 	Super::BeginPlay();
@@ -57,11 +63,22 @@ void ABossLevelEntrance::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	BlockCollision->CollisionEnter(ECollisionGroup::PlayerHitBox, [this](std::shared_ptr<UCollision> _Other) {
-		// TODO: UI만 표시하도록 수정
-		//ACupheadGameMode* CurGameMode = dynamic_pointer_cast<ACupheadGameMode>(GetWorld()->GetGameMode()).get();
-		//CurGameMode->ChangeLevelWithFadeEffect(LevelName);
+	ChangeLevelCollision->CollisionEnter(ECollisionGroup::PlayerHitBox, [this](std::shared_ptr<UCollision> _Other) {
+		Player->SetZButtonActive(true);
 	});
+
+	ChangeLevelCollision->CollisionStay(ECollisionGroup::PlayerHitBox, [this](std::shared_ptr<UCollision> _Other) {
+		if (true == UEngineInput::IsDown('Z'))
+		{
+			ACupheadGameMode* CurGameMode = dynamic_pointer_cast<ACupheadGameMode>(GetWorld()->GetGameMode()).get();
+			CurGameMode->ChangeLevelWithFadeEffect(LevelName);
+		}
+	});
+
+	ChangeLevelCollision->CollisionExit(ECollisionGroup::PlayerHitBox, [this](std::shared_ptr<UCollision> _Other) {
+		Player->SetZButtonActive(false);
+	});
+
 
 	DebugUpdate(_DeltaTime);
 }
