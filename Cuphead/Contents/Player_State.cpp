@@ -420,6 +420,12 @@ void APlayer::Sit(float _DeltaTime)
 		return;
 	}
 
+	if (false == IsGroundCollisionOccur())
+	{
+		ChangeState(GStateName::Jump);
+		return;
+	}
+
 	if (false == IsPress(VK_DOWN))
 	{
 		IsStanding = true;
