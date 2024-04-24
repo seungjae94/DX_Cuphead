@@ -50,11 +50,6 @@ void ABullet::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	StateManager.Update(_DeltaTime);
-	DebugMsgUpdate(_DeltaTime);
-}
-
-void ABullet::DebugMsgUpdate(float _DeltaTime)
-{
 }
 
 void ABullet::AnimationInit()
@@ -141,7 +136,7 @@ void ABullet::Move(float _DeltaTime)
 				return;
 			}
 
-			Enemy->Damage(Damage);
+			Enemy->Damage(Damage * Player->GetDamageCoeff());
 			Player->AddSuperMeter(1 / 40.0f);
 
 			StateManager.ChangeState(GStateName::Destroy);

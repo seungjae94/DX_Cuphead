@@ -349,6 +349,11 @@ void APlayer::ParrySuccess()
 	ParryEffect->SetActorLocation(GetActorLocation());
 }
 
+int APlayer::GetDamageCoeff() const
+{
+	return DamageCoeff;
+}
+
 void APlayer::DashStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerDash);

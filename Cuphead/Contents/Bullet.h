@@ -29,12 +29,11 @@ private:
 	EDirection Direction = EDirection::Right;
 	APlayer* Player = nullptr;
 
-	const int Damage = 40;
+	int Damage = 4;
 	const float Speed = 2000.0f;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-	void DebugMsgUpdate(float _DeltaTime);
 private:
 	// 초기화 함수
 	void AnimationInit();

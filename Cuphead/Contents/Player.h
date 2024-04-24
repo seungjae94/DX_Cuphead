@@ -29,6 +29,7 @@ public:
 	void AddSuperMeter(float _Value);
 	bool IsParrying();
 	void ParrySuccess();
+	int GetDamageCoeff() const;
 
 protected:
 
@@ -99,10 +100,11 @@ private:
 	// UI
 	UImage* HpWidget = nullptr;
 	std::vector<UImage*> CardWidgets;
-
 private:
 	int Hp = 3;
 	float SuperMeter = 2.0f;
+	bool DamageX10 = true;
+	int DamageCoeff = 1;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -186,5 +188,6 @@ private:
 	bool TestDownJump();
 
 	bool CheckPixelCollision(const FVector& _Point);
+	void DamageCheat();
 };
 

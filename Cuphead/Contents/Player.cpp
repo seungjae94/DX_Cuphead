@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "AnimationEffect.h"
 #include "Platform.h"
+#include "CupheadCore.h"
+#include "CupheadDebugWindow.h"
 
 APlayer::APlayer()
 {
@@ -99,6 +101,12 @@ void APlayer::BeginPlay()
 	UIInit();
 
 	InputOn();
+
+	// 디버그 기능
+	DebugWindow->RegisterCallback(
+		"BossFarmMapPixelColToggle",
+		std::bind(&APlayer::DamageCheat, this)
+	);
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -374,4 +382,20 @@ bool APlayer::CheckPixelCollision(const FVector& _Point)
 	TestPixel.Y = -TestPixel.Y;
 	Color8Bit ColMapColor = MapTex->GetColor(TestPixel, Color8Bit::Black);
 	return ColMapColor == Color8Bit::Black;
+}
+
+void APlayer::DamageCheat()
+{
+	bool Clicked = ImGui::Checkbox("Damage x10", &DamageX10);
+	if (true == Clicked)
+	{	
+		if (1 == DamageCoeff)
+		{
+			DamageCoeff = 10;
+		}
+		else
+		{
+			DamageCoeff = 1;
+		}
+	}
 }
