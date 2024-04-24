@@ -16,6 +16,8 @@ public:
 	void Damage(int _Damage) override;
 	void ChangeState(std::string_view _StateName);
 	void SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
+	void SetLastFrameCallback(std::string_view _AnimName, std::function<void()> _Callback);
+	void SetPlayer(AActor* _Player);
 
 protected:
 
@@ -34,6 +36,7 @@ private:
 	const float FireTime = 3.0f;
 	float FireTimer = 0.0f;
 	bool FireAnimation = false;
+	AActor* Player = nullptr;
 
 	const float SpawnTime = 1.0f;
 	float SpawnTimer = 0.0f;

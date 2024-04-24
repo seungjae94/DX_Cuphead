@@ -28,8 +28,11 @@ private:
 	ADragon2* Dragon2 = nullptr;
 	ADragon3* Dragon3 = nullptr;
 private:
-	const float CloudSpawnInterval = 4.0f;
+	const float CloudSpawnInterval = 2.5f;
 	float CloudSpawnTimer = 0.0f;
+
+	float LastCloudY = 0.0f;
+	float SecondLastCloudY = 0.0f;
 private:
 	// 초기화 함수
 	void StateInit();

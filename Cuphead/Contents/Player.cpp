@@ -250,7 +250,6 @@ bool APlayer::IsLeftCollisionOccur()
 		return true;
 	}
 
-	// TODO: 충돌체 체크
 	float PosX = GetActorLocation().X;
 	if (PosX < -550.0f)
 	{
@@ -266,8 +265,6 @@ bool APlayer::IsRightCollisionOccur()
 	{
 		return true;
 	}
-
-	// TODO: 충돌체 체크
 
 	float PosX = GetActorLocation().X;
 	if (PosX > 550.0f)
@@ -286,13 +283,14 @@ bool APlayer::IsGroundCollisionOccur()
 	}
 
 	// 충돌체 체크
-	if (true == BotCollision->CollisionEnter(ECollisionGroup::Platform, nullptr)
-		|| true == BotCollision->CollisionStay(ECollisionGroup::Platform, nullptr))
-	{
-		return true;
-	}
-	
-	return false;
+	bool CollisionCheck = false;
+	BotCollision->CollisionEnter(ECollisionGroup::Platform, [&CollisionCheck](std::shared_ptr<UCollision> _Other) {
+		CollisionCheck = true;
+	});
+	BotCollision->CollisionStay(ECollisionGroup::Platform, [&CollisionCheck](std::shared_ptr<UCollision> _Other) {
+		CollisionCheck = true;
+	});
+	return CollisionCheck;
 }
 
 void APlayer::MoveUpToGround()

@@ -68,6 +68,7 @@ public:
 	void SetSpriteInfo(const FSpriteInfo& _Info);
 
 	void SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function);
+	void SetLastFrameCallback(std::string_view _AnimationName, std::function<void()> _Function);
 
 	void SetDir(EEngineDir _Dir);
 

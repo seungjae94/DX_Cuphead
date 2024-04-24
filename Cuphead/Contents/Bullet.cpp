@@ -14,7 +14,7 @@ ABullet::ABullet()
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
 	Collision->SetCollisionGroup(ECollisionGroup::Bullet);
-	Collision->SetCollisionType(ECollisionType::Rect);
+	Collision->SetCollisionType(ECollisionType::RotRect);
 	Collision->SetScale({ 100.0f, 50.0f, 1.0f });
 }
 

@@ -20,6 +20,7 @@ public:
 	void ChangeAnimation(std::string_view _AnimName);
 	void SetState(std::string_view StateName);
 	void SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
+	void SetLastFrameCallback(std::string_view _AnimName, std::function<void()> _Callback);
 
 	void Damage(int _Damage) override;
 

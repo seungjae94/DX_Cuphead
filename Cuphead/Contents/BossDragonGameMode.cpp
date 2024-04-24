@@ -112,9 +112,12 @@ void ABossDragonGameMode::IntroStart()
 	SpawnCloud(true, { -250.0f, 50.0f, 0.0f });
 	SpawnCloud(true, { -150.0f, -275.0f, 0.0f });
 	SpawnCloud(true, { 0.0f, 225.0f, 0.0f });
-	SpawnCloud(true, { 100.0f, -250.0f, 0.0f });
-	SpawnCloud(true, { 200.0f, 25.0f, 0.0f });
-	SpawnCloud(true, { 300.0f, 225.0f, 0.0f });
+	SpawnCloud(true, { 100.0f, -170.0f, 0.0f });
+	SpawnCloud(true, { 250.0f, 25.0f, 0.0f });
+	SpawnCloud(true, { 400.0f, 90.0f, 0.0f });
+
+	SecondLastCloudY = 25.0f;
+	LastCloudY = 90.0f;
 }
 
 void ABossDragonGameMode::Intro(float _DeltaTime)
@@ -129,10 +132,12 @@ void ABossDragonGameMode::Phase1Start()
 {
 	CloudSpawnTimer = 0.0f;
 
-	for (APlatform* Cloud : Clouds)
-	{
-		Cloud->MoveStart();
-	}
+	DelayCallBack(0.5f, [this]() {
+		for (APlatform* Cloud : Clouds)
+		{
+			Cloud->MoveStart();
+		}
+	});
 }
 
 void ABossDragonGameMode::Phase1(float _DeltaTime)
@@ -156,6 +161,7 @@ void ABossDragonGameMode::Phase2IntroStart()
 		Dragon1->Destroy();
 	}
 	Dragon2 = GetWorld()->SpawnActor<ADragon2>("Dragon2").get();
+	Dragon2->SetPlayer(Player);
 	Dragon2->SetFrameCallback("dragon2_intro", 20, [this]() {
 		StateManager.ChangeState("Phase2");
 		Dragon2->ChangeState("Idle");
@@ -205,7 +211,10 @@ void ABossDragonGameMode::Finish(float _DeltaTime)
 	if (true == Dragon2->IsFinished())
 	{
 		ChangeLevelWithFadeEffect(GLevelName::OverworldLevel);
+		return;
 	}
+
+	SpawnClouds(_DeltaTime);
 }
 
 void ABossDragonGameMode::FinishEnd()
@@ -248,14 +257,7 @@ void ABossDragonGameMode::SpawnClouds(float _DeltaTime)
 	}
 
 	// 구름 발판 생성
-	APlatform* FirstCloud = SpawnCloud(false);
-
-	DelayCallBack(1.0f, [this, FirstCloud]() {
-		APlatform* SecondCloud = SpawnCloud(false);
-		float FirstCloudY = FirstCloud->GetActorLocation().Y;
-		SecondCloud->SetActorLocation({ 600.0f, FirstCloudY + 150.0f, 0.0f });
-		});
-
+	APlatform* Cloud = SpawnCloud(false);
 	CloudSpawnTimer = CloudSpawnInterval;
 }
 
@@ -265,9 +267,30 @@ APlatform* ABossDragonGameMode::SpawnCloud(bool _SetLocation, const FVector& _Lo
 
 	if (false == _SetLocation)
 	{
-		float RandomY = Random.RandomFloat(-250.0f, 100.0f);
-		Cloud->SetActorLocation({ 600.0f, RandomY, 0.0f });
+		float RandomY = 0.0f;
+		if (SecondLastCloudY < -250.0f)
+		{
+			RandomY = Random.RandomFloat(50.0f, 200.0f);
+		}
+		else if (SecondLastCloudY < -150.0f)
+		{
+			RandomY = Random.RandomFloat(-50.0f, 200.0f);
+		}
+		else if (SecondLastCloudY > 100.0f)
+		{
+			RandomY = Random.RandomFloat(-200.0f, -50.0f);
+		}
+		else
+		{
+			RandomY = Random.RandomFloat(-150.0f, 150.0f);
+		}
+
+
+		Cloud->SetActorLocation({ 700.0f, SecondLastCloudY + RandomY, 0.0f });
 		Cloud->MoveStart();
+
+		SecondLastCloudY = LastCloudY;
+		LastCloudY = Cloud->GetActorLocation().Y;
 	}
 	else
 	{

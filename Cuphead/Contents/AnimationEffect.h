@@ -3,6 +3,10 @@
 struct FCreateAnimationParameter
 {
 public:
+	FCreateAnimationParameter()
+	{
+	}
+
 	FCreateAnimationParameter(std::string_view _AnimName, std::string_view _ImageName, float _Interval)
 		: AnimName(_AnimName), ImageName(_ImageName), Interval(_Interval)
 	{

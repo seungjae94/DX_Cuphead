@@ -153,6 +153,7 @@ enum class ECollisionGroup
 	BossLevelEntranceChangeLevel,
 	Platform,
 	Bullet,
+	BossAttack,
 	Monster,
 	PlayerPhysicsBot,
 	PlayerPhysicsHor,

@@ -102,7 +102,7 @@ void ULevel::Render(float _DeltaTime)
 				Inst->InstancingDataCheck(Renderer.get(), Count++);
 			}
 
-			Inst->Render(_DeltaTime);
+			Inst->RenderInstancing(_DeltaTime, static_cast<int>(RenderGroup.second.size()));
 			continue;
 		}
 

@@ -20,9 +20,13 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Background = nullptr;
 	USpriteRenderer* Characters = nullptr;
+	USpriteRenderer* Text = nullptr;
 	float4 Color;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+private:
+	const float TextToggleTime = 2.0f;
+	float TextToggleTimer = 0.0f;
 };
 

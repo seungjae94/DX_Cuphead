@@ -60,14 +60,13 @@ void AOverworldPlayer::Tick(float _DeltaTime)
 
 	StateManager.Update(_DeltaTime);
 
-	if (true == Collision->CollisionEnter(ECollisionGroup::BossLevelEntranceBlock, nullptr))
-	{
-		SetActorLocation(PrevPos);
-	}
-
 	Collision->CollisionEnter(ECollisionGroup::BossLevelEntranceBlock, [this, PrevPos](std::shared_ptr<UCollision> _Other) {
 		SetActorLocation(PrevPos);
 	});
+
+	Collision->CollisionStay(ECollisionGroup::BossLevelEntranceBlock, [this, PrevPos](std::shared_ptr<UCollision> _Other) {
+		SetActorLocation(PrevPos);
+		});
 
 	// 카메라 이동 처리
 	BringCamera();

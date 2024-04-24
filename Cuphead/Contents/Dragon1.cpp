@@ -2,6 +2,7 @@
 #include "Dragon1.h"
 #include "BossAttack.h"
 #include "Player.h"
+#include "AnimationEffect.h"
 
 ADragon1::ADragon1()
 {
@@ -54,6 +55,11 @@ void ADragon1::RendererInit()
 		});
 
 	BodyRenderer->SetFrameCallback("dragon1_attack_end", 7, [this]() {
+		if ("RunAway" == StateManager.GetCurStateName())
+		{
+			return;
+		}
+
 		BodyRenderer->ChangeAnimation("dragon1_idle");
 
 		if (0 == AttackCount)
@@ -68,6 +74,11 @@ void ADragon1::RendererInit()
 		});
 
 	BodyRenderer->SetFrameCallback("dragon1_beam_end", 7, [this]() {
+		if ("RunAway" == StateManager.GetCurStateName())
+		{
+			return;
+		}
+
 		StateManager.ChangeState("Idle");
 		});
 
@@ -224,6 +235,7 @@ void ADragon1::SpawnAttackProj()
 	ABossAttack* Attack = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
 	Attack->SetRenderingOrder(ERenderingOrder::Bullet);
 	Attack->SetActorLocation(GetActorLocation() + FVector(-150.0f, 675.0f, 0.0f));
+	Attack->SetTrailEffect(FCreateAnimationParameter{"dragon1_attack_smoke", "dragon1_attack_smoke.png", 1 / 24.0f}, 1 / 6.0f);
 
 	std::function<FVector()> VelocityGenerator = [this, Attack]() {
 		float Height = 300.0f;
@@ -306,6 +318,11 @@ void ADragon1::SetState(std::string_view _StateName)
 void ADragon1::SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
 {
 	BodyRenderer->SetFrameCallback(_AnimName, _Frame, _Callback);
+}
+
+void ADragon1::SetLastFrameCallback(std::string_view _AnimName, std::function<void()> _Callback)
+{
+	BodyRenderer->SetLastFrameCallback(_AnimName, _Callback);
 }
 
 void ADragon1::Damage(int _Damage)

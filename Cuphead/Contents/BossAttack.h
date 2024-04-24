@@ -1,4 +1,5 @@
 #pragma once
+#include "AnimationEffect.h"
 
 enum class EChaseType
 {
@@ -25,8 +26,11 @@ public:
 	void SetAnimation(std::string_view _AnimName, std::string_view _ImageName, float _Inter, bool _Loop = true);
 	void SetVelocity(const FVector& _Velocity, bool _RotateImage = false, const FVector& _RotationDeg = FVector::Zero);
 	void SetChaseType(EChaseType _Type, AActor* _Target);
+	void SetChaseTime(float _Time);
 	void SetDestroyTime(float _Time);
-	void SetParryable(bool _Parryable);
+	void SetParryable(bool _Value);
+	void SetDestroyable(bool _Value, std::string_view _DestroyAnimName, std::string_view _DestroySpriteName, float _Inter);
+	void SetTrailEffect(FCreateAnimationParameter _AnimParam, float _TrailTime);
 
 	void SetCollisionType(ECollisionType _Type);
 	void SetCollisionPosition(const FVector& _Pos);
@@ -42,8 +46,18 @@ protected:
 private:
 	// ·ÎÁ÷
 	bool Destroyable = false;
+	std::string DestroyAnimName;
+
 	bool Parryable = false;
+
+	bool ChaseTimeSetted = false;
+	float ChaseTimer = 0.0f;
 	EChaseType ChaseType = EChaseType::None;
+
+	bool HasTrail = false;
+	float TrailTime = 0.0f;
+	float TrailTimer = 0.0f;
+	FCreateAnimationParameter TrailEffectAnimParam;
 
 	FVector Velocity = FVector::Zero;
 

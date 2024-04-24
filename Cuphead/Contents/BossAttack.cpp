@@ -2,6 +2,7 @@
 #include "BossAttack.h"
 #include "cmath"
 #include "Player.h"
+#include "AnimationEffect.h"
 
 ABossAttack::ABossAttack()
 {
@@ -13,7 +14,7 @@ ABossAttack::ABossAttack()
 
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
-	Collision->SetCollisionGroup(ECollisionGroup::Bullet);
+	Collision->SetCollisionGroup(ECollisionGroup::BossAttack);
 	Collision->SetCollisionType(ECollisionType::RotRect);
 }
 
@@ -56,16 +57,45 @@ void ABossAttack::SetChaseType(EChaseType _Type, AActor* _Target)
 	Target = _Target;
 }
 
+void ABossAttack::SetChaseTime(float _Time)
+{
+	ChaseTimeSetted = true;
+	ChaseTimer = _Time;
+}
+
 void ABossAttack::SetDestroyTime(float _Time)
 {
 	DelayCallBack(_Time, [this]() {
+		if (nullptr == this)
+		{
+			return;
+		}
+
 		Destroy();
 		});
 }
 
-void ABossAttack::SetParryable(bool _Parryable)
+void ABossAttack::SetParryable(bool _Value)
 {
-	Parryable = _Parryable;
+	Parryable = _Value;
+}
+
+void ABossAttack::SetDestroyable(bool _Value, std::string_view _DestroyAnimName, std::string_view _DestroySpriteName, float _Inter)
+{
+	Destroyable = _Value;
+	DestroyAnimName = _DestroyAnimName;
+	Renderer->CreateAnimation(DestroyAnimName, _DestroySpriteName, _Inter, false);
+	Renderer->SetLastFrameCallback(DestroyAnimName, [this]() {
+		Destroy();
+	});
+}
+
+void ABossAttack::SetTrailEffect(FCreateAnimationParameter _AnimParam, float _TrailTime)
+{
+	TrailEffectAnimParam = _AnimParam;
+	HasTrail = true;
+	TrailTime = _TrailTime;
+	TrailTimer = _TrailTime;
 }
 
 void ABossAttack::SetCollisionType(ECollisionType _Type)
@@ -107,19 +137,43 @@ void ABossAttack::Tick(float _DeltaTime)
 	}
 	else if (EChaseType::Permanent == ChaseType)
 	{
+		ChaseTimer -= _DeltaTime;
+
+		if (true == ChaseTimeSetted && ChaseTimer < 0.0f)
+		{
+			ChaseType = EChaseType::None;
+			return;
+		}
+
+		float AngularSpeed = 90.0f;
 		float Speed = Velocity.Size2D();
-		FVector Direction = (Target->GetActorLocation() - GetActorLocation()).Normalize2DReturn();
 
-		Velocity = Direction * Speed;
+		FVector PrevDirection = -GetActorUpVector();
+		FVector LookAtDirection = (Target->GetActorLocation() - GetActorLocation()).Normalize2DReturn();
 
-		float Theta = UCupheadMath::DirectionToDeg(Direction);
+		float PrevTheta = UCupheadMath::DirectionToDeg(PrevDirection);
+		float LookAtTheta = UCupheadMath::DirectionToDeg(LookAtDirection);
 
-		SetActorRotation({0.0f, 0.0f, Theta + 90.0f});
+		float DiffTheta = UCupheadMath::SubtractDeg(LookAtTheta, PrevTheta);
+
+		if (DiffTheta > AngularSpeed * _DeltaTime)
+		{
+			DiffTheta = AngularSpeed * _DeltaTime;
+		}
+		else if (DiffTheta < -AngularSpeed * _DeltaTime)
+		{
+			DiffTheta = -AngularSpeed * _DeltaTime;
+		}
+
+		AddActorRotation({ 0.0f, 0.0f, DiffTheta});
+		FVector NewDirection = -GetActorUpVector();
+
+		Velocity = NewDirection * Speed;
 	}
 
 	AddActorLocation(Velocity * _DeltaTime);
 
-	// 충돌 처리
+	// 플레이어와 충돌 처리
 	Collision->CollisionEnter(ECollisionGroup::PlayerHitBox, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			// 상태, 애니메이션 변경
@@ -138,4 +192,28 @@ void ABossAttack::Tick(float _DeltaTime)
 
 			Player->Damage();
 		});
+
+	// 총알과 충돌 처리
+	if (true == Destroyable)
+	{
+		Collision->CollisionEnter(ECollisionGroup::Bullet, [this](std::shared_ptr<UCollision> _Other) 
+			{
+				Collision->SetActive(false);
+				Renderer->ChangeAnimation(DestroyAnimName);
+			});
+	}
+
+	// trail 이펙트
+	if (true == HasTrail)
+	{
+		TrailTimer -= _DeltaTime;
+		if (TrailTimer < 0.0f)
+		{
+			AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("Effect").get();
+			Effect->SetActorLocation(GetActorLocation());
+			ERenderingOrder AttackOrder = static_cast<ERenderingOrder>(Renderer->GetOrder());
+			Effect->Init(AttackOrder, TrailEffectAnimParam, true);
+			TrailTimer = TrailTime;
+		}
+	}
 }

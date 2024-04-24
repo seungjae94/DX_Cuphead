@@ -24,13 +24,9 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Background0 = nullptr;
 	USpriteRenderer* Background1 = nullptr;
-	USpriteRenderer* Col = nullptr;
 private:
 	FVector MapScale;
 	const float BackgroundSpeed = 200.0f;
 private:
-	bool ShowColMap = false;
-	void ShowPixelColMapCheckBox();
-	void ToggleColMap();
 };
 

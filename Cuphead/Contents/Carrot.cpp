@@ -147,7 +147,9 @@ void ACarrot::Attack(float _DeltaTime)
 	Proj->SetVelocity(FVector::Down * 200.0f);
 	Proj->SetAnimation("carrot_proj", "carrot_proj.png", 1 / 12.0f, true);
 	Proj->SetChaseType(EChaseType::Permanent, Player);
-	Proj->SetDestroyTime(5.0f);
+	Proj->SetChaseTime(5.0f);
+	Proj->SetDestroyTime(10.0f);
+	Proj->SetDestroyable(true, "carrot_proj_destroy", "carrot_proj_destroy.png", 1 / 12.0f);
 	Proj->SetCollisionPosition({ -2.0f, -10.0f });
 	Proj->SetCollisionScale({ 30.0f, 70.0f });
 
@@ -201,7 +203,7 @@ void ACarrot::Beam(float _DeltaTime)
 
 			Beam->SetActorRotation({ 0.0f, 0.0f, Theta + 90.0f });
 			Beam->SetVelocity(Direction * 650.0f);
-			Beam->SetDestroyTime(2.0f);
+			Beam->SetDestroyTime(4.0f);
 			Beam->SetCollisionPosition({ 0.0f, 0.0f });
 			Beam->SetCollisionScale({ 50.0f, 50.0f });
 			Beam->SetAnimation("carrot_beam_proj", "carrot_beam_proj.png", 1 / 12.0f, false);

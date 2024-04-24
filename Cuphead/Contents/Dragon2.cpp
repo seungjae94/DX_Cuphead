@@ -195,7 +195,7 @@ void ADragon2::Idle(float _DeltaTime)
 	{
 		AFireMob* FireMob = GetWorld()->SpawnActor<AFireMob>("FireMob").get();
 		FireMob->SetActorLocation(GetActorLocation() + FVector{ 280.0f, 125.0f, 0.0f });
-		FireMob->SetPlayer(this);
+		FireMob->SetPlayer(Player);
 
 		--JumperCounter;
 		if (0 == JumperCounter % JumperPeriod)
@@ -220,6 +220,7 @@ void ADragon2::FaintStart()
 
 	BodyRenderer->AddPosition({ -35.0f, -100.0f });
 	BodyRenderer->ChangeAnimation("dragon2_faint");
+	FireRenderer->SetActive(false);
 }
 
 void ADragon2::Damage(int _Damage)
@@ -257,4 +258,14 @@ void ADragon2::ChangeState(std::string_view _StateName)
 void ADragon2::SetFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback)
 {
 	BodyRenderer->SetFrameCallback(_AnimName, _Frame, _Callback);
+}
+
+void ADragon2::SetLastFrameCallback(std::string_view _AnimName, std::function<void()> _Callback)
+{
+	BodyRenderer->SetLastFrameCallback(_AnimName, _Callback);
+}
+
+void ADragon2::SetPlayer(AActor* _Player)
+{
+	Player = _Player;
 }
