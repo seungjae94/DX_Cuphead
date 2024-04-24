@@ -46,7 +46,17 @@ void APlayer::Damage()
 	--Hp;
 	Hp = UCupheadMath::Max(Hp, 0);
 	HpWidget->ChangeAnimation("ui_hp" + std::to_string(Hp));
-	StateManager.ChangeState(GStateName::Hit);
+
+	if (true == HitBox->IsActive())
+	{
+		StateManager.ChangeState(GStateName::Hit);
+	}
+	else
+	{
+		IsGroundHit = false;
+		Velocity = JumpImpulse * 1.2f;
+		StateManager.ChangeState(GStateName::Jump);
+	}
 }
 
 void APlayer::AddSuperMeter(float _Value)

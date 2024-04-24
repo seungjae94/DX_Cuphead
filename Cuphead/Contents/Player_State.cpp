@@ -458,6 +458,12 @@ void APlayer::Hit(float _DeltaTime)
 	Velocity += Gravity * _DeltaTime;
 	AddActorLocation(Velocity * _DeltaTime);
 
+	if (true == IsGroundCollisionOccur() && Velocity.Y <= 0.0f)
+	{
+		MoveUpToGround();
+		IsDashed = false;
+	}
+
 	if (HitTimer > 0.0f)
 	{
 		return;
