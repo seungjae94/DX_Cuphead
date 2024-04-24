@@ -187,6 +187,7 @@ void ABossAttack::Tick(float _DeltaTime)
 			if (true == Parryable && true == Player->IsParrying())
 			{
 				Player->AddSuperMeter(1.0f);
+				Player->ParrySuccess();
 				return;
 			}
 

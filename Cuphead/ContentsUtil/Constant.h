@@ -175,6 +175,7 @@ enum class ERenderingOrder
 	Entrance,
 	Bullet,
 	Front,
+	VFX0,
 	Collider,
 	UI,
 	Fade,

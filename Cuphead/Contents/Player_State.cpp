@@ -340,6 +340,15 @@ bool APlayer::IsParrying()
 	return IsParryingValue;
 }
 
+void APlayer::ParrySuccess()
+{
+	Velocity.Y = JumpImpulse.Y;
+	
+	AAnimationEffect* ParryEffect = GetWorld()->SpawnActor<AAnimationEffect>("ParryEffect").get();
+	ParryEffect->Init(ERenderingOrder::VFX0, FCreateAnimationParameter{"player_parry_effect", "player_parry_effect", 1 / 12.0f}, true);
+	ParryEffect->SetActorLocation(GetActorLocation());
+}
+
 void APlayer::DashStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerDash);

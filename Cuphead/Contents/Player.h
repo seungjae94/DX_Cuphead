@@ -28,6 +28,7 @@ public:
 	void Damage();
 	void AddSuperMeter(float _Value);
 	bool IsParrying();
+	void ParrySuccess();
 
 protected:
 
