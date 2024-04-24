@@ -63,6 +63,11 @@ void ACarrot::RendererInit()
 		});
 
 	CarrotRenderer->SetFrameCallback("carrot_idle_to_beam", 8, [this]() {
+		if ("Faint" == StateManager.GetCurStateName())
+		{
+			return;
+		}
+
 		CarrotRenderer->ChangeAnimation("carrot_beam_body");
 		EyeRenderer->ChangeAnimation("carrot_beam_eye");
 		EyeRenderer->SetActive(true);
