@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Boss.h"
+#include "Player.h"
 
 ABoss::ABoss()
 {
@@ -26,6 +27,11 @@ bool ABoss::IsFinished() const
 	return "Finish" == StateManager.GetCurStateName();
 }
 
+void ABoss::BodyDamageOff()
+{
+	HasBodyDamage = false;
+}
+
 void ABoss::BeginPlay()
 {
 	Super::BeginPlay();
@@ -43,6 +49,7 @@ void ABoss::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	StateManager.Update(_DeltaTime);
 	DebugUpdate(_DeltaTime);
+	BodyDamageCheck();
 }
 
 void ABoss::DebugUpdate(float _DeltaTime)
@@ -56,4 +63,24 @@ void ABoss::DebugUpdate(float _DeltaTime)
 		std::string Msg = std::format("{} State : {}\n", GetName(), StateManager.GetCurStateName());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+}
+
+void ABoss::BodyDamageCheck()
+{
+	if (false == HasBodyDamage)
+	{
+		return;
+	}
+
+	Collision->CollisionStay(ECollisionGroup::PlayerHitBox, 
+		[this](std::shared_ptr<UCollision> _PlayerCollision) {
+			APlayer* Player = dynamic_cast<APlayer*>(_PlayerCollision->GetActor());
+
+			if (nullptr == Player)
+			{
+				return;
+			}
+			
+			Player->Damage();
+		});
 }

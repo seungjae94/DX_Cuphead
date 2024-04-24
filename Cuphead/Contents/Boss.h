@@ -18,6 +18,7 @@ public:
 	void SetHp(int _Hp);
 	virtual void Damage(int _Damage) = 0;
 	bool IsFinished() const;
+	void BodyDamageOff();
 
 protected:
 	int Hp = 0;
@@ -35,5 +36,8 @@ protected:
 	void FinishStart() {};
 	void Finish(float _DeltaTime) {};
 	void FinishEnd() {};
+private:
+	void BodyDamageCheck();
+	bool HasBodyDamage = true;
 };
 

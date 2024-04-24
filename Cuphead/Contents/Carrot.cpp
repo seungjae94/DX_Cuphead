@@ -32,8 +32,10 @@ void ACarrot::BeginPlay()
 	CarrotRenderer->SetPosition({ 0.0f, 0.0f });
 	EyeRenderer->SetPosition({ -2.0f, 310.0f });
 	GroundRenderer->SetPosition({ 0.0f, -20.0f });
-	Collision->SetPosition(CarrotRenderer->GetLocalPosition() + FVector(0.0f, 270.0f, 0.0f));
-	Collision->SetScale({ 250.0f, 450.0f });
+	Collision->SetPosition(CarrotRenderer->GetLocalPosition() + FVector(0.0f, 400.0f, 0.0f));
+	Collision->SetScale({ 250.0f, 300.0f });
+
+	BodyDamageOff();
 }
 
 void ACarrot::RendererInit()

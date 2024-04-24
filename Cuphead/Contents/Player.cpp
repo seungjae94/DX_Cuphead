@@ -5,6 +5,8 @@
 #include "CupheadCore.h"
 #include "CupheadDebugWindow.h"
 
+int APlayer::DamageCoeff = 1;
+
 APlayer::APlayer()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
@@ -104,7 +106,7 @@ void APlayer::BeginPlay()
 
 	// 디버그 기능
 	DebugWindow->RegisterCallback(
-		"BossFarmMapPixelColToggle",
+		"DamageCheat",
 		std::bind(&APlayer::DamageCheat, this)
 	);
 }
@@ -386,16 +388,5 @@ bool APlayer::CheckPixelCollision(const FVector& _Point)
 
 void APlayer::DamageCheat()
 {
-	bool Clicked = ImGui::Checkbox("Damage x10", &DamageX10);
-	if (true == Clicked)
-	{	
-		if (1 == DamageCoeff)
-		{
-			DamageCoeff = 10;
-		}
-		else
-		{
-			DamageCoeff = 1;
-		}
-	}
+	ImGui::InputInt("Damage Multiplier", &DamageCoeff, 1, 100, 0);
 }

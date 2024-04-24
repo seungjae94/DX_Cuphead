@@ -103,8 +103,7 @@ private:
 private:
 	int Hp = 3;
 	float SuperMeter = 2.0f;
-	bool DamageX10 = true;
-	int DamageCoeff = 1;
+	static int DamageCoeff;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
