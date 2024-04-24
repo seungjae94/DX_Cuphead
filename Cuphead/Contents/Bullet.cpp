@@ -39,7 +39,7 @@ void ABullet::BeginPlay()
 
 	DelayCallBack(1.0f, [this]() {
 		Destroy();
-	});
+		});
 
 	AnimationInit();
 	StateInit();
@@ -63,8 +63,12 @@ void ABullet::AnimationInit()
 	Renderer->SetAutoSize(0.9f, true);
 	Renderer->SetOrder(ERenderingOrder::Bullet);
 
-	Renderer->CreateAnimation(GAnimName::BulletMove, GImageName::BulletMove, 0.1f);
-	Renderer->CreateAnimation(GAnimName::BulletDestroy, GImageName::BulletDestroy, 0.1f, false);
+	Renderer->CreateAnimation(GAnimName::BulletMove, GImageName::BulletMove, 1 / 12.0f);
+	Renderer->CreateAnimation(GAnimName::BulletDestroy, GImageName::BulletDestroy, 1 / 24.0f, false);
+
+	Renderer->SetLastFrameCallback(GAnimName::BulletDestroy, [this]() {
+		Destroy();
+		});
 }
 
 void ABullet::StateInit()
@@ -73,12 +77,21 @@ void ABullet::StateInit()
 	StateManager.CreateState(GStateName::Destroy);
 
 	std::function<void()> MoveStartFunc = [this]() {
-		this->RefreshRotation();
+		RefreshRotation();
 		Renderer->ChangeAnimation(GAnimName::BulletMove);
 		};
 	std::function<void(float)> MoveUpdateFunc = std::bind(&ABullet::Move, this, std::placeholders::_1);
 	std::function<void()> MoveEndFunc = []() {};
 	StateManager.SetFunction(GStateName::Move, MoveStartFunc, MoveUpdateFunc, MoveEndFunc);
+
+	StateManager.SetFunction(GStateName::Destroy, [this]() {
+			Renderer->ChangeAnimation(GAnimName::BulletDestroy);
+		},
+		[](float _DeltaTime) {
+			int a = 0;
+		},
+		[]() {}
+	);
 }
 
 void ABullet::RefreshRotation()
@@ -118,17 +131,19 @@ void ABullet::Move(float _DeltaTime)
 	FVector Displacement = UConverter::ConvDirectionToFVector(Direction) * Speed * _DeltaTime;
 	AddActorLocation(Displacement);
 
-	Collision->CollisionEnter(ECollisionGroup::Monster, [=](std::shared_ptr<UCollision> _Collision)
-	{
-		// 상태, 애니메이션 변경
-		ABoss* Enemy = dynamic_cast<ABoss*>(_Collision->GetActor());
-
-		if (nullptr == Enemy)
+	Collision->CollisionEnter(ECollisionGroup::Monster, [this](std::shared_ptr<UCollision> _Collision)
 		{
-			return;
-		}
+			// 상태, 애니메이션 변경
+			ABoss* Enemy = dynamic_cast<ABoss*>(_Collision->GetActor());
 
-		Enemy->Damage(Damage);
-		Player->AddSuperMeter(1 / 40.0f);
-	});
+			if (nullptr == Enemy)
+			{
+				return;
+			}
+
+			Enemy->Damage(Damage);
+			Player->AddSuperMeter(1 / 40.0f);
+
+			StateManager.ChangeState(GStateName::Destroy);
+		});
 }

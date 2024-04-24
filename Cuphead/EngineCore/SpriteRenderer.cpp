@@ -14,6 +14,7 @@ void USpriteRenderer::SetFrameCallback(std::string_view _AnimationName, int _Ind
 	}
 
 	Animations[UpperName]->FrameCallback[_Index] = _Function;
+
 }
 
 void USpriteRenderer::SetLastFrameCallback(std::string_view _AnimationName, std::function<void()> _Function)
@@ -331,7 +332,7 @@ void USpriteRenderer::CreateAnimation(
 	CreateAnimation(_AnimationName, _SpriteName, Inter, Frame, _Loop);
 }
 
-void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName)
+void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName, int StartFrame)
 {
 	if (nullptr != CurAnimation && _AnimationName == CurAnimation->GetName())
 	{
@@ -348,6 +349,8 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName)
 
 	CurAnimation = Animations[UpperName];
 	CurAnimation->Reset();
+	CurAnimation->CurFrame = StartFrame;
+
 	CurAnimation->FrameCallBackCheck();
 }
 

@@ -113,6 +113,7 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting(GImageName::PlayerHit, 6, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerRun, 16, 1);
 		UEngineSprite::CreateCutting(GImageName::BulletSpawn, 4, 1);
+		UEngineSprite::CreateCutting(GImageName::BulletDestroy, 6, 1);
 	}
 
 	{
