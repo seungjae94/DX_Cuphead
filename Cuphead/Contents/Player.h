@@ -74,6 +74,8 @@ private:
 	// Hit
 	const float HitTime = 0.5f;
 	float HitTimer = 0.0f;
+	bool IsGroundHit = false;
+	float DamageGroundY = -300.0f;
 
 	// Jump
 	const float DownJumpCheckScale = 10.0f;

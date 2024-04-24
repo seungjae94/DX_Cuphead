@@ -439,11 +439,24 @@ void APlayer::HitStart()
 	Renderer->ChangeAnimation(GAnimName::PlayerHit);
 	HitTimer = HitTime;
 	HitBox->SetActive(false);
+
+	Velocity = FVector::Zero;
+	if (true == IsGroundHit)
+	{
+		IsGroundHit = false;
+		FVector CurPos = GetActorLocation();
+		SetActorLocation({ CurPos.X, DamageGroundY + 5.0f, 0.0f });
+		Velocity = JumpImpulse * 1.2f;
+	}
 }
 
 void APlayer::Hit(float _DeltaTime)
 {
 	HitTimer -= _DeltaTime;
+
+	// 중력 적용
+	Velocity += Gravity * _DeltaTime;
+	AddActorLocation(Velocity * _DeltaTime);
 
 	if (HitTimer > 0.0f)
 	{

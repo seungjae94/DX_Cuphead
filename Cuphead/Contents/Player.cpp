@@ -104,6 +104,15 @@ void APlayer::Tick(float _DeltaTime)
 	SpriteDirUpdate(_DeltaTime);
 	StateManager.Update(_DeltaTime);
 	PlatformMovementUpdate(_DeltaTime);
+
+	// 바닥 데미지 체크
+	float PosY = GetActorLocation().Y;
+	if (PosY < DamageGroundY)
+	{
+		IsGroundHit = true;
+		Damage();
+	}
+
 	ChildRenderersUpdate(_DeltaTime);
 	DebugUpdate(_DeltaTime);
 }
@@ -277,6 +286,7 @@ bool APlayer::IsRightCollisionOccur()
 
 bool APlayer::IsGroundCollisionOccur()
 {
+	// 픽셀 충돌 체크
 	if (true == CheckPixelCollision(BotCollision->GetWorldPosition()))
 	{
 		return true;
