@@ -46,7 +46,7 @@ void AOnion::SetOnionFrameCallback(std::string_view _AnimName, int _Frame, std::
 
 void AOnion::Damage(int _Damage)
 {
-	if ("Faint" == StateManager.GetCurStateName())
+	if ("Faint" == StateManager.GetCurStateName() || "Finish" == StateManager.GetCurStateName())
 	{
 		return;
 	}

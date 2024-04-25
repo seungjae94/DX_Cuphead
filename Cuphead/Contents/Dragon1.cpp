@@ -327,7 +327,7 @@ void ADragon1::SetLastFrameCallback(std::string_view _AnimName, std::function<vo
 
 void ADragon1::Damage(int _Damage)
 {
-	if ("RunAway" == StateManager.GetCurStateName())
+	if ("RunAway" == StateManager.GetCurStateName() || "Finish" == StateManager.GetCurStateName())
 	{
 		return;
 	}

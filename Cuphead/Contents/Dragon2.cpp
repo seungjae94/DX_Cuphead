@@ -225,7 +225,7 @@ void ADragon2::FaintStart()
 
 void ADragon2::Damage(int _Damage)
 {
-	if ("Faint" == StateManager.GetCurStateName())
+	if ("Faint" == StateManager.GetCurStateName() || "Finish" == StateManager.GetCurStateName())
 	{
 		return;
 	}

@@ -47,7 +47,7 @@ void APotato::StateChangeToAttack()
 
 void APotato::Damage(int _Damage)
 {
-	if ("Faint" == StateManager.GetCurStateName())
+	if ("Faint" == StateManager.GetCurStateName() || "Finish" == StateManager.GetCurStateName())
 	{
 		return;
 	}
