@@ -229,14 +229,14 @@ void APlayer::DebugUpdate(float _DeltaTime)
 	}
 
 	{
-		std::string Msg = std::format("Player CurState : {}\n", CurStateName);
+		std::string Msg = std::format("Player PrevState : {}\n", PrevStateName);
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
-	//{
-	//	std::string Msg = std::format("Player PrevState : {}\n", PrevStateName);
-	//	UEngineDebugMsgWindow::PushMsg(Msg);
-	//}
+	{
+		std::string Msg = std::format("Player CurState : {}\n", CurStateName);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 
 	//{
 	//	std::string Msg = std::format("Player IsFire : {}\n", IsFire == true ? "true" : "false");

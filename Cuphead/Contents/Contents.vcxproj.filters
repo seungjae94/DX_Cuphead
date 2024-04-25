@@ -245,7 +245,7 @@
     <ClCompile Include="Player_Anim.cpp">
       <Filter>Level\03. Boss Level\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Player_Fire.cpp">
+    <ClCompile Include="Player_Attack.cpp">
       <Filter>Level\03. Boss Level\Player</Filter>
     </ClCompile>
     <ClCompile Include="Player_State.cpp">

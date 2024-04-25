@@ -4,6 +4,7 @@ struct FCreateAnimationParameter
 {
 public:
 	FCreateAnimationParameter()
+		: AnimName(""), ImageName(""), Interval(0.0f)
 	{
 	}
 

@@ -97,6 +97,10 @@ private:
 	bool IsSitting = false;
 	bool IsStanding = false;
 
+	// EX
+	const float EXTime = 1.0f;
+	float EXTimer = 0.0f;
+
 	// UI
 	UImage* HpWidget = nullptr;
 	std::vector<UImage*> CardWidgets;
@@ -155,6 +159,10 @@ private:
 	void Hit(float _DeltaTime);
 	void HitEnd();
 
+	void EXStart();
+	void EX(float _DeltaTime);
+	void EXEnd();
+
 private:
 	// 공격
 	void Fire();
@@ -164,6 +172,10 @@ private:
 	FVector GetBulletSpawnLocalLocation_Run();
 	FVector GetBulletSpawnLocalLocation_Sit();
 	EDirection GetBulletSpawnDirection();
+
+	// EX
+	bool EXAttack();
+	std::string GetEXAnimationName();
 
 private:
 	// 달리기 먼지 발생

@@ -236,6 +236,83 @@ EDirection APlayer::GetBulletSpawnDirection()
 	return EDirection::Right;
 }
 
+bool APlayer::EXAttack()
+{
+	if (false == IsDown('V'))
+	{
+		return false;
+	}
+
+	ChangeState(GStateName::EX);
+	return true;
+}
+
+std::string APlayer::GetEXAnimationName()
+{
+	if (true == IsGroundCollisionOccur())
+	{
+		if (true == IsPress(VK_RIGHT) || true == IsPress(VK_LEFT))
+		{
+			if (true == IsPress(VK_UP))
+			{
+				return GAnimName::PlayerGroundExHalfUp;
+			}
+			else if (true == IsPress(VK_DOWN))
+			{
+				return GAnimName::PlayerGroundExHalfDown;
+			}
+			else
+			{
+				return GAnimName::PlayerGroundExForward;
+			}
+		}
+		else if (true == IsPress(VK_UP))
+		{
+			return GAnimName::PlayerGroundExUp;
+		}
+		else if (true == IsPress(VK_DOWN))
+		{
+			return GAnimName::PlayerGroundExDown;
+		}
+		else
+		{
+			// 아무 키도 누르지 않은 경우
+			return GAnimName::PlayerGroundExForward;
+		}
+	}
+	else
+	{
+		if (true == IsPress(VK_RIGHT) || true == IsPress(VK_LEFT))
+		{
+			if (true == IsPress(VK_UP))
+			{
+				return GAnimName::PlayerAirExHalfUp;
+			}
+			else if (true == IsPress(VK_DOWN))
+			{
+				return GAnimName::PlayerAirExHalfDown;
+			}
+			else
+			{
+				return GAnimName::PlayerAirExForward;
+			}
+		}
+		else if (true == IsPress(VK_UP))
+		{
+			return GAnimName::PlayerAirExUp;
+		}
+		else if (true == IsPress(VK_DOWN))
+		{
+			return GAnimName::PlayerAirExDown;
+		}
+		else
+		{
+			// 아무 키도 누르지 않은 경우
+			return GAnimName::PlayerAirExForward;
+		}
+	}
+}
+
 void APlayer::SpawnRunDustEffect(float _DeltaTime)
 {
 	RunDustTimer -= _DeltaTime;

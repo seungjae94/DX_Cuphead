@@ -13,6 +13,7 @@ void APlayer::StateInit()
 	StateManager.CreateState(GStateName::Dash);
 	StateManager.CreateState(GStateName::Jump);
 	StateManager.CreateState(GStateName::Parry);
+	StateManager.CreateState(GStateName::EX);
 
 	StateManager.SetFunction(GStateName::Intro,
 		std::bind(&APlayer::IntroStart, this),
@@ -48,6 +49,10 @@ void APlayer::StateInit()
 	StateManager.SetUpdateFunction(GStateName::Hit, std::bind(&APlayer::Hit, this, std::placeholders::_1));
 	StateManager.SetEndFunction(GStateName::Hit, std::bind(&APlayer::HitEnd, this));
 
+	StateManager.SetStartFunction(GStateName::EX, std::bind(&APlayer::EXStart, this));
+	StateManager.SetUpdateFunction(GStateName::EX, std::bind(&APlayer::EX, this, std::placeholders::_1));
+	StateManager.SetEndFunction(GStateName::EX, std::bind(&APlayer::EXEnd, this));
+
 	StateManager.ChangeState(GStateName::Intro);
 }
 
@@ -67,7 +72,7 @@ void APlayer::Intro(float _DeltaTime)
 {
 	if (true == Renderer->IsCurAnimationEnd())
 	{
-		StateManager.ChangeState("Idle");
+		ChangeState("Idle");
 	}
 }
 
@@ -84,6 +89,12 @@ void APlayer::IdleStart()
 void APlayer::Idle(float _DeltaTime)
 {
 	Fire();
+
+	if (true == EXAttack())
+	{
+		return;
+	}
+
 	RefreshIdleAnimation();
 
 	if (true == IsPressArrowKey())
@@ -141,6 +152,12 @@ void APlayer::RunStart()
 void APlayer::Run(float _DeltaTime)
 {
 	Fire();
+
+	if (true == EXAttack())
+	{
+		return;
+	}
+
 	RefreshRunAnimation();
 	SpawnRunDustEffect(_DeltaTime);
 
@@ -212,6 +229,11 @@ void APlayer::Jump(float _DeltaTime)
 {
 	Fire();
 
+	if (true == EXAttack())
+	{
+		return;
+	}
+
 	// 대시 처리
 	if (true == IsDown(VK_SHIFT) && false == IsDashed)
 	{
@@ -235,7 +257,7 @@ void APlayer::Jump(float _DeltaTime)
 	Velocity += Gravity * _DeltaTime;
 	AddActorLocation(Velocity * _DeltaTime);
 
-	if ((true == IsLeftCollisionOccur() && Velocity.X < 0.0f) 
+	if ((true == IsLeftCollisionOccur() && Velocity.X < 0.0f)
 		|| (true == IsRightCollisionOccur() && Velocity.X > 0.0f))
 	{
 		float PosY = GetActorLocation().Y;
@@ -283,6 +305,11 @@ void APlayer::ParryStart()
 void APlayer::Parry(float _DeltaTime)
 {
 	Fire();
+
+	if (true == EXAttack())
+	{
+		return;
+	}
 
 	// 대시 처리
 	if (true == IsDown(VK_SHIFT) && false == IsDashed)
@@ -343,9 +370,9 @@ bool APlayer::IsParrying()
 void APlayer::ParrySuccess()
 {
 	Velocity.Y = JumpImpulse.Y;
-	
+
 	AAnimationEffect* ParryEffect = GetWorld()->SpawnActor<AAnimationEffect>("ParryEffect").get();
-	ParryEffect->Init(ERenderingOrder::VFX0, FCreateAnimationParameter{"player_parry_effect", "player_parry_effect", 1 / 12.0f}, true);
+	ParryEffect->Init(ERenderingOrder::VFX0, FCreateAnimationParameter{ "player_parry_effect", "player_parry_effect", 1 / 12.0f }, true);
 	ParryEffect->SetActorLocation(GetActorLocation());
 }
 
@@ -412,6 +439,7 @@ void APlayer::SitStart()
 void APlayer::Sit(float _DeltaTime)
 {
 	Fire();
+	EXAttack();
 
 	if (false == IsStanding && false == IsSitting)
 	{
@@ -509,6 +537,47 @@ void APlayer::HitEnd()
 	DelayCallBack(NoHitTime, [this]() {
 		HitBox->SetActive(true);
 		});
+}
+
+void APlayer::EXStart()
+{
+	// Notice: 임시로 그냥 총알이 나가도록 구현
+
+	// 애니메이션 재생
+	Renderer->ChangeAnimation(GetEXAnimationName());
+
+	// 총알 이펙트 생성 및 발사
+	ABullet* Bullet = GetWorld()->SpawnActor<ABullet>("Bullet").get();
+	Bullet->SetActorLocation(GetBulletSpawnLocation());
+	Bullet->SetDirection(GetBulletSpawnDirection());
+	Bullet->SetPlayer(this);
+
+	// 연기 이펙트 생성
+	//AAnimationEffect* Dust = GetWorld()->SpawnActor<AAnimationEffect>("Dust").get();
+	//Dust->SetActorLocation(GetBulletSpawnLocation());
+	//Dust->Init(ERenderingOrder::BulletSpawn, FCreateAnimationParameter{ "bullet_spawn", "bullet_spawn.png", 1 / 24.0f }, true);
+
+	EXTimer = EXTime;
+}
+
+void APlayer::EX(float _DeltaTime)
+{
+	EXTimer -= _DeltaTime;
+
+	if (EXTimer < 0.0f)
+	{
+		if ("EX" == PrevStateName)
+		{
+			PrevStateName = "Idle";
+		}
+
+		StateManager.ChangeState(PrevStateName);
+	}
+}
+
+void APlayer::EXEnd()
+{
+
 }
 
 void APlayer::RefreshIdleAnimation()

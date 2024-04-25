@@ -51,6 +51,16 @@ namespace GImageName
 	const std::string PlayerRun = "player_run.png";
 	const std::string PlayerRunShootHalfUp = "player_run_shoot_halfup";
 	const std::string PlayerRunShootForward = "player_run_shoot_forward";
+	const std::string PlayerGroundExUp = "player_ground_ex_up";
+	const std::string PlayerGroundExHalfUp = "player_ground_ex_halfup";
+	const std::string PlayerGroundExForward = "player_ground_ex_forward";
+	const std::string PlayerGroundExHalfDown = "player_ground_ex_halfdown";
+	const std::string PlayerGroundExDown = "player_ground_ex_down";
+	const std::string PlayerAirExUp = "player_air_ex_up";
+	const std::string PlayerAirExHalfUp = "player_air_ex_halfup";
+	const std::string PlayerAirExForward = "player_air_ex_forward";
+	const std::string PlayerAirExHalfDown = "player_air_ex_halfdown";
+	const std::string PlayerAirExDown = "player_air_ex_down";
 	const std::string PlayerJump = "player_jump.png";
 	const std::string PlayerParry = "player_parry.png";
 	const std::string PlayerDash = "player_dash.png";
@@ -104,6 +114,16 @@ namespace GAnimName
 	const std::string PlayerRun = "player_run";
 	const std::string PlayerRunShootHalfUp = "player_run_shoot_halfup";
 	const std::string PlayerRunShootForward = "player_run_shoot_forward";
+	const std::string PlayerGroundExUp = "player_ground_ex_up";
+	const std::string PlayerGroundExHalfUp = "player_ground_ex_halfup";
+	const std::string PlayerGroundExForward = "player_ground_ex_forward";
+	const std::string PlayerGroundExHalfDown = "player_ground_ex_halfdown";
+	const std::string PlayerGroundExDown = "player_ground_ex_down";
+	const std::string PlayerAirExUp = "player_air_ex_up";
+	const std::string PlayerAirExHalfUp = "player_air_ex_halfup";
+	const std::string PlayerAirExForward = "player_air_ex_forward";
+	const std::string PlayerAirExHalfDown = "player_air_ex_halfdown";
+	const std::string PlayerAirExDown = "player_air_ex_down";
 	const std::string PlayerJump = "player_jump";
 	const std::string PlayerParry = "player_parry";
 	const std::string PlayerDash = "player_dash";
@@ -139,6 +159,7 @@ namespace GStateName
 	const std::string Dash = "Dash";
 	const std::string Jump = "Jump";
 	const std::string Parry = "Parry";
+	const std::string EX = "EX";
 
 	const std::string Spawn = "Spawn";
 	const std::string Move = "Move";
