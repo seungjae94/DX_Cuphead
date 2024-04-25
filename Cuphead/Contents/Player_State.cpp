@@ -507,6 +507,10 @@ void APlayer::HitStart()
 	HitTimer = HitTime;
 	HitBox->SetActive(false);
 
+	AAnimationEffect* HitEffect = GetWorld()->SpawnActor<AAnimationEffect>("HitEffect").get();
+	HitEffect->Init(ERenderingOrder::VFX0, FCreateAnimationParameter{"player_hit_effect", "player_hit_effect", 1 / 24.0f}, true);
+	HitEffect->SetActorLocation(GetActorLocation() + FVector{0.0f, 50.0f, 0.0f});
+
 	Velocity = FVector::Zero;
 	if (true == IsGroundHit)
 	{
