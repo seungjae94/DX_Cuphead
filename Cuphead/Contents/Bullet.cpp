@@ -86,6 +86,7 @@ void ABullet::StateInit()
 	StateManager.SetFunction(GStateName::Move, MoveStartFunc, MoveUpdateFunc, MoveEndFunc);
 
 	StateManager.SetFunction(GStateName::Destroy, [this]() {
+			AddActorLocation(UConverter::ConvDirectionToFVector(Direction) * 100.0f);
 			Renderer->ChangeAnimation(DestroyAnimName);
 		},
 		[](float _DeltaTime) {},
