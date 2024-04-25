@@ -139,6 +139,11 @@ void APlayer::Tick(float _DeltaTime)
 
 void APlayer::SpriteDirUpdate(float _DeltaTime)
 {
+	if (false == DirUpdateActive)
+	{
+		return;
+	}
+
 	EEngineDir PrevDirection = Direction;
 	RefreshDirection();
 	Renderer->SetDir(Direction);

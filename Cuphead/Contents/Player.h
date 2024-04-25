@@ -48,6 +48,9 @@ private:
 	std::string CurAnimName = GAnimName::PlayerIdle;
 	UStateManager StateManager;
 
+	// Dir Update
+	bool DirUpdateActive = true;
+
 	// Physics
 	const FVector JumpImpulse = { 0.0f, 1250.0f, 0.0f };
 	const FVector Gravity = { 0.0f, -3200.0f, 0.0f };
@@ -96,10 +99,6 @@ private:
 	// Sit
 	bool IsSitting = false;
 	bool IsStanding = false;
-
-	// EX
-	const float EXTime = 1.0f;
-	float EXTimer = 0.0f;
 
 	// UI
 	UImage* HpWidget = nullptr;

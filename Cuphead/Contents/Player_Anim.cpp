@@ -40,4 +40,23 @@ void APlayer::AnimationInit()
 		IsStanding = false;
 		ChangeState(GStateName::Idle);
 	});
+
+	std::function<void()> ExCallback = [this]() {
+		if ("EX" == PrevStateName)
+		{
+			PrevStateName = "Idle";
+		}
+
+		StateManager.ChangeState(PrevStateName);
+	};
+	Renderer->SetLastFrameCallback(GAnimName::PlayerAirExUp, ExCallback);
+	Renderer->SetLastFrameCallback(GAnimName::PlayerAirExHalfUp, ExCallback);
+	Renderer->SetLastFrameCallback(GAnimName::PlayerAirExForward, ExCallback);
+	Renderer->SetLastFrameCallback(GAnimName::PlayerAirExHalfDown, ExCallback);
+	Renderer->SetLastFrameCallback(GAnimName::PlayerAirExDown, ExCallback);
+	Renderer->SetLastFrameCallback(GAnimName::PlayerGroundExUp, ExCallback);
+	Renderer->SetLastFrameCallback(GAnimName::PlayerGroundExHalfUp, ExCallback);
+	Renderer->SetLastFrameCallback(GAnimName::PlayerGroundExForward, ExCallback);
+	Renderer->SetLastFrameCallback(GAnimName::PlayerGroundExHalfDown, ExCallback);
+	Renderer->SetLastFrameCallback(GAnimName::PlayerGroundExDown, ExCallback);
 }

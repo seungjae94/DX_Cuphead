@@ -65,6 +65,8 @@ void APlayer::ChangeState(std::string _StateName)
 
 void APlayer::IntroStart()
 {
+	DirUpdateActive = false;
+
 	Renderer->ChangeAnimation(GAnimName::PlayerIntro);
 }
 
@@ -78,6 +80,7 @@ void APlayer::Intro(float _DeltaTime)
 
 void APlayer::IntroEnd()
 {
+	DirUpdateActive = true;
 }
 
 void APlayer::IdleStart()
@@ -383,6 +386,8 @@ int APlayer::GetDamageCoeff() const
 
 void APlayer::DashStart()
 {
+	DirUpdateActive = false;
+
 	Renderer->ChangeAnimation(GAnimName::PlayerDash);
 	Velocity.X = UConverter::ConvEngineDirToFVector(Direction).X * DashSpeed;
 	Velocity.Y = 0.0f;
@@ -422,6 +427,7 @@ void APlayer::Dash(float _DeltaTime)
 
 void APlayer::DashEnd()
 {
+	DirUpdateActive = true;
 }
 
 void APlayer::SitStart()
@@ -439,7 +445,10 @@ void APlayer::SitStart()
 void APlayer::Sit(float _DeltaTime)
 {
 	Fire();
-	EXAttack();
+	if (true == EXAttack())
+	{
+		return;
+	}
 
 	if (false == IsStanding && false == IsSitting)
 	{
@@ -484,6 +493,8 @@ void APlayer::SitEnd()
 
 void APlayer::HitStart()
 {
+	DirUpdateActive = false;
+
 	Renderer->ChangeAnimation(GAnimName::PlayerHit);
 	HitTimer = HitTime;
 	HitBox->SetActive(false);
@@ -537,11 +548,15 @@ void APlayer::HitEnd()
 	DelayCallBack(NoHitTime, [this]() {
 		HitBox->SetActive(true);
 		});
+
+	DirUpdateActive = true;
 }
 
 void APlayer::EXStart()
 {
 	// Notice: 임시로 그냥 총알이 나가도록 구현
+
+	DirUpdateActive = false;
 
 	// 애니메이션 재생
 	Renderer->ChangeAnimation(GetEXAnimationName());
@@ -556,28 +571,15 @@ void APlayer::EXStart()
 	//AAnimationEffect* Dust = GetWorld()->SpawnActor<AAnimationEffect>("Dust").get();
 	//Dust->SetActorLocation(GetBulletSpawnLocation());
 	//Dust->Init(ERenderingOrder::BulletSpawn, FCreateAnimationParameter{ "bullet_spawn", "bullet_spawn.png", 1 / 24.0f }, true);
-
-	EXTimer = EXTime;
 }
 
 void APlayer::EX(float _DeltaTime)
 {
-	EXTimer -= _DeltaTime;
-
-	if (EXTimer < 0.0f)
-	{
-		if ("EX" == PrevStateName)
-		{
-			PrevStateName = "Idle";
-		}
-
-		StateManager.ChangeState(PrevStateName);
-	}
 }
 
 void APlayer::EXEnd()
 {
-
+	DirUpdateActive = true;
 }
 
 void APlayer::RefreshIdleAnimation()
