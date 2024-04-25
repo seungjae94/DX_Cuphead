@@ -248,6 +248,14 @@ bool APlayer::EXAttack()
 		return false;
 	}
 
+	int SuperMeterInt = std::lround(SuperMeter);
+	if (SuperMeterInt <= 0)
+	{
+		return false;
+	}
+
+	SuperMeter -= 1.0f;
+
 	ChangeState(GStateName::EX);
 	return true;
 }
