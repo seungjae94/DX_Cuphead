@@ -82,6 +82,9 @@ private:
 	bool IsGroundHit = false;
 	float DamageGroundY = -320.0f;
 
+	// EX
+	bool AirEXUsed = false;
+
 	// Jump
 	const float DownJumpCheckScale = 10.0f;
 

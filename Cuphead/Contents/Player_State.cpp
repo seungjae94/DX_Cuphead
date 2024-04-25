@@ -232,9 +232,12 @@ void APlayer::Jump(float _DeltaTime)
 {
 	Fire();
 
-	if (true == EXAttack())
+	if (false == AirEXUsed)
 	{
-		return;
+		if (true == EXAttack())
+		{
+			return;
+		}
 	}
 
 	// 대시 처리
@@ -272,6 +275,7 @@ void APlayer::Jump(float _DeltaTime)
 		MoveUpToGround();
 		ChangeState(GStateName::Idle);
 		IsDashed = false;
+		AirEXUsed = false;
 		return;
 	}
 
@@ -309,9 +313,12 @@ void APlayer::Parry(float _DeltaTime)
 {
 	Fire();
 
-	if (true == EXAttack())
+	if (false == AirEXUsed)
 	{
-		return;
+		if (true == EXAttack())
+		{
+			return;
+		}
 	}
 
 	// 대시 처리
@@ -349,6 +356,7 @@ void APlayer::Parry(float _DeltaTime)
 		MoveUpToGround();
 		ChangeState(GStateName::Idle);
 		IsDashed = false;
+		AirEXUsed = false;
 		return;
 	}
 }
@@ -554,8 +562,12 @@ void APlayer::HitEnd()
 
 void APlayer::EXStart()
 {
-	// Notice: 임시로 그냥 총알이 나가도록 구현
+	// 변수 설정
 	DirUpdateActive = false;
+	if (false == IsGroundCollisionOccur())
+	{
+		AirEXUsed = true;
+	}
 
 	// 애니메이션 재생
 	Renderer->ChangeAnimation(GetEXAnimationName());
