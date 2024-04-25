@@ -176,8 +176,9 @@ private:
 	bool EXAttack();
 	std::string GetEXAnimationName();
 	FVector GetEXBulletSpawnLocation();
-	FVector GetEXDustSpawnLocation();
 	EDirection GetEXBulletSpawnDirection();
+	FVector GetEXDustLocation();
+	FVector GetEXDustRotation();
 
 private:
 	// 달리기 먼지 발생

@@ -20,7 +20,7 @@ void APlayer::Fire()
 
 	std::shared_ptr<ABullet> Bullet = GetWorld()->SpawnActor<ABullet>("Bullet");
 	Bullet->AnimationInit(
-		FCreateAnimationParameter{ GAnimName::BulletMove, GImageName::BulletMove, 1 / 12.0f},
+		FCreateAnimationParameter{ GAnimName::BulletMove, GImageName::BulletMove, 1 / 12.0f },
 		FCreateAnimationParameter{ GAnimName::BulletDestroy, GImageName::BulletDestroy, 1 / 24.0f }
 	);
 	Bullet->SetDamage(4);
@@ -320,54 +320,117 @@ std::string APlayer::GetEXAnimationName()
 
 FVector APlayer::GetEXBulletSpawnLocation()
 {
-	FVector BulletSpawnLocalLocation = FVector::Zero;
+	FVector SpawnLocalLocation = FVector::Zero;
 
-	EDirection BulletDirection = GetBulletSpawnDirection();
+	EDirection BulletDirection = GetEXBulletSpawnDirection();
 
 	switch (BulletDirection)
 	{
 	case EDirection::Left:
-		BulletSpawnLocalLocation = { -50.0f, 25.0f };
+		SpawnLocalLocation = { -50.0f, 45.0f };
 		break;
 	case EDirection::Right:
-		BulletSpawnLocalLocation = { 50.0f, 25.0f };
+		SpawnLocalLocation = { 50.0f, 45.0f };
 		break;
 	case EDirection::LeftUp:
-		BulletSpawnLocalLocation = { -35.0f, 45.0f };
+		SpawnLocalLocation = { -35.0f, 55.0f };
 		break;
 	case EDirection::RightUp:
-		BulletSpawnLocalLocation = { 35.0f, 45.0f };
+		SpawnLocalLocation = { 35.0f, 55.0f };
 		break;
 	case EDirection::LeftDown:
-		BulletSpawnLocalLocation = { -35.0f, -5.0f };
+		SpawnLocalLocation = { -35.0f, -5.0f };
 		break;
 	case EDirection::RightDown:
-		BulletSpawnLocalLocation = { 35.0f, -5.0f };
+		SpawnLocalLocation = { 35.0f, -5.0f };
 		break;
 	case EDirection::Up:
 		if (EEngineDir::Left == Direction)
 		{
-			BulletSpawnLocalLocation = { -20.0f, 70.0f };
+			SpawnLocalLocation = { -20.0f, 70.0f };
 		}
-		BulletSpawnLocalLocation = { 20.0f, 70.0f };
+		SpawnLocalLocation = { 20.0f, 70.0f };
 		break;
 	case EDirection::Down:
 		if (EEngineDir::Left == Direction)
 		{
-			BulletSpawnLocalLocation = { -15.0f, -20.0f };
+			SpawnLocalLocation = { -10.0f, -25.0f };
 		}
-		BulletSpawnLocalLocation = { 15.0f, -20.0f };
+		SpawnLocalLocation = { 10.0f, -25.0f };
 		break;
 	default:
 		break;
 	}
 
-	return GetActorLocation() + BulletSpawnLocalLocation;
+	return GetActorLocation() + SpawnLocalLocation;
 }
 
-FVector APlayer::GetEXDustSpawnLocation()
+FVector APlayer::GetEXDustLocation()
 {
-	return FVector();
+	FVector SpawnLocalLocation = FVector::Zero;
+
+	EDirection BulletDirection = GetEXBulletSpawnDirection();
+
+	switch (BulletDirection)
+	{
+	case EDirection::Left:
+		SpawnLocalLocation = { 75.0f, 25.0f };
+		break;
+	case EDirection::Right:
+		SpawnLocalLocation = { -65.0f, 85.0f };
+		break;
+	case EDirection::LeftUp:
+		SpawnLocalLocation = { 25.0f, -20.0f };
+		break;
+	case EDirection::RightUp:
+		SpawnLocalLocation = { -65.0f, 25.0f };
+		break;
+	case EDirection::LeftDown:
+		SpawnLocalLocation = { 95.0f, 125.0f };
+		break;
+	case EDirection::RightDown:
+		SpawnLocalLocation = { -25.0f, 155.0f };
+		break;
+	case EDirection::Up:
+		SpawnLocalLocation = { -35.0f, 0.0f };
+		break;
+	case EDirection::Down:
+		SpawnLocalLocation = { 40.0f, 175.0f };
+		break;
+	default:
+		break;
+	}
+
+	return GetActorLocation() + SpawnLocalLocation;
+}
+
+FVector APlayer::GetEXDustRotation()
+{
+	EDirection Direction = GetEXBulletSpawnDirection();
+
+	switch (Direction)
+	{
+	case EDirection::Right:
+		return { 0.0f, 0.0f, 0.0f };
+	case EDirection::RightUp:
+		return { 0.0f, 0.0f, 45.0f };
+	case EDirection::Up:
+		return { 0.0f, 0.0f, 90.0f };
+	case EDirection::LeftUp:
+		return { 0.0f, 0.0f, 135.0f };
+	case EDirection::Left:
+		return { 0.0f, 0.0f, 180.0f };
+	case EDirection::LeftDown:
+		return { 0.0f, 0.0f, -135.0f };
+	case EDirection::Down:
+		return { 0.0f, 0.0f, -90.0f };
+	case EDirection::RightDown:
+		return { 0.0f, 0.0f, -45.0f };
+	default:
+		break;
+	}
+
+	return FVector::Zero;
 }
 
 EDirection APlayer::GetEXBulletSpawnDirection()

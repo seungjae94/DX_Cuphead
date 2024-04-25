@@ -572,9 +572,10 @@ void APlayer::EXStart()
 	Bullet->SetPlayer(this);
 
 	// 연기 이펙트 생성
-	//AAnimationEffect* Dust = GetWorld()->SpawnActor<AAnimationEffect>("Dust").get();
-	//Dust->SetActorLocation(GetBulletSpawnLocation());
-	//Dust->Init(ERenderingOrder::BulletSpawn, FCreateAnimationParameter{ "bullet_spawn", "bullet_spawn.png", 1 / 24.0f }, true);
+	AAnimationEffect* Dust = GetWorld()->SpawnActor<AAnimationEffect>("Dust").get();
+	Dust->SetActorLocation(GetEXDustLocation());
+	Dust->SetActorRotation(GetEXDustRotation());
+	Dust->Init(ERenderingOrder::BulletSpawn, FCreateAnimationParameter{ "player_ex_dust", "player_ex_dust", 1 / 24.0f }, true);
 }
 
 void APlayer::EX(float _DeltaTime)
