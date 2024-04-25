@@ -21,16 +21,16 @@ void APlayer::AnimationInit()
 	Renderer->CreateAnimation(GAnimName::PlayerStanding, GImageName::PlayerSitting, 1 / 24.0f, false, 6, 0);
 	Renderer->CreateAnimation(GAnimName::PlayerSitShootForward, GImageName::PlayerSitShootForward, 1 / 12.0f);
 	Renderer->CreateAnimation(GAnimName::PlayerHit, GImageName::PlayerHit, 1 / 12.0f, false);
-	Renderer->CreateAnimation(GAnimName::PlayerAirExUp, GImageName::PlayerAirExUp, 1 / 12.0f, false);
-	Renderer->CreateAnimation(GAnimName::PlayerAirExHalfUp, GImageName::PlayerAirExHalfUp, 1 / 12.0f, false);
-	Renderer->CreateAnimation(GAnimName::PlayerAirExForward, GImageName::PlayerAirExForward, 1 / 12.0f, false);
-	Renderer->CreateAnimation(GAnimName::PlayerAirExHalfDown, GImageName::PlayerAirExHalfDown, 1 / 12.0f, false);
-	Renderer->CreateAnimation(GAnimName::PlayerAirExDown, GImageName::PlayerAirExDown, 1 / 12.0f, false);
-	Renderer->CreateAnimation(GAnimName::PlayerGroundExUp, GImageName::PlayerGroundExUp, 1 / 12.0f, false);
-	Renderer->CreateAnimation(GAnimName::PlayerGroundExHalfUp, GImageName::PlayerGroundExHalfUp, 1 / 12.0f, false);
-	Renderer->CreateAnimation(GAnimName::PlayerGroundExForward, GImageName::PlayerGroundExForward, 1 / 12.0f, false);
-	Renderer->CreateAnimation(GAnimName::PlayerGroundExHalfDown, GImageName::PlayerGroundExHalfDown, 1 / 12.0f, false);
-	Renderer->CreateAnimation(GAnimName::PlayerGroundExDown, GImageName::PlayerGroundExDown, 1 / 12.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerAirExUp, GImageName::PlayerAirExUp, 1 / 24.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerAirExHalfUp, GImageName::PlayerAirExHalfUp, 1 / 24.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerAirExForward, GImageName::PlayerAirExForward, 1 / 24.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerAirExHalfDown, GImageName::PlayerAirExHalfDown, 1 / 24.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerAirExDown, GImageName::PlayerAirExDown, 1 / 24.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerGroundExUp, GImageName::PlayerGroundExUp, 1 / 24.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerGroundExHalfUp, GImageName::PlayerGroundExHalfUp, 1 / 24.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerGroundExForward, GImageName::PlayerGroundExForward, 1 / 24.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerGroundExHalfDown, GImageName::PlayerGroundExHalfDown, 1 / 24.0f, false);
+	Renderer->CreateAnimation(GAnimName::PlayerGroundExDown, GImageName::PlayerGroundExDown, 1 / 24.0f, false);
 
 	Renderer->SetFrameCallback(GAnimName::PlayerSitting, 6, [this]() {
 		IsSitting = false;
@@ -47,7 +47,7 @@ void APlayer::AnimationInit()
 			PrevStateName = "Idle";
 		}
 
-		StateManager.ChangeState(PrevStateName);
+		ChangeState(PrevStateName);
 	};
 	Renderer->SetLastFrameCallback(GAnimName::PlayerAirExUp, ExCallback);
 	Renderer->SetLastFrameCallback(GAnimName::PlayerAirExHalfUp, ExCallback);

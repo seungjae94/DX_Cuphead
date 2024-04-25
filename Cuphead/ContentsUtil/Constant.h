@@ -78,6 +78,8 @@ namespace GImageName
 	const std::string BulletSpawn = "bullet_spawn.png";
 	const std::string BulletMove = "bullet_move";
 	const std::string BulletDestroy = "bullet_destroy.png";
+	const std::string EXBulletMove = "ex_bullet_move";
+	const std::string EXBulletDestroy = "ex_bullet_destroy";
 
 	// º¸½º µå·¡°ï
 	const std::string BossDragonMapBackground = "boss_dragon_map_back.png";
@@ -142,6 +144,8 @@ namespace GAnimName
 	const std::string BulletSpawn = "bullet_spawn";
 	const std::string BulletMove = "bullet_move";
 	const std::string BulletDestroy = "bullet_destroy";
+	const std::string EXBulletMove = "ex_bullet_move";
+	const std::string EXBulletDestroy = "ex_bullet_destroy";
 
 	// º¸½º µå·¡°ï
 	const std::string BossDragonMapTower = "BossDragonMapTower";

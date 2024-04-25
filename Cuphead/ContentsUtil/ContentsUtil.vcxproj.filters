@@ -16,6 +16,9 @@
     <ClInclude Include="CupheadMath.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="CupheadStruct.h">
+      <Filter>Constant</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -32,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="CupheadMath.cpp">
       <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="CupheadStruct.cpp">
+      <Filter>Constant</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

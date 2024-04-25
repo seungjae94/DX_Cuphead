@@ -53,7 +53,7 @@ void APlayer::StateInit()
 	StateManager.SetUpdateFunction(GStateName::EX, std::bind(&APlayer::EX, this, std::placeholders::_1));
 	StateManager.SetEndFunction(GStateName::EX, std::bind(&APlayer::EXEnd, this));
 
-	StateManager.ChangeState(GStateName::Intro);
+	ChangeState(GStateName::Intro);
 }
 
 void APlayer::ChangeState(std::string _StateName)
@@ -528,19 +528,19 @@ void APlayer::Hit(float _DeltaTime)
 		return;
 	}
 
-	if (GStateName::Dash == PrevStateName)
+	if (GStateName::Dash == PrevStateName || GStateName::EX == PrevStateName)
 	{
 		if (true == IsGroundCollisionOccur())
 		{
-			StateManager.ChangeState(GStateName::Idle);
+			ChangeState(GStateName::Idle);
 			return;
 		}
 
-		StateManager.ChangeState(GStateName::Jump);
+		ChangeState(GStateName::Jump);
 		return;
 	}
 
-	StateManager.ChangeState(PrevStateName);
+	ChangeState(PrevStateName);
 }
 
 void APlayer::HitEnd()
@@ -555,7 +555,6 @@ void APlayer::HitEnd()
 void APlayer::EXStart()
 {
 	// Notice: 임시로 그냥 총알이 나가도록 구현
-
 	DirUpdateActive = false;
 
 	// 애니메이션 재생
@@ -563,8 +562,13 @@ void APlayer::EXStart()
 
 	// 총알 이펙트 생성 및 발사
 	ABullet* Bullet = GetWorld()->SpawnActor<ABullet>("Bullet").get();
-	Bullet->SetActorLocation(GetBulletSpawnLocation());
-	Bullet->SetDirection(GetBulletSpawnDirection());
+	Bullet->AnimationInit(
+		FCreateAnimationParameter{ GAnimName::EXBulletMove, GImageName::EXBulletMove, 1 / 12.0f },
+		FCreateAnimationParameter{ GAnimName::EXBulletDestroy, GImageName::EXBulletDestroy, 1 / 24.0f }
+	);
+	Bullet->SetDamage(25);
+	Bullet->SetActorLocation(GetEXBulletSpawnLocation());
+	Bullet->SetDirection(GetEXBulletSpawnDirection());
 	Bullet->SetPlayer(this);
 
 	// 연기 이펙트 생성

@@ -19,6 +19,11 @@ void APlayer::Fire()
 	}
 
 	std::shared_ptr<ABullet> Bullet = GetWorld()->SpawnActor<ABullet>("Bullet");
+	Bullet->AnimationInit(
+		FCreateAnimationParameter{ GAnimName::BulletMove, GImageName::BulletMove, 1 / 12.0f},
+		FCreateAnimationParameter{ GAnimName::BulletDestroy, GImageName::BulletDestroy, 1 / 24.0f }
+	);
+	Bullet->SetDamage(4);
 	Bullet->SetActorLocation(GetBulletSpawnLocation());
 	Bullet->SetDirection(GetBulletSpawnDirection());
 	Bullet->SetPlayer(this);
@@ -311,6 +316,119 @@ std::string APlayer::GetEXAnimationName()
 			return GAnimName::PlayerAirExForward;
 		}
 	}
+}
+
+FVector APlayer::GetEXBulletSpawnLocation()
+{
+	FVector BulletSpawnLocalLocation = FVector::Zero;
+
+	EDirection BulletDirection = GetBulletSpawnDirection();
+
+	switch (BulletDirection)
+	{
+	case EDirection::Left:
+		BulletSpawnLocalLocation = { -50.0f, 25.0f };
+		break;
+	case EDirection::Right:
+		BulletSpawnLocalLocation = { 50.0f, 25.0f };
+		break;
+	case EDirection::LeftUp:
+		BulletSpawnLocalLocation = { -35.0f, 45.0f };
+		break;
+	case EDirection::RightUp:
+		BulletSpawnLocalLocation = { 35.0f, 45.0f };
+		break;
+	case EDirection::LeftDown:
+		BulletSpawnLocalLocation = { -35.0f, -5.0f };
+		break;
+	case EDirection::RightDown:
+		BulletSpawnLocalLocation = { 35.0f, -5.0f };
+		break;
+	case EDirection::Up:
+		if (EEngineDir::Left == Direction)
+		{
+			BulletSpawnLocalLocation = { -20.0f, 70.0f };
+		}
+		BulletSpawnLocalLocation = { 20.0f, 70.0f };
+		break;
+	case EDirection::Down:
+		if (EEngineDir::Left == Direction)
+		{
+			BulletSpawnLocalLocation = { -15.0f, -20.0f };
+		}
+		BulletSpawnLocalLocation = { 15.0f, -20.0f };
+		break;
+	default:
+		break;
+	}
+
+	return GetActorLocation() + BulletSpawnLocalLocation;
+}
+
+FVector APlayer::GetEXDustSpawnLocation()
+{
+	return FVector();
+}
+
+EDirection APlayer::GetEXBulletSpawnDirection()
+{
+	if (true == IsPress(VK_LEFT))
+	{
+		if (true == IsPress(VK_UP))
+		{
+			return EDirection::LeftUp;
+		}
+		else if (true == IsPress(VK_DOWN))
+		{
+			return EDirection::LeftDown;
+		}
+	}
+
+	if (true == IsPress(VK_RIGHT))
+	{
+		if (true == IsPress(VK_UP))
+		{
+			return EDirection::RightUp;
+		}
+		else if (true == IsPress(VK_DOWN))
+		{
+			return EDirection::RightDown;
+		}
+	}
+
+	if (Direction == EEngineDir::Left)
+	{
+		if (true == IsPress(VK_UP))
+		{
+			return EDirection::Up;
+		}
+		else if (true == IsPress(VK_DOWN))
+		{
+			return EDirection::Down;
+		}
+		else
+		{
+			return EDirection::Left;
+		}
+	}
+
+	if (Direction == EEngineDir::Right)
+	{
+		if (true == IsPress(VK_UP))
+		{
+			return EDirection::Up;
+		}
+		else if (true == IsPress(VK_DOWN))
+		{
+			return EDirection::Down;
+		}
+		else
+		{
+			return EDirection::Right;
+		}
+	}
+
+	return EDirection::Right;
 }
 
 void APlayer::SpawnRunDustEffect(float _DeltaTime)

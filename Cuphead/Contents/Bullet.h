@@ -14,6 +14,8 @@ public:
 	ABullet& operator=(const ABullet& _Other) = delete;
 	ABullet& operator=(ABullet&& _Other) noexcept = delete;
 
+	void AnimationInit(FCreateAnimationParameter _MoveAnimParam, FCreateAnimationParameter _DestroyAnimParam);
+	void SetDamage(int _Damage);
 	void SetDirection(EDirection _Direction);
 	void SetPlayer(APlayer* _Player);
 
@@ -24,6 +26,9 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	UCollision* Collision = nullptr;
+private:
+	std::string MoveAnimName;
+	std::string DestroyAnimName;
 private:
 	UStateManager StateManager;
 	EDirection Direction = EDirection::Right;
@@ -36,7 +41,6 @@ private:
 	void Tick(float _DeltaTime) override;
 private:
 	// 초기화 함수
-	void AnimationInit();
 	void StateInit();
 	
 private:

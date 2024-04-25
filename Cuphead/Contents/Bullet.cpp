@@ -22,6 +22,27 @@ ABullet::~ABullet()
 {
 }
 
+void ABullet::AnimationInit(FCreateAnimationParameter _MoveAnimParam, FCreateAnimationParameter _DestroyAnimParam)
+{
+	Renderer->SetAutoSize(1.0f, true);
+	Renderer->SetOrder(ERenderingOrder::Bullet);
+
+	Renderer->CreateAnimation(_MoveAnimParam.AnimName, _MoveAnimParam.ImageName, _MoveAnimParam.Interval);
+	Renderer->CreateAnimation(_DestroyAnimParam.AnimName, _DestroyAnimParam.ImageName, _DestroyAnimParam.Interval, false);
+
+	MoveAnimName = _MoveAnimParam.AnimName;
+	DestroyAnimName = _DestroyAnimParam.AnimName;
+
+	Renderer->SetLastFrameCallback(_DestroyAnimParam.AnimName, [this]() {
+		Destroy();
+		});
+}
+
+void ABullet::SetDamage(int _Damage)
+{
+	Damage = _Damage;
+}
+
 void ABullet::SetDirection(EDirection _Direction)
 {
 	Direction = _Direction;
@@ -41,7 +62,6 @@ void ABullet::BeginPlay()
 		Destroy();
 		});
 
-	AnimationInit();
 	StateInit();
 }
 
@@ -52,20 +72,6 @@ void ABullet::Tick(float _DeltaTime)
 	StateManager.Update(_DeltaTime);
 }
 
-void ABullet::AnimationInit()
-{
-	Renderer->SetSprite(GImageName::BulletMove);
-	Renderer->SetAutoSize(0.9f, true);
-	Renderer->SetOrder(ERenderingOrder::Bullet);
-
-	Renderer->CreateAnimation(GAnimName::BulletMove, GImageName::BulletMove, 1 / 12.0f);
-	Renderer->CreateAnimation(GAnimName::BulletDestroy, GImageName::BulletDestroy, 1 / 24.0f, false);
-
-	Renderer->SetLastFrameCallback(GAnimName::BulletDestroy, [this]() {
-		Destroy();
-		});
-}
-
 void ABullet::StateInit()
 {
 	StateManager.CreateState(GStateName::Move);
@@ -73,18 +79,16 @@ void ABullet::StateInit()
 
 	std::function<void()> MoveStartFunc = [this]() {
 		RefreshRotation();
-		Renderer->ChangeAnimation(GAnimName::BulletMove);
+		Renderer->ChangeAnimation(MoveAnimName);
 		};
 	std::function<void(float)> MoveUpdateFunc = std::bind(&ABullet::Move, this, std::placeholders::_1);
 	std::function<void()> MoveEndFunc = []() {};
 	StateManager.SetFunction(GStateName::Move, MoveStartFunc, MoveUpdateFunc, MoveEndFunc);
 
 	StateManager.SetFunction(GStateName::Destroy, [this]() {
-			Renderer->ChangeAnimation(GAnimName::BulletDestroy);
+			Renderer->ChangeAnimation(DestroyAnimName);
 		},
-		[](float _DeltaTime) {
-			int a = 0;
-		},
+		[](float _DeltaTime) {},
 		[]() {}
 	);
 }

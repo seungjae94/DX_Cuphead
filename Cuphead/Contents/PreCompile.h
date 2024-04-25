@@ -26,3 +26,4 @@
 #include <ContentsUtil/Converter.h>
 #include <ContentsUtil/Physics.h>
 #include <ContentsUtil/CupheadMath.h>
+#include <ContentsUtil/CupheadStruct.h>
