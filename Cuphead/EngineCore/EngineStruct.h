@@ -7,6 +7,8 @@ struct FCuttingData
 	float4 CuttingPosition;
 	//      0.5 0.5
 	float4 CuttingSize;
+	float4 CropPosition;
+	float4 CropSize;
 	float4x4 PivotMat;
 };
 
@@ -24,6 +26,8 @@ struct FSpriteInfo
 	FVector CuttingPosition = FVector::Zero;
 	// 1,1 ±îÁö¸¦ 
 	FVector CuttingSize = FVector::One;
+	FVector CropPosition = FVector::Zero;
+	FVector CropSize = FVector::One;
 	std::shared_ptr<UEngineTexture> Texture = nullptr;
 };
 

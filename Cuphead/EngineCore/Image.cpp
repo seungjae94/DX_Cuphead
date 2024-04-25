@@ -103,6 +103,8 @@ void UImage::SetSpriteInfo(const FSpriteInfo& _Info)
 {
 	CuttingDataValue.CuttingPosition = _Info.CuttingPosition;
 	CuttingDataValue.CuttingSize = _Info.CuttingSize;
+	CuttingDataValue.CropPosition = _Info.CropPosition;
+	CuttingDataValue.CropSize = _Info.CropSize;
 	CurTexture = _Info.Texture;
 
 	if (true == AutoSize)
@@ -110,7 +112,7 @@ void UImage::SetSpriteInfo(const FSpriteInfo& _Info)
 		// 문제 UV기반
 		// 0~1상이의 비율 값이다.
 		float4 TexScale = _Info.Texture->GetScale();
-		Transform.SetScale(TexScale * CuttingDataValue.CuttingSize * ScaleRatio);
+		Transform.SetScale(TexScale * CuttingDataValue.CuttingSize * CuttingDataValue.CropSize * ScaleRatio);
 	}
 
 	switch (Pivot)

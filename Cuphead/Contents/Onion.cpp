@@ -149,7 +149,7 @@ void AOnion::RendererInit()
 	GroundRenderer->SetPivot(EPivot::BOT);
 
 	OnionRenderer->SetAutoSize(1.0f, true);
-	GroundRenderer->SetAutoSize(1.25f, true);
+	GroundRenderer->SetAutoSize(1.35f, true);
 	LeftTearRenderer->SetAutoSize(0.95f, true);
 	RightTearRenderer->SetAutoSize(0.95f, true);
 
@@ -282,7 +282,9 @@ void AOnion::FaintStart()
 	Super::FaintStart();
 	SetFaintRange({ -100.0f, 100.0f, 0.0f, 400.0f });
 
+	OnionRenderer->AddPosition(FVector::Up * 25.0f);
 	OnionRenderer->ChangeAnimation("onion_faint");
+	OnionRenderer->SetAutoSize(0.925f, true);
 	LeftTearRenderer->SetActive(false);
 	RightTearRenderer->SetActive(false);
 
@@ -299,7 +301,8 @@ void AOnion::Faint(float _DeltaTime)
 
 	if (ShrinkTimer < 0.0f)
 	{
-		OnionRenderer->AddPosition(FVector::Down * 200.0f * _DeltaTime);
+		OnionRenderer->Crop({ 0.0f, 0.0f }, { 1.0f, 1.0f + ShrinkTimer / 3.0f });
+		//OnionRenderer->AddPosition(FVector::Down * 200.0f * _DeltaTime);
 	}
 
 	if (ShrinkTimer < -3.0f)

@@ -72,6 +72,8 @@ public:
 
 	void SetDir(EEngineDir _Dir);
 
+	void Crop(const FVector& _CropPosition, const FVector& _CropSize);
+
 	inline EEngineDir GetDir() const
 	{
 		return Dir;

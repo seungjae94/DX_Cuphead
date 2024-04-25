@@ -58,6 +58,8 @@ cbuffer FCuttingData : register(b2)
     float4 CuttingPosition;
     //      0.5 0.5
     float4 CuttingSize;
+    float4 CropPosition;
+    float4 CropSize;
     float4x4 PivotMat;
 };
 
@@ -82,6 +84,9 @@ ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
     
     Out.TEXCOORD.x = (_Input.TEXCOORD.x * CuttingSize.x) + CuttingPosition.x;
     Out.TEXCOORD.y = (_Input.TEXCOORD.y * CuttingSize.y) + CuttingPosition.y;
+    
+    Out.TEXCOORD.x = (Out.TEXCOORD.x * CropSize.x) + CropPosition.x * CuttingSize.x;
+    Out.TEXCOORD.y = (Out.TEXCOORD.y * CropSize.y) + CropPosition.y * CuttingSize.y;
     
     // 00,    1. 0
     
