@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "FireMob.h"
+#include "Player.h"
 
 AFireMob::AFireMob()
 {
@@ -45,6 +46,17 @@ void AFireMob::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	StateManager.Update(_DeltaTime);
+
+	Collision->CollisionStay(ECollisionGroup::PlayerHitBox, [](std::shared_ptr<UCollision> _Other) {
+		APlayer* Player = dynamic_cast<APlayer*>(_Other->GetActor());
+		if (nullptr == Player)
+		{
+			return;
+		}
+
+		Player->Damage();
+
+		});
 
 	if (GetActorLocation().X > 1500.0f)
 	{
