@@ -78,6 +78,10 @@ bool UCollision::Collision(int _TargetGroup,
 			if (false == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
 			{
 				FirstCheck.insert(CollisionPtr);
+			}
+
+			if (true == FirstCheck.contains(CollisionPtr))
+			{
 				if (nullptr != _Enter)
 				{
 					_Enter(OtherCollision);
