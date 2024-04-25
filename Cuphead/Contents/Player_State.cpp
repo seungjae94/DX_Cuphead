@@ -508,8 +508,8 @@ void APlayer::HitStart()
 	HitBox->SetActive(false);
 
 	AAnimationEffect* HitEffect = GetWorld()->SpawnActor<AAnimationEffect>("HitEffect").get();
-	HitEffect->Init(ERenderingOrder::VFX0, FCreateAnimationParameter{"player_hit_effect", "player_hit_effect", 1 / 24.0f}, true);
-	HitEffect->SetActorLocation(GetActorLocation() + FVector{0.0f, 50.0f, 0.0f});
+	HitEffect->Init(ERenderingOrder::VFX0, FCreateAnimationParameter{ "player_hit_effect", "player_hit_effect", 1 / 24.0f }, true);
+	HitEffect->SetActorLocation(GetActorLocation() + FVector{ 0.0f, 50.0f, 0.0f });
 
 	Velocity = FVector::Zero;
 	if (true == IsGroundHit)
@@ -557,6 +557,26 @@ void APlayer::Hit(float _DeltaTime)
 
 void APlayer::HitEnd()
 {
+	// 알파 처리
+	int AlphaChangeCount = 60;
+	for (int i = 1; i <= AlphaChangeCount; ++i)
+	{
+		int Remainder = i % 20;
+		int Dist = Remainder - 10;
+
+		if (Dist < 0)
+		{
+			Dist = -Dist;
+		}
+
+		float Alpha = Dist / 10.0f;
+		float DelayTime = NoHitTime * (i / static_cast<float>(AlphaChangeCount));
+
+		DelayCallBack(DelayTime, [this, Alpha]() {
+			Renderer->SetMulColor({ 1.0f, 1.0f, 1.0f, Alpha });
+		});
+	}
+
 	DelayCallBack(NoHitTime, [this]() {
 		HitBox->SetActive(true);
 		});
