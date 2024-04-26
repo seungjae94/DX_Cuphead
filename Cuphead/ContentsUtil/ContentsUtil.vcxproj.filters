@@ -19,6 +19,9 @@
     <ClInclude Include="CupheadStruct.h">
       <Filter>Constant</Filter>
     </ClInclude>
+    <ClInclude Include="CropSpriteRenderer.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -38,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="CupheadStruct.cpp">
       <Filter>Constant</Filter>
+    </ClCompile>
+    <ClCompile Include="CropSpriteRenderer.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

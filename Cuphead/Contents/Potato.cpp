@@ -5,7 +5,7 @@
 APotato::APotato()
 {
 	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
-	PotatoRenderer = CreateDefaultSubObject<USpriteRenderer>("Potato");
+	PotatoRenderer = CreateDefaultSubObject<UCropSpriteRenderer>("Potato");
 
 	GroundRenderer->SetupAttachment(Root);
 	PotatoRenderer->SetupAttachment(Root);
@@ -233,6 +233,7 @@ void APotato::FaintStart()
 	Super::FaintStart();
 	SetFaintRange({ -100.0f, 100.0f, 0.0f, 400.0f });
 
+	PotatoRenderer->AddPosition(FVector::Up * 20.0f);
 	PotatoRenderer->ChangeAnimation("potato_faint");
 	Collision->SetActive(false);
 
@@ -247,7 +248,7 @@ void APotato::Faint(float _DeltaTime)
 
 	if (ShrinkTimer < 0.0f)
 	{
-		PotatoRenderer->AddPosition(FVector::Down * 200.0f * _DeltaTime);
+		PotatoRenderer->Crop({ 0.0f, 0.0f }, {1.0f, 1.0f + ShrinkTimer / 3.0f});
 	}
 
 	if (ShrinkTimer < -3.0f)

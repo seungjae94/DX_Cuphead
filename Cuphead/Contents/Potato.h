@@ -28,7 +28,7 @@ protected:
 private:
 	// 컴포넌트
 	USpriteRenderer* GroundRenderer = nullptr;
-	USpriteRenderer* PotatoRenderer = nullptr;
+	UCropSpriteRenderer* PotatoRenderer = nullptr;
 private:
 	// 로직 처리
 	int AttackPhase = -1;

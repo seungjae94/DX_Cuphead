@@ -20,13 +20,9 @@ UCupheadCore::~UCupheadCore()
 void UCupheadCore::Initialize()
 {
 	CreateDebugWindows();
-	CreateMaterials();
-
-	UEngineTime Timer;
-	Timer.TimeCheckStart();
 	LoadResources();
-	float LoadingTime = Timer.TimeCheck();
-
+	LoadShaders();
+	CreateMaterials();
 	CreateLevels();
 	GEngine->ChangeLevel(GLevelName::OverworldLevel);
 }
@@ -34,22 +30,6 @@ void UCupheadCore::Initialize()
 void UCupheadCore::CreateDebugWindows()
 {
 	DebugWindow = UEngineEditorGUI::CreateEditorWindow<UCupheadDebugWindow>("CupheadDebugWindow");
-}
-
-void UCupheadCore::CreateMaterials()
-{
-	{
-		std::shared_ptr<UEngineMaterial> Box = UEngineMaterial::Create("Box");
-		Box->SetVertexShader("ColorShader.fx");
-		Box->SetPixelShader("ColorShader.fx");
-	}
-
-	{
-		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Noise");
-		Mat->SetVertexShader("ImageShader.fx");
-		Mat->SetPixelShader("ImageShader.fx");
-		Mat->SetBlend("Overlay");
-	}
 }
 
 void UCupheadCore::LoadResources()
@@ -290,6 +270,22 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting("carrot_proj.png", 6, 1);
 		UEngineSprite::CreateCutting("carrot_proj_destroy.png", 10, 1);
 		UEngineSprite::CreateCutting("carrot_beam_proj.png", 12, 1);
+	}
+}
+
+void UCupheadCore::LoadShaders()
+{
+	UEngineDirectory Dir;
+	Dir.MoveToSearchChild("ContentsShader");
+	UEngineShader::AutoCompile(Dir);
+}
+
+void UCupheadCore::CreateMaterials()
+{
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DCropImage");
+		Mat->SetVertexShader("CropImageShader.fx");
+		Mat->SetPixelShader("CropImageShader.fx");
 	}
 }
 

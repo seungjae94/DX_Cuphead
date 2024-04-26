@@ -24,6 +24,7 @@
 #include <ContentsUtil/PreCompile.h>
 #include <ContentsUtil/Constant.h>
 #include <ContentsUtil/Converter.h>
+#include <ContentsUtil/CropSpriteRenderer.h>
 #include <ContentsUtil/Physics.h>
 #include <ContentsUtil/CupheadMath.h>
 #include <ContentsUtil/CupheadStruct.h>

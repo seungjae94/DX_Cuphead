@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Header">
-      <UniqueIdentifier>{94094c40-3603-438d-89eb-c20ccde34ebd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Code">
       <UniqueIdentifier>{fdbb4393-6e8a-4e94-b046-cf22e2e6f5ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{ec7ba2cc-c58c-4209-a1a5-ee25dae948df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="CropImageShader.fx">
       <Filter>Code</Filter>
+    </None>
+    <None Include="ContentsShaderBase.hlsli">
+      <Filter>Header</Filter>
     </None>
   </ItemGroup>
 </Project>

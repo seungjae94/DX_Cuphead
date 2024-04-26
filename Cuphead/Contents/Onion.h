@@ -31,7 +31,7 @@ private:
 private:
 	// ·»´õ·¯
 	USpriteRenderer* GroundRenderer = nullptr;
-	USpriteRenderer* OnionRenderer = nullptr;
+	UCropSpriteRenderer* OnionRenderer = nullptr;
 	USpriteRenderer* LeftTearRenderer = nullptr;
 	USpriteRenderer* RightTearRenderer = nullptr;
 private:

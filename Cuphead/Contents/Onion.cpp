@@ -5,7 +5,7 @@
 AOnion::AOnion()
 {
 	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
-	OnionRenderer = CreateDefaultSubObject<USpriteRenderer>("Onion");
+	OnionRenderer = CreateDefaultSubObject<UCropSpriteRenderer>("Onion");
 	LeftTearRenderer = CreateDefaultSubObject<USpriteRenderer>("LeftTear");
 	RightTearRenderer = CreateDefaultSubObject<USpriteRenderer>("RightTear");
 
@@ -81,9 +81,9 @@ void AOnion::BeginPlay()
 	RendererInit();
 	StateInit();
 
-	SetActorLocation({ 0.0f, -335.0f });
+	SetActorLocation({ 0.0f, -315.0f });
 
-	GroundRenderer->SetPosition({ 0.0f, -35.0f });
+	GroundRenderer->SetPosition({ 0.0f, -55.0f });
 	LeftTearRenderer->SetPosition({ -350.0f, 555.0f });
 	RightTearRenderer->SetPosition({ 330.0f, 555.0f });
 
@@ -149,7 +149,7 @@ void AOnion::RendererInit()
 	GroundRenderer->SetPivot(EPivot::BOT);
 
 	OnionRenderer->SetAutoSize(1.0f, true);
-	GroundRenderer->SetAutoSize(1.25f, true);
+	GroundRenderer->SetAutoSize(1.5f, true);
 	LeftTearRenderer->SetAutoSize(0.95f, true);
 	RightTearRenderer->SetAutoSize(0.95f, true);
 
@@ -282,6 +282,8 @@ void AOnion::FaintStart()
 	Super::FaintStart();
 	SetFaintRange({ -100.0f, 100.0f, 0.0f, 400.0f });
 
+	OnionRenderer->SetAutoSize(0.9f, true);
+	OnionRenderer->AddPosition(FVector::Down * 10.0f);
 	OnionRenderer->ChangeAnimation("onion_faint");
 	LeftTearRenderer->SetActive(false);
 	RightTearRenderer->SetActive(false);
@@ -299,7 +301,12 @@ void AOnion::Faint(float _DeltaTime)
 
 	if (ShrinkTimer < 0.0f)
 	{
-		OnionRenderer->AddPosition(FVector::Down * 200.0f * _DeltaTime);
+		if (ShrinkTimer > -1.0f)
+		{
+			OnionRenderer->AddPosition(FVector::Up * 40.0f * _DeltaTime);
+		}
+
+		OnionRenderer->Crop({ 0.0f, 0.0f }, { 1.0f, 1.0f + ShrinkTimer / 3.0f });
 	}
 
 	if (ShrinkTimer < -3.0f)

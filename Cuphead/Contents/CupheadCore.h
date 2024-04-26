@@ -22,8 +22,9 @@ protected:
 	void Initialize() override;
 private:
 	void CreateDebugWindows();
-	void CreateMaterials();
 	void LoadResources();
+	void LoadShaders();
+	void CreateMaterials();
 	void CreateLevels();
 
 	std::atomic_int LoadingCount = 0;
