@@ -88,6 +88,9 @@ void ABossFarmGameMode::StateInit()
 		std::bind(&ABossFarmGameMode::FinishEnd, this)
 	);
 
+	StateManager.CreateState("End");
+	StateManager.SetFunction("End", []() {}, [](float _DeltaTime) {}, []() {});
+
 	StateManager.ChangeState("Intro");
 	//StateManager.ChangeState("CarrotIntro");
 }
@@ -219,6 +222,7 @@ void ABossFarmGameMode::Finish(float _DeltaTime)
 	if (true == Carrot->IsFinished())
 	{
 		ChangeLevelWithFadeEffect(GLevelName::OverworldLevel);
+		StateManager.ChangeState("End");
 	}
 }
 

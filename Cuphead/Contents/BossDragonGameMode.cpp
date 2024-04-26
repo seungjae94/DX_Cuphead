@@ -90,6 +90,9 @@ void ABossDragonGameMode::StateInit()
 		std::bind(&ABossDragonGameMode::Phase3End, this)
 	);
 
+	StateManager.CreateState("End");
+	StateManager.SetFunction("End", []() {}, [](float _DeltaTime) {}, []() {});
+
 	StateManager.ChangeState("Intro");
 	//StateManager.ChangeState("Phase2Intro");
 }
@@ -211,6 +214,7 @@ void ABossDragonGameMode::Finish(float _DeltaTime)
 	if (true == Dragon2->IsFinished())
 	{
 		ChangeLevelWithFadeEffect(GLevelName::OverworldLevel);
+		StateManager.ChangeState("End");
 		return;
 	}
 

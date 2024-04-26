@@ -72,7 +72,7 @@ void ABoss::BodyDamageCheck()
 		return;
 	}
 
-	Collision->CollisionStay(ECollisionGroup::PlayerHitBox, 
+	Collision->CollisionStay(ECollisionGroup::PlayerHitBox,
 		[this](std::shared_ptr<UCollision> _PlayerCollision) {
 			APlayer* Player = dynamic_cast<APlayer*>(_PlayerCollision->GetActor());
 
@@ -80,7 +80,7 @@ void ABoss::BodyDamageCheck()
 			{
 				return;
 			}
-			
+
 			Player->Damage();
 		});
 }
