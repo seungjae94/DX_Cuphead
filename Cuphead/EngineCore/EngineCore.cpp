@@ -37,6 +37,8 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 	LeakCheck;
 	GEngine = this;
 
+	JobWorker.Initialize("Engine Thread");
+
 	EngineOptionInit();
 
 	EngineWindow.Open(EngineOption.WindowTitle);
