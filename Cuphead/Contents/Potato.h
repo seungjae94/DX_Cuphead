@@ -15,7 +15,6 @@ public:
 
 	void PlayGroundIntroAnimation();
 	void PlayPotatoIntroAnimation();
-	void PlayGroundIdleAnimation();
 	void PlayPotatoIdleAnimation();
 	void SetPotatoFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 
@@ -28,6 +27,7 @@ protected:
 private:
 	// 컴포넌트
 	USpriteRenderer* GroundFrontRenderer = nullptr;
+	USpriteRenderer* GroundBackRenderer = nullptr;
 	UCropSpriteRenderer* PotatoRenderer = nullptr;
 private:
 	// 로직 처리

@@ -15,7 +15,6 @@ public:
 
 	void PlayGroundIntroAnimation();
 	void PlayOnionIntroAnimation();
-	void PlayGroundIdleAnimation();
 	void PlayOnionIdleAnimation();
 	void SetOnionFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 
@@ -31,6 +30,7 @@ private:
 private:
 	// ·»´õ·¯
 	USpriteRenderer* GroundFrontRenderer = nullptr;
+	USpriteRenderer* GroundBackRenderer = nullptr;
 	UCropSpriteRenderer* OnionRenderer = nullptr;
 	USpriteRenderer* LeftTearRenderer = nullptr;
 	USpriteRenderer* RightTearRenderer = nullptr;

@@ -17,7 +17,6 @@ public:
 
 	void PlayGroundIntroAnimation();
 	void PlayCarrotIntroAnimation();
-	void PlayGroundIdleAnimation();
 	void PlayCarrotIdleAnimation();
 	void SetCarrotFrameCallback(std::string_view _AnimName, int _Frame, std::function<void()> _Callback);
 
@@ -37,6 +36,7 @@ private:
 private:
 	// ÄÄÆ÷³ÍÆ®
 	USpriteRenderer* GroundFrontRenderer = nullptr;
+	USpriteRenderer* GroundBackRenderer = nullptr;
 	USpriteRenderer* CarrotRenderer = nullptr;
 	USpriteRenderer* EyeRenderer = nullptr;
 private:
