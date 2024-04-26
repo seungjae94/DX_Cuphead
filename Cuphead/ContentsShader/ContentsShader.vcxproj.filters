@@ -8,4 +8,9 @@
       <UniqueIdentifier>{fdbb4393-6e8a-4e94-b046-cf22e2e6f5ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CropImageShader.fx">
+      <Filter>Code</Filter>
+    </None>
+  </ItemGroup>
 </Project>
