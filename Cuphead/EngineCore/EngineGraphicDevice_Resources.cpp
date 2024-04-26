@@ -148,7 +148,7 @@ void SettingInit()
 
 		// 옵션바꾸면서 설명드리겠습니다.
 		// 가로
-		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 
 		// MIP MAP
 		// MIN_MAG_MIP 나보다 클때든 작을때는 
@@ -178,7 +178,7 @@ void SettingInit()
 	{
 		D3D11_SAMPLER_DESC Desc = {};
 
-		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		Desc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_LINEAR;
 		Desc.MipLODBias = 0.0f; // 보간하지 않는다.
 		Desc.MaxAnisotropy = 1;

@@ -115,6 +115,11 @@ public:
 		SetSpriteInfo(CurInfo);
 		CurAnimation = nullptr;
 	}
+
+	void SetVertexUVPlus(float4 _UVPlus)
+	{
+		VertexUVValue.PlusUV = _UVPlus;
+	}
 	
 protected:
 	void Tick(float _DeltaTime) override;
@@ -131,6 +136,7 @@ private:
 	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
 	ETextureSampling SamplingValue = ETextureSampling::POINT;
 
+	FVertexUV VertexUVValue;
 	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
 };

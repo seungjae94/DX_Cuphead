@@ -96,6 +96,7 @@ private:
 
 	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
+	FVertexUV VertexUVValue;
 
 	// 여기에 자기자신의 std::shared_ptr
 	// std::shared_ptr<UWidget> This = ;

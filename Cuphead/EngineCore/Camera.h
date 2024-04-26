@@ -33,6 +33,11 @@ public:
 		Far = _Value;
 	}
 
+	inline void SetProjectionType(ECameraType _ProjectionType)
+	{
+		ProjectionType = _ProjectionType;
+	}
+
 	inline FMatrix GetView()
 	{
 		return View;
@@ -41,7 +46,7 @@ public:
 	{
 		return Projection;
 	}
-
+	
 	void ViewPortSetting();
 	float4 ScreenPosToWorldPos(float4 _ScreenPos);
 
