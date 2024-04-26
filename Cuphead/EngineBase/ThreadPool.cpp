@@ -85,6 +85,7 @@ void UThreadPool::ThreadPoolWorkFunction(UThreadPool* _Pool, HANDLE _IOCPHandle)
 		FJob* NewJob = reinterpret_cast<FJob*>(Ptr);
 		NewJob->WorkFunction();
 		delete NewJob;
+		NewJob = nullptr;
 	}
 
 	--_Pool->RunThreadCount;

@@ -25,5 +25,7 @@ private:
 	void CreateMaterials();
 	void LoadResources();
 	void CreateLevels();
+
+	std::atomic_int LoadingCount = 0;
 };
 

@@ -94,6 +94,7 @@ void UEngineCore::EngineOptionInit()
 
 void UEngineCore::EngineEnd()
 {
+	JobWorker.End();
 	Levels.clear();
 	EngineDevice.EngineResourcesRelease();
 }

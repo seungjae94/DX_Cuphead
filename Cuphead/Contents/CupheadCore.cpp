@@ -6,7 +6,6 @@
 #include "BossFarmGameMode.h"
 #include "BossDragonGameMode.h"
 #include "CupheadDebugWindow.h"
-#include <EngineCore/EngineTexture.h>
 
 std::shared_ptr<UCupheadDebugWindow> DebugWindow;
 
@@ -22,7 +21,12 @@ void UCupheadCore::Initialize()
 {
 	CreateDebugWindows();
 	CreateMaterials();
+
+	UEngineTime Timer;
+	Timer.TimeCheckStart();
 	LoadResources();
+	float LoadingTime = Timer.TimeCheck();
+
 	CreateLevels();
 	GEngine->ChangeLevel(GLevelName::OverworldLevel);
 }
@@ -50,20 +54,26 @@ void UCupheadCore::CreateMaterials()
 
 void UCupheadCore::LoadResources()
 {
+	std::vector<std::string> AllFileFullNames;
+	std::vector<std::string> AllFolderFullNames;
+
 	{
 		UEngineDirectory CurDir;
 		CurDir.MoveToSearchChild("ContentsResources");
 		CurDir.Move("TitleLevel");
 		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
+
 		for (UEngineFile& File : Files)
 		{
-			UEngineSprite::Load(File.GetFullPath());
+			AllFileFullNames.push_back(File.GetFullPath());
+			//UEngineSprite::Load(File.GetFullPath());
 		}
 
 		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
 		for (size_t i = 0; i < Dirs.size(); i++)
 		{
-			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
+			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
+			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
 		}
 	}
 
@@ -71,37 +81,138 @@ void UCupheadCore::LoadResources()
 		UEngineDirectory CurDir;
 		CurDir.MoveToSearchChild("ContentsResources");
 		CurDir.Move("OverworldLevel");
+
 		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
+
 		for (UEngineFile& File : Files)
 		{
-			UEngineSprite::Load(File.GetFullPath());
+			AllFileFullNames.push_back(File.GetFullPath());
+			//UEngineSprite::Load(File.GetFullPath());
 		}
 
 		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
 		for (size_t i = 0; i < Dirs.size(); i++)
 		{
-			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
+			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
+			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
 		}
-
-		UEngineSprite::CreateCutting("overworld_farm.png", 3, 1);
-		UEngineSprite::CreateCutting("overworld_spire.png", 3, 1);
 	}
 
 	{
 		UEngineDirectory CurDir;
 		CurDir.MoveToSearchChild("ContentsResources");
 		CurDir.Move("Player");
+
 		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
+
 		for (UEngineFile& File : Files)
 		{
-			UEngineSprite::Load(File.GetFullPath());
+			AllFileFullNames.push_back(File.GetFullPath());
+			//UEngineSprite::Load(File.GetFullPath());
 		}
 
 		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
 		for (size_t i = 0; i < Dirs.size(); i++)
 		{
-			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
+			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
+			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
 		}
+	}
+
+	{
+		UEngineDirectory CurDir;
+		CurDir.MoveToSearchChild("ContentsResources");
+		CurDir.Move("BossFarmLevel");
+
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
+
+		for (UEngineFile& File : Files)
+		{
+			AllFileFullNames.push_back(File.GetFullPath());
+			//UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
+		for (size_t i = 0; i < Dirs.size(); i++)
+		{
+			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
+			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
+		}
+	}
+
+	{
+		UEngineDirectory CurDir;
+		CurDir.MoveToSearchChild("ContentsResources");
+		CurDir.Move("BossDragonLevel");
+
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
+
+		for (UEngineFile& File : Files)
+		{
+			AllFileFullNames.push_back(File.GetFullPath());
+			//UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
+		for (size_t i = 0; i < Dirs.size(); i++)
+		{
+			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
+			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
+		}
+	}
+
+	{
+		UEngineDirectory CurDir;
+		CurDir.MoveToSearchChild("ContentsResources");
+		CurDir.Move("Common");
+
+		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
+
+		for (UEngineFile& File : Files)
+		{
+			AllFileFullNames.push_back(File.GetFullPath());
+			//UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
+		for (size_t i = 0; i < Dirs.size(); i++)
+		{
+			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
+			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
+		}
+	}
+
+	{
+		LoadingCount = static_cast<int>(AllFileFullNames.size() + AllFolderFullNames.size());
+
+		for (std::string_view FileName : AllFileFullNames)
+		{
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoad(FileName);
+					--LoadingCount;
+				});
+		}
+
+		for (std::string_view FolderName : AllFolderFullNames)
+		{
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoadFolder(FolderName);
+					--LoadingCount;
+				});
+		}
+
+		while (LoadingCount > 0)
+		{
+		}
+
+		int a = 0;
+	}
+
+	{
+		UEngineSprite::CreateCutting("overworld_farm.png", 3, 1);
+		UEngineSprite::CreateCutting("overworld_spire.png", 3, 1);
 
 		UEngineSprite::CreateCutting(GImageName::PlayerIntro, 28, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerIdle, 5, 1);
@@ -114,23 +225,34 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting(GImageName::PlayerRun, 16, 1);
 		UEngineSprite::CreateCutting(GImageName::BulletSpawn, 4, 1);
 		UEngineSprite::CreateCutting(GImageName::BulletDestroy, 6, 1);
-	}
 
-	{
-		UEngineDirectory CurDir;
-		CurDir.MoveToSearchChild("ContentsResources");
-		CurDir.Move("BossFarmLevel");
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
-		for (UEngineFile& File : Files)
-		{
-			UEngineSprite::Load(File.GetFullPath());
-		}
+		UEngineSprite::CreateCutting("dragon1_idle.png", 8, 2);
+		UEngineSprite::CreateCutting("dragon1_tail.png", 12, 1);
+		UEngineSprite::CreateCutting("dragon1_attack.png", 7, 1);
+		UEngineSprite::CreateCutting("dragon1_attack_start.png", 8, 2);
+		UEngineSprite::CreateCutting("dragon1_attack_end.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_attack_proj.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_attack_smoke.png", 7, 5);
+		UEngineSprite::CreateCutting("dragon1_beam_eye.png", 11, 1);
+		UEngineSprite::CreateCutting("dragon1_beam.png", 8, 2);
+		UEngineSprite::CreateCutting("dragon1_beam_start.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_beam_end.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_beam_proj.png", 8, 1);
+		UEngineSprite::CreateCutting("dragon1_beam_proj_pink.png", 8, 1);
 
-		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
-		for (size_t i = 0; i < Dirs.size(); i++)
-		{
-			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
-		}
+		UEngineSprite::CreateCutting("dragon1_cloud_idle.png", 3, 1);
+		UEngineSprite::CreateCutting("dragon1_cloud_down_idle.png", 3, 1);
+		UEngineSprite::CreateCutting("dragon1_cloud_down.png", 3, 1);
+		UEngineSprite::CreateCutting("dragon1_cloud_up.png", 5, 1);
+
+		UEngineSprite::CreateCutting("dragon2_idle.png", 14, 1);
+		UEngineSprite::CreateCutting("dragon2_smoke.png", 21, 1);
+
+		UEngineSprite::CreateCutting("firemob_jump.png", 4, 1);
+		UEngineSprite::CreateCutting("firemob_jump_ready.png", 5, 1);
+		UEngineSprite::CreateCutting("firemob_jump_ready_start.png", 5, 1);
+		UEngineSprite::CreateCutting("firemob_run.png", 8, 2);
+		UEngineSprite::CreateCutting("firemob_air.png", 8, 1);
 
 		UEngineSprite::CreateCutting("potato_intro.png", 11, 1);
 		UEngineSprite::CreateCutting("potato_idle.png", 4, 1);
@@ -168,70 +290,6 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting("carrot_proj.png", 6, 1);
 		UEngineSprite::CreateCutting("carrot_proj_destroy.png", 10, 1);
 		UEngineSprite::CreateCutting("carrot_beam_proj.png", 12, 1);
-	}
-
-	{
-		UEngineDirectory CurDir;
-		CurDir.MoveToSearchChild("ContentsResources");
-		CurDir.Move("BossDragonLevel");
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
-		for (UEngineFile& File : Files)
-		{
-			UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
-		for (size_t i = 0; i < Dirs.size(); i++)
-		{
-			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
-		}
-
-		UEngineSprite::CreateCutting("dragon1_idle.png", 8, 2);
-		UEngineSprite::CreateCutting("dragon1_tail.png", 12, 1);
-		UEngineSprite::CreateCutting("dragon1_attack.png", 7, 1);
-		UEngineSprite::CreateCutting("dragon1_attack_start.png", 8, 2);
-		UEngineSprite::CreateCutting("dragon1_attack_end.png", 8, 1);
-		UEngineSprite::CreateCutting("dragon1_attack_proj.png", 8, 1);
-		UEngineSprite::CreateCutting("dragon1_attack_smoke.png", 7, 5);
-		UEngineSprite::CreateCutting("dragon1_beam_eye.png", 11, 1);
-		UEngineSprite::CreateCutting("dragon1_beam.png", 8, 2);
-		UEngineSprite::CreateCutting("dragon1_beam_start.png", 8, 1);
-		UEngineSprite::CreateCutting("dragon1_beam_end.png", 8, 1);
-		UEngineSprite::CreateCutting("dragon1_beam_proj.png", 8, 1);
-		UEngineSprite::CreateCutting("dragon1_beam_proj_pink.png", 8, 1);
-
-		UEngineSprite::CreateCutting("dragon1_cloud_idle.png", 3, 1);
-		UEngineSprite::CreateCutting("dragon1_cloud_down_idle.png", 3, 1);
-		UEngineSprite::CreateCutting("dragon1_cloud_down.png", 3, 1);
-		UEngineSprite::CreateCutting("dragon1_cloud_up.png", 5, 1);
-
-		UEngineSprite::CreateCutting("dragon2_idle.png", 14, 1);
-		UEngineSprite::CreateCutting("dragon2_smoke.png", 21, 1);
-
-		UEngineSprite::CreateCutting("firemob_jump.png", 4, 1);
-		UEngineSprite::CreateCutting("firemob_jump_ready.png", 5, 1);
-		UEngineSprite::CreateCutting("firemob_jump_ready_start.png", 5, 1);
-		UEngineSprite::CreateCutting("firemob_run.png", 8, 2);
-		UEngineSprite::CreateCutting("firemob_air.png", 8, 1);
-	}
-
-	{
-		UEngineDirectory CurDir;
-		CurDir.MoveToSearchChild("ContentsResources");
-		CurDir.Move("Common");
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
-		for (UEngineFile& File : Files)
-		{
-			UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
-		for (size_t i = 0; i < Dirs.size(); i++)
-		{
-			UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
-		}
-
-		
 	}
 }
 
