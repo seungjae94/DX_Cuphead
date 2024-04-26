@@ -37,129 +37,14 @@ void UCupheadCore::LoadResources()
 	std::vector<std::string> AllFileFullNames;
 	std::vector<std::string> AllFolderFullNames;
 
+	UEngineDirectory CurDir;
+	CurDir.MoveToSearchChild("ContentsResources");
+	std::vector<std::string> FirstFolderNames;
+	std::vector<UEngineDirectory> FirstFolders = CurDir.GetAllDirectory(false);
+
+	for (UEngineDirectory& FirstFolder : FirstFolders)
 	{
-		UEngineDirectory CurDir;
-		CurDir.MoveToSearchChild("ContentsResources");
-		CurDir.Move("TitleLevel");
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
-
-		for (UEngineFile& File : Files)
-		{
-			AllFileFullNames.push_back(File.GetFullPath());
-			//UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
-		for (size_t i = 0; i < Dirs.size(); i++)
-		{
-			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
-			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
-		}
-	}
-
-	{
-		UEngineDirectory CurDir;
-		CurDir.MoveToSearchChild("ContentsResources");
-		CurDir.Move("OverworldLevel");
-
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
-
-		for (UEngineFile& File : Files)
-		{
-			AllFileFullNames.push_back(File.GetFullPath());
-			//UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
-		for (size_t i = 0; i < Dirs.size(); i++)
-		{
-			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
-			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
-		}
-	}
-
-	{
-		UEngineDirectory CurDir;
-		CurDir.MoveToSearchChild("ContentsResources");
-		CurDir.Move("Player");
-
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
-
-		for (UEngineFile& File : Files)
-		{
-			AllFileFullNames.push_back(File.GetFullPath());
-			//UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
-		for (size_t i = 0; i < Dirs.size(); i++)
-		{
-			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
-			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
-		}
-	}
-
-	{
-		UEngineDirectory CurDir;
-		CurDir.MoveToSearchChild("ContentsResources");
-		CurDir.Move("BossFarmLevel");
-
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
-
-		for (UEngineFile& File : Files)
-		{
-			AllFileFullNames.push_back(File.GetFullPath());
-			//UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
-		for (size_t i = 0; i < Dirs.size(); i++)
-		{
-			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
-			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
-		}
-	}
-
-	{
-		UEngineDirectory CurDir;
-		CurDir.MoveToSearchChild("ContentsResources");
-		CurDir.Move("BossDragonLevel");
-
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
-
-		for (UEngineFile& File : Files)
-		{
-			AllFileFullNames.push_back(File.GetFullPath());
-			//UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
-		for (size_t i = 0; i < Dirs.size(); i++)
-		{
-			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
-			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
-		}
-	}
-
-	{
-		UEngineDirectory CurDir;
-		CurDir.MoveToSearchChild("ContentsResources");
-		CurDir.Move("Common");
-
-		std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
-
-		for (UEngineFile& File : Files)
-		{
-			AllFileFullNames.push_back(File.GetFullPath());
-			//UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
-		for (size_t i = 0; i < Dirs.size(); i++)
-		{
-			AllFolderFullNames.push_back(Dirs[i].GetFullPath());
-			//UEngineSprite::LoadFolder(Dirs[i].GetFullPath());
-		}
+		RegisterResourceNames(AllFileFullNames, AllFolderFullNames, FirstFolder.GetFolderName());
 	}
 
 	{
@@ -186,14 +71,14 @@ void UCupheadCore::LoadResources()
 		while (LoadingCount > 0)
 		{
 		}
-
-		int a = 0;
 	}
 
 	{
+		// 오버월드 커팅
 		UEngineSprite::CreateCutting("overworld_farm.png", 3, 1);
 		UEngineSprite::CreateCutting("overworld_spire.png", 3, 1);
 
+		// 보스맵 플레이어 커팅
 		UEngineSprite::CreateCutting(GImageName::PlayerIntro, 28, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerIdle, 5, 1);
 		UEngineSprite::CreateCutting(GImageName::PlayerJump, 8, 1);
@@ -206,6 +91,45 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting(GImageName::BulletSpawn, 4, 1);
 		UEngineSprite::CreateCutting(GImageName::BulletDestroy, 6, 1);
 
+		// 농장맵 커팅
+		UEngineSprite::CreateCutting("ground_front_intro.png", 16, 1);
+		UEngineSprite::CreateCutting("ground_back_intro.png", 16, 1);
+
+		UEngineSprite::CreateCutting("potato_intro.png", 11, 1);
+		UEngineSprite::CreateCutting("potato_idle.png", 4, 1);
+		UEngineSprite::CreateCutting("potato_faint.png", 9, 1);
+		UEngineSprite::CreateCutting("potato_attack.png", 20, 1);
+		UEngineSprite::CreateCutting("potato_attack_dust.png", 14, 1);
+		UEngineSprite::CreateCutting("potato_attack_ball.png", 8, 1);
+		UEngineSprite::CreateCutting("potato_attack_ball_destroy.png", 7, 1);
+		UEngineSprite::CreateCutting("potato_attack_snake.png", 4, 1);
+		UEngineSprite::CreateCutting("potato_attack_snake_destroy.png", 5, 1);
+
+		UEngineSprite::CreateCutting("onion_intro.png", 24, 1);
+		UEngineSprite::CreateCutting("onion_idle.png", 14, 1);
+		UEngineSprite::CreateCutting("onion_faint.png", 15, 1);
+		UEngineSprite::CreateCutting("onion_cry_intro.png", 6, 1);
+		UEngineSprite::CreateCutting("onion_cry_start.png", 11, 1);
+		UEngineSprite::CreateCutting("onion_cry_loop.png", 5, 1);
+		UEngineSprite::CreateCutting("onion_cry_wait.png", 8, 1);
+		UEngineSprite::CreateCutting("onion_tear_start.png", 5, 1);
+		UEngineSprite::CreateCutting("onion_tear_loop.png", 4, 1);
+		UEngineSprite::CreateCutting("onion_tear_end.png", 7, 1);
+		UEngineSprite::CreateCutting("onion_attack.png", 3, 1);
+		UEngineSprite::CreateCutting("onion_attack_pink.png", 3, 1);
+		UEngineSprite::CreateCutting("onion_attack_destroy.png", 7, 1);
+		UEngineSprite::CreateCutting("onion_attack_pink_destroy.png", 6, 1);
+
+		UEngineSprite::CreateCutting("carrot_idle.png", 22, 1);
+		UEngineSprite::CreateCutting("carrot_idle_to_beam.png", 9, 1);
+		UEngineSprite::CreateCutting("carrot_beam_body.png", 4, 1);
+		UEngineSprite::CreateCutting("carrot_beam_eye.png", 4, 1);
+		UEngineSprite::CreateCutting("carrot_faint.png", 21, 1);
+		UEngineSprite::CreateCutting("carrot_proj.png", 6, 1);
+		UEngineSprite::CreateCutting("carrot_proj_destroy.png", 10, 1);
+		UEngineSprite::CreateCutting("carrot_beam_proj.png", 12, 1);
+
+		// 용맵 커팅
 		UEngineSprite::CreateCutting("dragon1_idle.png", 8, 2);
 		UEngineSprite::CreateCutting("dragon1_tail.png", 12, 1);
 		UEngineSprite::CreateCutting("dragon1_attack.png", 7, 1);
@@ -233,43 +157,25 @@ void UCupheadCore::LoadResources()
 		UEngineSprite::CreateCutting("firemob_jump_ready_start.png", 5, 1);
 		UEngineSprite::CreateCutting("firemob_run.png", 8, 2);
 		UEngineSprite::CreateCutting("firemob_air.png", 8, 1);
+	}
+}
 
-		UEngineSprite::CreateCutting("potato_intro.png", 11, 1);
-		UEngineSprite::CreateCutting("potato_idle.png", 4, 1);
-		UEngineSprite::CreateCutting("potato_faint.png", 9, 1);
-		UEngineSprite::CreateCutting("potato_ground_intro.png", 16, 1);
-		UEngineSprite::CreateCutting("potato_attack.png", 20, 1);
-		UEngineSprite::CreateCutting("potato_attack_dust.png", 14, 1);
-		UEngineSprite::CreateCutting("potato_attack_ball.png", 8, 1);
-		UEngineSprite::CreateCutting("potato_attack_ball_destroy.png", 7, 1);
-		UEngineSprite::CreateCutting("potato_attack_snake.png", 4, 1);
-		UEngineSprite::CreateCutting("potato_attack_snake_destroy.png", 5, 1);
+void UCupheadCore::RegisterResourceNames(std::vector<std::string>& _AllFileFullNames, std::vector<std::string>& _AllFolderFullNames, std::string_view _FolderName)
+{
+	UEngineDirectory CurDir;
+	CurDir.MoveToSearchChild("ContentsResources");
+	CurDir.Move(_FolderName);
+	std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
 
-		UEngineSprite::CreateCutting("onion_intro.png", 24, 1);
-		UEngineSprite::CreateCutting("onion_idle.png", 14, 1);
-		UEngineSprite::CreateCutting("onion_faint.png", 15, 1);
-		UEngineSprite::CreateCutting("onion_ground_intro.png", 16, 1);
-		UEngineSprite::CreateCutting("onion_cry_intro.png", 6, 1);
-		UEngineSprite::CreateCutting("onion_cry_start.png", 11, 1);
-		UEngineSprite::CreateCutting("onion_cry_loop.png", 5, 1);
-		UEngineSprite::CreateCutting("onion_cry_wait.png", 8, 1);
-		UEngineSprite::CreateCutting("onion_tear_start.png", 5, 1);
-		UEngineSprite::CreateCutting("onion_tear_loop.png", 4, 1);
-		UEngineSprite::CreateCutting("onion_tear_end.png", 7, 1);
-		UEngineSprite::CreateCutting("onion_attack.png", 3, 1);
-		UEngineSprite::CreateCutting("onion_attack_pink.png", 3, 1);
-		UEngineSprite::CreateCutting("onion_attack_destroy.png", 7, 1);
-		UEngineSprite::CreateCutting("onion_attack_pink_destroy.png", 6, 1);
+	for (UEngineFile& File : Files)
+	{
+		_AllFileFullNames.push_back(File.GetFullPath());
+	}
 
-		UEngineSprite::CreateCutting("carrot_idle.png", 22, 1);
-		UEngineSprite::CreateCutting("carrot_idle_to_beam.png", 9, 1);
-		UEngineSprite::CreateCutting("carrot_ground_intro.png", 16, 1);
-		UEngineSprite::CreateCutting("carrot_beam_body.png", 4, 1);
-		UEngineSprite::CreateCutting("carrot_beam_eye.png", 4, 1);
-		UEngineSprite::CreateCutting("carrot_faint.png", 21, 1);
-		UEngineSprite::CreateCutting("carrot_proj.png", 6, 1);
-		UEngineSprite::CreateCutting("carrot_proj_destroy.png", 10, 1);
-		UEngineSprite::CreateCutting("carrot_beam_proj.png", 12, 1);
+	std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
+	for (size_t i = 0; i < Dirs.size(); i++)
+	{
+		_AllFolderFullNames.push_back(Dirs[i].GetFullPath());
 	}
 }
 

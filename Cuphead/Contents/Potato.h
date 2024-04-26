@@ -27,7 +27,7 @@ protected:
 
 private:
 	// 컴포넌트
-	USpriteRenderer* GroundRenderer = nullptr;
+	USpriteRenderer* GroundFrontRenderer = nullptr;
 	UCropSpriteRenderer* PotatoRenderer = nullptr;
 private:
 	// 로직 처리

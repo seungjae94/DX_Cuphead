@@ -23,6 +23,7 @@ protected:
 private:
 	void CreateDebugWindows();
 	void LoadResources();
+	void RegisterResourceNames(std::vector<std::string>& _AllFileFullNames, std::vector<std::string>& _AllFolderFullNames, std::string_view _FolderName);
 	void LoadShaders();
 	void CreateMaterials();
 	void CreateLevels();

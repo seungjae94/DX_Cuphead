@@ -6,11 +6,11 @@
 
 ACarrot::ACarrot()
 {
-	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
+	GroundFrontRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
 	CarrotRenderer = CreateDefaultSubObject<USpriteRenderer>("Carrot");
 	EyeRenderer = CreateDefaultSubObject<USpriteRenderer>("Eye");
 
-	GroundRenderer->SetupAttachment(Root);
+	GroundFrontRenderer->SetupAttachment(Root);
 	CarrotRenderer->SetupAttachment(Root);
 	EyeRenderer->SetupAttachment(Root);
 }
@@ -31,7 +31,7 @@ void ACarrot::BeginPlay()
 	SetActorLocation({ 0.0f, -270.0f });
 	CarrotRenderer->SetPosition({ 0.0f, 0.0f });
 	EyeRenderer->SetPosition({ -2.0f, 310.0f });
-	GroundRenderer->SetPosition({ 0.0f, -20.0f });
+	GroundFrontRenderer->SetPosition({ 0.0f, -20.0f });
 	Collision->SetPosition(CarrotRenderer->GetLocalPosition() + FVector(0.0f, 400.0f, 0.0f));
 	Collision->SetScale({ 250.0f, 300.0f });
 
@@ -49,17 +49,17 @@ void ACarrot::RendererInit()
 
 	EyeRenderer->CreateAnimation("carrot_beam_eye", "carrot_beam_eye.png", 1 / 12.0f, true);
 
-	GroundRenderer->CreateAnimation("ground_intro", "carrot_ground_intro.png",
+	GroundFrontRenderer->CreateAnimation("ground_front_intro", "ground_front_intro.png",
 		std::vector<float>(28, 1 / 18.0f),
 		{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
-	GroundRenderer->CreateAnimation("ground_idle", "carrot_ground_idle.png", 1 / 12.0f, false);
+	GroundFrontRenderer->CreateAnimation("ground_front_idle", "ground_front_idle.png", 1 / 12.0f, false);
 
-	GroundRenderer->SetFrameCallback("ground_intro", 20, [this]() {
+	GroundFrontRenderer->SetFrameCallback("ground_front_intro", 20, [this]() {
 		CarrotRenderer->ChangeAnimation("carrot_intro");
 		});
 
-	GroundRenderer->SetFrameCallback("ground_intro", 27, [this]() {
-		GroundRenderer->ChangeAnimation("ground_idle");
+	GroundFrontRenderer->SetFrameCallback("ground_front_intro", 27, [this]() {
+		GroundFrontRenderer->ChangeAnimation("ground_front_idle");
 		});
 
 	CarrotRenderer->SetFrameCallback("carrot_idle_to_beam", 8, [this]() {
@@ -75,15 +75,15 @@ void ACarrot::RendererInit()
 
 	CarrotRenderer->SetOrder(ERenderingOrder::Back3);
 	EyeRenderer->SetOrder(ERenderingOrder::Back4);
-	GroundRenderer->SetOrder(ERenderingOrder::Back4);
+	GroundFrontRenderer->SetOrder(ERenderingOrder::Back4);
 
 	CarrotRenderer->SetPivot(EPivot::BOT);
 	EyeRenderer->SetPivot(EPivot::BOT);
-	GroundRenderer->SetPivot(EPivot::BOT);
+	GroundFrontRenderer->SetPivot(EPivot::BOT);
 
 	CarrotRenderer->SetAutoSize(1.2f, true);
 	EyeRenderer->SetAutoSize(1.2f, true);
-	GroundRenderer->SetAutoSize(1.2f, true);
+	GroundFrontRenderer->SetAutoSize(1.2f, true);
 
 	EyeRenderer->SetActive(false);
 }
@@ -266,12 +266,12 @@ void ACarrot::FaintEnd()
 	Super::FaintEnd();
 
 	CarrotRenderer->SetActive(false);
-	GroundRenderer->SetActive(false);
+	GroundFrontRenderer->SetActive(false);
 }
 
 void ACarrot::PlayGroundIntroAnimation()
 {
-	GroundRenderer->ChangeAnimation("ground_intro");
+	GroundFrontRenderer->ChangeAnimation("ground_front_intro");
 }
 
 void ACarrot::PlayCarrotIntroAnimation()
@@ -281,7 +281,7 @@ void ACarrot::PlayCarrotIntroAnimation()
 
 void ACarrot::PlayGroundIdleAnimation()
 {
-	GroundRenderer->ChangeAnimation("ground_idle");
+	GroundFrontRenderer->ChangeAnimation("ground_front_idle");
 }
 
 void ACarrot::PlayCarrotIdleAnimation()

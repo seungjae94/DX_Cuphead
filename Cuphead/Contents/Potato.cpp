@@ -4,10 +4,10 @@
 
 APotato::APotato()
 {
-	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
+	GroundFrontRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
 	PotatoRenderer = CreateDefaultSubObject<UCropSpriteRenderer>("Potato");
 
-	GroundRenderer->SetupAttachment(Root);
+	GroundFrontRenderer->SetupAttachment(Root);
 	PotatoRenderer->SetupAttachment(Root);
 }
 
@@ -17,7 +17,7 @@ APotato::~APotato()
 
 void APotato::PlayGroundIntroAnimation()
 {
-	GroundRenderer->ChangeAnimation("ground_intro");
+	GroundFrontRenderer->ChangeAnimation("ground_front_intro");
 }
 
 void APotato::PlayPotatoIntroAnimation()
@@ -27,7 +27,7 @@ void APotato::PlayPotatoIntroAnimation()
 
 void APotato::PlayGroundIdleAnimation()
 {
-	GroundRenderer->ChangeAnimation("ground_idle");
+	GroundFrontRenderer->ChangeAnimation("ground_idle");
 }
 
 void APotato::PlayPotatoIdleAnimation()
@@ -79,7 +79,7 @@ void APotato::BeginPlay()
 
 	SetActorLocation({ 450.0f, -250.0f });
 	PotatoRenderer->SetPosition({ 0.0f, -50.0f });
-	GroundRenderer->SetPosition({ 0.0f, -80.0f });
+	GroundFrontRenderer->SetPosition({ 0.0f, -80.0f });
 	Collision->SetPosition(PotatoRenderer->GetLocalPosition() + FVector(0.0f, 200.0f, 0.0f));
 	Collision->SetScale({ 300.0f, 400.0f });
 }
@@ -92,27 +92,27 @@ void APotato::RendererInit()
 	PotatoRenderer->CreateAnimation("potato_faint", "potato_faint.png",
 		std::vector<float>(12, 1 / 12.0f),
 		{ 2, 3, 4, 5, 6, 7, 8, 6, 5, 4, 3 }, true);
-	GroundRenderer->CreateAnimation("ground_intro", "potato_ground_intro.png",
+	GroundFrontRenderer->CreateAnimation("ground_front_intro", "ground_front_intro.png",
 		std::vector<float>(28, 1 / 18.0f),
 		{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
-	GroundRenderer->CreateAnimation("ground_idle", "potato_ground_idle.png", 1 / 12.0f, false);
+	GroundFrontRenderer->CreateAnimation("ground_front_idle", "ground_front_idle.png", 1 / 12.0f, false);
 
-	GroundRenderer->SetFrameCallback("ground_intro", 20, [this]() {
+	GroundFrontRenderer->SetFrameCallback("ground_front_intro", 20, [this]() {
 		PotatoRenderer->ChangeAnimation("potato_intro");
 	});
 
-	GroundRenderer->SetFrameCallback("ground_intro", 27, [this]() {
-		GroundRenderer->ChangeAnimation("ground_idle");
+	GroundFrontRenderer->SetFrameCallback("ground_front_intro", 27, [this]() {
+		GroundFrontRenderer->ChangeAnimation("ground_front_idle");
 	});
 
 	PotatoRenderer->SetOrder(ERenderingOrder::Back5);
-	GroundRenderer->SetOrder(ERenderingOrder::Back6);
+	GroundFrontRenderer->SetOrder(ERenderingOrder::Back6);
 
 	PotatoRenderer->SetPivot(EPivot::BOT);
-	GroundRenderer->SetPivot(EPivot::BOT);
+	GroundFrontRenderer->SetPivot(EPivot::BOT);
 
 	PotatoRenderer->SetAutoSize(1.25f, true);
-	GroundRenderer->SetAutoSize(1.25f, true);
+	GroundFrontRenderer->SetAutoSize(1.25f, true);
 }
 
 void APotato::StateInit()
@@ -262,5 +262,5 @@ void APotato::FaintEnd()
 	Super::FaintEnd();
 
 	PotatoRenderer->SetActive(false);
-	GroundRenderer->SetActive(false);
+	GroundFrontRenderer->SetActive(false);
 }

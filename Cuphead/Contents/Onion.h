@@ -30,7 +30,7 @@ private:
 	void StateInit();
 private:
 	// ·»´õ·¯
-	USpriteRenderer* GroundRenderer = nullptr;
+	USpriteRenderer* GroundFrontRenderer = nullptr;
 	UCropSpriteRenderer* OnionRenderer = nullptr;
 	USpriteRenderer* LeftTearRenderer = nullptr;
 	USpriteRenderer* RightTearRenderer = nullptr;

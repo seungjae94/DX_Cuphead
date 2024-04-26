@@ -36,7 +36,7 @@ private:
 	void StateInit();
 private:
 	// ÄÄÆ÷³ÍÆ®
-	USpriteRenderer* GroundRenderer = nullptr;
+	USpriteRenderer* GroundFrontRenderer = nullptr;
 	USpriteRenderer* CarrotRenderer = nullptr;
 	USpriteRenderer* EyeRenderer = nullptr;
 private:

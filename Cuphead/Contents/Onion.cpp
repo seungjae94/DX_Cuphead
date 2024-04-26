@@ -4,12 +4,12 @@
 
 AOnion::AOnion()
 {
-	GroundRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
+	GroundFrontRenderer = CreateDefaultSubObject<USpriteRenderer>("Ground");
 	OnionRenderer = CreateDefaultSubObject<UCropSpriteRenderer>("Onion");
 	LeftTearRenderer = CreateDefaultSubObject<USpriteRenderer>("LeftTear");
 	RightTearRenderer = CreateDefaultSubObject<USpriteRenderer>("RightTear");
 
-	GroundRenderer->SetupAttachment(Root);
+	GroundFrontRenderer->SetupAttachment(Root);
 	OnionRenderer->SetupAttachment(Root);
 	LeftTearRenderer->SetupAttachment(Root);
 	RightTearRenderer->SetupAttachment(Root);
@@ -21,7 +21,7 @@ AOnion::~AOnion()
 
 void AOnion::PlayGroundIntroAnimation()
 {
-	GroundRenderer->ChangeAnimation("ground_intro");
+	GroundFrontRenderer->ChangeAnimation("ground_front_intro");
 }
 
 void AOnion::PlayOnionIntroAnimation()
@@ -31,7 +31,7 @@ void AOnion::PlayOnionIntroAnimation()
 
 void AOnion::PlayGroundIdleAnimation()
 {
-	GroundRenderer->ChangeAnimation("ground_idle");
+	GroundFrontRenderer->ChangeAnimation("ground_idle");
 }
 
 void AOnion::PlayOnionIdleAnimation()
@@ -83,7 +83,7 @@ void AOnion::BeginPlay()
 
 	SetActorLocation({ 0.0f, -315.0f });
 
-	GroundRenderer->SetPosition({ 0.0f, -55.0f });
+	GroundFrontRenderer->SetPosition({ 0.0f, -55.0f });
 	LeftTearRenderer->SetPosition({ -350.0f, 555.0f });
 	RightTearRenderer->SetPosition({ 330.0f, 555.0f });
 
@@ -102,10 +102,10 @@ void AOnion::RendererInit()
 	OnionRenderer->CreateAnimation("onion_cry_loop", "onion_cry_loop.png", 1 / 12.0f, true);
 	OnionRenderer->CreateAnimation("onion_cry_wait", "onion_cry_wait.png", 1 / 12.0f, true);
 
-	GroundRenderer->CreateAnimation("ground_intro", "onion_ground_intro.png",
+	GroundFrontRenderer->CreateAnimation("ground_front_intro", "ground_front_intro.png",
 		std::vector<float>(28, 1 / 18.0f),
 		{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
-	GroundRenderer->CreateAnimation("ground_idle", "onion_ground_idle.png", 1 / 12.0f, false);
+	GroundFrontRenderer->CreateAnimation("ground_front_idle", "ground_front_idle.png", 1 / 12.0f, false);
 
 	LeftTearRenderer->CreateAnimation("onion_tear_start", "onion_tear_start.png", 1 / 12.0f, false);
 	LeftTearRenderer->CreateAnimation("onion_tear_loop", "onion_tear_loop.png", 1 / 12.0f, true);
@@ -115,13 +115,13 @@ void AOnion::RendererInit()
 	RightTearRenderer->CreateAnimation("onion_tear_loop", "onion_tear_loop.png", 1 / 12.0f, true);
 	RightTearRenderer->CreateAnimation("onion_tear_end", "onion_tear_end.png", 1 / 12.0f, false);
 
-	GroundRenderer->SetFrameCallback("ground_intro", 20, [this]() {
+	GroundFrontRenderer->SetFrameCallback("ground_front_intro", 20, [this]() {
 		OnionRenderer->ChangeAnimation("onion_intro");
 		Collision->SetActive(true);
 		});
 
-	GroundRenderer->SetFrameCallback("ground_intro", 27, [this]() {
-		GroundRenderer->ChangeAnimation("ground_idle");
+	GroundFrontRenderer->SetFrameCallback("ground_front_intro", 27, [this]() {
+		GroundFrontRenderer->ChangeAnimation("ground_front_idle");
 		});
 
 	OnionRenderer->SetFrameCallback("onion_intro", 23, [this]() {
@@ -141,15 +141,15 @@ void AOnion::RendererInit()
 		});
 
 	OnionRenderer->SetOrder(ERenderingOrder::Back5);
-	GroundRenderer->SetOrder(ERenderingOrder::Back6);
+	GroundFrontRenderer->SetOrder(ERenderingOrder::Back6);
 	LeftTearRenderer->SetOrder(ERenderingOrder::Back6);
 	RightTearRenderer->SetOrder(ERenderingOrder::Back6);
 
 	OnionRenderer->SetPivot(EPivot::BOT);
-	GroundRenderer->SetPivot(EPivot::BOT);
+	GroundFrontRenderer->SetPivot(EPivot::BOT);
 
 	OnionRenderer->SetAutoSize(1.0f, true);
-	GroundRenderer->SetAutoSize(1.5f, true);
+	GroundFrontRenderer->SetAutoSize(1.5f, true);
 	LeftTearRenderer->SetAutoSize(0.95f, true);
 	RightTearRenderer->SetAutoSize(0.95f, true);
 
@@ -320,5 +320,5 @@ void AOnion::FaintEnd()
 	Super::FaintEnd();
 
 	OnionRenderer->SetActive(false);
-	GroundRenderer->SetActive(false);
+	GroundFrontRenderer->SetActive(false);
 }
