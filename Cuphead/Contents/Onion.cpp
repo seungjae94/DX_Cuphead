@@ -83,6 +83,8 @@ void AOnion::BeginPlay()
 
 	GroundFrontRenderer->SetPosition({ 0.0f, -55.0f });
 	GroundBackRenderer->SetPosition({ 0.0f, -25.0f });
+	GroundBackRenderer->SetAutoSize(0.0f, true);
+
 	LeftTearRenderer->SetPosition({ -350.0f, 555.0f });
 	RightTearRenderer->SetPosition({ 330.0f, 555.0f });
 
@@ -118,6 +120,11 @@ void AOnion::RendererInit()
 		std::vector<float>(28, 1 / 18.0f),
 		{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
 	GroundBackRenderer->CreateAnimation("ground_back_idle", "ground_back_idle.png", 1 / 12.0f, false);
+
+	GroundBackRenderer->SetFrameCallback("ground_back_intro", 20, [this]() {
+		GroundBackRenderer->SetAutoSize(1.5f, true);
+		});
+
 	GroundBackRenderer->SetFrameCallback("ground_back_intro", 27, [this]() {
 		GroundBackRenderer->ChangeAnimation("ground_back_idle");
 		});

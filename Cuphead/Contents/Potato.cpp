@@ -77,8 +77,11 @@ void APotato::BeginPlay()
 
 	SetActorLocation({ 450.0f, -250.0f });
 	PotatoRenderer->SetPosition({ 0.0f, -50.0f });
+
 	GroundFrontRenderer->SetPosition({ 0.0f, -80.0f });
 	GroundBackRenderer->SetPosition({ 0.0f, -60.0f });
+	GroundBackRenderer->SetAutoSize(0.0f, true);
+
 	Collision->SetPosition(PotatoRenderer->GetLocalPosition() + FVector(0.0f, 200.0f, 0.0f));
 	Collision->SetScale({ 300.0f, 400.0f });
 }
@@ -109,6 +112,10 @@ void APotato::RendererInit()
 		std::vector<float>(28, 1 / 18.0f),
 		{ 0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, false);
 	GroundBackRenderer->CreateAnimation("ground_back_idle", "ground_back_idle.png", 1 / 12.0f, false);
+
+	GroundBackRenderer->SetFrameCallback("ground_back_intro", 20, [this]() {
+		GroundBackRenderer->SetAutoSize(1.25f, true);
+		});
 
 	GroundBackRenderer->SetFrameCallback("ground_back_intro", 27, [this]() {
 		GroundBackRenderer->ChangeAnimation("ground_back_idle");
