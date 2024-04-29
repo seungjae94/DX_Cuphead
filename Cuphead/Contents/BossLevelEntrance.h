@@ -31,12 +31,15 @@ private:
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+	USpriteRenderer* FlagRenderer = nullptr;
 	UImage* LevelExplainUI = nullptr;
 	UCollision* BlockCollision = nullptr;
 	UCollision* ChangeLevelCollision = nullptr;
 
 	AOverworldPlayer* Player = nullptr;
 	std::string LevelName;
+private:
+	bool CheckLevelMatch(std::string_view _LevelName);
 private:
 	void OnCollisionStay(std::shared_ptr<UCollision> _PlayerCollision);
 };

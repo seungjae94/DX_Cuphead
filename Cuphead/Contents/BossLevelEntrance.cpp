@@ -86,12 +86,19 @@ void ABossLevelEntrance::LevelStart(ULevel* _PrevLevel)
 
 	std::string PrevLevelName = _PrevLevel->GetName();
 
+	if (false == CheckLevelMatch(PrevLevelName))
+	{
+		return;
+	}
+
 	if (GLevelName::BossFarmLevel == PrevLevelName
 		|| GLevelName::BossDragonLevel == PrevLevelName)
 	{
 		Player->SetZButtonActive(false);
 		ChangeLevelCollision->SetActive(false);
 
+		// 깃발 꽂기
+		
 		// TODO: 플레이어 상태 변경
 	}
 }
@@ -131,6 +138,11 @@ void ABossLevelEntrance::DebugUpdate(float _DeltaTime)
 		std::string Msg = std::format("{} Collision Scale: {}", GetName(), BlockCollision->GetWorldScale().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
+}
+
+bool ABossLevelEntrance::CheckLevelMatch(std::string_view _LevelName)
+{
+	return LevelName == _LevelName;
 }
 
 void ABossLevelEntrance::OnCollisionStay(std::shared_ptr<UCollision> _PlayerCollision)
