@@ -54,6 +54,11 @@ void ABook::IncBookIndex()
 	BookRenderer->ChangeAnimation(BookNamePrefix + std::to_string(BookIndex));
 }
 
+bool ABook::IsMaxBookIndex() const
+{
+	return BookIndex == MaxBookIndex;
+}
+
 bool ABook::OverMaxBookIndex() const
 {
 	return BookIndex > MaxBookIndex;

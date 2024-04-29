@@ -21,6 +21,7 @@ UCupheadCore::~UCupheadCore()
 void UCupheadCore::Initialize()
 {
 	CreateDebugWindows();
+	LoadFonts();
 	LoadResources();
 	LoadShaders();
 	CreateMaterials();
@@ -31,6 +32,11 @@ void UCupheadCore::Initialize()
 void UCupheadCore::CreateDebugWindows()
 {
 	DebugWindow = UEngineEditorGUI::CreateEditorWindow<UCupheadDebugWindow>("CupheadDebugWindow");
+}
+
+void UCupheadCore::LoadFonts()
+{
+	UEngineFont::Load("±¼¸²");
 }
 
 void UCupheadCore::LoadResources()

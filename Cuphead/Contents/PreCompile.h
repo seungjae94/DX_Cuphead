@@ -18,8 +18,10 @@
 #include <EngineCore/EngineEditorGUI.h>
 #include <EngineCore/Widget.h>
 #include <EngineCore/Image.h>
+#include <EngineCore/TextWidget.h>
 #include <EngineCore/EngineRenderTarget.h>
 #include <EngineCore/BlurEffect.h>
+#include <EngineCore/EngineFont.h>
 
 #include <ContentsUtil/PreCompile.h>
 #include <ContentsUtil/Constant.h>

@@ -15,6 +15,7 @@ public:
 	void Init(std::string_view _BookNamePrefix, int _MaxBookIndex);
 	int GetBookIndex() const;
 	void IncBookIndex();
+	bool IsMaxBookIndex() const;
 	bool OverMaxBookIndex() const;
 	bool IsCurAnimationEnd() const;
 

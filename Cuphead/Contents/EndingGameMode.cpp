@@ -38,5 +38,17 @@ void AEndingGameMode::Tick(float _DeltaTime)
 			// TODO: 게임 종료
 			return;
 		}
+		return;
+	}
+
+	if (nullptr == ThankYouForPlayingText && true == Book->IsMaxBookIndex())
+	{
+		ThankYouForPlayingText = CreateWidget<UTextWidget>(GetWorld(), "LastText");
+		ThankYouForPlayingText->SetFont("굴림");
+		ThankYouForPlayingText->SetScale(100.0f);
+		ThankYouForPlayingText->SetColor(Color8Bit::Blue);
+		ThankYouForPlayingText->SetPosition({ 0.0f, 0.0f });
+		ThankYouForPlayingText->SetText("플레이 해주셔서 감사합니다.");
+		ThankYouForPlayingText->AddToViewPort(0);
 	}
 }
