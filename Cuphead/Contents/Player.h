@@ -107,7 +107,7 @@ private:
 	bool IsStanding = false;
 private:
 	int Hp = 3;
-	float SuperMeter = 2.0f;
+	float SuperMeter = 0.0f;
 	static int DamageCoeff;
 private:
 	void BeginPlay() override;
