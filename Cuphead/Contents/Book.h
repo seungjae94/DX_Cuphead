@@ -28,6 +28,6 @@ private:
 
 	int MaxBookIndex = 0;
 	int BookIndex = 0;
-
+	bool AnimationEnd = false;
 };
 

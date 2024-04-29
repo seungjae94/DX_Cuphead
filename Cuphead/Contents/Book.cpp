@@ -25,7 +25,12 @@ void ABook::Init(std::string_view _BookNamePrefix, int _MaxBookIndex)
 	{
 		std::string BookName = BookNamePrefix + std::to_string(i);
 		BookRenderer->CreateAnimation(BookName, BookName, 1 / 24.0f, false);
-
+		BookRenderer->SetFrameCallback(BookName, 0, [this]() {
+			AnimationEnd = false;
+			});
+		BookRenderer->SetLastFrameCallback(BookName, [this]() {
+			AnimationEnd = true;
+			});
 	}
 
 	std::string StartBookName = BookNamePrefix + std::to_string(0);
@@ -56,5 +61,5 @@ bool ABook::OverMaxBookIndex() const
 
 bool ABook::IsCurAnimationEnd() const
 {
-	return BookRenderer->IsCurAnimationEnd();
+	return AnimationEnd;
 }
