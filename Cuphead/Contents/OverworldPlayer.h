@@ -15,6 +15,7 @@ public:
 	AOverworldPlayer& operator=(AOverworldPlayer&& _Other) noexcept = delete;
 
 	void SetZButtonActive(bool _Value);
+	void SetInputActive(bool _Value);
 
 protected:
 

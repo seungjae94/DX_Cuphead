@@ -30,7 +30,6 @@ public:
 	bool IsParrying();
 	void ParrySuccess();
 	int GetDamageCoeff() const;
-
 protected:
 
 private:
@@ -41,6 +40,10 @@ private:
 	UCollision* BotCollision = nullptr;
 	UCollision* LeftCollision = nullptr;
 	UCollision* RightCollision = nullptr;
+
+	// UI ÄÄÆ÷³ÍÆ®
+	UImage* HpWidget = nullptr;
+	std::vector<UImage*> CardWidgets;
 private:
 	// State
 	std::string CurStateName = GStateName::Idle;
@@ -102,10 +105,6 @@ private:
 	// Sit
 	bool IsSitting = false;
 	bool IsStanding = false;
-
-	// UI
-	UImage* HpWidget = nullptr;
-	std::vector<UImage*> CardWidgets;
 private:
 	int Hp = 3;
 	float SuperMeter = 2.0f;

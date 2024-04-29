@@ -25,14 +25,19 @@ protected:
 
 private:
 	void BeginPlay() override;
+	void LevelStart(ULevel* _PrevLevel);
 	void Tick(float _DeltaTime) override;
 	void DebugUpdate(float _DeltaTime);
 
-	AOverworldPlayer* Player = nullptr;
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+	UImage* LevelExplainUI = nullptr;
 	UCollision* BlockCollision = nullptr;
 	UCollision* ChangeLevelCollision = nullptr;
+
+	AOverworldPlayer* Player = nullptr;
 	std::string LevelName;
+private:
+	void OnCollisionStay(std::shared_ptr<UCollision> _PlayerCollision);
 };
 

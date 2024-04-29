@@ -32,6 +32,18 @@ void AOverworldPlayer::SetZButtonActive(bool _Value)
 	ZButtonRenderer->SetActive(_Value);
 }
 
+void AOverworldPlayer::SetInputActive(bool _Value)
+{
+	if (true == _Value)
+	{
+		InputOn();
+	}
+	else
+	{
+		InputOff();
+	}
+}
+
 void AOverworldPlayer::BeginPlay()
 {
 	Super::BeginPlay();
