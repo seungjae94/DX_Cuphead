@@ -78,6 +78,22 @@ void ABossLevelEntrance::LevelStart(ULevel* _PrevLevel)
 {
 	LevelExplainUI->SetActive(false);
 	Player->SetInputActive(true);
+
+	if (nullptr == _PrevLevel)
+	{
+		return;
+	}
+
+	std::string PrevLevelName = _PrevLevel->GetName();
+
+	if (GLevelName::BossFarmLevel == PrevLevelName
+		|| GLevelName::BossDragonLevel == PrevLevelName)
+	{
+		Player->SetZButtonActive(false);
+		ChangeLevelCollision->SetActive(false);
+
+		// TODO: 플레이어 상태 변경
+	}
 }
 
 void ABossLevelEntrance::Tick(float _DeltaTime)
