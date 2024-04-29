@@ -57,8 +57,7 @@ void APlayer::Damage()
 	}
 	else
 	{
-		IsGroundHit = false;
-		Velocity = JumpImpulse * 1.2f;
+		Velocity = JumpImpulse * 1.3f;
 		StateManager.ChangeState(GStateName::Jump);
 	}
 }

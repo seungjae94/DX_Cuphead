@@ -223,6 +223,13 @@ void APlayer::RunEnd()
 void APlayer::JumpStart()
 {
 	Renderer->ChangeAnimation(GAnimName::PlayerJump);
+
+	if (true == IsGroundHit)
+	{
+		IsGroundHit = false;
+		return;
+	}
+
 	if (true == IsDashed)
 	{
 		Velocity.Y = 0.0f;
