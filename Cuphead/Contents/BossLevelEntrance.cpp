@@ -12,6 +12,10 @@ ABossLevelEntrance::ABossLevelEntrance()
 	Renderer->SetupAttachment(Root);
 	Renderer->SetOrder(ERenderingOrder::Entrance);
 
+	FlagRenderer = CreateDefaultSubObject<USpriteRenderer>("FlagRenderer");
+	FlagRenderer->SetupAttachment(Root);
+	FlagRenderer->SetOrder(ERenderingOrder::Flag);
+
 	BlockCollision = CreateDefaultSubObject<UCollision>("BlockCollision");
 	BlockCollision->SetupAttachment(Root);
 	BlockCollision->SetCollisionGroup(ECollisionGroup::BossLevelEntranceBlock);
@@ -47,6 +51,11 @@ void ABossLevelEntrance::SetLevelName(std::string_view _LevelName)
 	LevelExplainUI->SetActive(false);
 }
 
+void ABossLevelEntrance::SetFlagPosition(const FVector& _Position)
+{
+	FlagRenderer->SetPosition(_Position);
+}
+
 void ABossLevelEntrance::SetAnimation(std::string_view _AnimName, std::string_view _SpriteName, float _Inter)
 {
 	Renderer->CreateAnimation(_AnimName, _SpriteName, _Inter, true);
@@ -72,6 +81,11 @@ void ABossLevelEntrance::SetPlayer(AOverworldPlayer* _Player)
 void ABossLevelEntrance::BeginPlay()
 {
 	Super::BeginPlay();
+
+	FlagRenderer->SetAutoSize(1.0f, true);
+	FlagRenderer->CreateAnimation("overworld_flag", "overworld_flag.png", 1 / 12.0f, true);
+	FlagRenderer->ChangeAnimation("overworld_flag");
+	FlagRenderer->SetActive(false);
 }
 
 void ABossLevelEntrance::LevelStart(ULevel* _PrevLevel)
@@ -98,6 +112,7 @@ void ABossLevelEntrance::LevelStart(ULevel* _PrevLevel)
 		ChangeLevelCollision->SetActive(false);
 
 		// 깃발 꽂기
+		FlagRenderer->SetActive(true);
 		
 		// TODO: 플레이어 상태 변경
 	}

@@ -15,6 +15,7 @@ public:
 	ABossLevelEntrance& operator=(ABossLevelEntrance&& _Other) noexcept = delete;
 
 	void SetLevelName(std::string_view _LevelName);
+	void SetFlagPosition(const FVector& _Position);
 	void SetAnimation(std::string_view _AnimName, std::string_view _SpriteName, float _Inter);
 
 	UCollision* GetBlockCollision();

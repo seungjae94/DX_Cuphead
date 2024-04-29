@@ -77,6 +77,8 @@ void UCupheadCore::LoadResources()
 		// 오버월드 커팅
 		UEngineSprite::CreateCutting("overworld_farm.png", 3, 1);
 		UEngineSprite::CreateCutting("overworld_spire.png", 3, 1);
+		UEngineSprite::CreateCutting("overworld_flag.png", 12, 1);
+
 
 		// 보스맵 플레이어 커팅
 		UEngineSprite::CreateCutting(GImageName::PlayerIntro, 28, 1);

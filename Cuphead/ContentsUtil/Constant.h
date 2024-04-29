@@ -198,6 +198,7 @@ enum class ERenderingOrder
 	BulletSpawn,
 	Character,
 	Entrance,
+	Flag,
 	Bullet,
 	Front,
 	VFX0,
