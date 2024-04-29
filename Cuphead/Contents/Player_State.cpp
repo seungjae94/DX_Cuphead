@@ -68,6 +68,7 @@ void APlayer::IntroStart()
 	DirUpdateActive = false;
 
 	Renderer->ChangeAnimation(GAnimName::PlayerIntro);
+	HitBox->SetActive(false);
 }
 
 void APlayer::Intro(float _DeltaTime)
@@ -81,6 +82,7 @@ void APlayer::Intro(float _DeltaTime)
 void APlayer::IntroEnd()
 {
 	DirUpdateActive = true;
+	HitBox->SetActive(true);
 }
 
 void APlayer::IdleStart()
