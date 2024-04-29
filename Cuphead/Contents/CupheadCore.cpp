@@ -5,6 +5,7 @@
 #include "OverworldGameMode.h"
 #include "BossFarmGameMode.h"
 #include "BossDragonGameMode.h"
+#include "EndingGameMode.h"
 #include "CupheadDebugWindow.h"
 
 std::shared_ptr<UCupheadDebugWindow> DebugWindow;
@@ -204,5 +205,6 @@ void UCupheadCore::CreateLevels()
 	GEngine->CreateLevel<AOverworldGameMode>(GLevelName::OverworldLevel);
 	GEngine->CreateLevel<ABossFarmGameMode>(GLevelName::BossFarmLevel);
 	GEngine->CreateLevel<ABossDragonGameMode>(GLevelName::BossDragonLevel);
+	GEngine->CreateLevel<AEndingGameMode>(GLevelName::EndingLevel);
 }
 

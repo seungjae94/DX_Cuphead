@@ -44,6 +44,11 @@ void USpriteAnimation::FrameCallBackCheck()
 
 void USpriteAnimation::Update(float _DeltaTime)
 {
+	if (false == Loop && true == IsEnd)
+	{
+		return;
+	}
+
 	IsEnd = false;
 
 	CurTime += _DeltaTime;

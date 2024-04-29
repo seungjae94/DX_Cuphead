@@ -3,6 +3,7 @@
 #include "OverworldMap.h"
 #include "OverworldPlayer.h"
 #include "BossLevelEntrance.h"
+#include "GameData.h"
 
 AOverworldGameMode::AOverworldGameMode()
 {
@@ -54,4 +55,25 @@ void AOverworldGameMode::BeginPlay()
 void AOverworldGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+}
+
+void AOverworldGameMode::LevelStart(ULevel* _PrevLevel)
+{
+	if (nullptr == _PrevLevel)
+	{
+		return;
+	}
+
+	std::string PrevLevelName = _PrevLevel->GetName();
+
+	if (GLevelName::BossFarmLevel == PrevLevelName || GLevelName::BossDragonLevel == PrevLevelName)
+	{
+		++UGameData::ClearBossCount;
+	}
+
+	if (UGameData::BossCount <= UGameData::ClearBossCount)
+	{
+		// 엔딩 처리
+		GEngine->ChangeLevel(GLevelName::EndingLevel);
+	}
 }

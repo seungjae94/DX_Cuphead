@@ -12,6 +12,7 @@ namespace GLevelName
 	const std::string OverworldLevel = "OverworldLevel";
 	const std::string BossFarmLevel = "BossFarmLevel";
 	const std::string BossDragonLevel = "BossDragonLevel";
+	const std::string EndingLevel = "EndingLevel";
 };
 
 namespace GImageName
