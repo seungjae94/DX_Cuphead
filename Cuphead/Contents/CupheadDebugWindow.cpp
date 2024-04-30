@@ -48,6 +48,11 @@ void UCupheadDebugWindow::OnGui(ULevel* _Level, float _Delta)
 		GEngine->ChangeLevel(GLevelName::BossDragonLevel);
 	}
 
+	if (true == ImGui::Button("Play Result Level"))
+	{
+		GEngine->ChangeLevel(GLevelName::PlayResultLevel);
+	}
+
 	for (auto Pair : Callbacks)
 	{
 		Pair.second();

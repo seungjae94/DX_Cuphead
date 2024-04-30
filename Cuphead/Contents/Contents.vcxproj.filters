@@ -49,8 +49,11 @@
     <Filter Include="Level\03. Boss Level\Boss">
       <UniqueIdentifier>{9541c786-5160-420f-a009-a64839a690a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\04. Ending Level">
+    <Filter Include="Level\05. Ending Level">
       <UniqueIdentifier>{1f7d9a4a-d4c2-47d2-9a9e-08a7a8290a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\04. PlayResult Level">
+      <UniqueIdentifier>{cb1ba4e5-50f5-4abc-a1d4-e1540bd2011b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -154,10 +157,16 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="EndingGameMode.h">
-      <Filter>Level\04. Ending Level</Filter>
+      <Filter>Level\05. Ending Level</Filter>
     </ClInclude>
     <ClInclude Include="Book.h">
-      <Filter>Level\04. Ending Level</Filter>
+      <Filter>Level\05. Ending Level</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayResultGameMode.h">
+      <Filter>Level\04. PlayResult Level</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayResultManager.h">
+      <Filter>Level\04. PlayResult Level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -276,10 +285,16 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="EndingGameMode.cpp">
-      <Filter>Level\04. Ending Level</Filter>
+      <Filter>Level\05. Ending Level</Filter>
     </ClCompile>
     <ClCompile Include="Book.cpp">
-      <Filter>Level\04. Ending Level</Filter>
+      <Filter>Level\05. Ending Level</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayResultGameMode.cpp">
+      <Filter>Level\04. PlayResult Level</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayResultManager.cpp">
+      <Filter>Level\04. PlayResult Level</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

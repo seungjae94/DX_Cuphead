@@ -5,6 +5,7 @@
 #include "OverworldGameMode.h"
 #include "BossFarmGameMode.h"
 #include "BossDragonGameMode.h"
+#include "PlayResultGameMode.h"
 #include "EndingGameMode.h"
 #include "CupheadDebugWindow.h"
 
@@ -211,6 +212,7 @@ void UCupheadCore::CreateLevels()
 	GEngine->CreateLevel<AOverworldGameMode>(GLevelName::OverworldLevel);
 	GEngine->CreateLevel<ABossFarmGameMode>(GLevelName::BossFarmLevel);
 	GEngine->CreateLevel<ABossDragonGameMode>(GLevelName::BossDragonLevel);
+	GEngine->CreateLevel<APlayResultGameMode>(GLevelName::PlayResultLevel);
 	GEngine->CreateLevel<AEndingGameMode>(GLevelName::EndingLevel);
 }
 
