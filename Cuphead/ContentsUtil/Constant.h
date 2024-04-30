@@ -174,6 +174,11 @@ namespace GStateName
 	const std::string Finish = "Finish";
 }
 
+namespace GFontName
+{
+	const std::string CupheadMemphisMedium = "Cuphead Memphis";
+}
+
 enum class ECollisionGroup
 {
 	BossLevelEntranceBlock,

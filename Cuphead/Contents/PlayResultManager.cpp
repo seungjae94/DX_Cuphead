@@ -53,7 +53,7 @@ void APlayResultManager::BeginPlay()
 	CupheadName->SetPosition({ -300.0f, -300.0f, 0.0f });
 	CupheadName->AddToViewPort(1);
 
-	std::string FontName = "Cuphead Memphis";
+	std::string FontName = GFontName::CupheadMemphisMedium;
 	float FontSize = 35.0f;
 
 	TitleTime = CreateWidget<UTextWidget>(GetWorld(), "");

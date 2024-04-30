@@ -48,7 +48,7 @@ void UCupheadCore::LoadFonts()
 
 	for (UEngineFile& File : AllFontFiles)
 	{
-		AddFontResourceEx(File.GetFullPath().c_str(), FR_PRIVATE, 0);
+		AddFontResourceEx(File.GetFullPath().c_str(), FR_NOT_ENUM, 0);
 	}
 
 #ifdef _DEBUG
@@ -56,11 +56,11 @@ void UCupheadCore::LoadFonts()
 	
 	for (std::string& FontName : AllFontList)
 	{
-		UEngineDebug::OutPutDebugText(FontName);
+		//UEngineDebug::OutPutDebugText(FontName);
 	}
 #endif
 
-	UEngineFont::Load("Cuphead Memphis");
+	UEngineFont::Load(GFontName::CupheadMemphisMedium);
 }
 
 void UCupheadCore::LoadResources()
