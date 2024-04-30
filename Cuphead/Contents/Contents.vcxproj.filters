@@ -168,6 +168,9 @@
     <ClInclude Include="PlayResultManager.h">
       <Filter>Level\04. PlayResult Level</Filter>
     </ClInclude>
+    <ClInclude Include="DebugFontEnumerator.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CupheadCore.cpp">
@@ -295,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="PlayResultManager.cpp">
       <Filter>Level\04. PlayResult Level</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugFontEnumerator.cpp">
+      <Filter>Debug</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

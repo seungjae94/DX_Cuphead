@@ -8,6 +8,8 @@
 #include "PlayResultGameMode.h"
 #include "EndingGameMode.h"
 #include "CupheadDebugWindow.h"
+#include "DebugFontEnumerator.h"
+#include <Windows.h>
 
 std::shared_ptr<UCupheadDebugWindow> DebugWindow;
 
@@ -38,6 +40,27 @@ void UCupheadCore::CreateDebugWindows()
 void UCupheadCore::LoadFonts()
 {
 	UEngineFont::Load("±¼¸²");
+
+	UEngineDirectory CurDir;
+	CurDir.MoveToSearchChild("ContentsResources");
+	CurDir.Move("Font");
+	std::vector<UEngineFile> AllFontFiles = CurDir.GetAllFile({".ttf", ".otf"}, false);
+
+	for (UEngineFile& File : AllFontFiles)
+	{
+		AddFontResourceEx(File.GetFullPath().c_str(), FR_PRIVATE, 0);
+	}
+
+#ifdef _DEBUG
+	std::list<std::string> AllFontList = UDebugFontEnumerator::GetAllFontList();
+	
+	for (std::string& FontName : AllFontList)
+	{
+		UEngineDebug::OutPutDebugText(FontName);
+	}
+#endif
+
+	UEngineFont::Load("Cuphead Memphis");
 }
 
 void UCupheadCore::LoadResources()
@@ -215,4 +238,5 @@ void UCupheadCore::CreateLevels()
 	GEngine->CreateLevel<APlayResultGameMode>(GLevelName::PlayResultLevel);
 	GEngine->CreateLevel<AEndingGameMode>(GLevelName::EndingLevel);
 }
+
 
