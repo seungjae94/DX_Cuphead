@@ -13,6 +13,7 @@ public:
 
 	static const int BossCount;
 	static int ClearBossCount;
+	static bool CupheadMemphisLoaded;
 
 protected:
 

@@ -59,8 +59,6 @@ void UCupheadCore::LoadFonts()
 		//UEngineDebug::OutPutDebugText(FontName);
 	}
 #endif
-
-	UEngineFont::Load(GFontName::CupheadMemphisMedium);
 }
 
 void UCupheadCore::LoadResources()

@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "PlayResultManager.h"
+#include "GameData.h"
 
 APlayResultManager::APlayResultManager()
 {
@@ -53,6 +54,11 @@ void APlayResultManager::BeginPlay()
 	CupheadName->SetPosition({ -300.0f, -300.0f, 0.0f });
 	CupheadName->AddToViewPort(1);
 
+	if (false == UGameData::CupheadMemphisLoaded)
+	{
+		UEngineFont::Load(GFontName::CupheadMemphisMedium);
+		UGameData::CupheadMemphisLoaded = true;
+	}
 	std::string FontName = GFontName::CupheadMemphisMedium;
 	float FontSize = 35.0f;
 
