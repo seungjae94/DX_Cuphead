@@ -24,7 +24,6 @@ public:
 protected:
 private:
 	ABossFarmMap* Map = nullptr;
-	APlayer* Player = nullptr;
 	APotato* Potato = nullptr;
 	AOnion* Onion = nullptr;
 	ACarrot* Carrot = nullptr;

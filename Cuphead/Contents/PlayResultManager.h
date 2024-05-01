@@ -1,8 +1,11 @@
 #pragma once
 
+class APlayResultGameMode;
+
 class APlayResultManager : public AActor
 {
 	GENERATED_BODY(AActor)
+	friend APlayResultGameMode;
 public:
 	APlayResultManager();
 	~APlayResultManager();
@@ -34,9 +37,9 @@ private:
 	UTextWidget* TitleGrade = nullptr;
 	UTextWidget* TitleGradeDots = nullptr;
 	
-	UTextWidget* ResultTime = nullptr;
-	UTextWidget* ResultTimeSlash = nullptr;
-	UTextWidget* ResultMaxTime = nullptr;
+	UTextWidget* ResultMinute = nullptr;
+	UTextWidget* ResultTimeColon = nullptr;
+	UTextWidget* ResultSecond = nullptr;
 
 	UTextWidget* ResultHpBonus = nullptr;
 	UTextWidget* ResultHpBonusSlash = nullptr;

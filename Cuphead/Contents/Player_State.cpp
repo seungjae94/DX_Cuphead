@@ -394,11 +394,8 @@ void APlayer::ParrySuccess()
 	AAnimationEffect* ParryEffect = GetWorld()->SpawnActor<AAnimationEffect>("ParryEffect").get();
 	ParryEffect->Init(ERenderingOrder::VFX0, FCreateAnimationParameter{ "player_parry_effect", "player_parry_effect", 1 / 12.0f }, true);
 	ParryEffect->SetActorLocation(GetActorLocation());
-}
 
-int APlayer::GetDamageCoeff() const
-{
-	return DamageCoeff;
+	++ParryCount;
 }
 
 void APlayer::DashStart()
@@ -621,6 +618,8 @@ void APlayer::EXStart()
 	Dust->SetActorLocation(GetEXDustLocation());
 	Dust->SetActorRotation(GetEXDustRotation());
 	Dust->Init(ERenderingOrder::BulletSpawn, FCreateAnimationParameter{ "player_ex_dust", "player_ex_dust", 1 / 24.0f }, true);
+
+	++ExUsageCount;
 }
 
 void APlayer::EX(float _DeltaTime)

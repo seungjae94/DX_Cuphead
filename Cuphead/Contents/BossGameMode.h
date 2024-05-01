@@ -1,6 +1,8 @@
 #pragma once
 #include "CupheadGameMode.h"
 
+class APlayer;
+
 class ABossGameMode : public ACupheadGameMode
 {
 	GENERATED_BODY(ACupheadGameMode)
@@ -14,10 +16,13 @@ public:
 	ABossGameMode& operator=(ABossGameMode&& _Other) noexcept = delete;
 
 protected:
+	APlayer* Player = nullptr;
 	UStateManager StateManager;
 	UEngineRandom Random;
 
 	void BeginPlay() override;
+	void LevelEnd(ULevel* _NextLevel) override;
+
 	virtual void IntroStart();
 	virtual void Intro(float _DeltaTime);
 	virtual void IntroEnd();

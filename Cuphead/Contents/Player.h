@@ -30,6 +30,11 @@ public:
 	bool IsParrying();
 	void ParrySuccess();
 	int GetDamageCoeff() const;
+
+	float GetPlaySeconds() const;
+	int GetRemainHp() const;
+	int GetParryCount() const;
+	int GetExUsageCount() const;
 protected:
 
 private:
@@ -109,6 +114,11 @@ private:
 	int Hp = 3;
 	float SuperMeter = 0.0f;
 	static int DamageCoeff;
+private:
+	// Play Result
+	float PlaySeconds = 0.0f;
+	int ParryCount = 0;
+	int ExUsageCount = 0;
 private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

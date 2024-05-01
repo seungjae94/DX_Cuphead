@@ -70,29 +70,29 @@ void APlayResultManager::BeginPlay()
 	TitleTime->SetPosition({80.0f, 80.0f, 0.0f});
 	TitleTime->AddToViewPort(2);
 
-	ResultTime = CreateWidget<UTextWidget>(GetWorld(), "");
-	ResultTime->SetFont(FontName);
-	ResultTime->SetColor(Color8Bit::Yellow);
-	ResultTime->SetText("01");
-	ResultTime->SetScale(FontSize);
-	ResultTime->SetPosition({ 250.0f, 80.0f, 0.0f });
-	ResultTime->AddToViewPort(2);
+	ResultMinute = CreateWidget<UTextWidget>(GetWorld(), "");
+	ResultMinute->SetFont(FontName);
+	ResultMinute->SetColor(Color8Bit::Yellow);
+	ResultMinute->SetText("01");
+	ResultMinute->SetScale(FontSize);
+	ResultMinute->SetPosition({ 250.0f, 80.0f, 0.0f });
+	ResultMinute->AddToViewPort(2);
 
-	ResultTimeSlash = CreateWidget<UTextWidget>(GetWorld(), "");
-	ResultTimeSlash->SetFont(FontName);
-	ResultTimeSlash->SetColor(Color8Bit::White);
-	ResultTimeSlash->SetText(":");
-	ResultTimeSlash->SetScale(FontSize);
-	ResultTimeSlash->SetPosition({ 280.0f, 80.0f, 0.0f });
-	ResultTimeSlash->AddToViewPort(2);
+	ResultTimeColon = CreateWidget<UTextWidget>(GetWorld(), "");
+	ResultTimeColon->SetFont(FontName);
+	ResultTimeColon->SetColor(Color8Bit::White);
+	ResultTimeColon->SetText(":");
+	ResultTimeColon->SetScale(FontSize);
+	ResultTimeColon->SetPosition({ 280.0f, 80.0f, 0.0f });
+	ResultTimeColon->AddToViewPort(2);
 
-	ResultMaxTime = CreateWidget<UTextWidget>(GetWorld(), "");
-	ResultMaxTime->SetFont(FontName);
-	ResultMaxTime->SetColor(Color8Bit::Yellow);
-	ResultMaxTime->SetText("09");
-	ResultMaxTime->SetScale(FontSize);
-	ResultMaxTime->SetPosition({ 315.0f, 80.0f, 0.0f });
-	ResultMaxTime->AddToViewPort(2);
+	ResultSecond = CreateWidget<UTextWidget>(GetWorld(), "");
+	ResultSecond->SetFont(FontName);
+	ResultSecond->SetColor(Color8Bit::Yellow);
+	ResultSecond->SetText("09");
+	ResultSecond->SetScale(FontSize);
+	ResultSecond->SetPosition({ 315.0f, 80.0f, 0.0f });
+	ResultSecond->AddToViewPort(2);
 
 	TitleHpBonus = CreateWidget<UTextWidget>(GetWorld(), "");
 	TitleHpBonus->SetFont(FontName);

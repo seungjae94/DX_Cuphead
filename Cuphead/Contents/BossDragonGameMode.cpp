@@ -21,9 +21,6 @@ void ABossDragonGameMode::BeginPlay()
 	Player = GetWorld()->SpawnActor<APlayer>("Player").get();
 	Player->SetActorLocation({ -450.0f, -223.0f, 0.0f });
 
-	// 디버그용 픽셀 충돌
-	//Player->SetColMapName("boss_farm_map_col.png");
-
 	Map = GetWorld()->SpawnActor<ABossDragonMap>("Map").get();
 
 	StateInit();
@@ -213,7 +210,7 @@ void ABossDragonGameMode::Finish(float _DeltaTime)
 {
 	if (true == Dragon2->IsFinished())
 	{
-		ChangeLevelWithFadeEffect(GLevelName::OverworldLevel);
+		ChangeLevelWithFadeEffect(GLevelName::PlayResultLevel);
 		StateManager.ChangeState("End");
 		return;
 	}

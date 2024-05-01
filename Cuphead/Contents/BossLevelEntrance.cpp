@@ -2,6 +2,7 @@
 #include "BossLevelEntrance.h"
 #include "CupheadGameMode.h"
 #include "OverworldPlayer.h"
+#include "PlayResultGameMode.h"
 
 ABossLevelEntrance::ABossLevelEntrance()
 {
@@ -98,24 +99,27 @@ void ABossLevelEntrance::LevelStart(ULevel* _PrevLevel)
 		return;
 	}
 
-	std::string PrevLevelName = _PrevLevel->GetName();
+	APlayResultGameMode* PRGameMode = dynamic_cast<APlayResultGameMode*>(_PrevLevel->GetGameMode().get());
+
+	if (nullptr == PRGameMode)
+	{
+		return;
+	}
+
+	std::string PrevLevelName = PRGameMode->GetPrevLevelName();
 
 	if (false == CheckLevelMatch(PrevLevelName))
 	{
 		return;
 	}
 
-	if (GLevelName::BossFarmLevel == PrevLevelName
-		|| GLevelName::BossDragonLevel == PrevLevelName)
-	{
-		Player->SetZButtonActive(false);
-		ChangeLevelCollision->SetActive(false);
+	Player->SetZButtonActive(false);
+	ChangeLevelCollision->SetActive(false);
 
-		// 깃발 꽂기
-		FlagRenderer->SetActive(true);
+	// 깃발 꽂기
+	FlagRenderer->SetActive(true);
 		
-		// TODO: 플레이어 상태 변경
-	}
+	// TODO: 플레이어 상태 변경
 }
 
 void ABossLevelEntrance::Tick(float _DeltaTime)

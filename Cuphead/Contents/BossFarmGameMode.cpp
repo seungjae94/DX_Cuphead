@@ -221,7 +221,7 @@ void ABossFarmGameMode::Finish(float _DeltaTime)
 {
 	if (true == Carrot->IsFinished())
 	{
-		ChangeLevelWithFadeEffect(GLevelName::OverworldLevel);
+		ChangeLevelWithFadeEffect(GLevelName::PlayResultLevel);
 		StateManager.ChangeState("End");
 	}
 }

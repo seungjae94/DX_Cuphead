@@ -1,5 +1,7 @@
 #include "PreCompile.h"
 #include "BossGameMode.h"
+#include "PlayResultGameMode.h"
+#include "Player.h"
 
 ABossGameMode::ABossGameMode()
 {
@@ -35,6 +37,20 @@ void ABossGameMode::BeginPlay()
 		std::bind(&ABossGameMode::Intro, this, std::placeholders::_1),
 		std::bind(&ABossGameMode::IntroEnd, this)
 	);
+}
+
+void ABossGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
+
+	APlayResultGameMode* PRGameMode = dynamic_cast<APlayResultGameMode*>(_NextLevel->GetGameMode().get());
+
+	if (nullptr == PRGameMode)
+	{
+		return;
+	}
+
+	PRGameMode->Refresh(Player->GetPlaySeconds(), Player->GetRemainHp(), Player->GetParryCount(), Player->GetExUsageCount());
 }
 
 

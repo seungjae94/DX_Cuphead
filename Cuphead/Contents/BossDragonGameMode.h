@@ -23,7 +23,6 @@ public:
 protected:
 private:
 	ABossDragonMap* Map = nullptr;
-	APlayer* Player = nullptr;
 	ADragon1* Dragon1 = nullptr;
 	ADragon2* Dragon2 = nullptr;
 	ADragon3* Dragon3 = nullptr;

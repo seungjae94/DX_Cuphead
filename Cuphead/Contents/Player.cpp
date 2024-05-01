@@ -119,6 +119,7 @@ void APlayer::Tick(float _DeltaTime)
 
 	Super::Tick(_DeltaTime);
 
+	PlaySeconds += _DeltaTime;
 	FireTime -= _DeltaTime;
 	SpriteDirUpdate(_DeltaTime);
 	StateManager.Update(_DeltaTime);
@@ -393,4 +394,44 @@ bool APlayer::CheckPixelCollision(const FVector& _Point)
 void APlayer::DamageCheat()
 {
 	ImGui::InputInt("Damage Multiplier", &DamageCoeff, 1, 100, 0);
+}
+
+int APlayer::GetDamageCoeff() const
+{
+	return DamageCoeff;
+}
+
+float APlayer::GetPlaySeconds() const
+{
+	return PlaySeconds;
+}
+
+int APlayer::GetRemainHp() const
+{
+	if (Hp < 0)
+	{
+		return 0;
+	}
+
+	return Hp;
+}
+
+int APlayer::GetParryCount() const
+{
+	if (ParryCount > 3)
+	{
+		return 3;
+	}
+
+	return ParryCount;
+}
+
+int APlayer::GetExUsageCount() const
+{
+	if (ExUsageCount > 6)
+	{
+		return 6;
+	}
+
+	return ExUsageCount;
 }

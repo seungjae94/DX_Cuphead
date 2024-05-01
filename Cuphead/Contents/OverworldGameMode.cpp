@@ -66,7 +66,7 @@ void AOverworldGameMode::LevelStart(ULevel* _PrevLevel)
 
 	std::string PrevLevelName = _PrevLevel->GetName();
 
-	if (GLevelName::BossFarmLevel == PrevLevelName || GLevelName::BossDragonLevel == PrevLevelName)
+	if (PrevLevelName == GLevelName::PlayResultLevel)
 	{
 		++UGameData::ClearBossCount;
 	}
