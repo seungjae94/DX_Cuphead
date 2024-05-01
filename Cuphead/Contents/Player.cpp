@@ -377,6 +377,21 @@ bool APlayer::TestDownJump()
 	return TestResult;
 }
 
+bool APlayer::CheckJumpKeyInput()
+{
+	if (true == IsDown('Z'))
+	{
+		return true;
+	}
+
+	if (true == IsPress('Z') && GetPressTime('Z') < 0.05f)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void APlayer::PlayJumpSound()
 {
 	int RandomInt = Random.RandomInt(1, 3);

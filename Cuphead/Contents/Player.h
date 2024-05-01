@@ -213,6 +213,7 @@ private:
 	bool IsGroundCollisionOccur();
 	void MoveUpToGround();
 	bool TestDownJump();
+	bool CheckJumpKeyInput();
 
 	void PlayJumpSound();
 	void PlayLandingSound();

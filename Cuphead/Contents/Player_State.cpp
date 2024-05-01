@@ -108,7 +108,7 @@ void APlayer::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsDown('Z'))
+	if (true == CheckJumpKeyInput())
 	{
 		// 아래 점프 테스트
 		if (true == IsPress(VK_DOWN) && true == TestDownJump())
@@ -173,7 +173,7 @@ void APlayer::Run(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsDown('Z'))
+	if (true == CheckJumpKeyInput())
 	{
 		PlayJumpSound();
 		AddActorLocation(FVector::Up * 3.0f);
@@ -491,7 +491,7 @@ void APlayer::Sit(float _DeltaTime)
 		RefreshSitAnimation();
 	}
 
-	if (true == IsDown('Z'))
+	if (true == CheckJumpKeyInput())
 	{
 		// 아래 점프 테스트
 		if (true == IsPress(VK_DOWN) && true == TestDownJump())
