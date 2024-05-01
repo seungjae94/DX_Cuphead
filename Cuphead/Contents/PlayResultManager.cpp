@@ -60,14 +60,14 @@ void APlayResultManager::BeginPlay()
 		UGameData::CupheadMemphisLoaded = true;
 	}
 	std::string FontName = GFontName::CupheadMemphisMedium;
-	float FontSize = 35.0f;
+	float FontSize = 30.0f;
 
 	TitleTime = CreateWidget<UTextWidget>(GetWorld(), "");
 	TitleTime->SetFont(FontName);
 	TitleTime->SetColor(Color8Bit::White);
-	TitleTime->SetText(std::string("TIME") + std::string(15, '.'));
+	TitleTime->SetText(std::string("TIME") + std::string(16, '.'));
 	TitleTime->SetScale(FontSize);
-	TitleTime->SetPosition({90.0f, 80.0f, 0.0f});
+	TitleTime->SetPosition({80.0f, 80.0f, 0.0f});
 	TitleTime->AddToViewPort(2);
 
 	ResultTime = CreateWidget<UTextWidget>(GetWorld(), "");
@@ -97,9 +97,9 @@ void APlayResultManager::BeginPlay()
 	TitleHpBonus = CreateWidget<UTextWidget>(GetWorld(), "");
 	TitleHpBonus->SetFont(FontName);
 	TitleHpBonus->SetColor(Color8Bit::White);
-	TitleHpBonus->SetText(std::string("HP BONUS") + std::string(10, '.'));
+	TitleHpBonus->SetText(std::string("HP BONUS") + std::string(11, '.'));
 	TitleHpBonus->SetScale(FontSize);
-	TitleHpBonus->SetPosition({ 113.0f, 30.0f, 0.0f });
+	TitleHpBonus->SetPosition({ 103.0f, 30.0f, 0.0f });
 	TitleHpBonus->AddToViewPort(2);
 
 	ResultHpBonus = CreateWidget<UTextWidget>(GetWorld(), "");
@@ -129,9 +129,9 @@ void APlayResultManager::BeginPlay()
 	TitleParry = CreateWidget<UTextWidget>(GetWorld(), "");
 	TitleParry->SetFont(FontName);
 	TitleParry->SetColor(Color8Bit::White);
-	TitleParry->SetText(std::string("PARRY") + std::string(16, '.'));
+	TitleParry->SetText(std::string("PARRY") + std::string(19, '.'));
 	TitleParry->SetScale(FontSize);
-	TitleParry->SetPosition({ 113.0f, -20.0f, 0.0f });
+	TitleParry->SetPosition({ 106.0f, -20.0f, 0.0f });
 	TitleParry->AddToViewPort(2);
 
 	ResultParry = CreateWidget<UTextWidget>(GetWorld(), "");
@@ -161,9 +161,9 @@ void APlayResultManager::BeginPlay()
 	TitleSuperMeter = CreateWidget<UTextWidget>(GetWorld(), "");
 	TitleSuperMeter->SetFont(FontName);
 	TitleSuperMeter->SetColor(Color8Bit::White);
-	TitleSuperMeter->SetText(std::string("SUPER METER") + std::string(5, '.'));
+	TitleSuperMeter->SetText(std::string("SUPER METER") + std::string(4, '.'));
 	TitleSuperMeter->SetScale(FontSize);
-	TitleSuperMeter->SetPosition({ 114.0f, -70.0f, 0.0f });
+	TitleSuperMeter->SetPosition({ 105.0f, -70.0f, 0.0f });
 	TitleSuperMeter->AddToViewPort(2);
 
 	ResultSuperMeter = CreateWidget<UTextWidget>(GetWorld(), "");
@@ -193,9 +193,9 @@ void APlayResultManager::BeginPlay()
 	TitleSkillLevel = CreateWidget<UTextWidget>(GetWorld(), "");
 	TitleSkillLevel->SetFont(FontName);
 	TitleSkillLevel->SetColor(Color8Bit::White);
-	TitleSkillLevel->SetText(std::string("SKILL LEVEL") + std::string(8, '.'));
+	TitleSkillLevel->SetText(std::string("SKILL LEVEL") + std::string(7, '.'));
 	TitleSkillLevel->SetScale(FontSize);
-	TitleSkillLevel->SetPosition({ 115.0f, -120.0f, 0.0f });
+	TitleSkillLevel->SetPosition({ 104.0f, -120.0f, 0.0f });
 	TitleSkillLevel->AddToViewPort(2);
 
 	ResultSkillLevelStar0 = CreateWidget<UImage>(GetWorld(), "Star0");
@@ -214,23 +214,23 @@ void APlayResultManager::BeginPlay()
 	TitleGrade->SetFont(FontName);
 	TitleGrade->SetColor(Color8Bit::Yellow);
 	TitleGrade->SetText(std::string("GRADE"));
-	TitleGrade->SetScale(50.0f);
-	TitleGrade->SetPosition({ 90.0f, -190.0f, 0.0f });
+	TitleGrade->SetScale(40.0f);
+	TitleGrade->SetPosition({ 70.0f, -190.0f, 0.0f });
 	TitleGrade->AddToViewPort(2);
 
 	TitleGradeDots = CreateWidget<UTextWidget>(GetWorld(), "");
 	TitleGradeDots->SetFont(FontName);
 	TitleGradeDots->SetColor(Color8Bit::Yellow);
-	TitleGradeDots->SetText(std::string(4, '.'));
+	TitleGradeDots->SetText(". . . .");
 	TitleGradeDots->SetScale(FontSize);
-	TitleGradeDots->SetPosition({ 200.0f, -194.0f, 0.0f });
+	TitleGradeDots->SetPosition({ 190.0f, -194.0f, 0.0f });
 	TitleGradeDots->AddToViewPort(2);
 
 	ResultGrade = CreateWidget<UTextWidget>(GetWorld(), "");
 	ResultGrade->SetFont(FontName);
 	ResultGrade->SetColor(Color8Bit::White);
 	ResultGrade->SetText(std::string("A+"));
-	ResultGrade->SetScale(50.0f);
+	ResultGrade->SetScale(40.0f);
 	ResultGrade->SetPosition({ 270.0f, -190.0f, 0.0f });
 	ResultGrade->AddToViewPort(2);
 }
