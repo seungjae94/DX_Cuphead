@@ -33,7 +33,6 @@ void ABossFarmGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	PlayIntroAnnounce(_DeltaTime);
 	StateManager.Update(_DeltaTime);
 	DebugUpdate(_DeltaTime);
 }
@@ -56,24 +55,6 @@ void ABossFarmGameMode::LevelStart(ULevel* _PrevLevel)
 void ABossFarmGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
-}
-
-void ABossFarmGameMode::PlayIntroAnnounce(float _DeltaTime)
-{
-	if (AnnounceIndex == 2)
-	{
-		return;
-	}
-
-	AnnounceTimer -= _DeltaTime;
-
-	if (AnnounceTimer < 0.0f)
-	{
-		UEngineSound::SoundPlay("announce_farm_intro_" + std::to_string(AnnounceIndex) + ".mp3");
-		++AnnounceIndex;
-		AnnounceTimer = AnnounceInterval;
-		return;
-	}
 }
 
 void ABossFarmGameMode::StateInit()

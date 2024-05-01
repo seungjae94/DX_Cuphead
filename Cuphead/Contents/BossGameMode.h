@@ -21,6 +21,9 @@ protected:
 	UEngineRandom Random;
 
 	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+
+	void LevelStart(ULevel* _PrevLevel) override;
 	void LevelEnd(ULevel* _NextLevel) override;
 
 	virtual void IntroStart();
@@ -34,5 +37,11 @@ private:
 	void FadeWaitStart();
 	void FadeWait(float _DeltaTime);
 	void FadeWaitEnd();
+private:
+	const float AnnounceInterval = 2.5f;
+	float AnnounceTimer = 0.0f;
+	int AnnounceIndex = 0;
+private:
+	void PlayIntroAnnounce(float _DeltaTime);
 };
 

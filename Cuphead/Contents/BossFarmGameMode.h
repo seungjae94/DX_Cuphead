@@ -42,8 +42,7 @@ private:
 
 	void LevelStart(ULevel* _PrevLevel) override;
 	void LevelEnd(ULevel* _NextLevel) override;
-private:
-	void PlayIntroAnnounce(float _DeltaTime);
+
 private:
 	// 상태 함수
 	void IntroStart() override;

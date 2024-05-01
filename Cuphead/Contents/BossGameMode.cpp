@@ -39,6 +39,20 @@ void ABossGameMode::BeginPlay()
 	);
 }
 
+void ABossGameMode::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+
+	PlayIntroAnnounce(_DeltaTime);
+}
+
+void ABossGameMode::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	AnnounceTimer = 0.0f;
+}
+
 void ABossGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
@@ -94,4 +108,23 @@ void ABossGameMode::FadeWait(float _DeltaTime)
 
 void ABossGameMode::FadeWaitEnd()
 {
+}
+
+
+void ABossGameMode::PlayIntroAnnounce(float _DeltaTime)
+{
+	if (AnnounceIndex == 2)
+	{
+		return;
+	}
+
+	AnnounceTimer -= _DeltaTime;
+
+	if (AnnounceTimer < 0.0f)
+	{
+		UEngineSound::SoundPlay("announce_intro_" + std::to_string(AnnounceIndex) + ".mp3");
+		++AnnounceIndex;
+		AnnounceTimer = AnnounceInterval;
+		return;
+	}
 }
