@@ -33,6 +33,11 @@ void UCupheadDebugWindow::OnGui(ULevel* _Level, float _Delta)
 		GEngine->ChangeLevel(GLevelName::TitleLevel);
 	}
 
+	if (true == ImGui::Button("Intro Level"))
+	{
+		GEngine->ChangeLevel(GLevelName::IntroLevel);
+	}
+
 	if (true == ImGui::Button("Overworld Level"))
 	{
 		GEngine->ChangeLevel(GLevelName::OverworldLevel);
@@ -51,6 +56,11 @@ void UCupheadDebugWindow::OnGui(ULevel* _Level, float _Delta)
 	if (true == ImGui::Button("Play Result Level"))
 	{
 		GEngine->ChangeLevel(GLevelName::PlayResultLevel);
+	}
+
+	if (true == ImGui::Button("Ending Level"))
+	{
+		GEngine->ChangeLevel(GLevelName::EndingLevel);
 	}
 
 	for (auto Pair : Callbacks)

@@ -52,3 +52,18 @@ void AEndingGameMode::Tick(float _DeltaTime)
 		ThankYouForPlayingText->AddToViewPort(0);
 	}
 }
+
+void AEndingGameMode::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	BgmPlayer = UEngineSound::SoundPlay("ending_bgm.mp3");
+	BgmPlayer.Loop(-1);
+	BgmPlayer.SetVolume(0.5f);
+}
+
+void AEndingGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
+	BgmPlayer.Off();
+}

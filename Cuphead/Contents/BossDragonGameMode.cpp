@@ -105,7 +105,6 @@ void ABossDragonGameMode::StateInit()
 	StateManager.SetFunction("End", []() {}, [](float _DeltaTime) {}, []() {});
 
 	StateManager.ChangeState("Intro");
-	//StateManager.ChangeState("Phase2Intro");
 }
 
 void ABossDragonGameMode::IntroStart()
