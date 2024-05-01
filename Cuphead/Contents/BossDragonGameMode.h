@@ -22,6 +22,7 @@ public:
 
 protected:
 private:
+	UEngineSoundPlayer BgmPlayer;
 	ABossDragonMap* Map = nullptr;
 	ADragon1* Dragon1 = nullptr;
 	ADragon2* Dragon2 = nullptr;
@@ -39,6 +40,9 @@ private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void DebugUpdate(float _DeltaTime);
+
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
 private:
 	// 상태 함수
 	void IntroStart() override;

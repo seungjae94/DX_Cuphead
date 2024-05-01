@@ -42,6 +42,20 @@ void ABossDragonGameMode::DebugUpdate(float _DeltaTime)
 	UEngineDebugMsgWindow::PushMsg(Msg);
 }
 
+void ABossDragonGameMode::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	BgmPlayer = UEngineSound::SoundPlay("boss_dragon_bgm.mp3");
+	BgmPlayer.SetVolume(0.5f);
+	BgmPlayer.Loop(-1);
+}
+
+void ABossDragonGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
+}
+
 void ABossDragonGameMode::StateInit()
 {
 	StateManager.CreateState("Phase1");
@@ -212,6 +226,7 @@ void ABossDragonGameMode::Finish(float _DeltaTime)
 	{
 		ChangeLevelWithFadeEffect(GLevelName::PlayResultLevel);
 		StateManager.ChangeState("End");
+		BgmPlayer.Off();
 		return;
 	}
 

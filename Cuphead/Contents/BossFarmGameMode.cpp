@@ -43,6 +43,20 @@ void ABossFarmGameMode::DebugUpdate(float _DeltaTime)
 	UEngineDebugMsgWindow::PushMsg(Msg);
 }
 
+void ABossFarmGameMode::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	BgmPlayer = UEngineSound::SoundPlay("boss_farm_bgm.mp3");
+	BgmPlayer.SetVolume(0.5f);
+	BgmPlayer.Loop(-1);
+}
+
+void ABossFarmGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
+}
+
 void ABossFarmGameMode::StateInit()
 {
 	StateManager.CreateState("PotatoBattle");
@@ -223,6 +237,7 @@ void ABossFarmGameMode::Finish(float _DeltaTime)
 	{
 		ChangeLevelWithFadeEffect(GLevelName::PlayResultLevel);
 		StateManager.ChangeState("End");
+		BgmPlayer.Off();
 	}
 }
 

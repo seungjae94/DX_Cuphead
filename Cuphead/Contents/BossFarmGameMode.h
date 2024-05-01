@@ -23,6 +23,7 @@ public:
 
 protected:
 private:
+	UEngineSoundPlayer BgmPlayer;
 	ABossFarmMap* Map = nullptr;
 	APotato* Potato = nullptr;
 	AOnion* Onion = nullptr;
@@ -34,6 +35,9 @@ private:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void DebugUpdate(float _DeltaTime);
+
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
 private:
 	// 상태 함수
 	void IntroStart() override;
