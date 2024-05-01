@@ -59,6 +59,9 @@ void AOverworldGameMode::Tick(float _DeltaTime)
 
 void AOverworldGameMode::LevelStart(ULevel* _PrevLevel)
 {
+	BgmPlayer = UEngineSound::SoundPlay("overworld_bgm.mp3");
+	BgmPlayer.Loop(-1);
+
 	if (nullptr == _PrevLevel)
 	{
 		return;
@@ -76,4 +79,9 @@ void AOverworldGameMode::LevelStart(ULevel* _PrevLevel)
 		// 엔딩 처리
 		GEngine->ChangeLevel(GLevelName::EndingLevel);
 	}
+}
+
+void AOverworldGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	BgmPlayer.Off();
 }

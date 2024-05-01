@@ -24,7 +24,11 @@ private:
 	void CreateDebugWindows();
 	void LoadFonts();
 	void LoadResources();
-	void RegisterResourceNames(std::vector<std::string>& _AllFileFullNames, std::vector<std::string>& _AllFolderFullNames, std::string_view _FolderName);
+	void RegisterResourceNames(
+		std::vector<std::string>& _AllImageFullNames, 
+		std::vector<std::string>& _AllSoundFullNames, 
+		std::vector<std::string>& _AllFolderFullNames, 
+		std::string_view _FolderName);
 	void LoadShaders();
 	void CreateMaterials();
 	void CreateLevels();

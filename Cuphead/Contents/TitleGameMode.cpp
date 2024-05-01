@@ -19,6 +19,14 @@ void ATitleGameMode::BeginPlay()
 	InputOn();
 }
 
+void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	BgmPlayer = UEngineSound::SoundPlay("title_screen_bgm.mp3");
+	BgmPlayer.Loop(-1);
+}
+
 void ATitleGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -30,5 +38,12 @@ void ATitleGameMode::Tick(float _DeltaTime)
 	{
 		ChangeLevelWithFadeEffect(GLevelName::IntroLevel);
 	}
+}
+
+void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
+
+	BgmPlayer.Off();
 }
 

@@ -41,3 +41,19 @@ void AIntroGameMode::Tick(float _DeltaTime)
 		return;
 	}
 }
+
+void AIntroGameMode::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	BgmPlayer = UEngineSound::SoundPlay("intro_bgm.mp3");
+	BgmPlayer.SetVolume(0.5f);
+	BgmPlayer.Loop(-1);
+}
+
+void AIntroGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
+
+	BgmPlayer.Off();
+}

@@ -64,7 +64,8 @@ void UCupheadCore::LoadFonts()
 
 void UCupheadCore::LoadResources()
 {
-	std::vector<std::string> AllFileFullNames;
+	std::vector<std::string> AllImageFullNames;
+	std::vector<std::string> AllSoundFullNames;
 	std::vector<std::string> AllFolderFullNames;
 
 	UEngineDirectory CurDir;
@@ -74,13 +75,20 @@ void UCupheadCore::LoadResources()
 
 	for (UEngineDirectory& FirstFolder : FirstFolders)
 	{
-		RegisterResourceNames(AllFileFullNames, AllFolderFullNames, FirstFolder.GetFolderName());
+		RegisterResourceNames(AllImageFullNames, AllSoundFullNames, AllFolderFullNames, FirstFolder.GetFolderName());
+	}
+	
+	// 일단 메인 쓰레드로 사운드 로딩
+	for (std::string_view SoundFileName : AllSoundFullNames)
+	{
+		UEngineSound::Load(SoundFileName);
 	}
 
-	{
-		LoadingCount = static_cast<int>(AllFileFullNames.size() + AllFolderFullNames.size());
 
-		for (std::string_view FileName : AllFileFullNames)
+	{
+		LoadingCount = static_cast<int>(AllImageFullNames.size() + AllFolderFullNames.size());
+
+		for (std::string_view FileName : AllImageFullNames)
 		{
 			GEngine->JobWorker.Work([=]()
 				{
@@ -192,22 +200,29 @@ void UCupheadCore::LoadResources()
 	}
 }
 
-void UCupheadCore::RegisterResourceNames(std::vector<std::string>& _AllFileFullNames, std::vector<std::string>& _AllFolderFullNames, std::string_view _FolderName)
+void UCupheadCore::RegisterResourceNames(std::vector<std::string>& _AllImageFullNames, std::vector<std::string>& _AllSoundFullNames, std::vector<std::string>& _AllFolderFullNames, std::string_view _FolderName)
 {
 	UEngineDirectory CurDir;
 	CurDir.MoveToSearchChild("ContentsResources");
 	CurDir.Move(_FolderName);
-	std::vector<UEngineFile> Files = CurDir.GetAllFile({ ".png" }, false);
 
-	for (UEngineFile& File : Files)
+	// 이미지 로딩
+	std::vector<UEngineFile> ImageFiles = CurDir.GetAllFile({ ".png" }, false);
+	for (UEngineFile& File : ImageFiles)
 	{
-		_AllFileFullNames.push_back(File.GetFullPath());
+		_AllImageFullNames.push_back(File.GetFullPath());
 	}
 
 	std::vector<UEngineDirectory> Dirs = CurDir.GetAllDirectory();
 	for (size_t i = 0; i < Dirs.size(); i++)
 	{
 		_AllFolderFullNames.push_back(Dirs[i].GetFullPath());
+	}
+
+	std::vector<UEngineFile> SoundFiles = CurDir.GetAllFile({ ".mp3" }, false);
+	for (UEngineFile& File : SoundFiles)
+	{
+		_AllSoundFullNames.push_back(File.GetFullPath());
 	}
 }
 

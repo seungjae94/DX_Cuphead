@@ -21,9 +21,11 @@ protected:
 private:
 	AOverworldPlayer* Player = nullptr;
 	AOverworldMap* Map = nullptr;
+	UEngineSoundPlayer BgmPlayer;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
 };
 
