@@ -36,6 +36,7 @@ private:
 	const float MoveSpeed = 250.0f;
 	std::string PrevAnimName = "";
 
+	int FootSEIndex = 0;
 	bool IsLeftFoot = true;
 	const float DustTime = 1 / 3.0f;
 	float DustTimer = 0.0f;

@@ -60,6 +60,7 @@ void AOverworldGameMode::Tick(float _DeltaTime)
 void AOverworldGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	BgmPlayer = UEngineSound::SoundPlay("overworld_bgm.mp3");
+	BgmPlayer.SetVolume(0.5f);
 	BgmPlayer.Loop(-1);
 
 	if (nullptr == _PrevLevel)

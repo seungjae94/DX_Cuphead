@@ -179,6 +179,9 @@ void AOverworldPlayer::CreateDustAnimationEffect(float _DeltaTime)
 
 	AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("Effect").get();
 
+	UEngineSound::SoundPlay("overworld_foot_se_" + std::to_string(FootSEIndex) + ".mp3");
+	FootSEIndex = (FootSEIndex + 1) % 5;
+
 	if (true == IsLeftFoot)
 	{
 		Effect->SetActorLocation(GetActorLocation() + FVector::Left * 15.0f);
