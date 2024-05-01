@@ -389,6 +389,9 @@ bool APlayer::IsParrying()
 
 void APlayer::ParrySuccess()
 {
+	UEngineSoundPlayer ParrySound = UEngineSound::SoundPlay("player_parry_success.mp3");
+	ParrySound.SetVolume(0.5f);
+
 	AddSuperMeter(1.0f);
 
 	if (SuperMeter >= 5.0f)
