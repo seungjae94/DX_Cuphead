@@ -73,6 +73,9 @@ void ABossGameMode::ShowKnockOutMessage(std::function<void()> _Callback)
 	BattleMessage->SetFrameCallback("knockout", 27, _Callback);
 	BattleMessage->ChangeAnimation("knockout");
 	BattleMessage->SetActive(true);
+
+	UEngineSound::SoundPlay("announce_knockout.mp3");
+	UEngineSound::SoundPlay("boss_knockout_bell.mp3");
 }
 
 void ABossGameMode::IntroStart()
