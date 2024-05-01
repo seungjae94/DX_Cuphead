@@ -2,6 +2,7 @@
 #include "CupheadCore.h"
 #include "TestGameMode.h"
 #include "TitleGameMode.h"
+#include "IntroGameMode.h"
 #include "OverworldGameMode.h"
 #include "BossFarmGameMode.h"
 #include "BossDragonGameMode.h"
@@ -29,7 +30,7 @@ void UCupheadCore::Initialize()
 	LoadShaders();
 	CreateMaterials();
 	CreateLevels();
-	GEngine->ChangeLevel(GLevelName::OverworldLevel);
+	GEngine->ChangeLevel(GLevelName::TitleLevel);
 }
 
 void UCupheadCore::CreateDebugWindows()
@@ -230,6 +231,7 @@ void UCupheadCore::CreateLevels()
 {
 	GEngine->CreateLevel<ATestGameMode>(GLevelName::TestLevel);
 	GEngine->CreateLevel<ATitleGameMode>(GLevelName::TitleLevel);
+	GEngine->CreateLevel<AIntroGameMode>(GLevelName::IntroLevel);
 	GEngine->CreateLevel<AOverworldGameMode>(GLevelName::OverworldLevel);
 	GEngine->CreateLevel<ABossFarmGameMode>(GLevelName::BossFarmLevel);
 	GEngine->CreateLevel<ABossDragonGameMode>(GLevelName::BossDragonLevel);
