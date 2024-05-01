@@ -132,6 +132,7 @@ void ACarrot::StateInit()
 
 void ACarrot::IdleStart()
 {
+	UEngineSound::SoundPlay("carrot_rise.mp3");
 }
 
 void ACarrot::Idle(float _DeltaTime)
@@ -144,6 +145,12 @@ void ACarrot::IdleEnd()
 
 void ACarrot::AttackStart()
 {
+	UEngineSound::SoundPlay("carrot_attack_start.mp3");
+	DelayCallBack(1.25f, []() {
+		UEngineSoundPlayer LoopPlayer = UEngineSound::SoundPlay("carrot_attack_loop.mp3");
+		LoopPlayer.Loop(-1);
+		});
+
 	CarrotRenderer->ChangeAnimation("carrot_idle");
 	EyeRenderer->SetActive(false);
 
@@ -229,6 +236,8 @@ void ACarrot::Beam(float _DeltaTime)
 			Beam->SetCollisionPosition({ 0.0f, 0.0f });
 			Beam->SetCollisionScale({ 50.0f, 50.0f });
 			Beam->SetAnimation("carrot_beam_proj", "carrot_beam_proj.png", 1 / 12.0f, false);
+
+			UEngineSound::SoundPlay("carrot_beam.mp3");
 			});
 	}
 
