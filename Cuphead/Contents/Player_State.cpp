@@ -389,6 +389,17 @@ bool APlayer::IsParrying()
 
 void APlayer::ParrySuccess()
 {
+	AddSuperMeter(1.0f);
+
+	if (SuperMeter >= 5.0f)
+	{
+		UEngineSound::SoundPlay("player_supermeter_full.mp3");
+	}
+	else
+	{
+		UEngineSound::SoundPlay("player_supermeter_up.mp3");
+	}
+
 	Velocity.Y = JumpImpulse.Y;
 
 	AAnimationEffect* ParryEffect = GetWorld()->SpawnActor<AAnimationEffect>("ParryEffect").get();
