@@ -76,6 +76,10 @@ void AOnion::BeginPlay()
 
 	SetHp(400);
 
+	CryingSoundPlayer = UEngineSound::SoundPlay("onion_crying.mp3");
+	CryingSoundPlayer.Loop(-1);
+	CryingSoundPlayer.Off();
+
 	RendererInit();
 	StateInit();
 
@@ -201,6 +205,7 @@ void AOnion::StateInit()
 
 void AOnion::IdleStart()
 {
+	UEngineSound::SoundPlay("onion_rise.mp3");
 }
 
 void AOnion::Idle(float _DeltaTime)
@@ -213,6 +218,9 @@ void AOnion::IdleEnd()
 
 void AOnion::AttackStart()
 {
+	CryingSoundPlayer.Replay();
+	CryingSoundPlayer.On();
+
 	OnionRenderer->ChangeAnimation("onion_cry_start");
 	LeftTearRenderer->ChangeAnimation("onion_tear_start");
 	RightTearRenderer->ChangeAnimation("onion_tear_start");
@@ -269,6 +277,7 @@ void AOnion::Attack(float _DeltaTime)
 
 void AOnion::AttackEnd()
 {
+	CryingSoundPlayer.Off();
 }
 
 void AOnion::AttackWaitStart()

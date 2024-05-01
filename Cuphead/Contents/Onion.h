@@ -46,6 +46,9 @@ private:
 
 	const float ShrinkWaitTime = 2.0f;
 	float ShrinkTimer = 0.0f;
+
+	// 사운드
+	UEngineSoundPlayer CryingSoundPlayer;
 private:
 	// 상태 함수
 	void IdleStart();
