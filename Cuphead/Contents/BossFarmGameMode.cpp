@@ -20,7 +20,7 @@ void ABossFarmGameMode::BeginPlay()
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player").get();
 	Player->SetColMapName("boss_farm_map_col.png");
-	Player->SetActorLocation({-300.0f, -285.0f, 0.0f});
+	Player->SetActorLocation({ -300.0f, -285.0f, 0.0f });
 
 	Map = GetWorld()->SpawnActor<ABossFarmMap>("Map").get();
 
@@ -33,6 +33,7 @@ void ABossFarmGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	PlayIntroAnnounce(_DeltaTime);
 	StateManager.Update(_DeltaTime);
 	DebugUpdate(_DeltaTime);
 }
@@ -55,6 +56,24 @@ void ABossFarmGameMode::LevelStart(ULevel* _PrevLevel)
 void ABossFarmGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+}
+
+void ABossFarmGameMode::PlayIntroAnnounce(float _DeltaTime)
+{
+	if (AnnounceIndex == 2)
+	{
+		return;
+	}
+
+	AnnounceTimer -= _DeltaTime;
+
+	if (AnnounceTimer < 0.0f)
+	{
+		UEngineSound::SoundPlay("announce_farm_intro_" + std::to_string(AnnounceIndex) + ".mp3");
+		++AnnounceIndex;
+		AnnounceTimer = AnnounceInterval;
+		return;
+	}
 }
 
 void ABossFarmGameMode::StateInit()
@@ -118,12 +137,15 @@ void ABossFarmGameMode::IntroStart()
 	Potato = GetWorld()->SpawnActor<APotato>("Potato").get();
 	Potato->PlayGroundIntroAnimation();
 	Potato->SetPotatoFrameCallback("potato_intro", 9, [this]() {
-		StateManager.ChangeState("PotatoBattle");
+		DelayCallBack(1.5f, [this]() {
+			StateManager.ChangeState("PotatoBattle");
+			});
 		});
 }
 
 void ABossFarmGameMode::Intro(float _DeltaTime)
 {
+
 }
 
 void ABossFarmGameMode::IntroEnd()

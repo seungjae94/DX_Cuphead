@@ -63,7 +63,7 @@ void ABossGameMode::ShowKnockOutMessage(std::function<void()> _Callback)
 
 void ABossGameMode::IntroStart()
 {
-	DelayCallBack(0.5f, [this]() {
+	DelayCallBack(1.0f, [this]() {
 		BattleMessage->ChangeAnimation("ready_wallop");
 		BattleMessage->SetActive(true);
 		});

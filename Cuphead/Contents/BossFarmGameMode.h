@@ -29,6 +29,10 @@ private:
 	AOnion* Onion = nullptr;
 	ACarrot* Carrot = nullptr;
 private:
+	const float AnnounceInterval = 2.5f;
+	float AnnounceTimer = 0.0f;
+	int AnnounceIndex = 0;
+private:
 	// 초기화 함수
 	void StateInit();
 private:
@@ -38,6 +42,8 @@ private:
 
 	void LevelStart(ULevel* _PrevLevel) override;
 	void LevelEnd(ULevel* _NextLevel) override;
+private:
+	void PlayIntroAnnounce(float _DeltaTime);
 private:
 	// 상태 함수
 	void IntroStart() override;
