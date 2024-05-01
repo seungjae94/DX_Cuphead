@@ -178,6 +178,9 @@ void ACarrot::Attack(float _DeltaTime)
 	Proj->SetChaseType(EChaseType::Permanent, Player);
 	Proj->SetChaseTime(5.0f);
 	Proj->SetDestroyTime(10.0f);
+
+	int RandomInt = Random.RandomInt(1, 4);
+	Proj->SetDestroySound("carrot_proj_explode_" + std::to_string(RandomInt) + ".mp3");
 	Proj->SetDestroyable(true, "carrot_proj_destroy", "carrot_proj_destroy.png", 1 / 12.0f);
 	Proj->SetCollisionPosition({ -2.0f, -10.0f });
 	Proj->SetCollisionScale({ 30.0f, 70.0f });

@@ -75,6 +75,11 @@ void ABossAttack::SetDestroyTime(float _Time)
 		});
 }
 
+void ABossAttack::SetDestroySound(std::string_view _DestroySoundName)
+{
+	DestroySoundName = _DestroySoundName;
+}
+
 void ABossAttack::SetParryable(bool _Value)
 {
 	Parryable = _Value;
@@ -200,6 +205,11 @@ void ABossAttack::Tick(float _DeltaTime)
 			{
 				Collision->SetActive(false);
 				Renderer->ChangeAnimation(DestroyAnimName);
+
+				if (DestroySoundName.size() > 0)
+				{
+					UEngineSound::SoundPlay(DestroySoundName);
+				}
 			});
 	}
 

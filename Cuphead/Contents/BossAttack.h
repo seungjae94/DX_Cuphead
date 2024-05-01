@@ -28,6 +28,7 @@ public:
 	void SetChaseType(EChaseType _Type, AActor* _Target);
 	void SetChaseTime(float _Time);
 	void SetDestroyTime(float _Time);
+	void SetDestroySound(std::string_view _DestroySoundName);
 	void SetParryable(bool _Value);
 	void SetDestroyable(bool _Value, std::string_view _DestroyAnimName, std::string_view _DestroySpriteName, float _Inter);
 	void SetTrailEffect(FCreateAnimationParameter _AnimParam, float _TrailTime);
@@ -47,6 +48,7 @@ private:
 	// ·ÎÁ÷
 	bool Destroyable = false;
 	std::string DestroyAnimName;
+	std::string DestroySoundName;
 
 	bool Parryable = false;
 
