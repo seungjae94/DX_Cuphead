@@ -45,19 +45,6 @@ void APlayResultGameMode::BeginPlay()
 	Manager = GetWorld()->SpawnActor<APlayResultManager>("Manager").get();
 }
 
-void APlayResultGameMode::LevelStart(ULevel* _PrevLevel)
-{
-	Super::LevelStart(_PrevLevel);
-	WaitTimer = WaitTime;
-
-	if (nullptr == _PrevLevel)
-	{
-		return;
-	}
-
-	PrevLevelName = _PrevLevel->GetName();
-}
-
 void APlayResultGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -74,4 +61,29 @@ void APlayResultGameMode::Tick(float _DeltaTime)
 		WaitTimer = 3600.0f;
 		ChangeLevelWithFadeEffect(GLevelName::OverworldLevel);
 	}
+}
+
+void APlayResultGameMode::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	BgmPlayer = UEngineSound::SoundPlay("play_result_bgm.mp3");
+	BgmPlayer.Loop(-1);
+	BgmPlayer.SetVolume(0.5f);
+
+	WaitTimer = WaitTime;
+
+	if (nullptr == _PrevLevel)
+	{
+		return;
+	}
+
+	PrevLevelName = _PrevLevel->GetName();
+}
+
+void APlayResultGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
+
+	BgmPlayer.Off();
 }

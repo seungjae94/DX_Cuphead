@@ -24,9 +24,12 @@ protected:
 
 private:
 	void BeginPlay() override;
-	void LevelStart(ULevel* _PrevLevel) override;
 	void Tick(float _DeltaTime) override;
 
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
+
+	UEngineSoundPlayer BgmPlayer;
 	APlayResultManager* Manager = nullptr;
 	std::string PrevLevelName;
 
