@@ -97,6 +97,11 @@ void APlayer::BeginPlay()
 	RightCollision->SetScale({ 3.0f, 3.0f, 1.0f });
 	RightCollision->SetPosition({ 30.0f, 50.0f, 0.0f });
 
+	FireSoundPlayer = UEngineSound::SoundPlay("player_fire_loop.mp3");
+	FireSoundPlayer.SetVolume(0.25f);
+	FireSoundPlayer.Loop(-1);
+	FireSoundPlayer.Off();
+
 	AnimationInit();
 	StateInit();
 	UIInit();
@@ -370,6 +375,18 @@ bool APlayer::TestDownJump()
 	AddActorLocation(FVector::Up * DownJumpCheckScale);
 
 	return TestResult;
+}
+
+void APlayer::PlayJumpSound()
+{
+	int RandomInt = Random.RandomInt(1, 3);
+	UEngineSound::SoundPlay("player_jump_" + std::to_string(RandomInt) + ".mp3");
+}
+
+void APlayer::PlayLandingSound()
+{
+	UEngineSoundPlayer LandingSound = UEngineSound::SoundPlay("player_landing.mp3");
+	LandingSound.SetVolume(0.5f);
 }
 
 bool APlayer::CheckPixelCollision(const FVector& _Point)

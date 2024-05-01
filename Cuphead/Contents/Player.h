@@ -176,6 +176,7 @@ private:
 
 private:
 	// АјАн
+	UEngineSoundPlayer FireSoundPlayer;
 	void Fire();
 	FVector GetBulletSpawnLocation();
 	FVector GetBulletSpawnLocalLocation_Jump();
@@ -212,6 +213,9 @@ private:
 	bool IsGroundCollisionOccur();
 	void MoveUpToGround();
 	bool TestDownJump();
+
+	void PlayJumpSound();
+	void PlayLandingSound();
 
 	bool CheckPixelCollision(const FVector& _Point);
 	void DamageCheat();

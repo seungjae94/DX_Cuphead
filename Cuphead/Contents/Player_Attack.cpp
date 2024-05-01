@@ -5,6 +5,32 @@
 
 void APlayer::Fire()
 {
+	if (true == IsDown('X'))
+	{
+		FireSoundPlayer.Replay();
+		FireSoundPlayer.On();
+	}
+
+	if (true == IsUp('X'))
+	{
+		float PressTime = GetPressTime('X');
+		float DelayTime = 0.05f;
+
+		if (DelayTime - PressTime > 0.0f)
+		{
+			DelayCallBack(DelayTime - PressTime, [this]() {
+				if (IsFire == false)
+				{
+					FireSoundPlayer.Off();
+				}
+				});
+		}
+		else
+		{
+			FireSoundPlayer.Off();
+		}
+	}
+
 	if (false == IsPress('X'))
 	{
 		IsFire = false;
@@ -12,6 +38,8 @@ void APlayer::Fire()
 	}
 
 	IsFire = true;
+
+
 
 	if (FireTime > 0.0f)
 	{

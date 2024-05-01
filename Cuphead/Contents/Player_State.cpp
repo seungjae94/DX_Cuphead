@@ -120,6 +120,7 @@ void APlayer::Idle(float _DeltaTime)
 
 		AddActorLocation(FVector::Up * DownJumpCheckScale);
 		Velocity += JumpImpulse;
+		PlayJumpSound();
 		ChangeState(GStateName::Jump);
 		return;
 	}
@@ -174,6 +175,7 @@ void APlayer::Run(float _DeltaTime)
 
 	if (true == IsDown('Z'))
 	{
+		PlayJumpSound();
 		AddActorLocation(FVector::Up * 3.0f);
 		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
@@ -303,6 +305,8 @@ void APlayer::JumpEnd()
 		AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("AnimationEffect").get();
 		Effect->SetActorLocation(GetActorLocation());
 		Effect->Init(ERenderingOrder::Character, { GAnimName::PlayerLandingDust, GImageName::PlayerLandingDust, 0.1f }, true);
+
+		PlayLandingSound();
 	}
 }
 
@@ -497,6 +501,7 @@ void APlayer::Sit(float _DeltaTime)
 			return;
 		}
 
+		PlayJumpSound();
 		AddActorLocation(FVector::Up * DownJumpCheckScale);
 		Velocity += JumpImpulse;
 		ChangeState(GStateName::Jump);
