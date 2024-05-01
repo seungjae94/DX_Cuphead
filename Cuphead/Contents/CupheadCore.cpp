@@ -219,7 +219,7 @@ void UCupheadCore::RegisterResourceNames(std::vector<std::string>& _AllImageFull
 		_AllFolderFullNames.push_back(Dirs[i].GetFullPath());
 	}
 
-	std::vector<UEngineFile> SoundFiles = CurDir.GetAllFile({ ".mp3" }, false);
+	std::vector<UEngineFile> SoundFiles = CurDir.GetAllFile({ ".mp3" }, true);
 	for (UEngineFile& File : SoundFiles)
 	{
 		_AllSoundFullNames.push_back(File.GetFullPath());

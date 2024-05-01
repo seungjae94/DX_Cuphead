@@ -86,6 +86,11 @@ void APotato::BeginPlay()
 	Collision->SetScale({ 300.0f, 400.0f });
 }
 
+void APotato::LevelStart(ULevel* _PrevLevel)
+{
+	StateManager.ChangeState("Intro");
+}
+
 void APotato::RendererInit()
 {
 	PotatoRenderer->CreateAnimation("potato_intro", "potato_intro.png", 1 / 12.0f, false);
@@ -136,14 +141,14 @@ void APotato::RendererInit()
 
 void APotato::StateInit()
 {
-	StateManager.CreateState("Idle");
+	StateManager.CreateState("Intro");
 	StateManager.CreateState("Attack");
 	StateManager.CreateState("AttackWait");
 
-	StateManager.SetFunction("Idle",
-		std::bind(&APotato::IdleStart, this),
-		std::bind(&APotato::Idle, this, std::placeholders::_1),
-		std::bind(&APotato::IdleEnd, this)
+	StateManager.SetFunction("Intro",
+		std::bind(&APotato::IntroStart, this),
+		std::bind(&APotato::Intro, this, std::placeholders::_1),
+		std::bind(&APotato::IntroEnd, this)
 	);
 
 	StateManager.SetFunction("Attack",
@@ -157,19 +162,19 @@ void APotato::StateInit()
 		std::bind(&APotato::AttackWait, this, std::placeholders::_1),
 		std::bind(&APotato::AttackWaitEnd, this)
 	);
-
-	StateManager.ChangeState("Idle");
 }
 
-void APotato::IdleStart()
+void APotato::IntroStart()
 {
+	UEngineSound::SoundPlay("potato_rise.mp3");
 }
 
-void APotato::Idle(float _DeltaTime)
+void APotato::Intro(float _DeltaTime)
 {
+
 }
 
-void APotato::IdleEnd()
+void APotato::IntroEnd()
 {
 }
 
@@ -212,10 +217,12 @@ void APotato::Attack(float _DeltaTime)
 		Attack->SetAnimation("potato_attack_snake", "potato_attack_snake.png", 1 / 12.0f, true);
 		Attack->SetCollisionPosition({ -5.0f, -10.0f });
 		Attack->SetParryable(true);
+		UEngineSound::SoundPlay("potato_ball.mp3");
 	}
 	else
 	{
 		Attack->SetAnimation("potato_attack_ball", "potato_attack_ball.png", 1 / 12.0f, true);
+		UEngineSound::SoundPlay("potato_snake.mp3");
 	}
 
 	AttackTimer = AttackDelays[AttackPhase];

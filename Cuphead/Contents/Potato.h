@@ -46,14 +46,15 @@ private:
 
 private:
 	void BeginPlay() override;
+	void LevelStart(ULevel* _PrevLevel) override;
 private:
 	void RendererInit();
 	void StateInit();
 private:
 	// 상태 함수
-	void IdleStart();
-	void Idle(float _DeltaTime);
-	void IdleEnd();
+	void IntroStart();
+	void Intro(float _DeltaTime);
+	void IntroEnd();
 
 	void AttackStart();
 	void Attack(float _DeltaTime);
