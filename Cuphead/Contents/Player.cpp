@@ -53,12 +53,12 @@ void APlayer::Damage()
 		Hp = UCupheadMath::Max(Hp, 0);
 		HpWidget->ChangeAnimation("ui_hp" + std::to_string(Hp));
 
-		StateManager.ChangeState(GStateName::Hit);
+		ChangeState(GStateName::Hit);
 	}
 	else
 	{
 		Velocity = JumpImpulse * 1.3f;
-		StateManager.ChangeState(GStateName::Jump);
+		ChangeState(GStateName::Jump);
 	}
 }
 

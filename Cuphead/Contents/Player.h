@@ -51,8 +51,8 @@ private:
 	std::vector<UImage*> CardWidgets;
 private:
 	// State
-	std::string CurStateName = GStateName::Idle;
-	std::string PrevStateName = GStateName::Idle;
+	std::string CurStateName = GStateName::Intro;
+	std::string PrevStateName = GStateName::Intro;
 	std::string CurAnimName = GAnimName::PlayerIdle;
 	UStateManager StateManager;
 
