@@ -9,18 +9,6 @@ ACupheadGameMode::~ACupheadGameMode()
 {
 }
 
-void ACupheadGameMode::ChangeLevelWithFadeEffect(std::string_view _NextLevelName)
-{
-	if (true == IsChanging)
-	{
-		return;
-	}
-
-	NextLevelName = _NextLevelName;
-	FadeOutStart();
-	IsChanging = true;
-}
-
 void ACupheadGameMode::BeginPlay()
 {
 	Super::BeginPlay();
@@ -69,12 +57,23 @@ void ACupheadGameMode::Tick(float _DeltaTime)
 	{
 		if (true == FadeOut->IsCurAnimationEnd())
 		{
-			FadeOut->SetActive(false);
 			GEngine->ChangeLevel(NextLevelName);
 			NextLevelName = "";
 			IsChanging = false;
 		}
 	}
+}
+
+void ACupheadGameMode::ChangeLevelWithFadeEffect(std::string_view _NextLevelName)
+{
+	if (true == IsChanging)
+	{
+		return;
+	}
+
+	NextLevelName = _NextLevelName;
+	FadeOutStart();
+	IsChanging = true;
 }
 
 void ACupheadGameMode::LevelStart(ULevel* _PrevLevel)
@@ -91,7 +90,9 @@ void ACupheadGameMode::LevelEnd(ULevel* _NextLevel)
 	if (true == IsFadeOutChecker)
 	{
 		IsFadeOutChecker = false;
-		
+
+		FadeOut->SetActive(false);
+
 		ACupheadGameMode* NextGameMode = dynamic_pointer_cast<ACupheadGameMode>(_NextLevel->GetGameMode()).get();
 		NextGameMode->FadeInStart();
 	}
