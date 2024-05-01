@@ -47,12 +47,12 @@ void APlayer::SetColMapName(std::string_view _ColMapName)
 
 void APlayer::Damage()
 {
-	--Hp;
-	Hp = UCupheadMath::Max(Hp, 0);
-	HpWidget->ChangeAnimation("ui_hp" + std::to_string(Hp));
-
 	if (true == HitBox->IsActive())
 	{
+		--Hp;
+		Hp = UCupheadMath::Max(Hp, 0);
+		HpWidget->ChangeAnimation("ui_hp" + std::to_string(Hp));
+
 		StateManager.ChangeState(GStateName::Hit);
 	}
 	else
