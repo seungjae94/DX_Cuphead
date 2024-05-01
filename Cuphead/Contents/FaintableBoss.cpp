@@ -34,6 +34,8 @@ void AFaintableBoss::BeginPlay()
 
 void AFaintableBoss::FaintStart()
 {
+	UEngineSound::SoundPlay("boss_faint.mp3");
+
 	BossExplosionTimer = 0.0f;
 	FaintTimer = FaintTime;
 }
