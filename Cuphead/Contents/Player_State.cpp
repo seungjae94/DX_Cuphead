@@ -411,6 +411,10 @@ void APlayer::DashStart()
 	AAnimationEffect* Effect = GetWorld()->SpawnActor<AAnimationEffect>("AnimationEffect").get();
 	Effect->SetActorLocation(GetActorLocation() + DashDustPos);
 	Effect->Init(ERenderingOrder::Character, { GAnimName::PlayerDashDust, GImageName::PlayerDashDust, 1 / 24.0f }, true);
+
+	// 사운드 재생
+	int RandomInt = Random.RandomInt(1, 3);
+	UEngineSound::SoundPlay("player_dash_" + std::to_string(RandomInt) + ".mp3");
 }
 
 void APlayer::Dash(float _DeltaTime)
@@ -580,7 +584,7 @@ void APlayer::HitEnd()
 
 		DelayCallBack(DelayTime, [this, Alpha]() {
 			Renderer->SetMulColor({ 1.0f, 1.0f, 1.0f, Alpha });
-		});
+			});
 	}
 
 	DelayCallBack(NoHitTime, [this]() {
@@ -618,6 +622,9 @@ void APlayer::EXStart()
 	Dust->SetActorLocation(GetEXDustLocation());
 	Dust->SetActorRotation(GetEXDustRotation());
 	Dust->Init(ERenderingOrder::BulletSpawn, FCreateAnimationParameter{ "player_ex_dust", "player_ex_dust", 1 / 24.0f }, true);
+
+	// 사운드 재생
+	UEngineSound::SoundPlay("player_ex.mp3");
 
 	++ExUsageCount;
 }
