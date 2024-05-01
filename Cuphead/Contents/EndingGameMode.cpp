@@ -45,7 +45,7 @@ void AEndingGameMode::Tick(float _DeltaTime)
 	{
 		ThankYouForPlayingText = CreateWidget<UTextWidget>(GetWorld(), "LastText");
 		ThankYouForPlayingText->SetFont("굴림");
-		ThankYouForPlayingText->SetScale(100.0f);
+		ThankYouForPlayingText->SetScale(80.0f);
 		ThankYouForPlayingText->SetColor(Color8Bit::Yellow);
 		ThankYouForPlayingText->SetPosition({ 0.0f, 100.0f });
 		ThankYouForPlayingText->SetText("플레이 해주셔서 감사합니다!");
