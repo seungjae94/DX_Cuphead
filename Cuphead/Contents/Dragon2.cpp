@@ -182,11 +182,15 @@ void ADragon2::Idle(float _DeltaTime)
 		{
 			FireRenderer->SetPosition({ 192.0f, 253.0f });
 			FireRenderer->ChangeAnimation("dragon2_fire");
+			UEngineSoundPlayer SoundPlayer = UEngineSound::SoundPlay("dragon_fire_start.mp3");
+			SoundPlayer.SetVolume(0.5f);
 		}
 		else
 		{
 			FireRenderer->SetPosition({ 212.0f, 257.0f });
 			FireRenderer->ChangeAnimation("dragon2_smoke");
+			UEngineSoundPlayer SoundPlayer = UEngineSound::SoundPlay("dragon_smoke_start.mp3");
+			SoundPlayer.SetVolume(0.5f);
 		}
 
 		FireTimer = FireTime;
