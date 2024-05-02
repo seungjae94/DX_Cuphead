@@ -39,6 +39,10 @@ private:
 	USpriteRenderer* GroundBackRenderer = nullptr;
 	USpriteRenderer* CarrotRenderer = nullptr;
 	USpriteRenderer* EyeRenderer = nullptr;
+
+	// 사운드 플레이어
+	UEngineSoundPlayer CarrotAttackStartSoundPlayer;
+	UEngineSoundPlayer CarrotAttackLoopSoundPlayer;
 private:
 	// 로직 처리
 	APlayer* Player = nullptr;

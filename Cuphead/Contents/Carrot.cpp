@@ -27,6 +27,13 @@ void ACarrot::BeginPlay()
 
 	SetHp(475);
 
+	CarrotAttackStartSoundPlayer = UEngineSound::SoundPlay("carrot_attack_start.mp3");
+	CarrotAttackLoopSoundPlayer = UEngineSound::SoundPlay("carrot_attack_loop.mp3");
+	CarrotAttackLoopSoundPlayer.Loop(-1);
+
+	CarrotAttackStartSoundPlayer.Off();
+	CarrotAttackLoopSoundPlayer.Off();
+
 	RendererInit();
 	StateInit();
 
@@ -145,10 +152,17 @@ void ACarrot::IdleEnd()
 
 void ACarrot::AttackStart()
 {
-	UEngineSound::SoundPlay("carrot_attack_start.mp3");
-	DelayCallBack(1.25f, []() {
-		UEngineSoundPlayer LoopPlayer = UEngineSound::SoundPlay("carrot_attack_loop.mp3");
-		LoopPlayer.Loop(-1);
+	CarrotAttackStartSoundPlayer.Replay();
+	CarrotAttackStartSoundPlayer.On();
+
+	DelayCallBack(1.25f, [this]() {
+		if ("Attack" != StateManager.GetCurStateName())
+		{
+			return;
+		}
+
+		CarrotAttackLoopSoundPlayer.Replay();
+		CarrotAttackLoopSoundPlayer.On();
 		});
 
 	CarrotRenderer->ChangeAnimation("carrot_idle");
@@ -198,6 +212,8 @@ void ACarrot::Attack(float _DeltaTime)
 
 void ACarrot::AttackEnd()
 {
+	CarrotAttackStartSoundPlayer.Off();
+	CarrotAttackLoopSoundPlayer.Off();
 }
 
 void ACarrot::BeamStart()
