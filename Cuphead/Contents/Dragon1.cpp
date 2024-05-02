@@ -36,18 +36,14 @@ void ADragon1::RendererInit()
 	BodyRenderer->CreateAnimation("dragon1_tail", "dragon1_tail.png", 1 / 24.0f, true);
 	BodyRenderer->CreateAnimation("dragon1_attack", "dragon1_attack.png", 1 / 24.0f, false);
 	BodyRenderer->CreateAnimation("dragon1_attack_start", "dragon1_attack_start.png", 1 / 24.0f, false);
+	BodyRenderer->CreateAnimation("dragon1_attack_ready", "dragon1_attack_ready.png", 1 / 24.0f, true);
 	BodyRenderer->CreateAnimation("dragon1_attack_end", "dragon1_attack_end.png", 1 / 24.0f, false);
 	BodyRenderer->CreateAnimation("dragon1_beam", "dragon1_beam.png", 1 / 24.0f, true);
 	BodyRenderer->CreateAnimation("dragon1_beam_start", "dragon1_beam_start.png", 1 / 24.0f, false);
 	BodyRenderer->CreateAnimation("dragon1_beam_end", "dragon1_beam_end.png", 1 / 24.0f, false);
 
-	BodyRenderer->SetFrameCallback("dragon1_intro", 39, [this]() {
-
-		});
-
-	BodyRenderer->SetFrameCallback("dragon1_attack_start", 15, [this]() {
-		BodyRenderer->ChangeAnimation("dragon1_attack");
-		SpawnAttackProj();
+	BodyRenderer->SetLastFrameCallback("dragon1_attack_start", [this]() {
+		BodyRenderer->ChangeAnimation("dragon1_attack_ready");
 		});
 
 	BodyRenderer->SetFrameCallback("dragon1_attack", 6, [this]() {
@@ -186,7 +182,22 @@ void ADragon1::Attack(float _DeltaTime)
 		return;
 	}
 
+	int RandomInt = Random.RandomInt(1, 4);
+	UEngineSound::SoundPlay("dragon_meteor_ready_" + std::to_string(RandomInt) + ".mp3");
+
 	BodyRenderer->ChangeAnimation("dragon1_attack_start");
+	DelayCallBack(1.0f, [this]() {
+		if ("Attack" != StateManager.GetCurStateName())
+		{
+			return;
+		}
+
+		BodyRenderer->ChangeAnimation("dragon1_attack");
+		SpawnAttackProj();
+
+		int RandomInt = Random.RandomInt(1, 4);
+		UEngineSound::SoundPlay("dragon_meteor_attack_" + std::to_string(RandomInt) + ".mp3");
+		});
 
 	--AttackCount;
 	AttackTimer = AttackInterval;
@@ -240,7 +251,7 @@ void ADragon1::SpawnAttackProj()
 	ABossAttack* Attack = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
 	Attack->SetRenderingOrder(ERenderingOrder::Bullet);
 	Attack->SetActorLocation(GetActorLocation() + FVector(-150.0f, 675.0f, 0.0f));
-	Attack->SetTrailEffect(FCreateAnimationParameter{"dragon1_attack_smoke", "dragon1_attack_smoke.png", 1 / 24.0f}, 1 / 6.0f);
+	Attack->SetTrailEffect(FCreateAnimationParameter{ "dragon1_attack_smoke", "dragon1_attack_smoke.png", 1 / 24.0f }, 1 / 6.0f);
 
 	std::function<FVector()> VelocityGenerator = [this, Attack]() {
 		float Height = 300.0f;
