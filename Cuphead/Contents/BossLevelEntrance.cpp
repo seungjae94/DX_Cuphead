@@ -173,11 +173,13 @@ void ABossLevelEntrance::OnCollisionStay(std::shared_ptr<UCollision> _PlayerColl
 		{
 			ACupheadGameMode* CurGameMode = dynamic_pointer_cast<ACupheadGameMode>(GetWorld()->GetGameMode()).get();
 			CurGameMode->ChangeLevelWithFadeEffect(LevelName);
+			UEngineSound::SoundPlay("overworld_change_level.mp3");
 			return;
 		}
 		
 		if (true == UEngineInput::IsDown(VK_ESCAPE))
 		{
+			UEngineSound::SoundPlay("overworld_ui_close.mp3");
 			LevelExplainUI->SetActive(false);
 			Player->SetInputActive(true);
 			return;
@@ -186,8 +188,10 @@ void ABossLevelEntrance::OnCollisionStay(std::shared_ptr<UCollision> _PlayerColl
 		return;
 	}
 
+	// UI를 띄워야 하는 경우
 	if (true == UEngineInput::IsDown('Z'))
 	{
+		UEngineSound::SoundPlay("overworld_ui_open.mp3");
 		LevelExplainUI->SetActive(true);
 		Player->SetInputActive(false);
 	}
