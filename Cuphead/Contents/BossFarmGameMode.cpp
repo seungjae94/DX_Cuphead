@@ -55,6 +55,8 @@ void ABossFarmGameMode::LevelStart(ULevel* _PrevLevel)
 void ABossFarmGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	BgmPlayer.Off();
 }
 
 void ABossFarmGameMode::StateInit()

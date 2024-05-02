@@ -64,24 +64,6 @@ void AOverworldGameMode::LevelStart(ULevel* _PrevLevel)
 	BgmPlayer = UEngineSound::SoundPlay("overworld_bgm.mp3");
 	BgmPlayer.SetVolume(0.5f);
 	BgmPlayer.Loop(-1);
-
-	if (nullptr == _PrevLevel)
-	{
-		return;
-	}
-
-	std::string PrevLevelName = _PrevLevel->GetName();
-
-	if (PrevLevelName == GLevelName::PlayResultLevel)
-	{
-		++UGameData::ClearBossCount;
-	}
-
-	if (UGameData::BossCount <= UGameData::ClearBossCount)
-	{
-		// 엔딩 처리
-		GEngine->ChangeLevel(GLevelName::EndingLevel);
-	}
 }
 
 void AOverworldGameMode::LevelEnd(ULevel* _NextLevel)

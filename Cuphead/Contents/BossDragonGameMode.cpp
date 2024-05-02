@@ -54,6 +54,8 @@ void ABossDragonGameMode::LevelStart(ULevel* _PrevLevel)
 void ABossDragonGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	BgmPlayer.Off();
 }
 
 void ABossDragonGameMode::StateInit()

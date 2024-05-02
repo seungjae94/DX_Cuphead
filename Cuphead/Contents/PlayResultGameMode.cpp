@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PlayResultGameMode.h"
 #include "PlayResultManager.h"
+#include "GameData.h"
 
 APlayResultGameMode::APlayResultGameMode()
 {
@@ -59,6 +60,14 @@ void APlayResultGameMode::Tick(float _DeltaTime)
 	if (true == UEngineInput::IsDown('Z'))
 	{
 		WaitTimer = 3600.0f;
+
+		if (UGameData::BossCount <= UGameData::ClearBossCount)
+		{
+			// 엔딩 처리
+			ChangeLevelWithFadeEffect(GLevelName::EndingLevel);
+			return;
+		}
+
 		ChangeLevelWithFadeEffect(GLevelName::OverworldLevel);
 	}
 }
@@ -79,6 +88,7 @@ void APlayResultGameMode::LevelStart(ULevel* _PrevLevel)
 	}
 
 	PrevLevelName = _PrevLevel->GetName();
+	++UGameData::ClearBossCount;
 }
 
 void APlayResultGameMode::LevelEnd(ULevel* _NextLevel)
