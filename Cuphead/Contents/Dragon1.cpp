@@ -198,6 +198,7 @@ void ADragon1::AttackEnd()
 
 void ADragon1::BeamStart()
 {
+	UEngineSound::SoundPlay("dragon_beam_start.mp3");
 	BodyRenderer->ChangeAnimation("dragon1_beam_start");
 }
 
@@ -208,6 +209,10 @@ void ADragon1::Beam(float _DeltaTime)
 
 void ADragon1::BeamEnd()
 {
+	if ("RunAway" != StateManager.GetCurStateName())
+	{
+		UEngineSound::SoundPlay("dragon_beam_end.mp3");
+	}
 }
 
 void ADragon1::RunAwayStart()
@@ -271,10 +276,10 @@ void ADragon1::SpawnBeamProj()
 
 	for (int i = 0; i < 3; ++i)
 	{
-		DelayCallBack(0.2f * i, [this, PlayerPos, i]() {
+		DelayCallBack(1.0f + 0.2f * i, [this, PlayerPos, i]() {
 			ABossAttack* Beam = GetWorld()->SpawnActor<ABossAttack>("Attack").get();
 			Beam->SetRenderingOrder(ERenderingOrder::Bullet);
-			Beam->SetActorLocation(GetActorLocation() + FVector(-150.0f, 675.0f, 0.0f));
+			Beam->SetActorLocation(GetActorLocation() + FVector(-100.0f, 750.0f, 0.0f));
 
 			FVector Direction = (PlayerPos - Beam->GetActorLocation()).Normalize3DReturn();
 			Beam->SetVelocity(Direction * 600.0f);
@@ -296,6 +301,9 @@ void ADragon1::SpawnBeamProj()
 			{
 				Beam->SetAnimation("dragon1_beam_proj", "dragon1_beam_proj.png", 1 / 24.0f, true);
 			}
+
+			UEngineSound::SoundPlay("dragon_beam_" + std::to_string(i) + ".mp3");
+
 			});
 	}
 }
