@@ -37,7 +37,7 @@ void AFireMob::BeginPlay()
 	RendererInit();
 	StateInit();
 
-	Collision->SetPosition({0.0f, -40.0f, 0.0f});
+	Collision->SetPosition({ 0.0f, -40.0f, 0.0f });
 	Collision->SetScale({ 50.0f, 50.0f, 1.0f });
 }
 
@@ -68,16 +68,15 @@ void AFireMob::RendererInit()
 {
 	Renderer->CreateAnimation("firemob_jump", "firemob_jump.png", 1 / 24.0f, false);
 	Renderer->CreateAnimation("firemob_jump_ready_start", "firemob_jump_ready_start.png", 1 / 24.0f, false);
-	Renderer->CreateAnimation("firemob_jump_ready", "firemob_jump_ready.png", 1 / 24.0f, false);
+	Renderer->CreateAnimation("firemob_jump_ready", "firemob_jump_ready.png", 1 / 24.0f, true);
 	Renderer->CreateAnimation("firemob_run", "firemob_run.png", 1 / 24.0f, true);
 	Renderer->CreateAnimation("firemob_air", "firemob_air.png", 1 / 24.0f, true);
 
 	Renderer->SetFrameCallback("firemob_jump_ready_start", 4, [this]() {
 		Renderer->ChangeAnimation("firemob_jump_ready");
-		});
-
-	Renderer->SetFrameCallback("firemob_jump_ready", 4, [this]() {
-		StateManager.ChangeState("Air");
+		DelayCallBack(1.0f, [this]() {
+			StateManager.ChangeState("Air");
+			});
 		});
 
 	Renderer->SetFrameCallback("firemob_jump", 3, [this]() {
@@ -132,6 +131,9 @@ void AFireMob::RunEnd()
 void AFireMob::JumpStart()
 {
 	Renderer->ChangeAnimation("firemob_jump_ready_start");
+
+	int RandomInt = Random.RandomInt(0, 9);
+	UEngineSound::SoundPlay("dragon_firemob_jump_ready_" + std::to_string(RandomInt) + ".mp3");
 }
 
 void AFireMob::Jump(float _DeltaTime)
@@ -147,12 +149,15 @@ void AFireMob::AirStart()
 	Renderer->ChangeAnimation("firemob_jump");
 	Renderer->SetOrder(ERenderingOrder::Back4);
 
+	int RandomInt = Random.RandomInt(0, 11);
+	UEngineSound::SoundPlay("dragon_firemob_jump_start_" + std::to_string(RandomInt) + ".mp3");
+
 	FVector Direction = Player->GetActorLocation() - GetActorLocation();
 
 	if (Direction.X < 0.0f)
 	{
 		Renderer->SetDir(EEngineDir::Left);
-		Velocity = {-300.0f, 1000.0f, 0.0f};
+		Velocity = { -300.0f, 1000.0f, 0.0f };
 	}
 	else
 	{

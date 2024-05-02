@@ -22,6 +22,7 @@ private:
 	void Tick(float _DeltaTime) override;
 
 	UStateManager StateManager;
+	UEngineRandom Random;
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Renderer = nullptr;
