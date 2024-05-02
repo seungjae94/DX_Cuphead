@@ -26,6 +26,7 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* BookRenderer = nullptr;
 	std::string BookNamePrefix;
+	UEngineRandom Random;
 
 	int MaxBookIndex = 0;
 	int BookIndex = 0;

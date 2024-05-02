@@ -51,6 +51,8 @@ void ABook::IncBookIndex()
 		return;
 	}
 
+	int RandomInt = Random.RandomInt(1, 3);
+	UEngineSound::SoundPlay("pageturn_" + std::to_string(RandomInt) + ".mp3");
 	BookRenderer->ChangeAnimation(BookNamePrefix + std::to_string(BookIndex));
 }
 
