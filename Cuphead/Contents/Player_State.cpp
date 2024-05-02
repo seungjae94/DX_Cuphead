@@ -532,6 +532,9 @@ void APlayer::HitStart()
 {
 	DirUpdateActive = false;
 
+	int RandomInt = Random.RandomInt(1, 2);
+	UEngineSound::SoundPlay("player_hit_" + std::to_string(RandomInt) + ".mp3");
+
 	Renderer->ChangeAnimation(GAnimName::PlayerHit);
 	HitTimer = HitTime;
 	HitBox->SetActive(false);

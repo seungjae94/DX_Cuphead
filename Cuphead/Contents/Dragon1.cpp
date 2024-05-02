@@ -183,7 +183,9 @@ void ADragon1::Attack(float _DeltaTime)
 	}
 
 	int RandomInt = Random.RandomInt(1, 4);
-	UEngineSound::SoundPlay("dragon_meteor_ready_" + std::to_string(RandomInt) + ".mp3");
+
+	UEngineSoundPlayer SoundPlayer = UEngineSound::SoundPlay("dragon_meteor_ready_" + std::to_string(RandomInt) + ".mp3");
+	SoundPlayer.SetVolume(0.5f);
 
 	BodyRenderer->ChangeAnimation("dragon1_attack_start");
 	DelayCallBack(1.0f, [this]() {
@@ -196,7 +198,8 @@ void ADragon1::Attack(float _DeltaTime)
 		SpawnAttackProj();
 
 		int RandomInt = Random.RandomInt(1, 4);
-		UEngineSound::SoundPlay("dragon_meteor_attack_" + std::to_string(RandomInt) + ".mp3");
+		UEngineSoundPlayer SoundPlayer = UEngineSound::SoundPlay("dragon_meteor_attack_" + std::to_string(RandomInt) + ".mp3");
+		SoundPlayer.SetVolume(0.5f);
 		});
 
 	--AttackCount;
@@ -209,7 +212,9 @@ void ADragon1::AttackEnd()
 
 void ADragon1::BeamStart()
 {
-	UEngineSound::SoundPlay("dragon_beam_start.mp3");
+	UEngineSoundPlayer SoundPlayer = UEngineSound::SoundPlay("dragon_beam_start.mp3");
+	SoundPlayer.SetVolume(0.5f);
+
 	BodyRenderer->ChangeAnimation("dragon1_beam_start");
 }
 
@@ -222,7 +227,8 @@ void ADragon1::BeamEnd()
 {
 	if ("RunAway" != StateManager.GetCurStateName())
 	{
-		UEngineSound::SoundPlay("dragon_beam_end.mp3");
+		UEngineSoundPlayer SoundPlayer = UEngineSound::SoundPlay("dragon_beam_end.mp3");
+		SoundPlayer.SetVolume(0.5f);
 	}
 }
 
@@ -313,7 +319,8 @@ void ADragon1::SpawnBeamProj()
 				Beam->SetAnimation("dragon1_beam_proj", "dragon1_beam_proj.png", 1 / 24.0f, true);
 			}
 
-			UEngineSound::SoundPlay("dragon_beam_" + std::to_string(i) + ".mp3");
+			UEngineSoundPlayer SoundPlayer = UEngineSound::SoundPlay("dragon_beam_" + std::to_string(i) + ".mp3");
+			SoundPlayer.SetVolume(0.5f);
 
 			});
 	}
