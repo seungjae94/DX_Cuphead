@@ -2,6 +2,20 @@
 
 class ANoise;
 
+enum class EFadeInState
+{
+	None,
+	First,
+	Fading
+};
+
+enum class EFadeOutState
+{
+	None,
+	First,
+	Fading
+};
+
 class ACupheadGameMode : public AGameMode
 {
 	GENERATED_BODY(AActor)
@@ -29,8 +43,8 @@ protected:
 	bool IsFadeOut() const;
 private:
 	// 페이드 효과
-	bool IsFadeInChecker = false;
-	bool IsFadeOutChecker = false;
+	EFadeInState IsFadeInChecker = EFadeInState::None;
+	EFadeOutState IsFadeOutChecker = EFadeOutState::None;
 	void FadeInStart();
 	void FadeOutStart();
 	std::string NextLevelName;

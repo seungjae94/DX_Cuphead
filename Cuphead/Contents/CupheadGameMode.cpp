@@ -26,6 +26,7 @@ void ACupheadGameMode::BeginPlay()
 	FadeIn = CreateWidget<UImage>(GetWorld(), "FadeIn");
 	FadeIn->AddToViewPort(ERenderingOrder::Fade);
 	FadeIn->CreateAnimation("fade_in", "fade_in", 1 / 24.0f, false);
+	FadeIn->CreateAnimation("none", "none.png", 1 / 24.0f, false);
 	FadeIn->SetScale({ 1280.0f, 720.0f });
 	FadeIn->SetPosition(FVector::Zero);
 	FadeIn->SetActive(false);
@@ -33,6 +34,7 @@ void ACupheadGameMode::BeginPlay()
 	FadeOut = CreateWidget<UImage>(GetWorld(), "FadeOut");
 	FadeOut->AddToViewPort(ERenderingOrder::Fade);
 	FadeOut->CreateAnimation("fade_out", "fade_out", 1 / 24.0f, false);
+	FadeOut->CreateAnimation("none", "none.png", 1 / 24.0f, false);
 	FadeOut->SetScale({ 1280.0f, 720.0f });
 	FadeOut->SetPosition(FVector::Zero);
 	FadeOut->SetActive(false);
@@ -44,18 +46,26 @@ void ACupheadGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	if (true == IsFadeInChecker)
+	if (EFadeInState::None != IsFadeInChecker)
 	{
-		if (true == FadeIn->IsCurAnimationEnd())
+		if (EFadeInState::First == IsFadeInChecker)
 		{
-			IsFadeInChecker = false;
+			IsFadeInChecker = EFadeInState::Fading;
+		}
+		else if (true == FadeIn->IsCurAnimationEnd())
+		{
+			IsFadeInChecker = EFadeInState::None;
 			FadeIn->SetActive(false);
 		}
 	}
 
-	if (true == IsFadeOutChecker)
+	if (EFadeOutState::None != IsFadeOutChecker)
 	{
-		if (true == FadeOut->IsCurAnimationEnd())
+		if (EFadeOutState::First == IsFadeOutChecker)
+		{
+			IsFadeOutChecker = EFadeOutState::Fading;
+		}
+		else if (true == FadeOut->IsCurAnimationEnd())
 		{
 			GEngine->ChangeLevel(NextLevelName);
 			NextLevelName = "";
@@ -87,9 +97,9 @@ void ACupheadGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 
-	if (true == IsFadeOutChecker)
+	if (EFadeOutState::Fading == IsFadeOutChecker)
 	{
-		IsFadeOutChecker = false;
+		IsFadeOutChecker = EFadeOutState::None;
 
 		FadeOut->SetActive(false);
 
@@ -100,24 +110,28 @@ void ACupheadGameMode::LevelEnd(ULevel* _NextLevel)
 
 bool ACupheadGameMode::IsFadeIn() const
 {
-	return IsFadeInChecker;
+	return IsFadeInChecker != EFadeInState::None;
 }
 
 bool ACupheadGameMode::IsFadeOut() const
 {
-	return IsFadeOutChecker;
+	return IsFadeOutChecker != EFadeOutState::None;
 }
 
 void ACupheadGameMode::FadeInStart()
 {
-	IsFadeInChecker = true;
+	IsFadeInChecker = EFadeInState::First;
 	FadeIn->SetActive(true);
+	FadeOut->SetActive(false);
+	FadeIn->ChangeAnimation("none");
 	FadeIn->ChangeAnimation("fade_in");
 }
 
 void ACupheadGameMode::FadeOutStart()
 {
-	IsFadeOutChecker = true;
+	IsFadeOutChecker = EFadeOutState::First;
 	FadeOut->SetActive(true);
+	FadeIn->SetActive(false);
+	FadeOut->ChangeAnimation("none");
 	FadeOut->ChangeAnimation("fade_out");
 }

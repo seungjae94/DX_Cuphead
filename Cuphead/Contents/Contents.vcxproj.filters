@@ -66,9 +66,6 @@
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
-    <ClInclude Include="TestPlayer.h">
-      <Filter>Level\99. Test Level\Object</Filter>
-    </ClInclude>
     <ClInclude Include="TestGameMode.h">
       <Filter>Level\99. Test Level</Filter>
     </ClInclude>
@@ -184,9 +181,6 @@
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
-    </ClCompile>
-    <ClCompile Include="TestPlayer.cpp">
-      <Filter>Level\99. Test Level\Object</Filter>
     </ClCompile>
     <ClCompile Include="TestGameMode.cpp">
       <Filter>Level\99. Test Level</Filter>
