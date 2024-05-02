@@ -30,7 +30,7 @@ void ADragon2::BeginPlay()
 	StateInit();
 
 	SetActorLocation({ -1075.0f, -350.0f });
-	DashRenderer->SetPosition({ 1500.0f, 450.0f });
+	DashRenderer->SetPosition({ 1800.0f, 450.0f });
 	BodyRenderer->SetPosition(FVector::Zero);
 	TongueRenderer->SetPosition({ 184.0f, 16.0f });
 
@@ -101,6 +101,9 @@ void ADragon2::StateInit()
 
 void ADragon2::DashStart()
 {
+	UEngineSoundPlayer SoundPlayer = UEngineSound::SoundPlay("dragon_dash.mp3");
+	//SoundPlayer.Loop(-1);
+
 	BodyRenderer->SetActive(false);
 	TongueRenderer->SetActive(false);
 	DashRenderer->ChangeAnimation("dragon2_dash");
