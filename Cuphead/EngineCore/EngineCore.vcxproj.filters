@@ -190,6 +190,9 @@
     <ClInclude Include="TextWidget.h">
       <Filter>Object\UI\Contents</Filter>
     </ClInclude>
+    <ClInclude Include="EngineNetWindow.h">
+      <Filter>Editor\Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -369,6 +372,9 @@
     <ClCompile Include="TextWidget.cpp">
       <Filter>Object\UI\Contents</Filter>
     </ClCompile>
+    <ClCompile Include="EngineNetWindow.cpp">
+      <Filter>Editor\Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -493,15 +499,7 @@
     <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.dll">
       <Filter>ThirdParty\FW1FontWrapper\Release</Filter>
     </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.pdb">
-      <Filter>ThirdParty\FW1FontWrapper\Release</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.lib">
-      <Filter>ThirdParty\FW1FontWrapper\Release</Filter>
-    </Library>
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.pdb" />
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.lib" />
   </ItemGroup>
 </Project>

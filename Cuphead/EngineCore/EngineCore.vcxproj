@@ -197,6 +197,7 @@
     <ClInclude Include="EngineInputLayOut.h" />
     <ClInclude Include="EngineMaterial.h" />
     <ClInclude Include="EngineMesh.h" />
+    <ClInclude Include="EngineNetWindow.h" />
     <ClInclude Include="EngineOption.h">
       <SubType>
       </SubType>
@@ -267,6 +268,7 @@
     <ClCompile Include="EngineInputLayOut.cpp" />
     <ClCompile Include="EngineMaterial.cpp" />
     <ClCompile Include="EngineMesh.cpp" />
+    <ClCompile Include="EngineNetWindow.cpp" />
     <ClCompile Include="EngineOption.cpp">
       <SubType>
       </SubType>
