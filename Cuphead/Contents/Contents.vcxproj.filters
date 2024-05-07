@@ -55,9 +55,6 @@
     <Filter Include="Level\06. Ending Level">
       <UniqueIdentifier>{1f7d9a4a-d4c2-47d2-9a9e-08a7a8290a67}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\02. Intro Level">
-      <UniqueIdentifier>{f1f9eab5-f132-41b7-a8e1-13dc84097a6d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CupheadCore.h">
@@ -170,9 +167,6 @@
     </ClInclude>
     <ClInclude Include="DebugFontEnumerator.h">
       <Filter>Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="IntroGameMode.h">
-      <Filter>Level\02. Intro Level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -301,9 +295,6 @@
     </ClCompile>
     <ClCompile Include="DebugFontEnumerator.cpp">
       <Filter>Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="IntroGameMode.cpp">
-      <Filter>Level\02. Intro Level</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

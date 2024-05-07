@@ -36,7 +36,7 @@ void ATitleGameMode::Tick(float _DeltaTime)
 		&& false == IsDown(VK_RBUTTON) 
 		&& false == IsDown(GEngine->GetEngineOption().FreeCameraKey))
 	{
-		ChangeLevelWithFadeEffect(GLevelName::IntroLevel);
+		ChangeLevelWithFadeEffect(GLevelName::OverworldLevel);
 	}
 }
 
