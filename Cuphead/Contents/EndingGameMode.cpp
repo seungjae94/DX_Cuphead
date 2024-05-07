@@ -35,7 +35,7 @@ void AEndingGameMode::Tick(float _DeltaTime)
 
 		if (true == Book->OverMaxBookIndex())
 		{
-			// TODO: 게임 종료
+			GEngine->EngineWindow.Off();
 			return;
 		}
 		return;
