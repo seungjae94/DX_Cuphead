@@ -33,11 +33,6 @@ void UCupheadDebugWindow::OnGui(ULevel* _Level, float _Delta)
 		GEngine->ChangeLevel(GLevelName::TitleLevel);
 	}
 
-	if (true == ImGui::Button("Intro Level"))
-	{
-		GEngine->ChangeLevel(GLevelName::IntroLevel);
-	}
-
 	if (true == ImGui::Button("Overworld Level"))
 	{
 		GEngine->ChangeLevel(GLevelName::OverworldLevel);
