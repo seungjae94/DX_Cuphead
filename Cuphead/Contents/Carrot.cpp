@@ -334,16 +334,12 @@ void ACarrot::Damage(int _Damage)
 
 	Hp -= _Damage;
 
-	CarrotRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.0f });
-	CarrotRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
-	EyeRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.0f });
-	EyeRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
+	CarrotRenderer->SetPlusColor(HitPlusColor);
+	EyeRenderer->SetPlusColor(HitPlusColor);
 
 
 	DelayCallBack(0.1f, [this]() {
-		CarrotRenderer->SetMulColor(FVector::One);
 		CarrotRenderer->SetPlusColor(FVector::Zero);
-		EyeRenderer->SetMulColor(FVector::One);
 		EyeRenderer->SetPlusColor(FVector::Zero);
 		});
 

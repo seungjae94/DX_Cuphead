@@ -239,15 +239,11 @@ void ADragon2::Damage(int _Damage)
 
 	Hp -= _Damage;
 
-	BodyRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.0f });
-	BodyRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
-	TongueRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.0f });
-	TongueRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
+	BodyRenderer->SetPlusColor(HitPlusColor);
+	TongueRenderer->SetPlusColor(HitPlusColor);
 
 	DelayCallBack(0.1f, [this]() {
-		BodyRenderer->SetMulColor(FVector::One);
 		BodyRenderer->SetPlusColor(FVector::Zero);
-		TongueRenderer->SetMulColor(FVector::One);
 		TongueRenderer->SetPlusColor(FVector::Zero);
 		});
 

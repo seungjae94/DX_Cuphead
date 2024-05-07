@@ -22,6 +22,7 @@ public:
 
 protected:
 	int Hp = 0;
+	static FVector HitPlusColor;
 protected:
 	// 보스 공통 컴포넌트
 	UDefaultSceneComponent* Root = nullptr;
@@ -39,5 +40,6 @@ protected:
 private:
 	void BodyDamageCheck();
 	bool HasBodyDamage = true;
+
 };
 

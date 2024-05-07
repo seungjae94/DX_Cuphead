@@ -360,11 +360,9 @@ void ADragon1::Damage(int _Damage)
 
 	Hp -= _Damage;
 
-	BodyRenderer->SetPlusColor({ 1.0f, 1.0f, 1.0f, 0.0f });
-	BodyRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
+	BodyRenderer->SetPlusColor(HitPlusColor);
 
 	DelayCallBack(0.1f, [this]() {
-		BodyRenderer->SetMulColor(FVector::One);
 		BodyRenderer->SetPlusColor(FVector::Zero);
 		});
 

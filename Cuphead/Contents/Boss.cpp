@@ -2,6 +2,8 @@
 #include "Boss.h"
 #include "Player.h"
 
+FVector ABoss::HitPlusColor = { 0.25f, 0.25f, 0.25f, 0.0f };
+
 ABoss::ABoss()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Root");
