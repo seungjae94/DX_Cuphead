@@ -182,6 +182,7 @@ namespace GFontName
 
 enum class ECollisionGroup
 {
+	None,
 	BossLevelEntranceBlock,
 	BossLevelEntranceChangeLevel,
 	Platform,
