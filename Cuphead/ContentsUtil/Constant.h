@@ -196,6 +196,7 @@ enum class ECollisionGroup
 
 enum class ERenderingOrder
 {
+	None,
 	Back0,
 	Back1,
 	Back2,
