@@ -32,7 +32,7 @@ public:
 	UThreadPool& operator=(const UThreadPool& _Other) = delete;
 	UThreadPool& operator=(UThreadPool&& _Other) noexcept = delete;
 
-	void Initialize(const std::string_view& _ThreadName, int _ThreadCount = 0);
+	void Initialize(const std::string_view& _ThreadName);
 
 	void Work(std::function<void()> _Function);
 
@@ -46,9 +46,6 @@ private:
 	// 어느쪽이 여유가 있는지 확인해주고
 	// 몰려드는 데이터의 버퍼역할도 해주고
 	HANDLE IOCPHandle = nullptr;
-	int ThreadCount = -1;
-
-	// typedef std::atomic<bool> atomic_bool;
 
 	std::atomic_bool IsRun = false;;
 

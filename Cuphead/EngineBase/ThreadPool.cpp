@@ -11,21 +11,12 @@ UThreadPool::~UThreadPool()
 	End();
 }
 
-void UThreadPool::Initialize(const std::string_view& _ThreadName, int _ThreadCount/* = 0*/)
+void UThreadPool::Initialize(const std::string_view& _ThreadName)
 {
-	ThreadCount = _ThreadCount;
-
-	// 아 그냥 적적한 양으로 만들어달라는 거구나.
-	// 적적한 양 코어 * 2 + 1
-	// cpu 수 * (cpu 목표 사용량) * (1+대기 시간/서비스 시간) + tomcat
-	// 그냥 상황에 따라서 적절한 수로 만들면 됩니다. 경험
-	// 선생님은 코어 개수만큼 만들겠습니다.
-	if (0 >= ThreadCount)
-	{
-		SYSTEM_INFO Info;
-		GetSystemInfo(&Info);
-		ThreadCount = Info.dwNumberOfProcessors;
-	}
+	// 쓰레드
+	SYSTEM_INFO Info;
+	GetSystemInfo(&Info);
+	int ThreadCount = Info.dwNumberOfProcessors;
 
 
 	// IOCP를 쓰겠다. => IOCP를 만들겠다.
