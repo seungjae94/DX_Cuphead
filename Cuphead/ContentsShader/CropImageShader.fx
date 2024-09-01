@@ -35,8 +35,11 @@ ImageVSOutPut CropImageShader_VS(FEngineVertex _Input)
     Out.POSITION = mul(Out.POSITION, View);
     Out.POSITION = mul(Out.POSITION, Projection);
     
-    Out.TEXCOORD.x = (_Input.TEXCOORD.x * CuttingSize.x * CropSize.x) + CuttingSize.x * CropPosition.x + CuttingPosition.x;
-    Out.TEXCOORD.y = (_Input.TEXCOORD.y * CuttingSize.y * CropSize.y) + CuttingSize.y * CropPosition.y + CuttingPosition.y;
+	Out.TEXCOORD.x = (_Input.TEXCOORD.x * CropSize.x) + CropPosition.x;
+	Out.TEXCOORD.x = (Out.TEXCOORD.x * CuttingSize.x) + CuttingPosition.x;
+    
+    Out.TEXCOORD.y = (_Input.TEXCOORD.y * CropSize.y) + CropPosition.y;
+	Out.TEXCOORD.y = (Out.TEXCOORD.y * CuttingSize.y) + CuttingPosition.y;
     
     return Out;
 }
