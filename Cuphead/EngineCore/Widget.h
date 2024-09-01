@@ -97,7 +97,7 @@ protected:
 	}
 
 private:
-	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
+	void RenderingTransformUpdate(std::shared_ptr<ACamera> _Camera);
 	void WidgetInit(std::shared_ptr<UWidget>, std::string_view _Name);
 
 	bool IsHover = false;

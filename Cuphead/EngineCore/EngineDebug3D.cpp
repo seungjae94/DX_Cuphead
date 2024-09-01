@@ -16,7 +16,7 @@ void UDebugRenderClass::DebugRender(ULevel* _Level)
 		return;
 	}
 
-	std::shared_ptr<UCamera> Camera = _Level->GetMainCamera();
+	std::shared_ptr<ACamera> Camera = _Level->GetMainCamera();
 
 	for (size_t i = 0; i < DebugIndex; i++)
 	{

@@ -6,7 +6,7 @@
 // Ό³Έν :
 class ULevel;
 class UEngineRenderTarget;
-class UCamera : public AActor
+class ACamera : public AActor
 {
 	friend ULevel;
 	friend URenderer;
@@ -14,14 +14,14 @@ class UCamera : public AActor
 
 public:
 	// constrcuter destructer
-	UCamera();
-	~UCamera();
+	ACamera();
+	~ACamera();
 
 	// delete Function
-	UCamera(const UCamera& _Other) = delete;
-	UCamera(UCamera&& _Other) noexcept = delete;
-	UCamera& operator=(const UCamera& _Other) = delete;
-	UCamera& operator=(UCamera&& _Other) noexcept = delete;
+	ACamera(const ACamera& _Other) = delete;
+	ACamera(ACamera&& _Other) noexcept = delete;
+	ACamera& operator=(const ACamera& _Other) = delete;
+	ACamera& operator=(ACamera&& _Other) noexcept = delete;
 
 	inline void SetNear(float _Value)
 	{

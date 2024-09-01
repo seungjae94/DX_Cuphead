@@ -55,7 +55,7 @@ void URenderer::SetOrder(int _Order)
 }
 
 
-void URenderer::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
+void URenderer::RenderingTransformUpdate(std::shared_ptr<ACamera> _Camera)
 {
 	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
 }

@@ -16,8 +16,8 @@ ULevel::ULevel()
 {
 	// MainCamera = std::make_shared<UCamera>();
 
-	MainCamera = SpawnActor<UCamera>("MainCamera");
-	UICamera = SpawnActor<UCamera>("NewActor");
+	MainCamera = SpawnActor<ACamera>("MainCamera");
+	UICamera = SpawnActor<ACamera>("NewActor");
 	UICamera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 	UICamera->InputOff();
 

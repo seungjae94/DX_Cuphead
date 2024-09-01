@@ -4,7 +4,7 @@
 #include "DefaultSceneComponent.h"
 #include "EngineRenderTarget.h"
 
-UCamera::UCamera() 
+ACamera::ACamera() 
 {
 	InputOn();
 
@@ -22,11 +22,11 @@ UCamera::UCamera()
 	ViewPort.MaxDepth = 1;
 }
 
-UCamera::~UCamera() 
+ACamera::~ACamera() 
 {
 }
 
-void UCamera::CameraTransformUpdate()
+void ACamera::CameraTransformUpdate()
 {
 	float4 Scale = GEngine->EngineWindow.GetWindowScale();
 
@@ -51,12 +51,12 @@ void UCamera::CameraTransformUpdate()
 
 }
 
-void UCamera::CamTargetSetting()
+void ACamera::CamTargetSetting()
 {
 	CameraTarget->Setting();
 }
 
-void UCamera::BeginPlay()
+void ACamera::BeginPlay()
 {
 	Super::BeginPlay();
 	CameraTarget = UEngineRenderTarget::Create();
@@ -68,7 +68,7 @@ void UCamera::BeginPlay()
 // 프리카메라가 되면
 // 다른애들은 안움직여야 한다.
 // 애니메이션도 안되야 하나요?
-void UCamera::Tick(float _DeltaTime)
+void ACamera::Tick(float _DeltaTime)
 {
 	// tick은 그냥 진행된다.
 	// 그런데 입력은 카메라만 받아야 한다.
@@ -165,12 +165,12 @@ void UCamera::Tick(float _DeltaTime)
 	}
 }
 
-void UCamera::ViewPortSetting()
+void ACamera::ViewPortSetting()
 {
 	GEngine->GetDirectXContext()->RSSetViewports(1, &ViewPort);
 }
 
-float4 UCamera::ScreenPosToWorldPos(float4 _ScreenPos)
+float4 ACamera::ScreenPosToWorldPos(float4 _ScreenPos)
 {
 	// A * B = C
 	// C * B의 역행렬 = A

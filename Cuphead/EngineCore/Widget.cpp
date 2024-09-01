@@ -46,7 +46,7 @@ void UWidget::WidgetInit(std::shared_ptr<UWidget> _Widget, std::string_view _Nam
 	GetWorld()->WidgetInits.push_back(_Widget);
 }
 
-void UWidget::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
+void UWidget::RenderingTransformUpdate(std::shared_ptr<ACamera> _Camera)
 {
 	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
 

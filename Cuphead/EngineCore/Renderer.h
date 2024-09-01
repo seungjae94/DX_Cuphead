@@ -48,6 +48,6 @@ protected:
 	void MaterialSettingEnd() override;
 
 private:
-	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
+	void RenderingTransformUpdate(std::shared_ptr<ACamera> _Camera);
 };
 

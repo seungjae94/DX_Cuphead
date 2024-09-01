@@ -10,7 +10,7 @@
 
 // Ό³Έν :
 class AActor;
-class UCamera;
+class ACamera;
 class URenderer;
 class UCollision;
 class AGameMode;
@@ -62,12 +62,12 @@ public:
 		// Actors[_Order].push_back(NewActor);
 	}
 
-	std::shared_ptr<UCamera> GetMainCamera()
+	std::shared_ptr<ACamera> GetMainCamera()
 	{
 		return MainCamera;
 	}
 
-	std::shared_ptr<UCamera> GetUICamera()
+	std::shared_ptr<ACamera> GetUICamera()
 	{
 		return UICamera;
 	}
@@ -124,8 +124,8 @@ protected:
 private:
 	std::shared_ptr<UEngineRenderTarget> LastTarget = nullptr;
 
-	std::shared_ptr<UCamera> MainCamera = nullptr;
-	std::shared_ptr<UCamera> UICamera = nullptr;
+	std::shared_ptr<ACamera> MainCamera = nullptr;
+	std::shared_ptr<ACamera> UICamera = nullptr;
 
 	std::shared_ptr<AGameMode> GameMode;
 	std::map<int, std::list<std::shared_ptr<AActor>>> Actors;
