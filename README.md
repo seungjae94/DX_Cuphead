@@ -24,4 +24,4 @@
 - 특수 공격: <kbd>V</kbd>
 
 ### 플레이 영상
-https://youtu.be/
+https://youtu.be/1cjIU0K5Fh4
