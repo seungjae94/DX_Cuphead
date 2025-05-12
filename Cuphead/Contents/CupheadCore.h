@@ -3,7 +3,9 @@
 
 class UCupheadDebugWindow;
 
+#ifdef _DEBUG
 extern std::shared_ptr<UCupheadDebugWindow> DebugWindow;
+#endif
 
 class UCupheadCore : public UserCore
 {

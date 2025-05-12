@@ -62,10 +62,12 @@ void ABossFarmMap::BeginPlay()
 
 	Back0->SetPosition({ 0.0f, 1.0f, 0.0f });
 
+#ifdef _DEBUG
 	DebugWindow->RegisterCallback(
 		"BossFarmMapPixelColToggle",
 		std::bind(&ABossFarmMap::ShowPixelColMapCheckBox, this)
 	);
+#endif
 }
 
 void ABossFarmMap::Tick(float _DeltaTime)

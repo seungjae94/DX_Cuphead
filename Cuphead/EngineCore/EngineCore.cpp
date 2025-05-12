@@ -52,7 +52,9 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 
 	UEngineEditorGUI::GUIInit();
 
+#ifdef _DEBUG
 	UEngineEditorGUI::CreateEditorWindow<UEngineDebugMsgWindow>("DebugMsgWindow");
+#endif
 
 	{
 		UserCorePtr->Initialize();

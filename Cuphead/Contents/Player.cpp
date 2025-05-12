@@ -108,11 +108,13 @@ void APlayer::BeginPlay()
 
 	InputOn();
 
+#ifdef _DEBUG
 	// 디버그 기능
 	DebugWindow->RegisterCallback(
 		"DamageCheat",
 		std::bind(&APlayer::DamageCheat, this)
 	);
+#endif
 }
 
 void APlayer::Tick(float _DeltaTime)

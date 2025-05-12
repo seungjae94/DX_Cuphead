@@ -11,7 +11,9 @@
 #include "DebugFontEnumerator.h"
 #include <Windows.h>
 
+#ifdef _DEBUG
 std::shared_ptr<UCupheadDebugWindow> DebugWindow;
+#endif
 
 UCupheadCore::UCupheadCore()
 {
@@ -23,7 +25,9 @@ UCupheadCore::~UCupheadCore()
 
 void UCupheadCore::Initialize()
 {
+#ifdef _DEBUG
 	CreateDebugWindows();
+#endif
 	LoadFonts();
 	LoadResources();
 	LoadShaders();
@@ -34,7 +38,9 @@ void UCupheadCore::Initialize()
 
 void UCupheadCore::CreateDebugWindows()
 {
+#ifdef _DEBUG
 	DebugWindow = UEngineEditorGUI::CreateEditorWindow<UCupheadDebugWindow>("CupheadDebugWindow");
+#endif
 }
 
 void UCupheadCore::LoadFonts()

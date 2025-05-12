@@ -20,6 +20,7 @@ void APlayResultGameMode::Refresh(
 	std::string MinutePartStr = std::to_string(MinutePart);
 	MinutePartStr.insert(MinutePartStr.begin(), 2 - MinutePartStr.length(), '0');
 	std::string SecondPartStr = std::to_string(SecondPart);
+	SecondPartStr.insert(SecondPartStr.begin(), 2 - SecondPartStr.length(), '0');
 	Manager->ResultMinute->SetText(MinutePartStr);
 	Manager->ResultSecond->SetText(SecondPartStr);
 
